@@ -1,0 +1,79 @@
+package users;
+
+import java.io.Serializable;
+import java.util.HashMap;
+
+public class User implements Serializable {
+
+    /**
+     * The username of this user.
+     */
+    private String username;
+
+    /**
+     * The password for this user.
+     */
+    private String password;
+
+    /**
+     * A hashmap storing all the scores for this user with key gameName and value scoreValue
+     */
+    private HashMap<String, Integer> scores;
+
+    /**
+     * A hashmap storing all the saves for this user with key gameName and value (the save file).
+     */
+    private HashMap<String, Object> saves;
+
+    /**
+     * Constructor for a non-guest User. Which adds itself to the GameLaunchCentre.
+     *
+     * @param username username for User.
+     * @param password password for User that is immediately hashed for security.
+     */
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.scores = new HashMap<>();
+        String temp = "Sliding Tiles";
+        scores.put(temp, 0);
+        this.saves = new HashMap<>();
+    }
+
+    /**
+     * Return the username of the User.
+     *
+     * @return username String
+     */
+    public String getName() {
+        return this.username;
+    }
+
+    /**
+     * Return the password of the User.
+     *
+     * @return hashed password String.
+     */
+    public String getPassword() {
+        return this.password;
+    }
+
+    /**
+     * Return the HashMap of scores for this user.
+     *
+     * @return HashMap of scores.
+     */
+    public HashMap<String, Integer> getScores() {
+        return scores;
+    }
+
+
+    /**
+     * Return the HashMap of saves for this user.
+     *
+     * @return HashMap of saves.
+     */
+    public HashMap<String, Object> getSaves() {
+        return saves;
+    }
+}

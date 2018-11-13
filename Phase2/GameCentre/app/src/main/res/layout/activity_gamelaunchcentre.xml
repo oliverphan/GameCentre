@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <Button
+        android:id="@+id/LogOutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:text="Log out"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_CurrentUser"
+        android:layout_width="128dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/LogOutButton"
+        tools:text="CURRENT USER" />
+
+    <TextView
+        android:id="@+id/tv_currentUserScore"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LogOutButton"/>
+
+    <TextView
+        android:id="@+id/tv_GameName"
+        android:layout_width="200dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="36dp"
+        android:textAlignment="center"
+        android:text="Sliding Tiles Game"
+        android:textSize="8pt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_currentUserScore" />
+
+    <Button
+        android:id="@+id/LaunchGame3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start New 3 x 3 Game"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_GameName" />
+
+    <Button
+        android:id="@+id/LaunchGame4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start New 4 x 4 Game"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LaunchGame3"/>
+
+    <Button
+        android:id="@+id/LaunchGame5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start New 5 x 5 Game"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LaunchGame4"/>
+
+    <Button
+        android:id="@+id/LoadButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Load Saved Game"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LaunchGame5"/>
+
+    <Button
+        android:id="@+id/ScoreBoardButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="Sliding tiles scoreboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LoadButton" />
+
+</android.support.constraint.ConstraintLayout>
