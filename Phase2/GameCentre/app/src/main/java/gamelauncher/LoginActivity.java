@@ -240,4 +240,12 @@ public class LoginActivity extends AppCompatActivity {
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent close = new Intent();
+        close.putExtra("CLOSE", true);
+        setResult(RESULT_OK, close);
+        finish();
+    }
 }
