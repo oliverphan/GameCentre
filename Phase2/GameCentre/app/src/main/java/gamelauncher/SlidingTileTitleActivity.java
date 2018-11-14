@@ -70,7 +70,7 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
         addLogOutButtonListener();
         displayCurrentUser();
         displayCurrentScore();
-        addScoreboardListener();
+        addLeaderBoardListener();
         addLaunchGame3Listener();
         addLaunchGame4Listener();
         addLaunchGame5Listener();
@@ -120,8 +120,8 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
      * Activate the log out button.
      */
     private void addLogOutButtonListener() {
-        Button LogOutButton = findViewById(R.id.LogOutButton);
-        LogOutButton.setOnClickListener(new View.OnClickListener() {
+        Button logOutButton = findViewById(R.id.LogOutButton);
+        logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switchToGameCentreLoginActivity();
@@ -133,8 +133,8 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
      * Activate the Sliding Tiles 3x3 button.
      */
     private void addLaunchGame3Listener() {
-        Button LaunchGame3Button = findViewById(R.id.LaunchGame3);
-        LaunchGame3Button.setOnClickListener(new View.OnClickListener() {
+        Button launchGame3Button = findViewById(R.id.LaunchGame3);
+        launchGame3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 complexity = 3;
@@ -149,8 +149,8 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
      * Activate the Sliding Tiles 4x4 button.
      */
     private void addLaunchGame4Listener() {
-        Button LaunchGame4Button = findViewById(R.id.LaunchGame4);
-        LaunchGame4Button.setOnClickListener(new View.OnClickListener() {
+        Button launchGame4Button = findViewById(R.id.LaunchGame4);
+        launchGame4Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 complexity = 4;
@@ -167,8 +167,8 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
      * Activate the Sliding Tiles 5x5 button.
      */
     private void addLaunchGame5Listener() {
-        Button LaunchGame5Button = findViewById(R.id.LaunchGame5);
-        LaunchGame5Button.setOnClickListener(new View.OnClickListener() {
+        Button launchGame5Button = findViewById(R.id.LaunchGame5);
+        launchGame5Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 complexity = 5;
@@ -183,12 +183,12 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
     /**
      * Activate the scoreboard of top scores button.
      */
-    private void addScoreboardListener() {
-        Button ScoreBoardButton = findViewById(R.id.ScoreBoardButton);
-        ScoreBoardButton.setOnClickListener(new View.OnClickListener() {
+    private void addLeaderBoardListener() {
+        Button scoreBoardButton = findViewById(R.id.LeaderBoardButton);
+        scoreBoardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchToLeaderboardActivity();
+                switchToLeaderBoardActivity();
 
             }
         });
@@ -210,7 +210,7 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
     /**
      * Switch to the ScoreBoard view
      */
-    private void switchToLeaderboardActivity() {
+    private void switchToLeaderBoardActivity() {
         Intent tmp = new Intent(this, LeaderBoardActivity.class);
         tmp.putExtra(IntentKeys.GAME_TITLE_KEY, GAME_TITLE);
         tmp.putExtra(IntentKeys.SCORE_KEY, score);
@@ -251,11 +251,6 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
         saveToFile(LoginActivity.SAVE_FILENAME);
         displayCurrentScore();
         displayCurrentUser();
-    }
-
-    protected void onStop() {
-        super.onStop();
-        Toast.makeText(getApplicationContext(), "Saved Game", Toast.LENGTH_SHORT).show();
     }
 
     /**
