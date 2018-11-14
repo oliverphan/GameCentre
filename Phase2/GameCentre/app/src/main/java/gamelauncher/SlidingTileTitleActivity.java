@@ -105,6 +105,7 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 toLoad = true;
+                currentUser = userAccounts.get(currentUser.getName());
                 boolean saveFileExists = currentUser.getSaves().containsKey(GAME_TITLE);
                 if (saveFileExists) {
                     makeToastLoadedText();
