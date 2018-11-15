@@ -275,17 +275,6 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         }
     }
 
-//    protected void onStop() {
-//        super.onStop();
-//        Intent tmp = new Intent(this, SlidingTileTitleActivity.class);
-//        tmp.putExtra(IntentKeys.GAMECOMPLETE_KEY, true);
-//        tmp.putExtra(IntentKeys.GAMEWON_KEY, false);
-//        tmp.putExtra(IntentKeys.CURRENTUSER_KEY, currentUser);
-//        tmp.putExtra(IntentKeys.USERACCOUNTS_KEY, userAccounts);
-//        tmp.putExtra(IntentKeys.USERTILES_KEY, userTiles);
-//        saveToFile(LoginActivity.SAVE_FILENAME);
-//    }
-
     /**
      * Load the board manager from fileName.
      *
