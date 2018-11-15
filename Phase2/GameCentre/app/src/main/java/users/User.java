@@ -67,6 +67,21 @@ public class User implements Serializable {
         return scores;
     }
 
+    /**
+     * Saves user score if no score exists or new score is higher than previous.
+     *
+     * @param game game name
+     * @param score new score passed in
+     */
+    public void setNewScore(String game, int score) {
+        if (scores.containsKey(game)) {
+            if (scores.get(game) < score) {
+                scores.put(game, score);
+            }
+        } else {
+            scores.put(game, score);
+        }
+    }
 
     /**
      * Return the HashMap of saves for this user.
