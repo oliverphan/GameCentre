@@ -275,16 +275,16 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         }
     }
 
-    protected void onStop() {
-        super.onStop();
-        Intent tmp = new Intent(this, SlidingTileTitleActivity.class);
-        tmp.putExtra(IntentKeys.GAMECOMPLETE_KEY, true);
-        tmp.putExtra(IntentKeys.GAMEWON_KEY, false);
-        tmp.putExtra(IntentKeys.CURRENTUSER_KEY, currentUser);
-        tmp.putExtra(IntentKeys.USERACCOUNTS_KEY, userAccounts);
-        tmp.putExtra(IntentKeys.USERTILES_KEY, userTiles);
-        saveToFile(LoginActivity.SAVE_FILENAME);
-    }
+//    protected void onStop() {
+//        super.onStop();
+//        Intent tmp = new Intent(this, SlidingTileTitleActivity.class);
+//        tmp.putExtra(IntentKeys.GAMECOMPLETE_KEY, true);
+//        tmp.putExtra(IntentKeys.GAMEWON_KEY, false);
+//        tmp.putExtra(IntentKeys.CURRENTUSER_KEY, currentUser);
+//        tmp.putExtra(IntentKeys.USERACCOUNTS_KEY, userAccounts);
+//        tmp.putExtra(IntentKeys.USERTILES_KEY, userTiles);
+//        saveToFile(LoginActivity.SAVE_FILENAME);
+//    }
 
     /**
      * Load the board manager from fileName.
@@ -322,7 +322,11 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            userAccounts.get(currentUser.getName()).getSaves().put(SlidingTileTitleActivity.GAME_TITLE, boardManager);
+            if (!gameWon) {
+                userAccounts.get(currentUser.getName()).getSaves().put(SlidingTileTitleActivity.GAME_TITLE, boardManager);
+            }else{
+                userAccounts.get(currentUser.getName()).getSaves().remove(SlidingTileTitleActivity.GAME_TITLE);
+            }
             outputStream.writeObject(userAccounts);
             outputStream.close();
         } catch (IOException e) {
@@ -335,10 +339,6 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
      */
     private void switchToSlidingTilesTitleActivity() {
         Intent tmp = new Intent(this, SlidingTileTitleActivity.class);
-        userAccounts.get(currentUser.getName()).getSaves().remove(SlidingTileTitleActivity.GAME_TITLE);
-        tmp.putExtra(IntentKeys.SCORE_KEY, boardManager.generateScore());
-        tmp.putExtra(IntentKeys.GAMECOMPLETE_KEY, true);
-        tmp.putExtra(IntentKeys.GAMEWON_KEY, gameWon);
         tmp.putExtra(IntentKeys.CURRENTUSER_KEY, currentUser);
         tmp.putExtra(IntentKeys.USERACCOUNTS_KEY, userAccounts);
         saveToFile(LoginActivity.SAVE_FILENAME);
@@ -346,15 +346,23 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     }
 
     @Override
+    public void onBackPressed() {
+        if (gameWon) {
+            userAccounts.get(currentUser.getName()).setNewScore(SlidingTileTitleActivity.GAME_TITLE, boardManager.generateScore());
+        }
+        switchToSlidingTilesTitleActivity();
+
+    }
+
+    @Override
     public void update(Observable o, Object arg) {
         int moves = boardManager.getNumMoves() % 10;
-        if (moves == 0) {
+        if (moves == 0 && !gameWon) {
             saveToFile(LoginActivity.SAVE_FILENAME);
         }
         if (boardManager.puzzleSolved()) {
             gameWon = true;
             Toast.makeText(this, "You Win!", Toast.LENGTH_LONG).show();
-            switchToSlidingTilesTitleActivity();
         }
         display();
     }
