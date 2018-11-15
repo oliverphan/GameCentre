@@ -236,20 +236,9 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
         super.onResume();
         toLoad = false;
         Intent intent = getIntent();
-        BoardManager save = (BoardManager) intent.getSerializableExtra(IntentKeys.BOARDMANAGER_KEY);
-        boolean gameCompleted = intent.getBooleanExtra(IntentKeys.GAMECOMPLETE_KEY, false);
-        boolean gameWon = intent.getBooleanExtra(IntentKeys.GAMEWON_KEY, false);
         userAccounts = (HashMap<String, User>) intent.getSerializableExtra(IntentKeys.USERACCOUNTS_KEY);
-        currentUser = (User) intent.getSerializableExtra(IntentKeys.CURRENTUSER_KEY);
-        if (gameCompleted) {
-            if (gameWon) {
-                score = intent.getIntExtra(IntentKeys.SCORE_KEY, 0);
-                currentUser.getScores().put(GAME_TITLE, score);
-            } else {
-                currentUser.getSaves().put(GAME_TITLE, save);
-            }
-        }
-        saveToFile(LoginActivity.SAVE_FILENAME);
+        currentUser = userAccounts.get(currentUser.getName());
+        score = currentUser.getScores().get(GAME_TITLE);
         displayCurrentScore();
         displayCurrentUser();
     }
