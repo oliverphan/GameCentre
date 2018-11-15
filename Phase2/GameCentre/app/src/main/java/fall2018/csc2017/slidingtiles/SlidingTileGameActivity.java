@@ -148,8 +148,8 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     private void createTileButtons() {
         Board board = boardManager.getBoard();
         tileButtons = new ArrayList<>();
-        for (int row = 0; row != difficulty; row++) {
-            for (int col = 0; col != difficulty; col++) {
+        for (int row = 0; row < difficulty; row++) {
+            for (int col = 0; col < difficulty; col++) {
                 Button tmp = new Button(getApplicationContext());
                 if (!userTiles) {
                     tmp.setBackgroundResource(board.getTile(row, col).getBackground());
@@ -173,7 +173,11 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
             if (!userTiles) {
                 b.setBackgroundResource(board.getTile(row, col).getBackground());
             } else {
-                b.setBackground(new BitmapDrawable(getResources(), board.getTile(row, col).getUserImage()));
+                if (!gameWon && board.getTile(row,col).getId() == 0){
+                    b.setBackgroundResource(R.drawable.whitespace);
+                } else{
+                    b.setBackground(new BitmapDrawable(getResources(), board.getTile(row, col).getUserImage()));
+                }
             }
             nextPos++;
         }
