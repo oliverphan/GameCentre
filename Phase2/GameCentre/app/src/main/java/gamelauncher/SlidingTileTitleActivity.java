@@ -259,6 +259,12 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "To logout press LOGOUT", Toast.LENGTH_SHORT).show();
+
+    }
+
     /**
      * Display that a game was loaded successfully.
      */
