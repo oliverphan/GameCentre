@@ -27,12 +27,12 @@ import java.util.HashMap;
 public class LeaderBoardActivity extends AppCompatActivity {
 
     /**
-     * The leaderboard.
+     * The leaderBoard.
      */
-    private Leaderboard leaderboard;
+    private LeaderBoard leaderBoard;
 
     /**
-     * Save file for the leaderboard.
+     * Save file for the leaderBoard.
      */
     private static final String SAVE_FILENAME = "save_leaderboard.ser";
 
@@ -52,7 +52,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard_);
-        leaderboard = new Leaderboard();
+        leaderBoard = new LeaderBoard();
         loadFromFile(SAVE_FILENAME);
         Intent intent = getIntent();
         String gameName = intent.getStringExtra(IntentKeys.GAME_TITLE_KEY);
@@ -63,7 +63,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
 
         Score storageScore = new Score(currentUser.getName(), score);
 
-        leaderboard.updateScores(gameName, storageScore);
+        leaderBoard.updateScores(gameName, storageScore);
         displayLeaders(gameName);
         saveToFile(SAVE_FILENAME);
 
@@ -131,7 +131,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
         // A public SharedPreferences interface.
         SharedPreferences prefs = getSharedPreferences("PREFS", 0);
         SharedPreferences.Editor editor = prefs.edit();
-        ArrayList<Score> tempScores = leaderboard.getTopScores(gameName);
+        ArrayList<Score> tempScores = leaderBoard.getTopScores(gameName);
 
         Integer topScore1 = tempScores.get(0).getValue();
         Integer topScore2 = tempScores.get(1).getValue();
@@ -160,7 +160,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
     }
 
     /**
-     * Load the leaderboard from the indicated file.
+     * Load the leaderBoard from the indicated file.
      *
      * @param fileName the name of the file
      */
@@ -170,7 +170,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                leaderboard = (Leaderboard) input.readObject();
+                leaderBoard = (LeaderBoard) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -183,7 +183,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
     }
 
     /**
-     * Save the leaderboard to the indicated file.
+     * Save the leaderBoard to the indicated file.
      *
      * @param fileName the name of the file
      */
@@ -192,7 +192,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(leaderboard);
+            outputStream.writeObject(leaderBoard);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
