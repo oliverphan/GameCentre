@@ -4,8 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
-class Leaderboard implements Serializable {
+class LeaderBoard implements Serializable {
 
     /**
      * A HashMap representing the games and their top three scores.
@@ -14,7 +15,7 @@ class Leaderboard implements Serializable {
      */
     private HashMap<String, ArrayList<Score>> gameScores;
 
-    Leaderboard() {
+    LeaderBoard() {
         this.gameScores = new HashMap<>();
         ArrayList<Score> temp = new ArrayList<>();
         Score s = new Score("", 0);
@@ -36,9 +37,9 @@ class Leaderboard implements Serializable {
 
     /**
      * Looks in the given game's current high scores to see if this score is higher than an
-     * existing one, if it is, the Leaderboard is updated with the user's name and the score.
+     * existing one, if it is, the LeaderBoard is updated with the user's name and the score.
      *
-     * @param gameName the game to have its Leaderboard checked
+     * @param gameName the game to have its LeaderBoard checked
      * @param newScore the Score object to be compared with the existing scores
      */
     void updateScores(String gameName, Score newScore) {
@@ -54,5 +55,9 @@ class Leaderboard implements Serializable {
                 break;
             }
         }
+    }
+
+    Map getGameScores() {
+        return this.gameScores;
     }
 }
