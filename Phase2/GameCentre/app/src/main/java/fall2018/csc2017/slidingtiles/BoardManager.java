@@ -229,12 +229,14 @@ public class BoardManager implements Serializable {
      * @param numToUndo the number of moves to undo.
      */
     void undoMove(int numToUndo) {
-        for (int i = 0; i < numToUndo; i++) {
-            // Break if previous moves stack is empty
-            if (previousMoves.isEmpty())
-                return;
-            int[] tmp = previousMoves.pop();
-            board.swapTiles(tmp[0], tmp[1], tmp[2], tmp[3]);
+        if (!puzzleSolved()) {
+            for (int i = 0; i < numToUndo; i++) {
+                // Break if previous moves stack is empty
+                if (previousMoves.isEmpty())
+                    return;
+                int[] tmp = previousMoves.pop();
+                board.swapTiles(tmp[0], tmp[1], tmp[2], tmp[3]);
+            }
         }
     }
 
