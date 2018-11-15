@@ -97,7 +97,7 @@ public class Tile implements Comparable<Tile>, Serializable {
         int row = (this.id - 1) / diff;
         int col = (this.id - 1) % diff;
         if (this.id == 0) {
-            userTiles.put(this.id, Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888));
+            userTiles.put(this.id, Bitmap.createBitmap(image, (diff-1)*width, (diff-1)*height, width, height));
         } else {
             userTiles.put(this.id, Bitmap.createBitmap(image, width * col, height * row, width, height));
         }
