@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
-import gamelauncher.IntentKeys;
 import gamelauncher.LoginActivity;
 import gamelauncher.SlidingTileTitleActivity;
 import users.User;
@@ -52,7 +51,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     /**
      * The name of the current user.
      */
-    private User currentUser;
+    private String currentUser;
 
     /**
      * The number of tiles per side of the board.
@@ -60,14 +59,9 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     private int difficulty;
 
     /**
-     * Boolean for custom image tiles.
-     */
-    private boolean userTiles;
-
-    /**
      * Request Code for gallery activity
      */
-    public static final int IMAGEREQUESTCODE = 100;
+    public static final int IMAGE_REQUEST_CODE = 100;
 
     /**
      * EditText of the number of moves to undo.
@@ -100,22 +94,11 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
-        difficulty = intent.getIntExtra(IntentKeys.DIFFICULTY_KEY, 4);
-        currentUser = (User) intent.getSerializableExtra(IntentKeys.CURRENTUSER_KEY);
-        userAccounts = (HashMap<String, User>) intent.getSerializableExtra(IntentKeys.USERACCOUNTS_KEY);
-        boolean toLoad = intent.getBooleanExtra(IntentKeys.TOLOAD_KEY, false);
-        if (toLoad) {
-            loadFromFile(LoginActivity.SAVE_FILENAME);
-            userTiles = boardManager.userTiles;
-        } else {
-            boardManager = new BoardManager(difficulty);
-            userTiles = boardManager.userTiles;
-            saveToFile(LoginActivity.SAVE_FILENAME);
-        }
+        loadGameFromFile();
+        currentUser = getIntent().getStringExtra("currentUser");
+        difficulty = boardManager.getDifficulty();
         createTileButtons();
         setContentView(R.layout.activity_slidingtiles);
         addUserButtonListener();
@@ -151,7 +134,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         for (int row = 0; row < difficulty; row++) {
             for (int col = 0; col < difficulty; col++) {
                 Button tmp = new Button(getApplicationContext());
-                if (!userTiles) {
+                if (!boardManager.userTiles) {
                     tmp.setBackgroundResource(board.getTile(row, col).getBackground());
                 } else {
                     tmp.setBackground(new BitmapDrawable(getResources(), board.getTile(row, col).getUserImage()));
@@ -170,12 +153,12 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         for (Button b : tileButtons) {
             int row = nextPos / difficulty;
             int col = nextPos % difficulty;
-            if (!userTiles) {
+            if (!boardManager.userTiles) {
                 b.setBackgroundResource(board.getTile(row, col).getBackground());
             } else {
-                if (!gameWon && board.getTile(row,col).getId() == 0){
+                if (!gameWon && board.getTile(row, col).getId() == 0) {
                     b.setBackgroundResource(R.drawable.whitespace);
-                } else{
+                } else {
                     b.setBackground(new BitmapDrawable(getResources(), board.getTile(row, col).getUserImage()));
                 }
             }
@@ -191,10 +174,9 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         userButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!userTiles) {
+                if (!boardManager.userTiles) {
                     pickImageFromGallery();
                 } else {
-                    userTiles = false;
                     boardManager.userTiles = false;
                     display();
                 }
@@ -227,7 +209,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     private void pickImageFromGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(galleryIntent, IMAGEREQUESTCODE);
+        startActivityForResult(galleryIntent, IMAGE_REQUEST_CODE);
     }
 
 
@@ -244,14 +226,13 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         super.onActivityResult(requestCode, resultCode, i);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case IMAGEREQUESTCODE:
+                case IMAGE_REQUEST_CODE:
                     createBitmapFromUri(i.getData());
                     break;
             }
         }
         if (userImage != null) {
             Board board = boardManager.getBoard();
-            userTiles = true;
             boardManager.userTiles = true;
             for (int nextPos = 0; nextPos < board.numTiles(); nextPos++) {
                 int row = nextPos / difficulty;
@@ -281,20 +262,14 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
 
     /**
      * Load the board manager from fileName.
-     *
-     * @param fileName the name of the file
      */
-    @SuppressWarnings({"unchecked", "SameParameterValue"})
-    private void loadFromFile(String fileName) {
-
+    @SuppressWarnings("unchecked")
+    private void loadUserFromFile() {
         try {
-            InputStream inputStream = this.openFileInput(fileName);
+            InputStream inputStream = this.openFileInput(LoginActivity.SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 userAccounts = (HashMap<String, User>) input.readObject();
-                currentUser = userAccounts.get(currentUser.getName());
-                boardManager = (BoardManager) currentUser.getSaves().get(SlidingTileTitleActivity.GAME_TITLE);
-                difficulty = boardManager.getDifficulty();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -316,9 +291,10 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
             if (!gameWon) {
-                userAccounts.get(currentUser.getName()).getSaves().put(SlidingTileTitleActivity.GAME_TITLE, boardManager);
-            }else{
-                userAccounts.get(currentUser.getName()).getSaves().remove(SlidingTileTitleActivity.GAME_TITLE);
+                userAccounts.get(currentUser).getSaves().put(SlidingTileTitleActivity.GAME_TITLE, boardManager);
+            } else {
+                userAccounts.get(currentUser).setNewScore(SlidingTileTitleActivity.GAME_TITLE, boardManager.generateScore());
+                userAccounts.get(currentUser).getSaves().remove(SlidingTileTitleActivity.GAME_TITLE);
             }
             outputStream.writeObject(userAccounts);
             outputStream.close();
@@ -331,18 +307,13 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
      * Switch to the title screen. Only to be called when the game is won.
      */
     private void switchToSlidingTilesTitleActivity() {
-        Intent tmp = new Intent(this, SlidingTileTitleActivity.class);
-        tmp.putExtra(IntentKeys.CURRENTUSER_KEY, currentUser);
-        tmp.putExtra(IntentKeys.USERACCOUNTS_KEY, userAccounts);
+        loadUserFromFile();
         saveToFile(LoginActivity.SAVE_FILENAME);
-        startActivity(tmp);
+        finish();
     }
 
     @Override
     public void onBackPressed() {
-        if (gameWon) {
-            userAccounts.get(currentUser.getName()).setNewScore(SlidingTileTitleActivity.GAME_TITLE, boardManager.generateScore());
-        }
         switchToSlidingTilesTitleActivity();
 
     }
@@ -351,6 +322,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     public void update(Observable o, Object arg) {
         int moves = boardManager.getNumMoves() % 10;
         if (moves == 0 && !gameWon) {
+            loadUserFromFile();
             saveToFile(LoginActivity.SAVE_FILENAME);
         }
         if (boardManager.puzzleSolved()) {
@@ -358,5 +330,25 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
             Toast.makeText(this, "You Win!", Toast.LENGTH_LONG).show();
         }
         display();
+    }
+
+    /**
+     * Load the board manager from fileName.
+     */
+    private void loadGameFromFile() {
+        try {
+            InputStream inputStream = this.openFileInput(SlidingTileTitleActivity.TEMP_SAVE_FILENAME);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                boardManager = (BoardManager) input.readObject();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        }
     }
 }
