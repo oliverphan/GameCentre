@@ -66,22 +66,6 @@ public class LeaderBoardActivity extends AppCompatActivity {
         leaderBoard.updateScores(gameName, storageScore);
         displayLeaders(gameName);
         saveToFile(SAVE_FILENAME);
-
-        addBackButton();
-    }
-
-    /**
-     * Activate the back button.
-     */
-    private void addBackButton() {
-        Button backButton = findViewById(R.id.back_button);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switchToTitleActivity();
-            }
-        });
-
     }
 
     /**
@@ -118,6 +102,12 @@ public class LeaderBoardActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         saveToFile(SAVE_FILENAME);
+    }
+
+    @Override
+    public void onBackPressed(){
+        switchToTitleActivity();
+        finish();
     }
 
     /**
