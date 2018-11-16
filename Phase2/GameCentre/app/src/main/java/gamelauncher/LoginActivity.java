@@ -48,11 +48,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin_);
         loadFromFile(SAVE_FILENAME);
-
         mUsernameView = findViewById(R.id.input_username);
         mPasswordView = findViewById(R.id.input_password);
-        currentUser = null;
-
         addLoginButtonListener();
         addSignUpButtonListener();
     }
@@ -177,25 +174,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Read the user account hashmap from disk.
-     */
-    @Override
-    @SuppressWarnings("unchecked")
-    protected void onResume() {
-        super.onResume();
-        Intent intent = getIntent();
-        userAccounts = (HashMap) intent.getSerializableExtra(IntentKeys.USERACCOUNTS_KEY);
-        currentUser = (User) intent.getSerializableExtra(IntentKeys.CURRENTUSER_KEY);
-        loadFromFile(SAVE_FILENAME);
-    }
-
-    /**
      * Switch to the GameLaunchCentre view to select a game and difficulty.
      */
     private void switchToSlidingTileTitle() {
         Intent tmp = new Intent(this, SlidingTileTitleActivity.class);
-        tmp.putExtra(IntentKeys.CURRENTUSER_KEY, currentUser);
-        tmp.putExtra(IntentKeys.USERACCOUNTS_KEY, userAccounts);
+        tmp.putExtra("currentUser", currentUser);
         startActivity(tmp);
         finish();
     }
@@ -244,9 +227,6 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent close = new Intent();
-        close.putExtra("CLOSE", true);
-        setResult(RESULT_OK, close);
         finish();
     }
 }

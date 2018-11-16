@@ -8,7 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
@@ -32,41 +35,32 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
     private HashMap<String, User> userAccounts;
 
     /**
+     * The main save file.
+     */
+    public static final String TEMP_SAVE_FILENAME = "tmp_save_file.ser";
+
+    /**
      * The current logged in user.
      */
     private User currentUser;
-
-    /**
-     * An integer indicating what complexity level game is to be played at.
-     * Passed as 3, 4, or 5.
-     */
-    private int complexity;
 
     /**
      * The score of the last played sliding tile game.
      */
     private int score;
 
+
     /**
-     * A boolean tracking whether or not the load button was pressed.
+     * The board manager.
      */
-    private boolean toLoad;
+    private BoardManager boardManager;
 
     @Override
-    @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        currentUser = (User) getIntent().getSerializableExtra("currentUser");
         setContentView(R.layout.activity_gamelaunchcentre);
-
-        Intent intent = getIntent();
-        if (userAccounts == null) {
-            userAccounts = new HashMap<>();
-        }
-
-        toLoad = false;
-        userAccounts = (HashMap<String, User>) intent.getSerializableExtra(IntentKeys.USERACCOUNTS_KEY);
-        currentUser = (User) intent.getSerializableExtra(IntentKeys.CURRENTUSER_KEY);
-
+        loadUserFromFile();
         addLogOutButtonListener();
         displayCurrentUser();
         displayCurrentScore();
@@ -104,11 +98,10 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toLoad = true;
-                currentUser = userAccounts.get(currentUser.getName());
                 boolean saveFileExists = currentUser.getSaves().containsKey(GAME_TITLE);
                 if (saveFileExists) {
                     makeToastLoadedText();
+                    boardManager = (BoardManager) currentUser.getSaves().get(GAME_TITLE);
                     switchToSlidingTileGameActivity();
                 } else {
                     Toast.makeText(getApplicationContext(), "No file exists!", Toast.LENGTH_SHORT).show();
@@ -138,12 +131,10 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
         launchGame3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                complexity = 3;
-                toLoad = false;
+                boardManager = new BoardManager(3);
                 switchToSlidingTileGameActivity();
             }
         });
-
     }
 
     /**
@@ -154,14 +145,10 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
         launchGame4Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                complexity = 4;
-                toLoad = false;
+                boardManager = new BoardManager(4);
                 switchToSlidingTileGameActivity();
-
             }
         });
-
-
     }
 
     /**
@@ -172,10 +159,8 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
         launchGame5Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                complexity = 5;
-                toLoad = false;
+                boardManager = new BoardManager(5);
                 switchToSlidingTileGameActivity();
-
             }
         });
 
@@ -201,10 +186,9 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
      */
     private void switchToSlidingTileGameActivity() {
         Intent tmp = new Intent(this, SlidingTileGameActivity.class);
-        tmp.putExtra(IntentKeys.DIFFICULTY_KEY, complexity);
-        tmp.putExtra(IntentKeys.USERACCOUNTS_KEY, userAccounts);
-        tmp.putExtra(IntentKeys.CURRENTUSER_KEY, currentUser);
-        tmp.putExtra(IntentKeys.TOLOAD_KEY, toLoad);
+        tmp.putExtra("currentUser", currentUser.getName());
+        saveToFile(LoginActivity.SAVE_FILENAME);
+        saveGameToFile(TEMP_SAVE_FILENAME);
         startActivity(tmp);
     }
 
@@ -214,9 +198,7 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
     private void switchToLeaderBoardActivity() {
         Intent tmp = new Intent(this, LeaderBoardActivity.class);
         tmp.putExtra(IntentKeys.GAME_TITLE_KEY, GAME_TITLE);
-        tmp.putExtra(IntentKeys.SCORE_KEY, score);
         tmp.putExtra(IntentKeys.CURRENTUSER_KEY, currentUser);
-        tmp.putExtra(IntentKeys.USERACCOUNTS_KEY, userAccounts);
         startActivity(tmp);
         finish();
     }
@@ -226,20 +208,15 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
      */
     private void switchToGameCentreLoginActivity() {
         Intent tmp = new Intent(this, LoginActivity.class);
-        tmp.putExtra(IntentKeys.USERACCOUNTS_KEY, userAccounts);
-        tmp.putExtra(IntentKeys.CURRENTUSER_KEY, currentUser);
+        saveToFile(LoginActivity.SAVE_FILENAME);
         startActivity(tmp);
         finish();
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     protected void onResume() {
         super.onResume();
-        toLoad = false;
-        Intent intent = getIntent();
-        userAccounts = (HashMap<String, User>) intent.getSerializableExtra(IntentKeys.USERACCOUNTS_KEY);
-        currentUser = userAccounts.get(currentUser.getName());
+        loadUserFromFile();
         score = currentUser.getScores().get(GAME_TITLE);
         displayCurrentScore();
         displayCurrentUser();
@@ -258,6 +235,41 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    /**
+     * Save the boardManager for passing game around.
+     *
+     * @param fileName the name of the file
+     */
+    public void saveGameToFile(String fileName) {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    this.openFileOutput(fileName, MODE_PRIVATE));
+            outputStream.writeObject(boardManager);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void loadUserFromFile() {
+        try {
+            InputStream inputStream = this.openFileInput(LoginActivity.SAVE_FILENAME);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                userAccounts = (HashMap<String, User>) input.readObject();
+                currentUser = userAccounts.get(currentUser.getName());
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("load game activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("load game activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("load game activity", "File contained unexpected data type: " + e.toString());
         }
     }
 
