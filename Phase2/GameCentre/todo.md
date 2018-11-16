@@ -7,3 +7,4 @@
 6. Login null crash (clear data)
 7. Phase 2 to do - add two games (scoreboard, undo, save). Possible games - IceTile, Solitaire, etc)
 8. Test suite
+9. Game freeze once finished rather than redirecting to title screen right away
