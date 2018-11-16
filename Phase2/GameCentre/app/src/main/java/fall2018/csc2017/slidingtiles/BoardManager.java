@@ -2,7 +2,6 @@ package fall2018.csc2017.slidingtiles;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Iterator;
 import java.util.Random;
@@ -33,19 +32,7 @@ public class BoardManager implements Serializable {
      */
     private int difficulty;
 
-    public boolean userTiles = false;
-
-    /**
-     * Manage a board that has been pre-populated.
-     *
-     * @param board the board
-     */
-    BoardManager(Board board) {
-        numMoves = 0;
-        previousMoves = new Stack<>();
-        this.board = board;
-        difficulty = board.numCols;
-    }
+    boolean userTiles = false;
 
     /**
      * The name of this game is "Sliding Tiles".
@@ -158,7 +145,7 @@ public class BoardManager implements Serializable {
      *
      * @param d the difficulty.
      */
-    BoardManager(int d) {
+    public BoardManager(int d) {
         numMoves = 0;
         difficulty = d;
         previousMoves = new Stack<>();
@@ -216,8 +203,8 @@ public class BoardManager implements Serializable {
         int row = position / board.numRows;
         int col = position % board.numCols;
         int[] move = findBlank(position);
-        int[] coordPair = {row, col, move[0], move[1]};
-        previousMoves.push(coordPair);
+        int[] cordPair = {row, col, move[0], move[1]};
+        previousMoves.push(cordPair);
         numMoves += 1;
         board.swapTiles(row, col, move[0], move[1]);
     }
