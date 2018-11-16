@@ -218,6 +218,7 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
         tmp.putExtra(IntentKeys.CURRENTUSER_KEY, currentUser);
         tmp.putExtra(IntentKeys.USERACCOUNTS_KEY, userAccounts);
         startActivity(tmp);
+        finish();
     }
 
     /**
