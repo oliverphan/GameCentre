@@ -38,7 +38,7 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
     /**
      * The main save file.
      */
-     // Save a board manager - probably not needed
+     // Save a board manager
     public static final String TEMP_SAVE_FILENAME = "tmp_save_file.ser";
 
     // /**
@@ -197,6 +197,7 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
         saveToFile(LoginActivity.SAVE_FILENAME);
         saveGameToFile(TEMP_SAVE_FILENAME);
         startActivity(tmp);
+        finish();
     }
 
     /**
@@ -221,6 +222,7 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
     }
 
     @Override
+    // Probably not needed
     protected void onResume() {
         super.onResume();
         loadUserFromFile();
@@ -229,21 +231,21 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
         displayCurrentUser();
     }
 
-    /**
-     * Save the user account info to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(userAccounts);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
+    // /**
+    //  * Save the user account info to fileName.
+    //  *
+    //  * @param fileName the name of the file
+    //  */
+    // public void saveToFile(String fileName) {
+    //     try {
+    //         ObjectOutputStream outputStream = new ObjectOutputStream(
+    //                 this.openFileOutput(fileName, MODE_PRIVATE));
+    //         outputStream.writeObject(userAccounts);
+    //         outputStream.close();
+    //     } catch (IOException e) {
+    //         Log.e("Exception", "File write failed: " + e.toString());
+    //     }
+    // }
 
     /**
      * Save the boardManager for passing game around.
