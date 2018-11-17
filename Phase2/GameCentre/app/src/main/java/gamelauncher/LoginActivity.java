@@ -38,10 +38,10 @@ public class LoginActivity extends AppCompatActivity {
      */
     private HashMap<String, User> userAccounts;
 
-    // /**
-    //  * The current logged in user.
-    //  */
-    // private User currentUser;
+    /**
+     * The current logged in user.
+     */
+    private User currentUser;
 
     /**
      * UI References
@@ -122,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                     // On successful signup:
                     // Save the signed in user, and userAccounts
                     saveToFile(USER_SAVE_FILENAME, u);
+                    currentUser = u;
                     saveToFile(ACCOUNTS_SAVE_FILENAME, userAccounts);
                     switchToSlidingTileTitle();
                 }
@@ -134,6 +135,8 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void switchToSlidingTileTitle() {
         Intent tmp = new Intent(this, SlidingTileTitleActivity.class);
+        // Pass in the username of the user.
+        tmp.putExtra(currentUser.getName, currentUser);
         startActivity(tmp);
         finish();
     }
