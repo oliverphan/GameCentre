@@ -5,7 +5,7 @@
 
 ### Other
 + Oliver to start on the matching game
-+ New design: Using a separate file
++ New design: Using a separate file for the current User to be passed around
 + Instantiating boardManager in TitleActivity
 
 ### Future maybe goals
