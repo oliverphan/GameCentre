@@ -22,9 +22,16 @@ import users.User;
 public class LoginActivity extends AppCompatActivity {
 
     /**
-     * The main save file.
+     * The save file for UserAccounts.
+     * NOTE: Only accessed in LoginActivity and GameActivity.
      */
-    public static final String SAVE_FILENAME = "save_file.ser";
+    public static final String ACCOUNTS_SAVE_FILENAME = "accounts_save_file.ser";
+
+    /**
+     * The save file for the Current User.
+     * NOTE: Only accessed in LoginActivity and GameActivity.
+     */
+    public static final String USER_SAVE_FILENAME = "user_save_file.ser";
 
     /**
      * A HashMap of all the Users created. The key is the username, the value is the User object.
@@ -36,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
      */
     private User currentUser;
 
-
     /**
      * UI References
      */
@@ -47,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin_);
-        loadFromFile(SAVE_FILENAME);
+        loadFromFile(ACCOUNTS_SAVE_FILENAME, userAccounts);
         mUsernameView = findViewById(R.id.input_username);
         mPasswordView = findViewById(R.id.input_password);
         addLoginButtonListener();
@@ -66,21 +72,20 @@ public class LoginActivity extends AppCompatActivity {
 
         // Check if username exists
         if (!exists(username)) {
-            makeToastNoUser();
+            createToast("User not found");
             return false;
         }
 
         User u = userAccounts.get(username);
         // Check if password matches for this User
         if (u.getPassword().equals(password)) {
-            makeToastLoginSuccess();
+            createToast("Login successful");
             currentUser = userAccounts.get(username);
             return true;
         } else {
-            makeToastWrongPass();
+            createToast("Wrong password, try again");
             return false;
         }
-
     }
 
     /**
@@ -99,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Activate the sign up button
+     * Activate the sign up button.
      */
     private void addSignUpButtonListener() {
         Button signUpButton = findViewById(R.id.signup_button);
@@ -110,18 +115,71 @@ public class LoginActivity extends AppCompatActivity {
                 String username = mUsernameView.getText().toString();
                 String password = mPasswordView.getText().toString();
                 if (exists(username)) {
-                    makeToastUserExists();
+                    createToast("User already exists");
                 } else {
                     User u = new User(username, password);
-                    currentUser = u;
                     addUser(u);
-                    saveToFile(SAVE_FILENAME);
+                    // Successful signup: Save the signed in user, and userAccounts
+                    saveToFile(USER_SAVE_FILENAME, u);
+                    saveToFile(ACCOUNTS_SAVE_FILENAME, userAccounts);
                     switchToSlidingTileTitle();
                 }
             }
         });
     }
 
+    /**
+     * Switch to the SlidingTileTitleActivity view to select a game and difficulty.
+     */
+    private void switchToSlidingTileTitle() {
+        Intent tmp = new Intent(this, SlidingTileTitleActivity.class);
+        startActivity(tmp);
+        finish();
+    }
+
+    /**
+     * Load the object from fileName.
+     *
+     * @param fileName the name of the file
+     * @param obj the object being assigned to
+     */
+    @SuppressWarnings({"unchecked", "SameParameterValue"})
+    private void loadFromFile(String fileName, Object obj) {
+
+        try {
+            InputStream inputStream = this.openFileInput(fileName);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                // NOTE: Casting to Object might not work
+                obj = (Object) input.readObject();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            userAccounts = new HashMap<>();
+            saveToFile(ACCOUNTS_SAVE_FILENAME, userAccounts);
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        }
+    }
+
+    /**
+     * Save the user accounts in fileName.
+     *
+     * @param fileName the name of the file
+     * @param obj the object to write to fileName
+     */
+    public void saveToFile(String fileName, Object obj) {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    this.openFileOutput(fileName, MODE_PRIVATE));
+            outputStream.writeObject(obj);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
 
     /**
      * Add a User to userAccounts collection.
@@ -135,35 +193,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Display that the user already exists
-     */
-
-    private void makeToastUserExists() {
-        Toast.makeText(this, "User already exists", Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * Display that the password is wrong.
-     */
-    private void makeToastWrongPass() {
-        Toast.makeText(this, "Wrong Password", Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * Display that the user was not found.
-     */
-    private void makeToastNoUser() {
-        Toast.makeText(this, "User Not Found", Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * Display login was successful.
-     */
-    private void makeToastLoginSuccess() {
-        Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
-    }
-
-    /**
      * Verify whether the User already exists by their unique username.
      *
      * @param name The username to verify
@@ -173,60 +202,15 @@ public class LoginActivity extends AppCompatActivity {
         return name.equals("") || userAccounts.containsKey(name);
     }
 
-    /**
-     * Switch to the GameLaunchCentre view to select a game and difficulty.
-     */
-    private void switchToSlidingTileTitle() {
-        Intent tmp = new Intent(this, SlidingTileTitleActivity.class);
-        tmp.putExtra("currentUser", currentUser);
-        startActivity(tmp);
-        finish();
-    }
-
-
-    /**
-     * Load the board manager from fileName.
-     *
-     * @param fileName the name of the file
-     */
-    @SuppressWarnings({"unchecked", "SameParameterValue"})
-    private void loadFromFile(String fileName) {
-
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                userAccounts = (HashMap<String, User>) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            userAccounts = new HashMap<>();
-            saveToFile(SAVE_FILENAME);
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
-
-    /**
-     * Save the user accounts in fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(userAccounts);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
-
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    /**
+     * @param msg The message to be displayed in the Toast.
+     */
+    private void createToast(String msg) {
+      Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }
