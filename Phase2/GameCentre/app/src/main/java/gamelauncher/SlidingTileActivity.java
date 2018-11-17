@@ -23,7 +23,7 @@ import users.User;
 
 import android.widget.TextView;
 
-public class SlidingTileTitleActivity extends AppCompatActivity {
+public class SlidingTileActivity extends AppCompatActivity {
 
     /**
      * The name of the game.
