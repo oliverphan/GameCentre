@@ -315,7 +315,6 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     @Override
     public void onBackPressed() {
         switchToSlidingTilesTitleActivity();
-
     }
 
     @Override
@@ -327,6 +326,8 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         }
         if (boardManager.puzzleSolved()) {
             gameWon = true;
+            // TODO: Write stuff to user & Accounts
+            // TODO: Update the leaderboards
             Toast.makeText(this, "You Win!", Toast.LENGTH_LONG).show();
         }
         display();

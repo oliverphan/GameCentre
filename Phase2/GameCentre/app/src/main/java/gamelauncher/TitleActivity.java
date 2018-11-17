@@ -68,9 +68,9 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gamelaunchcentre);
         currentName = (String) getIntent().getStringExtra("currentName");
         // loadUserFromFile();
-        addLogOutButtonListener();
+        // addLogOutButtonListener();
         displayCurrentUser();
-        displayCurrentScore();
+        // displayCurrentScore();
         addLeaderBoardListener();
         addLaunchGame3Listener();
         addLaunchGame4Listener();
@@ -83,19 +83,19 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
      */
     private void displayCurrentUser() {
         TextView displayName = findViewById(R.id.tv_CurrentUser);
-        String temp = "Logged in as " + currentUser.getName();
+        String temp = "Logged in as " + currentName;
         displayName.setText(temp);
     }
 
-    /**
-     * Display the Current user's score.
-     */
-    private void displayCurrentScore() {
-        TextView displayScore = findViewById(R.id.tv_currentUserScore);
-        Integer value = currentUser.getScores().get(GAME_TITLE);
-        String valueText = "Your High Score: " + value.toString();
-        displayScore.setText(valueText);
-    }
+    // /**
+    //  * Display the Current user's score.
+    //  */
+    // private void displayCurrentScore() {
+    //     TextView displayScore = findViewById(R.id.tv_currentUserScore);
+    //     Integer value = currentUser.getScores().get(GAME_TITLE);
+    //     String valueText = "Your High Score: " + value.toString();
+    //     displayScore.setText(valueText);
+    // }
 
     /**
      * Activate the load button.
