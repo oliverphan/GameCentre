@@ -29,26 +29,32 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
      * The name of the game.
      */
     public static final String GAME_TITLE = "Sliding Tiles";
-    /**
-     * A HashMap of all the Users created. The key is the username, the value is the User object.
-     */
-    private HashMap<String, User> userAccounts;
+
+    // /**
+    //  * A HashMap of all the Users created. The key is the username, the value is the User object.
+    //  */
+    // private HashMap<String, User> userAccounts;
 
     /**
      * The main save file.
      */
+     // Save a board manager - probably not needed
     public static final String TEMP_SAVE_FILENAME = "tmp_save_file.ser";
 
-    /**
-     * The current logged in user.
-     */
-    private User currentUser;
+    // /**
+    //  * The current logged in user.
+    //  */
+    // private User currentUser;
 
     /**
      * The score of the last played sliding tile game.
      */
     private int score;
 
+    /**
+     * Name of the user who is logged in.
+     */
+     private String currentName;
 
     /**
      * The board manager.
@@ -58,9 +64,10 @@ public class SlidingTileTitleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        currentUser = (User) getIntent().getSerializableExtra("currentUser");
+        // currentUser = (User) getIntent().getSerializableExtra("currentUser");
         setContentView(R.layout.activity_gamelaunchcentre);
-        loadUserFromFile();
+        currentName = (String) getIntent().getStringExtra("currentName");
+        // loadUserFromFile();
         addLogOutButtonListener();
         displayCurrentUser();
         displayCurrentScore();

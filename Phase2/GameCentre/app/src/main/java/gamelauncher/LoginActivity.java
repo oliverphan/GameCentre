@@ -136,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
     private void switchToSlidingTileTitle() {
         Intent tmp = new Intent(this, SlidingTileTitleActivity.class);
         // Pass in the username of the user.
-        tmp.putExtra(currentUser.getName, currentUser);
+        tmp.putExtra("currentName", currentUser.getName());
         startActivity(tmp);
         finish();
     }
