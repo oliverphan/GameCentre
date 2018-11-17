@@ -38,10 +38,10 @@ public class LoginActivity extends AppCompatActivity {
      */
     private HashMap<String, User> userAccounts;
 
-    /**
-     * The current logged in user.
-     */
-    private User currentUser;
+    // /**
+    //  * The current logged in user.
+    //  */
+    // private User currentUser;
 
     /**
      * UI References
@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin_);
-        loadFromFile(ACCOUNTS_SAVE_FILENAME, userAccounts);
+        loadUserAccounts(ACCOUNTS_SAVE_FILENAME);
         mUsernameView = findViewById(R.id.input_username);
         mPasswordView = findViewById(R.id.input_password);
         addLoginButtonListener();
@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         // Check if password matches for this User
         if (u.getPassword().equals(password)) {
             createToast("Login successful");
-            currentUser = userAccounts.get(username);
+            // currentUser = userAccounts.get(username);
             return true;
         } else {
             createToast("Wrong password, try again");
@@ -119,7 +119,8 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     User u = new User(username, password);
                     addUser(u);
-                    // Successful signup: Save the signed in user, and userAccounts
+                    // On successful signup:
+                    // Save the signed in user, and userAccounts
                     saveToFile(USER_SAVE_FILENAME, u);
                     saveToFile(ACCOUNTS_SAVE_FILENAME, userAccounts);
                     switchToSlidingTileTitle();
@@ -138,31 +139,51 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Load the object from fileName.
-     *
+     * Load the userAccounts from fileName.
      * @param fileName the name of the file
-     * @param obj the object being assigned to
      */
-    @SuppressWarnings({"unchecked", "SameParameterValue"})
-    private void loadFromFile(String fileName, Object obj) {
+     @SuppressWarnings({"unchecked", "SameParameterValue"})
+     privat void loadUserAccounts(String fileName) {
+       try {
+          InputStream inputStream = this.openFileInput(fileName);
+          if (inputStream != null) {
+            ObjectInputStream input = new ObjectInputStream(inputStream);
+            userAccounts = (HashMap<String, User>) input.readObject();
+            inputStream.close();
+         }
+       } catch (FileNotFoundException e) {
+         userAccounts = new HashMap<>();
+         saveToFile(ACCOUNTS_SAVE_FILENAME, userAccounts);
+         Log.e("login activity", "File Not Found: " + e.toString());
+       } catch (IOException e) {
+         Log.e("login activity", "Can not read file: " + e.toString());
+       } catch (ClassNotFoundException e) {
+         Log.e("login activity", "File contained unexpected data type: " + e.toString());
+       }
+     }
 
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                // NOTE: Casting to Object might not work
-                obj = (Object) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            userAccounts = new HashMap<>();
-            saveToFile(ACCOUNTS_SAVE_FILENAME, userAccounts);
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
+    // /**
+    //  * Load the object from fileName.
+    //  *
+    //  * @param fileName the name of the file
+    //  */
+    // @SuppressWarnings({"unchecked", "SameParameterValue"})
+    // private void loadCurrentUser(String fileName) {
+    //     try {
+    //         InputStream inputStream = this.openFileInput(fileName);
+    //         if (inputStream != null) {
+    //             ObjectInputStream input = new ObjectInputStream(inputStream);
+    //
+    //             inputStream.close();
+    //         }
+    //     } catch (FileNotFoundException e) {
+    //         Log.e("login activity", "File Not Found: " + e.toString());
+    //     } catch (IOException e) {
+    //         Log.e("login activity", "Can not read file: " + e.toString());
+    //     } catch (ClassNotFoundException e) {
+    //         Log.e("login activity", "File contained unexpected data type: " + e.toString());
+    //     }
+    // }
 
     /**
      * Save the user accounts in fileName.
