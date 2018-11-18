@@ -281,12 +281,11 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         int moves = boardManager.getNumMoves() % 10;
         if (moves == 0 && !gameWon) {
             loadUserFromFile();
+            saveUserToFile(LoginActivity.USER_SAVE_FILENAME);
             saveToFile(LoginActivity.ACCOUNTS_SAVE_FILENAME);
         }
         if (boardManager.puzzleSolved()) {
             gameWon = true;
-            // TODO: Write stuff to user & Accounts
-            // TODO: Update the leaderboards
             Toast.makeText(this, "You Win!", Toast.LENGTH_LONG).show();
         }
         display();
