@@ -4,71 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fall2018.csc2017.slidingtiles.SlidingTileGameActivity"
-    android:id="@+id/constraintLayout">
+    >
 
-    <fall2018.csc2017.slidingtiles.GestureDetectGridView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/grid"
-        android:layout_width="match_parent"
-        android:layout_height="503dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="72dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+    <TextView
+        android:id="@+id/tv_GameName"
+        android:layout_width="200dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="127dp"
+        android:text="Sliding Tiles Game"
+        android:textAlignment="center"
+        android:textSize="8pt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/user"
+        android:id="@+id/LaunchGame3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/user_image_button"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Start New 3 x 3 Game"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.032"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/grid" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_GameName" />
 
     <Button
-        android:id="@+id/undoButton"
-        android:layout_width="67dp"
-        android:layout_height="43dp"
-
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="14dp"
-        android:text="@string/undo_button_text"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/LaunchGame4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start New 4 x 4 Game"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/inputUndo"
-        app:layout_constraintTop_toBottomOf="@+id/grid" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LaunchGame3"/>
 
-    <EditText
-        android:id="@+id/inputUndo"
-        android:layout_width="133dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="11dp"
-        android:ems="10"
-        android:hint="@string/undo_field_text"
-        android:imeOptions="actionSend"
-        android:importantForAutofill="no"
-        android:inputType="numberSigned"
-        android:text=""
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/undoButton"
-        app:layout_constraintStart_toEndOf="@+id/user"
-        app:layout_constraintTop_toBottomOf="@+id/grid" />
+    <Button
+        android:id="@+id/LaunchGame5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start New 5 x 5 Game"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LaunchGame4"/>
+
+    <Button
+        android:id="@+id/LoadButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Load Saved Game"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LaunchGame5"/>
+
+    <Button
+        android:id="@+id/LeaderBoardButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="Leader Board"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LoadButton" />
 
 </android.support.constraint.ConstraintLayout>

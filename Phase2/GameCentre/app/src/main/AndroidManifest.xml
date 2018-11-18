@@ -16,9 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="fall2018.csc2017.slidingtiles.SlidingTileGameActivity"></activity>
-        <activity android:name="gamelauncher.SlidingTileTitleActivity"></activity>
-        <activity android:name="scoring.LeaderBoardActivity"></activity>
+        <activity android:name=".SlidingTileGameActivity" />
+        <activity android:name="scoring.LeaderBoardActivity" />
+        <activity
+            android:name="gamelauncher.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>
