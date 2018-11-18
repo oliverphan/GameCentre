@@ -63,32 +63,13 @@ public class SlidingTileActivity extends Fragment {
         View view = inflater.inflate(R.layout.activity_slidingtiles, container, false);
         Bundle args = getArguments();
         loadUserFromFile();
-//        addLeaderBoardListener(view);
+        addLeaderBoardListener(view);
         addLaunchGame3Listener(view);
         addLaunchGame4Listener(view);
         addLaunchGame5Listener(view);
         addLoadButtonListener(view);
         return view;
     }
-
-//    /**
-//     * Display the Current user's username.
-//     */
-//    private void displayCurrentUser(View view) {
-//        TextView displayName = view.findViewById(R.id.tv_CurrentUser);
-//        String temp = "Logged in as " + currentName;
-//        displayName.setText(temp);
-//    }
-
-    // /**
-    //  * Display the Current user's score.
-    //  */
-    // private void displayCurrentScore() {
-    //     TextView displayScore = findViewById(R.id.tv_currentUserScore);
-    //     Integer value = currentUser.getScores().get(GAME_TITLE);
-    //     String valueText = "Your High Score: " + value.toString();
-    //     displayScore.setText(valueText);
-    // }
 
     /**
      * Activate the load button.
@@ -109,19 +90,6 @@ public class SlidingTileActivity extends Fragment {
             }
         });
     }
-
-//    /**
-//     * Activate the log out button.
-//     */
-//    private void addLogOutButtonListener(View view) {
-//        Button logOutButton = view.findViewById(R.id.LogOutButton);
-//        logOutButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                switchToGameCentreLoginActivity();
-//            }
-//        });
-//    }
 
     /**
      * Activate the Sliding Tiles 3x3 button.
@@ -165,21 +133,21 @@ public class SlidingTileActivity extends Fragment {
         });
 
     }
-//
-//    /**
-//     * Activate the scoreboard of top scores button.
-//     */
-//    private void addLeaderBoardListener(View view) {
-//        Button scoreBoardButton = view.findViewById(R.id.LeaderBoardButton);
-//        scoreBoardButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                switchToLeaderBoardActivity();
-//
-//            }
-//        });
-//
-//    }
+
+    /**
+     * Activate the scoreboard of top scores button.
+     */
+    private void addLeaderBoardListener(View view) {
+        Button scoreBoardButton = view.findViewById(R.id.LeaderBoardButton);
+        scoreBoardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToLeaderBoardActivity();
+
+            }
+        });
+
+    }
 
     /**
      * Switch to the SlidingTilesGameActivity view
@@ -198,14 +166,6 @@ public class SlidingTileActivity extends Fragment {
         Intent tmp = new Intent(getActivity(), LeaderBoardActivity.class);
         tmp.putExtra(IntentKeys.GAME_TITLE_KEY, GAME_TITLE);
         tmp.putExtra(IntentKeys.CURRENTUSER_KEY, currentUser);
-        startActivity(tmp);
-    }
-
-    /**
-     * Switch to the StartingActivity view
-     */
-    private void switchToGameCentreLoginActivity() {
-        Intent tmp = new Intent(getActivity(), LoginActivity.class);
         startActivity(tmp);
     }
 
