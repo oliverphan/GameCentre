@@ -72,4 +72,10 @@ public class MainActivity extends AppCompatActivity {
         displayName.setText(temp);
     }
 
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "To logout press LOGOUT", Toast.LENGTH_SHORT).show();
+
+    }
+
 }
