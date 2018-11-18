@@ -46,13 +46,13 @@ public class SlidingTileActivity extends Fragment {
     /**
      * The main save file.
      */
-     // Save a board manager
+    // Save a board manager
     public static final String TEMP_SAVE_FILENAME = "tmp_save_file.ser";
 
-     /**
-      * The current logged in user.
-      */
-     private User currentUser;
+    /**
+     * The current logged in user.
+     */
+    private User currentUser;
 
     /**
      * The board manager.
@@ -69,26 +69,6 @@ public class SlidingTileActivity extends Fragment {
         addLaunchGame5Listener(view);
         addLoadButtonListener(view);
         return view;
-    }
-
-    /**
-     * Activate the load button.
-     */
-    private void addLoadButtonListener(View view) {
-        Button loadButton = view.findViewById(R.id.LoadButton);
-        loadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean saveFileExists = currentUser.getSaves().containsKey(GAME_TITLE);
-                if (saveFileExists) {
-                    makeToastLoadedText();
-                    boardManager = (BoardManager) currentUser.getSaves().get(GAME_TITLE);
-                    switchToSlidingTileGameActivity();
-                } else {
-                    Toast.makeText(getContext(), "No file exists!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     /**
@@ -131,7 +111,26 @@ public class SlidingTileActivity extends Fragment {
                 switchToSlidingTileGameActivity();
             }
         });
+    }
 
+    /**
+     * Activate the load button.
+     */
+    private void addLoadButtonListener(View view) {
+        Button loadButton = view.findViewById(R.id.LoadButton);
+        loadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean saveFileExists = currentUser.getSaves().containsKey(GAME_TITLE);
+                if (saveFileExists) {
+                    makeToastLoadedText();
+                    boardManager = (BoardManager) currentUser.getSaves().get(GAME_TITLE);
+                    switchToSlidingTileGameActivity();
+                } else {
+                    Toast.makeText(getContext(), "No file exists!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     /**
@@ -143,10 +142,8 @@ public class SlidingTileActivity extends Fragment {
             @Override
             public void onClick(View v) {
                 switchToLeaderBoardActivity();
-
             }
         });
-
     }
 
     /**
@@ -175,22 +172,6 @@ public class SlidingTileActivity extends Fragment {
         super.onResume();
         loadUserFromFile();
     }
-
-    // /**
-    //  * Save the user account info to fileName.
-    //  *
-    //  * @param fileName the name of the file
-    //  */
-    // public void saveToFile(String fileName) {
-    //     try {
-    //         ObjectOutputStream outputStream = new ObjectOutputStream(
-    //                 this.openFileOutput(fileName, MODE_PRIVATE));
-    //         outputStream.writeObject(userAccounts);
-    //         outputStream.close();
-    //     } catch (IOException e) {
-    //         Log.e("Exception", "File write failed: " + e.toString());
-    //     }
-    // }
 
     /**
      * Save the boardManager for passing game around.
@@ -225,12 +206,6 @@ public class SlidingTileActivity extends Fragment {
             Log.e("load game activity", "File contained unexpected data type: " + e.toString());
         }
     }
-
-//    @Override
-//    public void onBackPressed() {
-//        Toast.makeText(this, "To logout press LOGOUT", Toast.LENGTH_SHORT).show();
-//
-//    }
 
     /**
      * Display that a game was loaded successfully.

@@ -261,6 +261,58 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     }
 
     /**
+     * Switch to the title screen. Only to be called when the game is won.
+     */
+    private void switchToSlidingTilesTitleActivity() {
+        loadUserFromFile();
+        loadUsersFromFile();
+        saveToFile(LoginActivity.ACCOUNTS_SAVE_FILENAME);
+        saveUserToFile(LoginActivity.USER_SAVE_FILENAME);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        switchToSlidingTilesTitleActivity();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        int moves = boardManager.getNumMoves() % 10;
+        if (moves == 0 && !gameWon) {
+            loadUserFromFile();
+            saveToFile(LoginActivity.ACCOUNTS_SAVE_FILENAME);
+        }
+        if (boardManager.puzzleSolved()) {
+            gameWon = true;
+            // TODO: Write stuff to user & Accounts
+            // TODO: Update the leaderboards
+            Toast.makeText(this, "You Win!", Toast.LENGTH_LONG).show();
+        }
+        display();
+    }
+
+    /**
+     * Load the board manager from fileName.
+     */
+    private void loadGameFromFile() {
+        try {
+            InputStream inputStream = this.openFileInput(SlidingTileActivity.TEMP_SAVE_FILENAME);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                boardManager = (BoardManager) input.readObject();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        }
+    }
+
+    /**
      * Load the board manager from fileName.
      */
     @SuppressWarnings("unchecked")
@@ -307,6 +359,29 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
      *
      * @param fileName the name of the file
      */
+    public void saveUserToFile(String fileName) {
+        try {
+            loadUsersFromFile();
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    this.openFileOutput(fileName, MODE_PRIVATE));
+            if (!gameWon) {
+                currentUser.getSaves().put(SlidingTileActivity.GAME_TITLE, boardManager);
+            } else {
+                currentUser.setNewScore(SlidingTileActivity.GAME_TITLE, boardManager.generateScore());
+                currentUser.getSaves().remove(SlidingTileActivity.GAME_TITLE);
+            }
+            outputStream.writeObject(currentUser);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    /**
+     * Save the user account info to fileName.
+     *
+     * @param fileName the name of the file
+     */
     public void saveToFile(String fileName) {
         try {
             loadUsersFromFile();
@@ -322,56 +397,6 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
-
-    /**
-     * Switch to the title screen. Only to be called when the game is won.
-     */
-    private void switchToSlidingTilesTitleActivity() {
-        loadUserFromFile();
-        saveToFile(LoginActivity.ACCOUNTS_SAVE_FILENAME);
-        finish();
-    }
-
-    @Override
-    public void onBackPressed() {
-        switchToSlidingTilesTitleActivity();
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        int moves = boardManager.getNumMoves() % 10;
-        if (moves == 0 && !gameWon) {
-            loadUserFromFile();
-            saveToFile(LoginActivity.ACCOUNTS_SAVE_FILENAME);
-        }
-        if (boardManager.puzzleSolved()) {
-            gameWon = true;
-            // TODO: Write stuff to user & Accounts
-            // TODO: Update the leaderboards
-            Toast.makeText(this, "You Win!", Toast.LENGTH_LONG).show();
-        }
-        display();
-    }
-
-    /**
-     * Load the board manager from fileName.
-     */
-    private void loadGameFromFile() {
-        try {
-            InputStream inputStream = this.openFileInput(SlidingTileActivity.TEMP_SAVE_FILENAME);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                boardManager = (BoardManager) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
         }
     }
 }
