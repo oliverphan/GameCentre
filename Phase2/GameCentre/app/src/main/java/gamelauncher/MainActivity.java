@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new SlidingTileActivity());
-//        adapter.addFragment(new ConnectFourActivity());
-//        adapter.addFragment(new MatchingGameActivity());
+        adapter.addFragment(new ConnectFourActivity());
+        adapter.addFragment(new MatchingActivity());
         viewPager.setAdapter(adapter);
     }
 }
