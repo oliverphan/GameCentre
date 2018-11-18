@@ -8,4 +8,5 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="sliding_tile_title">Sliding Tiles!</string>
     <string name="connect_4_title">Connect Four!</string>
+    <string name="matching_title">Matching Game!</string>
 </resources>
