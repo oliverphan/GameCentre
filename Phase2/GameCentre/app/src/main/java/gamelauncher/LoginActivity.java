@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         // Check if password matches for this User
         if (u.getPassword().equals(password)) {
             createToast("Login successful");
-            // currentUser = userAccounts.get(username);
+            currentUser = u;
             return true;
         } else {
             createToast("Wrong password, try again");
@@ -144,27 +144,28 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Load the userAccounts from fileName.
+     *
      * @param fileName the name of the file
      */
-     @SuppressWarnings({"unchecked", "SameParameterValue"})
-     private void loadUserAccounts(String fileName) {
-       try {
-          InputStream inputStream = this.openFileInput(fileName);
-          if (inputStream != null) {
-            ObjectInputStream input = new ObjectInputStream(inputStream);
-            userAccounts = (HashMap<String, User>) input.readObject();
-            inputStream.close();
-         }
-       } catch (FileNotFoundException e) {
-         userAccounts = new HashMap<>();
-         saveToFile(ACCOUNTS_SAVE_FILENAME, userAccounts);
-         Log.e("login activity", "File Not Found: " + e.toString());
-       } catch (IOException e) {
-         Log.e("login activity", "Can not read file: " + e.toString());
-       } catch (ClassNotFoundException e) {
-         Log.e("login activity", "File contained unexpected data type: " + e.toString());
-       }
-     }
+    @SuppressWarnings({"unchecked", "SameParameterValue"})
+    private void loadUserAccounts(String fileName) {
+        try {
+            InputStream inputStream = this.openFileInput(fileName);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                userAccounts = (HashMap<String, User>) input.readObject();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            userAccounts = new HashMap<>();
+            saveToFile(ACCOUNTS_SAVE_FILENAME, userAccounts);
+            Log.e("login activity", "File Not Found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        }
+    }
 
     // /**
     //  * Load the object from fileName.
@@ -193,7 +194,7 @@ public class LoginActivity extends AppCompatActivity {
      * Save the user accounts in fileName.
      *
      * @param fileName the name of the file
-     * @param obj the object to write to fileName
+     * @param obj      the object to write to fileName
      */
     public void saveToFile(String fileName, Object obj) {
         try {
@@ -236,6 +237,6 @@ public class LoginActivity extends AppCompatActivity {
      * @param msg The message to be displayed in the Toast.
      */
     private void createToast(String msg) {
-      Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }
