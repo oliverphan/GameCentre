@@ -1,6 +1,7 @@
 package gamelauncher;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -58,7 +59,7 @@ public class SlidingTileActivity extends Fragment {
      */
     private BoardManager boardManager;
 
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_slidingtiles, container, false);
         Bundle args = getArguments();
         loadUserFromFile();
