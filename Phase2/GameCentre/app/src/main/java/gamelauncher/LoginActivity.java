@@ -134,9 +134,10 @@ public class LoginActivity extends AppCompatActivity {
      * Switch to the SlidingTileTitleActivity view to select a game and difficulty.
      */
     private void switchToSlidingTileTitle() {
-        Intent tmp = new Intent(this, SlidingTileTitleActivity.class);
+        Intent tmp = new Intent(this, MainActivity.class);
         // Pass in the username of the user.
         tmp.putExtra("currentName", currentUser.getName());
+        saveToFile(USER_SAVE_FILENAME, currentUser);
         startActivity(tmp);
         finish();
     }
@@ -146,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param fileName the name of the file
      */
      @SuppressWarnings({"unchecked", "SameParameterValue"})
-     privat void loadUserAccounts(String fileName) {
+     private void loadUserAccounts(String fileName) {
        try {
           InputStream inputStream = this.openFileInput(fileName);
           if (inputStream != null) {

@@ -1,10 +1,13 @@
 package gamelauncher;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -23,7 +26,11 @@ import users.User;
 
 import android.widget.TextView;
 
-public class SlidingTileActivity extends AppCompatActivity {
+public class SlidingTileActivity extends Fragment {
+    /**
+     * The tag of the fragment
+     */
+    public static final String TAG = "SlidingTiles";
 
     /**
      * The name of the game.
@@ -41,51 +48,36 @@ public class SlidingTileActivity extends AppCompatActivity {
      // Save a board manager
     public static final String TEMP_SAVE_FILENAME = "tmp_save_file.ser";
 
-    // /**
-    //  * The current logged in user.
-    //  */
-    // private User currentUser;
-
-    /**
-     * The score of the last played sliding tile game.
-     */
-    private int score;
-
-    /**
-     * Name of the user who is logged in.
-     */
-     private String currentName;
+     /**
+      * The current logged in user.
+      */
+     private User currentUser;
 
     /**
      * The board manager.
      */
     private BoardManager boardManager;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // currentUser = (User) getIntent().getSerializableExtra("currentUser");
-        setContentView(R.layout.activity_gamelaunchcentre);
-        currentName = (String) getIntent().getStringExtra("currentName");
-        // loadUserFromFile();
-        // addLogOutButtonListener();
-        displayCurrentUser();
-        // displayCurrentScore();
-        addLeaderBoardListener();
-        addLaunchGame3Listener();
-        addLaunchGame4Listener();
-        addLaunchGame5Listener();
-        addLoadButtonListener();
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_slidingtiles, container, false);
+        Bundle args = getArguments();
+        loadUserFromFile();
+//        addLeaderBoardListener(view);
+        addLaunchGame3Listener(view);
+        addLaunchGame4Listener(view);
+        addLaunchGame5Listener(view);
+        addLoadButtonListener(view);
+        return view;
     }
 
-    /**
-     * Display the Current user's username.
-     */
-    private void displayCurrentUser() {
-        TextView displayName = findViewById(R.id.tv_CurrentUser);
-        String temp = "Logged in as " + currentName;
-        displayName.setText(temp);
-    }
+//    /**
+//     * Display the Current user's username.
+//     */
+//    private void displayCurrentUser(View view) {
+//        TextView displayName = view.findViewById(R.id.tv_CurrentUser);
+//        String temp = "Logged in as " + currentName;
+//        displayName.setText(temp);
+//    }
 
     // /**
     //  * Display the Current user's score.
@@ -100,8 +92,8 @@ public class SlidingTileActivity extends AppCompatActivity {
     /**
      * Activate the load button.
      */
-    private void addLoadButtonListener() {
-        Button loadButton = findViewById(R.id.LoadButton);
+    private void addLoadButtonListener(View view) {
+        Button loadButton = view.findViewById(R.id.LoadButton);
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,30 +103,30 @@ public class SlidingTileActivity extends AppCompatActivity {
                     boardManager = (BoardManager) currentUser.getSaves().get(GAME_TITLE);
                     switchToSlidingTileGameActivity();
                 } else {
-                    Toast.makeText(getApplicationContext(), "No file exists!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "No file exists!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    /**
-     * Activate the log out button.
-     */
-    private void addLogOutButtonListener() {
-        Button logOutButton = findViewById(R.id.LogOutButton);
-        logOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switchToGameCentreLoginActivity();
-            }
-        });
-    }
+//    /**
+//     * Activate the log out button.
+//     */
+//    private void addLogOutButtonListener(View view) {
+//        Button logOutButton = view.findViewById(R.id.LogOutButton);
+//        logOutButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                switchToGameCentreLoginActivity();
+//            }
+//        });
+//    }
 
     /**
      * Activate the Sliding Tiles 3x3 button.
      */
-    private void addLaunchGame3Listener() {
-        Button launchGame3Button = findViewById(R.id.LaunchGame3);
+    private void addLaunchGame3Listener(View view) {
+        Button launchGame3Button = view.findViewById(R.id.LaunchGame3);
         launchGame3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,8 +139,8 @@ public class SlidingTileActivity extends AppCompatActivity {
     /**
      * Activate the Sliding Tiles 4x4 button.
      */
-    private void addLaunchGame4Listener() {
-        Button launchGame4Button = findViewById(R.id.LaunchGame4);
+    private void addLaunchGame4Listener(View view) {
+        Button launchGame4Button = view.findViewById(R.id.LaunchGame4);
         launchGame4Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,8 +153,8 @@ public class SlidingTileActivity extends AppCompatActivity {
     /**
      * Activate the Sliding Tiles 5x5 button.
      */
-    private void addLaunchGame5Listener() {
-        Button launchGame5Button = findViewById(R.id.LaunchGame5);
+    private void addLaunchGame5Listener(View view) {
+        Button launchGame5Button = view.findViewById(R.id.LaunchGame5);
         launchGame5Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -172,63 +164,55 @@ public class SlidingTileActivity extends AppCompatActivity {
         });
 
     }
-
-    /**
-     * Activate the scoreboard of top scores button.
-     */
-    private void addLeaderBoardListener() {
-        Button scoreBoardButton = findViewById(R.id.LeaderBoardButton);
-        scoreBoardButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switchToLeaderBoardActivity();
-
-            }
-        });
-
-    }
+//
+//    /**
+//     * Activate the scoreboard of top scores button.
+//     */
+//    private void addLeaderBoardListener(View view) {
+//        Button scoreBoardButton = view.findViewById(R.id.LeaderBoardButton);
+//        scoreBoardButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                switchToLeaderBoardActivity();
+//
+//            }
+//        });
+//
+//    }
 
     /**
      * Switch to the SlidingTilesGameActivity view
      */
     private void switchToSlidingTileGameActivity() {
-        Intent tmp = new Intent(this, SlidingTileGameActivity.class);
+        Intent tmp = new Intent(getActivity(), SlidingTileGameActivity.class);
         tmp.putExtra("currentUser", currentUser.getName());
-        saveToFile(LoginActivity.SAVE_FILENAME);
         saveGameToFile(TEMP_SAVE_FILENAME);
         startActivity(tmp);
-        finish();
     }
 
     /**
      * Switch to the ScoreBoard view
      */
     private void switchToLeaderBoardActivity() {
-        Intent tmp = new Intent(this, LeaderBoardActivity.class);
+        Intent tmp = new Intent(getActivity(), LeaderBoardActivity.class);
         tmp.putExtra(IntentKeys.GAME_TITLE_KEY, GAME_TITLE);
         tmp.putExtra(IntentKeys.CURRENTUSER_KEY, currentUser);
         startActivity(tmp);
-        finish();
     }
 
     /**
      * Switch to the StartingActivity view
      */
     private void switchToGameCentreLoginActivity() {
-        Intent tmp = new Intent(this, LoginActivity.class);
-        saveToFile(LoginActivity.SAVE_FILENAME);
+        Intent tmp = new Intent(getActivity(), LoginActivity.class);
         startActivity(tmp);
-        finish();
     }
 
     @Override
     // Probably not needed
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         loadUserFromFile();
-        score = currentUser.getScores().get(GAME_TITLE);
-        displayCurrentScore();
-        displayCurrentUser();
     }
 
     // /**
@@ -255,7 +239,7 @@ public class SlidingTileActivity extends AppCompatActivity {
     public void saveGameToFile(String fileName) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
+                    getActivity().openFileOutput(fileName, getContext().MODE_PRIVATE));
             outputStream.writeObject(boardManager);
             outputStream.close();
         } catch (IOException e) {
@@ -266,11 +250,10 @@ public class SlidingTileActivity extends AppCompatActivity {
     @SuppressWarnings("unchecked")
     private void loadUserFromFile() {
         try {
-            InputStream inputStream = this.openFileInput(LoginActivity.SAVE_FILENAME);
+            InputStream inputStream = getActivity().openFileInput(LoginActivity.USER_SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                userAccounts = (HashMap<String, User>) input.readObject();
-                currentUser = userAccounts.get(currentUser.getName());
+                currentUser = (User) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -282,16 +265,16 @@ public class SlidingTileActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        Toast.makeText(this, "To logout press LOGOUT", Toast.LENGTH_SHORT).show();
-
-    }
+//    @Override
+//    public void onBackPressed() {
+//        Toast.makeText(this, "To logout press LOGOUT", Toast.LENGTH_SHORT).show();
+//
+//    }
 
     /**
      * Display that a game was loaded successfully.
      */
     private void makeToastLoadedText() {
-        Toast.makeText(this, "Loaded Game", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Loaded Game", Toast.LENGTH_SHORT).show();
     }
 }

@@ -25,7 +25,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import gamelauncher.LoginActivity;
-import gamelauncher.SlidingTileTitleActivity;
+import gamelauncher.SlidingTileActivity;
 import users.User;
 
 /**
@@ -51,7 +51,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     /**
      * The name of the current user.
      */
-    private String currentUser;
+    private User currentUser;
 
     /**
      * The number of tiles per side of the board.
@@ -97,10 +97,10 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadGameFromFile();
-        currentUser = getIntent().getStringExtra("currentUser");
+        loadUserFromFile();
         difficulty = boardManager.getDifficulty();
         createTileButtons();
-        setContentView(R.layout.activity_slidingtiles);
+        setContentView(R.layout.activity_slidingtilesgame);
         addUserButtonListener();
         addUndoButtonListener();
         // Add View to activity
@@ -264,12 +264,33 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
      * Load the board manager from fileName.
      */
     @SuppressWarnings("unchecked")
-    private void loadUserFromFile() {
+    private void loadUsersFromFile() {
         try {
-            InputStream inputStream = this.openFileInput(LoginActivity.SAVE_FILENAME);
+            InputStream inputStream = this.openFileInput(LoginActivity.ACCOUNTS_SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 userAccounts = (HashMap<String, User>) input.readObject();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("load game activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("load game activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("load game activity", "File contained unexpected data type: " + e.toString());
+        }
+    }
+
+    /**
+     * Load the board manager from fileName.
+     */
+    @SuppressWarnings("unchecked")
+    private void loadUserFromFile() {
+        try {
+            InputStream inputStream = this.openFileInput(LoginActivity.USER_SAVE_FILENAME);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                currentUser = (User) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -288,13 +309,14 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
      */
     public void saveToFile(String fileName) {
         try {
+            loadUsersFromFile();
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
             if (!gameWon) {
-                userAccounts.get(currentUser).getSaves().put(SlidingTileTitleActivity.GAME_TITLE, boardManager);
+                userAccounts.get(currentUser.getName()).getSaves().put(SlidingTileActivity.GAME_TITLE, boardManager);
             } else {
-                userAccounts.get(currentUser).setNewScore(SlidingTileTitleActivity.GAME_TITLE, boardManager.generateScore());
-                userAccounts.get(currentUser).getSaves().remove(SlidingTileTitleActivity.GAME_TITLE);
+                userAccounts.get(currentUser.getName()).setNewScore(SlidingTileActivity.GAME_TITLE, boardManager.generateScore());
+                userAccounts.get(currentUser.getName()).getSaves().remove(SlidingTileActivity.GAME_TITLE);
             }
             outputStream.writeObject(userAccounts);
             outputStream.close();
@@ -308,7 +330,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
      */
     private void switchToSlidingTilesTitleActivity() {
         loadUserFromFile();
-        saveToFile(LoginActivity.SAVE_FILENAME);
+        saveToFile(LoginActivity.ACCOUNTS_SAVE_FILENAME);
         finish();
     }
 
@@ -322,7 +344,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         int moves = boardManager.getNumMoves() % 10;
         if (moves == 0 && !gameWon) {
             loadUserFromFile();
-            saveToFile(LoginActivity.SAVE_FILENAME);
+            saveToFile(LoginActivity.ACCOUNTS_SAVE_FILENAME);
         }
         if (boardManager.puzzleSolved()) {
             gameWon = true;
@@ -338,7 +360,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
      */
     private void loadGameFromFile() {
         try {
-            InputStream inputStream = this.openFileInput(SlidingTileTitleActivity.TEMP_SAVE_FILENAME);
+            InputStream inputStream = this.openFileInput(SlidingTileActivity.TEMP_SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 boardManager = (BoardManager) input.readObject();
