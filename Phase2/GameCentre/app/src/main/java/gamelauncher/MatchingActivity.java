@@ -14,13 +14,13 @@ import fall2018.csc2017.slidingtiles.R;
 public class MatchingActivity extends Fragment {
 
 //    Basically onCreate
-    public View onCreateView(@NonNull  LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_matching, container, false);
         Bundle args = getArguments();
 
         addStartGameListener(view);
         addLoadGameListener(view);
-        addLeaderboardListener(view);
+        addLeaderBoardListener(view);
         return view;
     }
 
@@ -53,9 +53,9 @@ public class MatchingActivity extends Fragment {
     /**
      * Activate the button to go the leaderboard.
      */
-    private void addLeaderboardListener(View view) {
-        Button leaderboardButton = view.findViewById(R.id.LeaderBoardButton);
-        leaderboardButton.setOnClickListener(new View.OnClickListener() {
+    private void addLeaderBoardListener(View view) {
+        Button leaderBoardButton = view.findViewById(R.id.LeaderBoardButton);
+        leaderBoardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                DO SOMETHING
