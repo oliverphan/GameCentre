@@ -266,8 +266,10 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     private void switchToSlidingTilesTitleActivity() {
         loadUserFromFile();
         loadUsersFromFile();
-        saveToFile(LoginActivity.ACCOUNTS_SAVE_FILENAME);
+        saveAccountsToFile(LoginActivity.ACCOUNTS_SAVE_FILENAME);
+        Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
         saveUserToFile(LoginActivity.USER_SAVE_FILENAME);
+
         finish();
     }
 
@@ -282,7 +284,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         if (moves == 0 && !gameWon) {
             loadUserFromFile();
             saveUserToFile(LoginActivity.USER_SAVE_FILENAME);
-            saveToFile(LoginActivity.ACCOUNTS_SAVE_FILENAME);
+            saveAccountsToFile(LoginActivity.ACCOUNTS_SAVE_FILENAME);
         }
         if (boardManager.puzzleSolved()) {
             gameWon = true;
@@ -381,7 +383,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
      *
      * @param fileName the name of the file
      */
-    public void saveToFile(String fileName) {
+    public void saveAccountsToFile(String fileName) {
         try {
             loadUsersFromFile();
             ObjectOutputStream outputStream = new ObjectOutputStream(

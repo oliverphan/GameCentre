@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchToGameCentreLoginActivity();
+                switchToLoginActivity();
             }
         });
     }
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Switch to the Login view
      */
-    private void switchToGameCentreLoginActivity() {
+    private void switchToLoginActivity() {
         Intent tmp = new Intent(this, LoginActivity.class);
         startActivity(tmp);
         finish();
@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Toast.makeText(this, "To logout press LOGOUT", Toast.LENGTH_SHORT).show();
-
     }
 
 }
