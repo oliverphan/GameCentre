@@ -282,7 +282,6 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         } else {
             Toast.makeText(this, "Save Wiped", Toast.LENGTH_LONG).show();
         }
-
         finish();
     }
 
