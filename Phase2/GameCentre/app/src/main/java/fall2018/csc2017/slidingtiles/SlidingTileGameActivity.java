@@ -13,6 +13,7 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -268,7 +269,11 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         loadUsersFromFile();
         saveAccountsToFile(LoginActivity.ACCOUNTS_SAVE_FILENAME);
         saveUserToFile(LoginActivity.USER_SAVE_FILENAME);
-        Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
+        if (!gameWon) {
+            Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Save Wiped", Toast.LENGTH_LONG).show();
+        }
 
         finish();
     }
@@ -405,5 +410,3 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         }
     }
 }
-
-//Toast.makeText(this, currentUser.getName(), Toast.LENGTH_LONG).show();
