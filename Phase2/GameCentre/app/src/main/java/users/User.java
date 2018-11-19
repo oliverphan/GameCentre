@@ -3,6 +3,8 @@ package users;
 import java.io.Serializable;
 import java.util.HashMap;
 
+import fall2018.csc2017.slidingtiles.BoardManager;
+
 public class User implements Serializable {
 
     /**
@@ -90,5 +92,24 @@ public class User implements Serializable {
      */
     public HashMap<String, Object> getSaves() {
         return saves;
+    }
+
+    /**
+     * Delete the save for the indicated game.
+     *
+     * @param game game name
+     */
+    public void deleteSave(String game) {
+        saves.remove(game);
+    }
+
+    /**
+     * Store the board manager for the indicated game.
+     *
+     * @param game game name
+     * @param boardManager the board manager to save to this user
+     */
+    public void writeGame(String game, BoardManager boardManager) {
+        saves.put(game, boardManager);
     }
 }

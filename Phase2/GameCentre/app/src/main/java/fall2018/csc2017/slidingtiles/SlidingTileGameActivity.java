@@ -267,8 +267,8 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         loadUserFromFile();
         loadUsersFromFile();
         saveAccountsToFile(LoginActivity.ACCOUNTS_SAVE_FILENAME);
-        Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
         saveUserToFile(LoginActivity.USER_SAVE_FILENAME);
+        Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
 
         finish();
     }
@@ -281,9 +281,9 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     @Override
     public void update(Observable o, Object arg) {
         int moves = boardManager.getNumMoves() % 10;
+        // Autosave - Old boardManager is replaced if there is one.
         if (moves == 0 && !gameWon) {
-            loadUserFromFile();
-            saveUserToFile(LoginActivity.USER_SAVE_FILENAME);
+            currentUser.getSaves().put(SlidingTileActivity.GAME_TITLE, boardManager);
             saveAccountsToFile(LoginActivity.ACCOUNTS_SAVE_FILENAME);
         }
         if (boardManager.puzzleSolved()) {
@@ -355,6 +355,15 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         }
     }
 
+    public void writeNewValues() {
+        if (!gameWon) {
+            currentUser.writeGame(SlidingTileActivity.GAME_TITLE, boardManager);
+        } else {
+            currentUser.setNewScore(SlidingTileActivity.GAME_TITLE, boardManager.generateScore());
+            currentUser.deleteSave(SlidingTileActivity.GAME_TITLE);
+        }
+    }
+
     /**
      * Save the user account info to fileName.
      *
@@ -365,12 +374,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
             loadUsersFromFile();
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            if (!gameWon) {
-                currentUser.getSaves().put(SlidingTileActivity.GAME_TITLE, boardManager);
-            } else {
-                currentUser.setNewScore(SlidingTileActivity.GAME_TITLE, boardManager.generateScore());
-                currentUser.getSaves().remove(SlidingTileActivity.GAME_TITLE);
-            }
+            writeNewValues();
             outputStream.writeObject(currentUser);
             outputStream.close();
         } catch (IOException e) {
@@ -388,12 +392,8 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
             loadUsersFromFile();
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            if (!gameWon) {
-                userAccounts.get(currentUser.getName()).getSaves().put(SlidingTileActivity.GAME_TITLE, boardManager);
-            } else {
-                userAccounts.get(currentUser.getName()).setNewScore(SlidingTileActivity.GAME_TITLE, boardManager.generateScore());
-                userAccounts.get(currentUser.getName()).getSaves().remove(SlidingTileActivity.GAME_TITLE);
-            }
+            writeNewValues();
+            userAccounts.put(currentUser.getName(), currentUser);
             outputStream.writeObject(userAccounts);
             outputStream.close();
         } catch (IOException e) {
@@ -401,3 +401,5 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         }
     }
 }
+
+//Toast.makeText(this, currentUser.getName(), Toast.LENGTH_LONG).show();
