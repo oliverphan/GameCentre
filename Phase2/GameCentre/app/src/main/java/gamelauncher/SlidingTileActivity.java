@@ -118,10 +118,11 @@ public class SlidingTileActivity extends Fragment {
      */
     private void addLoadButtonListener(View view) {
         Button loadButton = view.findViewById(R.id.LoadButton);
+        final boolean saveFileExists = currentUser.getSaves().containsKey(GAME_TITLE);
+        loadButton.setAlpha(1);
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean saveFileExists = currentUser.getSaves().containsKey(GAME_TITLE);
                 if (saveFileExists) {
                     makeToastLoadedText();
                     boardManager = (BoardManager) currentUser.getSaves().get(GAME_TITLE);
@@ -131,7 +132,11 @@ public class SlidingTileActivity extends Fragment {
                 }
             }
         });
-    }
+        if (!saveFileExists) {
+            loadButton.setClickable(saveFileExists);
+            loadButton.setAlpha(.5f);
+        }
+        }
 
     /**
      * Activate the scoreboard of top scores button.
@@ -171,6 +176,7 @@ public class SlidingTileActivity extends Fragment {
     public void onResume() {
         super.onResume();
         loadUserFromFile();
+        addLoadButtonListener(getView());
     }
 
     /**
