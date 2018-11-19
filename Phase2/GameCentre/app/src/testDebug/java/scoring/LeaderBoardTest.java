@@ -5,63 +5,90 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class LeaderBoardTest {
 
-    @Test
-    public void getTopScoresNoGame() {
-        LeaderBoard leaderBoardNoGame = new LeaderBoard();
-        final ArrayList<Score> expected = new ArrayList<>(); // an array of scores (empty)
-        final ArrayList<Score> actual = leaderBoardNoGame.getTopScores("Non-existent Game");
-        assertEquals(expected, actual);
+    /**
+     * The LeaderBoard for testing
+     */
+    private LeaderBoard testLeaderBoard;
+
+    /**
+     * A set of Scores to be used as 'expected'
+     */
+    private ArrayList<Score> testScores;
+
+    private void buildTestScores() {
+        Score testScore = new Score("", 0);
+        this.testScores = new ArrayList<>();
+        this.testScores.add(0, testScore);
+        this.testScores.add(1, testScore);
+        this.testScores.add(2, testScore);
     }
 
     @Test
-    public void getTopScoresOneGame() {
-        final ArrayList<Score> expected = new ArrayList<>();
-        final Score score1 = new Score("Only User", 1);
-        expected.add(score1);
-        LeaderBoard leaderBoardOneGame = new LeaderBoard();
-        leaderBoardOneGame.updateScores("Only Game", score1);
-        final ArrayList<Score> actual = leaderBoardOneGame.getTopScores("Only Game");
-        assertEquals(expected, actual);
+    public void testGetTopScores() {
+        testLeaderBoard = new LeaderBoard();
+        buildTestScores();
+        assertEquals(this.testScores, testLeaderBoard.getTopScores("Sliding Tiles"));
+    }
+
+
+    @Test
+    public void testUpdateScores() {
+        testLeaderBoard = new LeaderBoard();
+        buildTestScores();
+        Score topScore = new Score("Username", 100);
+        this.testScores.set(0, topScore);
+        testLeaderBoard.updateScores("Sliding Tiles", topScore);
+        assertEquals(testScores, testLeaderBoard.getTopScores("Sliding Tiles"));
     }
 
     @Test
-    public void getTopScoresTwoGames() {
-        LeaderBoard leaderBoardTwoGames = new LeaderBoard();
-        final ArrayList<Score> expected = new ArrayList<>();
-        final Score scoreGame1 = new Score("User A", 1);
-        final Score scoreGame2 = new Score("User A", 2);
-        leaderBoardTwoGames.updateScores("First Game", scoreGame1);
-        leaderBoardTwoGames.updateScores("Second Game", scoreGame2);
-        expected.add(scoreGame2);
-        final ArrayList<Score> actual = leaderBoardTwoGames.getTopScores("Second Game");
-        assertEquals(expected, actual);
+    public void testUpdateFullLeaderBoard() {
+        testLeaderBoard = new LeaderBoard();
+        buildTestScores();
+        Score score1 = new Score("User", 100);
+        Score score2 = new Score("User", 200);
+        Score score3 = new Score("User", 150);
+
+        testLeaderBoard.updateScores("Sliding Tiles", score1);
+        testScores.set(0, score1);
+        assertEquals(testScores, testLeaderBoard.getTopScores("Sliding Tiles"));
+
+        testLeaderBoard.updateScores("Sliding Tiles", score2);
+        testScores.set(0, score2);
+        testScores.set(1, score1);
+        assertEquals(testScores, testLeaderBoard.getTopScores("Sliding Tiles"));
+
+        testLeaderBoard.updateScores("Sliding Tiles", score3);
+        testScores.set(1, score3);
+        testScores.set(2, score1);
+        assertTrue(myComparison(testScores, testLeaderBoard.getTopScores("Sliding Tiles")));
     }
 
-    @Test
-    public void updateScoresGameDNE() {
-        LeaderBoard actual = new LeaderBoard();
-        HashMap<String, ArrayList<Score>> expected = new HashMap<>();
-        Score score1 = new Score("User A", 1);
-        ArrayList<Score> scores = new ArrayList<>();
-        scores.add(score1);
-        expected.put("Only Game", scores);
-        actual.updateScores("Only Game", score1);
-        assertEquals(expected, actual.getGameScores());
+    /**
+     * Compares each element of the expected, and actual objects and checks that all objects
+     * are equal.
+     *
+     * @param expected the expected result of a method call
+     * @param actual   the actual result of a method call
+     * @return True is the contents of expected and actual are the same
+     */
+    private boolean myComparison(ArrayList<Score> expected, ArrayList<Score> actual) {
+        for (Score s : expected) {
+            int i = expected.indexOf(s);
+            if (s.getValue() == actual.get(i).getValue()){
+                continue;
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
-
-    @Test
-    public void updateScoreExistingGame() {
-        // TODO Update existing Game
-    }
-
-    @Test
-    public void updateScoreExistingGameLowerScore() {
-        // TODO Update with lower Score
-    }
-
 }
+
