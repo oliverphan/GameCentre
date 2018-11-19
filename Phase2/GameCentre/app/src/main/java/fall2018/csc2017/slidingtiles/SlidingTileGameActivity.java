@@ -171,13 +171,19 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
      * The listener for the add user images button.
      */
     private void addUserButtonListener() {
-        Button userButton = findViewById(R.id.user);
+        final Button userButton = findViewById(R.id.user);
+        // Try to get a ternary working here
+        if (!boardManager.userTiles)
+            userButton.setText(R.string.user_image_button_unpressed);
+        else
+            userButton.setText(R.string.user_image_button_pressed);
         userButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!boardManager.userTiles) {
                     pickImageFromGallery();
                 } else {
+                    userButton.setText(R.string.user_image_button_unpressed);
                     boardManager.userTiles = false;
                     display();
                 }
@@ -233,6 +239,8 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
             }
         }
         if (userImage != null) {
+            final Button userButton = findViewById(R.id.user);
+            userButton.setText(R.string.user_image_button_pressed);
             Board board = boardManager.getBoard();
             boardManager.userTiles = true;
             for (int nextPos = 0; nextPos < board.numTiles(); nextPos++) {
