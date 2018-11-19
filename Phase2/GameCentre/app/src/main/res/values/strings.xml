@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">GameCentre</string>
-    <string name="user_image_button">Choose Image</string>
+    <string name="user_image_button_unpressed">Use Image</string>
+    <string name="user_image_button_pressed">Use Tiles</string>
     <string name="undo_field_text">Moves to Undo</string>
     <string name="undo_button_text">Undo</string>
     <string name="title_activity_main">MainActivity</string>
