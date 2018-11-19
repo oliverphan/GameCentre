@@ -14,8 +14,4 @@
 8. Test suite
  + Please add javadoc for the tests so everyone else knows what they do when you write them :)
 
-9. Make "Choose user image" dynamic to a different message (in SlidingTiles) (Meirbek is on it)
- + "Use Image"
- + "Use Tiles"
-
 10. Refactor Activity Classes
