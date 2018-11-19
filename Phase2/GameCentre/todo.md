@@ -1,10 +1,21 @@
 # TO DO
-1. Personal Scores and Scoreboard aren't returned.
-2. On destroy - Back button takes you out of app
-3. Back button can take you back to previous users -> when are we saving to file?
-4. Refactor Activity Classes
-5. Rework Intents?
-6. Login null crash (clear data)
-7. Phase 2 to do - add two games (scoreboard, undo, save). Possible games - IceTile, Solitaire, etc)
+1. Matching Tiles Game
+ + Making Activities (fragments), .xml files
+ + Making the gameActivity/board/boardManager
+
+2. Connect Four Game
+ + Same as above, Meirbek has backend code
+
+7. Personal Scores and Scoreboard aren't returned.
+ + Leaderboard not functional
+ + Consideration: Probably need to load a separate leaderboard from file
+
+
 8. Test suite
-9. Game freeze once finished rather than redirecting to title screen right away
+ + Please add javadoc for the tests so everyone else knows what they do when you write them :)
+
+9. Make "Choose user image" dynamic to a different message (in SlidingTiles)
+ + "Use Image"
+ + "Use Tiles"
+
+10. Refactor Activity Classes
