@@ -355,6 +355,10 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         }
     }
 
+    /**
+     * Store the new score and delete the old save in the User if the game is won.
+     * If game hasn't been won, store the most recent boardManager to the User.
+     */
     public void writeNewValues() {
         if (!gameWon) {
             currentUser.writeGame(SlidingTileActivity.GAME_TITLE, boardManager);
