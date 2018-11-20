@@ -34,6 +34,8 @@ public class BoardManager implements Serializable {
 
     boolean userTiles = false;
 
+    private final int numTiles;
+
     /**
      * The name of this game is "Sliding Tiles".
      *
@@ -87,11 +89,9 @@ public class BoardManager implements Serializable {
      */
     private void setDifficulty(int d) {
         List<Tile> tiles = new ArrayList<>();
-        final int numTiles = d * d;
-        for (int tileNum = 1; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum));
+        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
+            tiles.add(new Tile(tileNum, numTiles));
         }
-        tiles.add(new Tile(0));
         this.board = new Board(tiles);
         shuffle(d);
     }
@@ -148,6 +148,7 @@ public class BoardManager implements Serializable {
     public BoardManager(int d) {
         numMoves = 0;
         difficulty = d;
+        numTiles = difficulty * difficulty;
         previousMoves = new Stack<>();
         setDifficulty(difficulty);
     }
@@ -158,18 +159,17 @@ public class BoardManager implements Serializable {
      * @return whether the tiles are in row-major order
      */
     boolean puzzleSolved() {
-        boolean solved = true;
         Iterator<Tile> puzzleIterator = board.iterator();
         int curId = 1;
         Tile t = puzzleIterator.next();
         while (curId < board.numTiles()) {
             if (t.getId() != curId) {
-                solved = false;
+                return false;
             }
             t = puzzleIterator.next();
             curId++;
         }
-        return (solved && t.getId() == 0);
+        return true;
     }
 
     /**
@@ -181,16 +181,14 @@ public class BoardManager implements Serializable {
     boolean isValidTap(int position) {
         int row = position / board.numCols;
         int col = position % board.numCols;
-        int blankId = 0;
-        // Are any of the 4 the blank tile?
         Tile above = row == 0 ? null : board.getTile(row - 1, col);
         Tile below = row == board.numRows - 1 ? null : board.getTile(row + 1, col);
         Tile left = col == 0 ? null : board.getTile(row, col - 1);
         Tile right = col == board.numCols - 1 ? null : board.getTile(row, col + 1);
-        return (below != null && below.getId() == blankId)
-                || (above != null && above.getId() == blankId)
-                || (left != null && left.getId() == blankId)
-                || (right != null && right.getId() == blankId);
+        return (below != null && below.getId() == numTiles)
+                || (above != null && above.getId() == numTiles)
+                || (left != null && left.getId() == numTiles)
+                || (right != null && right.getId() == numTiles);
     }
 
 
@@ -234,11 +232,10 @@ public class BoardManager implements Serializable {
      * @return int[row, column] of the blank tile.
      */
     private int[] findBlank(int position) {
-        int blankId = 0;
         Iterator<Tile> blankIterator = board.iterator();
         int blankFoundAt = 0;
         if (isValidTap(position)) {
-            while (blankIterator.next().getId() != blankId) {
+            while (blankIterator.next().getId() != numTiles) {
                 blankFoundAt++;
             }
         }
