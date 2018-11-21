@@ -3,7 +3,6 @@
 #### Tasks in motion
 + Oliver & Savhanna on matching Tiles
 + Meirbek on Connect 4
-+ Jack & Jonathan unresponsive
 
 ### Tasks still need to be done
 + Both Games
