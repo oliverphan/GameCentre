@@ -48,62 +48,6 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         }
     }
 
-    /**
-     * Returns an iterator for this board.
-     *
-     * @return an iterator for this board.
-     */
-    @NonNull
-    public Iterator<Tile> iterator() {
-        return new BoardIterator();
-    }
-
-    /**
-     * An Iterator for Board Tiles.
-     */
-    private class BoardIterator implements Iterator<Tile> {
-        /**
-         * The index of the next Tile to return.
-         */
-        private int curRow = 0;
-        private int curCol = 0;
-
-        /**
-         * Returns whether there is another Tile to return.
-         *
-         * @return whether there is another Tile to return.
-         */
-        @Override
-        public boolean hasNext() {
-            return curRow < numRows && curCol < numCols;
-        }
-
-        /**
-         * Resets column to 0 and starts a new row once a column end is reached.
-         */
-        private void resetIndex() {
-            if (curCol == numCols) {
-                curCol = 0;
-                curRow++;
-            }
-        }
-
-        /**
-         * Returns the next Tile.
-         *
-         * @return the next Tile.
-         */
-        @Override
-        public Tile next() {
-            // Return null if next() is called when there are no other tiles
-            if (!hasNext()) return null;
-            // Return the current next Tile, prepare the next Tile
-            Tile t = tiles[curRow][curCol];
-            curCol++;
-            resetIndex();
-            return t;
-        }
-    }
 
     /**
      * Return the number of tiles on the board.
@@ -142,15 +86,57 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         notifyObservers();
     }
 
-    /**
-     * Return the string representation of Board.
-     *
-     * @return returns string representation of Board.
-     */
     @Override
     public String toString() {
         return "Board{" +
                 "tiles=" + Arrays.toString(tiles) +
                 '}';
+    }
+
+    /**
+     * Returns an iterator for this board.
+     *
+     * @return an iterator for this board.
+     */
+    @NonNull
+    public Iterator<Tile> iterator() {
+        return new BoardIterator();
+    }
+
+    /**
+     * An Iterator for Board Tiles.
+     */
+    private class BoardIterator implements Iterator<Tile> {
+        /**
+         * The index of the next Tile to return.
+         */
+        private int curRow = 0;
+        private int curCol = 0;
+
+        @Override
+        public boolean hasNext() {
+            return curRow < numRows && curCol < numCols;
+        }
+
+        /**
+         * Resets column to 0 and starts a new row once a column end is reached.
+         */
+        private void resetIndex() {
+            if (curCol == numCols) {
+                curCol = 0;
+                curRow++;
+            }
+        }
+
+        @Override
+        public Tile next() {
+            // Return null if next() is called when there are no other tiles
+            if (!hasNext()) return null;
+            // Return the current next Tile, prepare the next Tile
+            Tile t = tiles[curRow][curCol];
+            curCol++;
+            resetIndex();
+            return t;
+        }
     }
 }
