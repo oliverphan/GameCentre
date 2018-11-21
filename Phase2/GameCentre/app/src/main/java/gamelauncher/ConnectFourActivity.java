@@ -69,10 +69,16 @@ public class ConnectFourActivity extends Fragment {
         scoreBoardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Launched LeaderBoard", Toast.LENGTH_SHORT).show();
-
+            createToast("Launched LeaderBoard");
             }
         });
 
+    }
+
+    /**
+     * @param msg The message to be displayed in the Toast.
+     */
+    private void createToast(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 }

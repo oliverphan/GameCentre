@@ -38,15 +38,9 @@ public class SlidingTileActivity extends Fragment {
      */
     public static final String GAME_TITLE = "Sliding Tiles";
 
-    // /**
-    //  * A HashMap of all the Users created. The key is the username, the value is the User object.
-    //  */
-    // private HashMap<String, User> userAccounts;
-
     /**
      * The main save file.
      */
-    // Save a board manager
     public static final String TEMP_SAVE_FILENAME = "tmp_save_file.ser";
 
     /**
@@ -80,6 +74,7 @@ public class SlidingTileActivity extends Fragment {
             @Override
             public void onClick(View v) {
                 boardManager = new BoardManager(3);
+                createToast("Game Start");
                 switchToSlidingTileGameActivity();
             }
         });
@@ -94,6 +89,7 @@ public class SlidingTileActivity extends Fragment {
             @Override
             public void onClick(View v) {
                 boardManager = new BoardManager(4);
+                createToast("Game Start");
                 switchToSlidingTileGameActivity();
             }
         });
@@ -108,6 +104,7 @@ public class SlidingTileActivity extends Fragment {
             @Override
             public void onClick(View v) {
                 boardManager = new BoardManager(5);
+                createToast("Game Start");
                 switchToSlidingTileGameActivity();
             }
         });
@@ -124,11 +121,11 @@ public class SlidingTileActivity extends Fragment {
             @Override
             public void onClick(View v) {
                 if (saveFileExists) {
-                    makeToastLoadedText();
+                    createToast("Game Loaded");
                     boardManager = (BoardManager) currentUser.getSaves().get(GAME_TITLE);
                     switchToSlidingTileGameActivity();
                 } else {
-                    Toast.makeText(getContext(), "No file exists!", Toast.LENGTH_SHORT).show();
+                    createToast("No File Exists!");
                 }
             }
         });
@@ -146,6 +143,7 @@ public class SlidingTileActivity extends Fragment {
         scoreBoardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                createToast("Launched LeaderBoard");
                 switchToLeaderBoardActivity();
             }
         });
@@ -214,9 +212,8 @@ public class SlidingTileActivity extends Fragment {
     }
 
     /**
-     * Display that a game was loaded successfully.
+     * @param msg The message to be displayed in the Toast.
      */
-    private void makeToastLoadedText() {
-        Toast.makeText(getContext(), "Loaded Game", Toast.LENGTH_SHORT).show();
+    private void createToast(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
-}

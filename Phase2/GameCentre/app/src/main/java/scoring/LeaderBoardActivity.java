@@ -5,14 +5,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import fall2018.csc2017.slidingtiles.R;
-import gamelauncher.IntentKeys;
 import gamelauncher.SlidingTileActivity;
 import users.User;
 
