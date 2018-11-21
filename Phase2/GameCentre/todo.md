@@ -6,9 +6,9 @@
 2. Connect Four Game
  + Same as above, Meirbek has backend code
 
-7. Personal Scores and Scoreboard aren't returned.
- + Leaderboard not functional
- + Consideration: Probably need to load a separate leaderboard from file
+7. Personal Scores and Scoreboard aren't returned. (Jonathan is working on this)
+ + Leaderboard is not being updated
+ + Save functionality probably doesn't work for the leaderboard
 
 
 8. Test suite
