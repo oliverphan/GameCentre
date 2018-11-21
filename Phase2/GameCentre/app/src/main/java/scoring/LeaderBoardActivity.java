@@ -118,36 +118,35 @@ public class LeaderBoardActivity extends AppCompatActivity {
      */
     private void displayLeaders(String gameName) {
         TextView tvScores = findViewById(R.id.tv_scores);
-
-        // A public SharedPreferences interface.
-        SharedPreferences prefs = getSharedPreferences("PREFS", 0);
-        SharedPreferences.Editor editor = prefs.edit();
         ArrayList<Score> tempScores = leaderBoard.getTopScores(gameName);
+        ArrayList<Integer> tempScoreValues = new ArrayList<>();
+        ArrayList<String> tempScoreUsers = new ArrayList<>();
 
-        Integer topScore1 = tempScores.get(0).getValue();
-        Integer topScore2 = tempScores.get(1).getValue();
-        Integer topScore3 = tempScores.get(2).getValue();
+        // the number of scores is always equal to the number of usernames
+        int numScores = tempScoreValues.size();
 
-        String user1 = tempScores.get(0).getUsername();
-        String user2 = tempScores.get(1).getUsername();
-        String user3 = tempScores.get(2).getUsername();
+        for (Score score: tempScores) {
+            tempScoreValues.add(score.getValue());
+            tempScoreUsers.add(score.getUsername());
+        }
 
-        // Load top 3 scores
-        editor.putInt("topScore1", topScore1);
-        editor.putInt("topScore2", topScore2);
-        editor.putInt("topScore3", topScore3);
-        editor.apply();
+        // Build the display string
+        StringBuilder sb = new StringBuilder();
 
-        // Load users of top 3 scores
-        editor.putString("user1", user1);
-        editor.putString("user2", user2);
-        editor.putString("user3", user3);
-        editor.apply();
-
+        for (int i = 1; i <= numScores; i++){
+            // -1 means that slot hasn't been filled yet
+            if (tempScoreValues.get(i - 1) == -1){
+                break;
+            }
+            sb.append(i);
+            sb.append(": ");
+            sb.append(tempScoreValues.get(i - 1));
+            sb.append(" by ");
+            sb.append(tempScoreUsers.get(i - 1));
+            sb.append("\n");
+        }
         //set the tvScores
-        String tvScoresText = ("1: " + topScore1 + " by " + user1 + "\n"
-                + "2: " + topScore2 + " by " + user2 + "\n" + "3: " + topScore3 + " by " + user3);
-        tvScores.setText(tvScoresText);
+        tvScores.setText(sb.toString());
     }
 
     /**
