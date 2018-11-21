@@ -32,8 +32,15 @@ public class BoardManager implements Serializable {
      */
     private int difficulty;
 
+    /**
+     * Whether or not the image background is the default number pictures or
+     * the User selected image.
+     */
     boolean userTiles = false;
 
+    /**
+     * Number of Tiles.
+     */
     private final int numTiles;
 
     /**

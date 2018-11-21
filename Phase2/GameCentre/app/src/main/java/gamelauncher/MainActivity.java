@@ -15,7 +15,6 @@ import fall2018.csc2017.slidingtiles.R;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Main";
-    private ViewPager mViewPager;
     private String currentName;
 
     @Override
@@ -25,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate: Starting.");
 
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(mViewPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new SlidingTileActivity());
         adapter.addFragment(new ConnectFourActivity());
-        adapter.addFragment(new MatchingActivity());
+        adapter.addFragment(new MemoryActivity());
         viewPager.setAdapter(adapter);
     }
 
@@ -59,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void switchToLoginActivity() {
         Intent tmp = new Intent(this, LoginActivity.class);
+        createToast("Logged Out");
         startActivity(tmp);
         finish();
     }
@@ -74,7 +74,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(this, "To logout press LOGOUT", Toast.LENGTH_SHORT).show();
+        createToast("To logout press LOGOUT");
     }
 
+    /**
+     * @param msg The message to be displayed in the Toast.
+     */
+    private void createToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
 }
