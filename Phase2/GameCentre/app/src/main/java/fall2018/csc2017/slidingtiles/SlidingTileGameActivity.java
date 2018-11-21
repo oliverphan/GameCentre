@@ -157,7 +157,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
             if (!boardManager.userTiles) {
                 b.setBackgroundResource(board.getTile(row, col).getBackground());
             } else {
-                if (!gameWon && board.getTile(row, col).getId() == 0) {
+                if (!gameWon && board.getTile(row, col).getId() == difficulty*difficulty) {
                     b.setBackgroundResource(R.drawable.whitespace);
                 } else {
                     b.setBackground(new BitmapDrawable(getResources(), board.getTile(row, col).getUserImage()));

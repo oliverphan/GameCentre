@@ -62,15 +62,19 @@ public class Tile implements Comparable<Tile>, Serializable {
      *
      * @param backgroundId the id of the tile
      */
-    Tile(int backgroundId) {
-        id = backgroundId;
-        String uri = "tile_" + String.valueOf(backgroundId);
-        try {
-            Class res = R.drawable.class;
-            Field field = res.getField(uri);
-            background = field.getInt(null);
-        } catch (Exception e) {
-            Log.e("DrawableAccess", "Failed to get resource by id", e);
+    Tile(int backgroundId, int blank) {
+        id = backgroundId + 1;
+        if (id == blank) {
+            background = R.drawable.tile_0;
+        } else {
+            String uri = "tile_" + String.valueOf(id);
+            try {
+                Class res = R.drawable.class;
+                Field field = res.getField(uri);
+                background = field.getInt(null);
+            } catch (Exception e) {
+                Log.e("DrawableAccess", "Failed to get resource by id", e);
+            }
         }
     }
 
@@ -85,8 +89,8 @@ public class Tile implements Comparable<Tile>, Serializable {
         int height = 319;
         int row = (this.id - 1) / diff;
         int col = (this.id - 1) % diff;
-        if (this.id == 0) {
-            userTiles.put(this.id, Bitmap.createBitmap(image, (diff-1)*width, (diff-1)*height, width, height));
+        if (this.id == (diff * diff)) {
+            userTiles.put(this.id, Bitmap.createBitmap(image, (diff - 1) * width, (diff - 1) * height, width, height));
         } else {
             userTiles.put(this.id, Bitmap.createBitmap(image, width * col, height * row, width, height));
         }
