@@ -15,14 +15,21 @@ class LeaderBoard implements Serializable {
      */
     private HashMap<String, ArrayList<Score>> gameScores;
 
+    /**
+     * The number of names and scores to show up on the leaderboard.
+     */
+    @SuppressWarnings("FieldCanBeLocal")
+    private final int NUM_LEADERBOARD_SLOTS = 3;
+
     LeaderBoard() {
         this.gameScores = new HashMap<>();
         ArrayList<Score> temp = new ArrayList<>();
-        Score s = new Score("", 0);
-        temp.add(0, s);
-        temp.add(1, s);
-        temp.add(2, s);
-        this.gameScores.put("Sliding Tiles", temp);
+        temp.add(new Score("", -1));
+        temp.add(new Score( "", -1));
+        temp.add(new Score("", -1));
+        this.gameScores.put("Sliding Tiles", new ArrayList<Score>(temp));
+        this.gameScores.put("Connect 4", new ArrayList<Score>(temp));
+        this.gameScores.put("Memory Tiles", new ArrayList<Score>(temp));
     }
 
     /**
@@ -43,15 +50,15 @@ class LeaderBoard implements Serializable {
      * @param newScore the Score object to be compared with the existing scores
      */
     void updateScores(String gameName, Score newScore) {
-        // topThree is an an array list of the top three score objects for this game
-        ArrayList<Score> topThree = this.gameScores.get(gameName);
+        // topScores is an ArrayList of the top three score objects for this game.
+        ArrayList<Score> topScores = this.gameScores.get(gameName);
 
-        Collections.sort(topThree, Collections.reverseOrder(new ScoreComparator()));
+        Collections.sort(topScores, Collections.reverseOrder(new ScoreComparator()));
 
-        for (int i = 0; i < topThree.size(); i++) {
-            if (newScore.getValue() > topThree.get(i).getValue()) {
-                topThree.add(i, newScore);
-                topThree.remove(topThree.size() - 1);
+        for (int i = 0; i < NUM_LEADERBOARD_SLOTS; i++) {
+            if (newScore.getValue() > topScores.get(i).getValue()) {
+                topScores.add(i, newScore);
+                topScores.remove(topScores.size() - 1);
                 break;
             }
         }
