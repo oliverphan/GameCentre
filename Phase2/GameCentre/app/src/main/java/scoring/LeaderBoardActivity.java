@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import fall2018.csc2017.slidingtiles.R;
 import gamelauncher.IntentKeys;
+import gamelauncher.MainActivity;
 import gamelauncher.SlidingTileActivity;
 import users.User;
 
@@ -72,7 +73,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
      * Switch to the SlidingTileTitleActivity view.
      */
     private void switchToTitleActivity() {
-        Intent tmp = new Intent(this, SlidingTileActivity.class);
+        Intent tmp = new Intent(this, MainActivity.class);
         tmp.putExtra(IntentKeys.USERACCOUNTS_KEY, userAccounts);
         tmp.putExtra(IntentKeys.CURRENTUSER_KEY, currentUser);
         startActivity(tmp);
