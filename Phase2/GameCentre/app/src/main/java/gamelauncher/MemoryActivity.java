@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import fall2018.csc2017.slidingtiles.R;
 
-public class MatchingActivity extends Fragment {
+public class MemoryActivity extends Fragment {
 
 //    Basically onCreate
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
