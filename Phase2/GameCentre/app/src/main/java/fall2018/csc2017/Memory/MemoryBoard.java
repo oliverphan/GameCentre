@@ -36,8 +36,8 @@ public class MemoryBoard extends Observable implements Serializable, Iterable<Ca
      * @param cards the cards contained in this MemoryBoard
      */
     MemoryBoard(List<Card> cards) {
-        numRows = (int) Math.sqrt(cards.size());
-        numCols = numRows;
+        numRows = 4; //Every game will have 4 rows and y columns
+        numCols = cards.size() / 4;
         Iterator<Card> iterator = cards.iterator();
         this.cards = new Card[numRows][numCols];
         for (int row = 0; row != numRows; row++) {
@@ -47,26 +47,63 @@ public class MemoryBoard extends Observable implements Serializable, Iterable<Ca
         }
     }
 
+
     /**
      * Return the total amount of Cards contained on this MemoryBoard, not the amount of unique cards.
      *
      * @return the total amount of Cards in this MemoryBoard
      */
     int numCards() {
-        return this.numRows * this.numCols;
+        return numRows * this.numCols;
     }
 
-    /**
-     * Return the number of unique Cards which are contained on this MemoryBoard.
-     *
-     * @return the amount of unique Cards in this MemoryBoard
-     */
-    int numUniqueCards() {
-        return this.numCards() / 2;
-    }
+//    /**
+//     * Return the number of unique Cards which are contained on this MemoryBoard.
+//     *
+//     * @return the amount of unique Cards in this MemoryBoard
+//     */
+//    int numUniqueCards() {
+//        return this.numCards() / 2;
+//    }
+// TODO: I don't think we need this.....
+
 
     Card getCard(int row, int col) {
         return cards[row][col];
+    }
+
+    Card[][] getCards() {
+        return this.cards;
+    }
+
+    public boolean gameFinished() {
+        for (Card[] c : cards) {
+            for (Card card : c) {
+                if (!card.isMatched()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Set the Card at row, col to be face up.
+     *
+     * @param row the row which contains the target Card
+     * @param col the column which contains the target Card
+     */
+    void flipCard(int row, int col) {
+        getCard(row, col).setFaceDown(false);
+    }
+
+    void allFaceDown() {
+        // TODO: Is this necessary???? At the end of a turn to ensure no cards are face up.
+        for (Card[] c : cards) {
+            for (Card card : c) {
+                card.setFaceDown(true);
+            }
+        }
     }
 
     @Override

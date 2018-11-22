@@ -22,6 +22,36 @@ public class Card implements Comparable<Card>, Serializable {
      */
     private int id;
 
+    /** whether or not this Card is face down.
+     *
+     */
+    private boolean faceDown;
+
+    /**
+     * Whether or not this Card has been matched during a Memory game.
+     */
+    private boolean matched;
+
+    /**
+     * A Card with a background id; look up and set the id.
+     * Adapted from http://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
+     *
+     * @param backgroundId the id of the Card
+     */
+    Card(int backgroundId) {
+        this.id = backgroundId;
+        this.faceDown = true;
+        this.matched = false;
+        String uri = "card_" + String.valueOf(id);
+        try {
+            Class res = R.drawable.class;
+            Field field = res.getField(uri);
+            this.background = field.getInt(null);
+        } catch (Exception e) {
+            Log.e("DrawableAccess", "Failed to get Card resource by id", e);
+        }
+    }
+
     /**
      * Return the background id of this Card.
      *
@@ -40,23 +70,19 @@ public class Card implements Comparable<Card>, Serializable {
         return id;
     }
 
-    /**
-     * A Card with a background id; look up and set the id.
-     * Adapted from http://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
-     *
-     * @param backgroundId the id of the Card
-     */
-    Card(int backgroundId) {
-        this.id = backgroundId;
-        String uri = "card_" + String.valueOf(id);
-        try {
-            Class res = R.drawable.class;
-            Field field = res.getField(uri);
-            this.background = field.getInt(null);
-        } catch (Exception e) {
-            Log.e("DrawableAccess", "Failed to get resource by id", e);
-        }
+    public boolean isFaceDown() {
+        return faceDown;
     }
+
+    public void setFaceDown(boolean bool) {
+        this.faceDown = bool;
+    }
+
+    public boolean isMatched() {
+        return matched;
+    }
+
+    //Method to display back or front of card ???
 
 
     @Override
