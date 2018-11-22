@@ -32,9 +32,30 @@ public class BoardManager implements Serializable {
      */
     private int difficulty;
 
+    /**
+     * Whether or not the image background is the default number pictures or
+     * the User selected image.
+     */
     boolean userTiles = false;
 
+    /**
+     * Number of Tiles.
+     */
     private final int numTiles;
+
+
+    /**
+     * Manage a new shuffled board with difficulty d.
+     *
+     * @param d the difficulty.
+     */
+    public BoardManager(int d) {
+        numMoves = 0;
+        difficulty = d;
+        numTiles = difficulty * difficulty;
+        previousMoves = new Stack<>();
+        setDifficulty(difficulty);
+    }
 
     /**
      * The name of this game is "Sliding Tiles".
@@ -140,18 +161,6 @@ public class BoardManager implements Serializable {
     }
 
 
-    /**
-     * Manage a new shuffled board with difficulty d.
-     *
-     * @param d the difficulty.
-     */
-    public BoardManager(int d) {
-        numMoves = 0;
-        difficulty = d;
-        numTiles = difficulty * difficulty;
-        previousMoves = new Stack<>();
-        setDifficulty(difficulty);
-    }
 
     /**
      * Return whether the tiles are in row-major order.

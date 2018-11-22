@@ -13,7 +13,6 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -24,6 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.CancellationException;
 
 import gamelauncher.LoginActivity;
 import gamelauncher.SlidingTileActivity;
@@ -278,9 +278,9 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         saveAccountsToFile(LoginActivity.ACCOUNTS_SAVE_FILENAME);
         saveUserToFile(LoginActivity.USER_SAVE_FILENAME);
         if (!gameWon) {
-            Toast.makeText(this, "Saved", Toast.LENGTH_LONG).show();
+            createToast("Saved");
         } else {
-            Toast.makeText(this, "Save Wiped", Toast.LENGTH_LONG).show();
+            createToast("Saved Wiped");
         }
         finish();
     }
@@ -300,7 +300,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         }
         if (boardManager.puzzleSolved()) {
             gameWon = true;
-            Toast.makeText(this, "You Win!", Toast.LENGTH_LONG).show();
+            createToast("You Win!");
         }
         display();
     }
@@ -415,5 +415,12 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
+    }
+
+    /**
+     * @param msg The message to be displayed in the Toast.
+     */
+    private void createToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 }

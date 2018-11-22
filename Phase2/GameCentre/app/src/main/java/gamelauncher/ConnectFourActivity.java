@@ -1,27 +1,18 @@
 package gamelauncher;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-
 import fall2018.csc2017.slidingtiles.R;
-import fall2018.csc2017.connectfour.ConnectFourGameActivity;
 
 public class ConnectFourActivity extends Fragment {
-    public static final String TEMP_SAVE_FILENAME = "tmp_save_file.ser";
-//    private ConnectFourBoardManager boardManager;
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_connectfour, container, false);
         Bundle args = getArguments();
@@ -38,8 +29,7 @@ public class ConnectFourActivity extends Fragment {
         launchEasyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                boardManager = new ConnectFourBoardManager(1);
-                switchToConnectFourGameActivity();
+                Toast.makeText(getContext(), "Launch Easy Game", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -79,26 +69,16 @@ public class ConnectFourActivity extends Fragment {
         scoreBoardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Launched LeaderBoard", Toast.LENGTH_SHORT).show();
-
+            createToast("Launched LeaderBoard");
             }
         });
 
     }
-    private void switchToConnectFourGameActivity() {
-        Intent tmp = new Intent(getActivity(), ConnectFourGameActivity.class);
-//        saveGameToFile(TEMP_SAVE_FILENAME);
-        startActivity(tmp);
+
+    /**
+     * @param msg The message to be displayed in the Toast.
+     */
+    private void createToast(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
-
-//    public void saveGameToFile(String fileName) {
-//        try {
-//            ObjectOutputStream outputStream = new ObjectOutputStream(
-//                    getActivity().openFileOutput(fileName, getContext().MODE_PRIVATE));
-//            outputStream.writeObject(boardManager);
-//            outputStream.close();
-//        } catch (IOException e) {
-//            Log.e("Exception", "File write failed: " + e.toString());
-//        }
 }
-
