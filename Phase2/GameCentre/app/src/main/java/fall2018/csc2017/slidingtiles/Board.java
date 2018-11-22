@@ -48,7 +48,6 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         }
     }
 
-
     /**
      * Return the number of tiles on the board.
      *
@@ -77,7 +76,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      * @param row2 the second tile row
      * @param col2 the second tile col
      */
-    public void swapTiles(int row1, int col1, int row2, int col2) {
+    void swapTiles(int row1, int col1, int row2, int col2) {
         Tile temp1 = getTile(row1, col1);
         Tile temp2 = getTile(row2, col2);
         tiles[row1][col1] = temp2;
