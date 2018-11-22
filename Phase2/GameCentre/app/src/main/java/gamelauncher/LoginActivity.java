@@ -1,7 +1,17 @@
 package gamelauncher;
 
+import android.Manifest;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -52,6 +62,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        saveDefaultImage();
         setContentView(R.layout.activity_signin_);
         loadUserAccounts(ACCOUNTS_SAVE_FILENAME);
         mUsernameView = findViewById(R.id.input_username);
@@ -167,29 +179,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    // /**
-    //  * Load the object from fileName.
-    //  *
-    //  * @param fileName the name of the file
-    //  */
-    // @SuppressWarnings({"unchecked", "SameParameterValue"})
-    // private void loadCurrentUser(String fileName) {
-    //     try {
-    //         InputStream inputStream = this.openFileInput(fileName);
-    //         if (inputStream != null) {
-    //             ObjectInputStream input = new ObjectInputStream(inputStream);
-    //
-    //             inputStream.close();
-    //         }
-    //     } catch (FileNotFoundException e) {
-    //         Log.e("login activity", "File Not Found: " + e.toString());
-    //     } catch (IOException e) {
-    //         Log.e("login activity", "Can not read file: " + e.toString());
-    //     } catch (ClassNotFoundException e) {
-    //         Log.e("login activity", "File contained unexpected data type: " + e.toString());
-    //     }
-    // }
-
     /**
      * Save the user accounts in fileName.
      *
@@ -238,5 +227,34 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void createToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Saves an image so that there is always a user image to choose from.
+     */
+    public void saveDefaultImage() {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.defaultimage);
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())){
+            checkGalleryEmpty(bitmap);
+        }
+    }
+
+    /**
+     * Final helper method to save image
+     *
+     * @param finalBitmap Default image provided by app.
+     */
+    public void checkGalleryEmpty(Bitmap finalBitmap){
+        String filename = Environment.getExternalStorageDirectory().toString() + "/Pictures";
+        try {
+            final String[] columns = {MediaStore.Images.Media._ID};
+            Cursor imageCursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null, null, null);
+            if (imageCursor.getColumnCount() == 0) {
+                MediaStore.Images.Media.insertImage(getContentResolver(), finalBitmap, filename, filename);
+            }
+            imageCursor.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
