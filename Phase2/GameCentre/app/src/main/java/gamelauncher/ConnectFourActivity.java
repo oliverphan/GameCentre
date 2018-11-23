@@ -24,11 +24,23 @@ import fall2018.csc2017.slidingtiles.R;
 import users.User;
 
 public class ConnectFourActivity extends Fragment {
+    /**
+     * Tag for the current game being played.
+     */
     public static final String GAME_TITLE = "ConnectFour";
+    /**
+     * The Board manager for the current game
+     */
     private FourBoardManager boardManager;
 
+    /**
+     * Save file for the boardManager being created
+     */
     public static final String TEMP_SAVE_FILENAME = "c4_save_file.ser";
 
+    /**
+     * The current user logged in
+     */
     private User currentUser;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,6 +55,11 @@ public class ConnectFourActivity extends Fragment {
         return view;
     }
 
+    /**
+     * Activate the Launch Easy Game button
+     *
+     * @param view the current fragment being displayed
+     */
     private void addLaunchEasyListener(View view) {
         Button launchEasyButton = view.findViewById(R.id.LaunchEasy);
         launchEasyButton.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +73,11 @@ public class ConnectFourActivity extends Fragment {
         });
     }
 
+    /**
+     * Activate the Launch Medium Game button
+     *
+     * @param view the current fragment being displayed
+     */
     private void addLaunchMediumListener(View view) {
         Button launchMediumButton = view.findViewById(R.id.LaunchMedium);
         launchMediumButton.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +90,11 @@ public class ConnectFourActivity extends Fragment {
         });
     }
 
+    /**
+     * Activate the Launch Hard Game button
+     *
+     * @param view the current fragment being displayed
+     */
     private void addLaunchHardListener(View view) {
         Button launchHardButton = view.findViewById(R.id.LaunchHard);
         launchHardButton.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +107,11 @@ public class ConnectFourActivity extends Fragment {
         });
     }
 
+    /**
+     * Activate the Load button
+     *
+     * @param view the current fragment being displayed
+     */
     private void addLoadButtonListener(View view) {
         Button loadButton = view.findViewById(R.id.LoadButton);
         final boolean saveFileExists = currentUser.getSaves().containsKey(GAME_TITLE);
@@ -102,12 +134,17 @@ public class ConnectFourActivity extends Fragment {
         }
     }
 
+    /**
+     * Activate the LeaderBoard button
+     *
+     * @param view the current fragment being displayed
+     */
     private void addLeaderBoardListener(View view) {
         Button scoreBoardButton = view.findViewById(R.id.LeaderBoardButton);
         scoreBoardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            createToast("Launched LeaderBoard");
+                createToast("Launched LeaderBoard");
             }
         });
 
@@ -138,6 +175,9 @@ public class ConnectFourActivity extends Fragment {
         }
     }
 
+    /**
+     * Loads the current user logged in.
+     */
     private void loadUserFromFile() {
         try {
             InputStream inputStream = getActivity().openFileInput(LoginActivity.USER_SAVE_FILENAME);
@@ -156,7 +196,6 @@ public class ConnectFourActivity extends Fragment {
     }
 
     @Override
-    // Probably not needed
     public void onResume() {
         super.onResume();
         loadUserFromFile();
