@@ -48,21 +48,21 @@ public class LeaderBoardActivity extends AppCompatActivity {
     @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scoreboard_);
-        leaderBoard = new LeaderBoard();
-        loadFromFile(SAVE_FILENAME);
-        Intent intent = getIntent();
-        String gameName = intent.getStringExtra(IntentKeys.GAME_TITLE_KEY);
-
-        int score = intent.getIntExtra(IntentKeys.SCORE_KEY, 0);
-        userAccounts = (HashMap<String, User>) intent.getSerializableExtra(IntentKeys.USERACCOUNTS_KEY);
-        currentUser = (User) intent.getSerializableExtra(IntentKeys.CURRENTUSER_KEY);
-
-        Score storageScore = new Score(currentUser.getName(), score);
-
-        leaderBoard.updateScores(gameName, storageScore);
-        displayLeaders(gameName);
-        saveToFile(SAVE_FILENAME);
+//        setContentView(R.layout.activity_scoreboard_);
+//        leaderBoard = new LeaderBoard();
+//        loadFromFile(SAVE_FILENAME);
+//        Intent intent = getIntent();
+////        String gameName = intent.getStringExtra(IntentKeys.GAME_TITLE_KEY);
+////
+////        int score = intent.getIntExtra(IntentKeys.SCORE_KEY, 0);
+////        userAccounts = (HashMap<String, User>) intent.getSerializableExtra(IntentKeys.USERACCOUNTS_KEY);
+////        currentUser = (User) intent.getSerializableExtra(IntentKeys.CURRENTUSER_KEY);
+//
+//        Score storageScore = new Score(currentUser.getName(), score);
+//
+//        leaderBoard.updateScores(gameName, storageScore);
+//        displayLeaders(gameName);
+//        saveToFile(SAVE_FILENAME);
     }
 
     /**
@@ -70,8 +70,8 @@ public class LeaderBoardActivity extends AppCompatActivity {
      */
     private void switchToTitleActivity() {
         Intent tmp = new Intent(this, SlidingTileActivity.class);
-        tmp.putExtra(IntentKeys.USERACCOUNTS_KEY, userAccounts);
-        tmp.putExtra(IntentKeys.CURRENTUSER_KEY, currentUser);
+//        tmp.putExtra(IntentKeys.USERACCOUNTS_KEY, userAccounts);
+//        tmp.putExtra(IntentKeys.CURRENTUSER_KEY, currentUser);
         startActivity(tmp);
     }
 
@@ -82,14 +82,14 @@ public class LeaderBoardActivity extends AppCompatActivity {
     @SuppressWarnings("unchecked")
     protected void onResume() {
         super.onResume();
-        loadFromFile(SAVE_FILENAME);
-
-        Intent intent = getIntent();
-
-        String gameName = intent.getStringExtra(IntentKeys.GAME_TITLE_KEY);
-
-        displayLeaders(gameName);
-        saveToFile(SAVE_FILENAME);
+//        loadFromFile(SAVE_FILENAME);
+//
+//        Intent intent = getIntent();
+//
+//        String gameName = intent.getStringExtra(IntentKeys.GAME_TITLE_KEY);
+//
+//        displayLeaders(gameName);
+//        saveToFile(SAVE_FILENAME);
     }
 
     /**

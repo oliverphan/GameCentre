@@ -133,7 +133,7 @@ public class SlidingTileActivity extends Fragment {
             loadButton.setClickable(saveFileExists);
             loadButton.setAlpha(.5f);
         }
-        }
+    }
 
     /**
      * Activate the scoreboard of top scores button.
@@ -164,8 +164,8 @@ public class SlidingTileActivity extends Fragment {
      */
     private void switchToLeaderBoardActivity() {
         Intent tmp = new Intent(getActivity(), LeaderBoardActivity.class);
-        tmp.putExtra(IntentKeys.GAME_TITLE_KEY, GAME_TITLE);
-        tmp.putExtra(IntentKeys.CURRENTUSER_KEY, currentUser);
+//        tmp.putExtra(IntentKeys.GAME_TITLE_KEY, GAME_TITLE);
+//        tmp.putExtra(IntentKeys.CURRENTUSER_KEY, currentUser);
         startActivity(tmp);
     }
 
@@ -217,3 +217,4 @@ public class SlidingTileActivity extends Fragment {
     private void createToast(String msg) {
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
+}
