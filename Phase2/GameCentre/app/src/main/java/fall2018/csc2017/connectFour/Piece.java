@@ -1,8 +1,10 @@
 package fall2018.csc2017.connectFour;
 
+import java.io.Serializable;
+
 import fall2018.csc2017.slidingtiles.R;
 
-public class Piece {
+public class Piece implements Serializable {
     private int player;
     private int background;
 
