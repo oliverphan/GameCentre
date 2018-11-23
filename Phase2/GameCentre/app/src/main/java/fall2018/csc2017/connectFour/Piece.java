@@ -21,10 +21,10 @@ public class Piece {
 
     void setPlayer(int player){
         this.player = player;
-        if (player == 1){
-            this.background = R.drawable.piece_1;
+        if (player == 0){
+            this.background = R.drawable.empty_piece;
         }else{
-            this.background = R.drawable.piece_2;
+            this.background = (player == 1) ? R.drawable.piece_1 : R.drawable.piece_2;
         }
     }
 

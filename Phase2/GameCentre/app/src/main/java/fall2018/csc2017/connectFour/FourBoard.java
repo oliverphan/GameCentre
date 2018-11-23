@@ -1,21 +1,33 @@
 package fall2018.csc2017.connectFour;
 
-import java.util.Random;
+import java.io.Serializable;
+import java.util.Observable;
 
-public class FourBoard {
-    private Piece[][] pieces;
-    private final int NUM_COLS = 7;
-    private final int NUM_ROWS = 6;
-    private int curPlayer;
+public class FourBoard extends Observable implements Serializable {
+    Piece[][] pieces;
+    final int NUM_COLS = 7;
+    final int NUM_ROWS = 6;
+    int curPlayer;
 
-    public FourBoard(){
+    public FourBoard() {
+        this.pieces = new Piece[NUM_COLS][NUM_ROWS];
         createBoard();
-        initPlayer();
+        curPlayer = 1;
     }
 
-    private void initPlayer() {
-        this.curPlayer = new Random().nextInt(2) + 1;
+    public FourBoard(Piece[][] pieces) {
+        this.pieces = new Piece[NUM_COLS][NUM_ROWS];
+        for (int col = 0; col < NUM_COLS; col++) {
+            for (int row = 0; row < NUM_ROWS; row++) {
+                this.pieces[col][row] = new Piece();
+                this.pieces[col][row].setPlayer(pieces[col][row].getPlayer());
+            }
+        }
     }
+
+//    private void initPlayer() {
+//        this.curPlayer = new Random().nextInt(2) + 1;
+//    }
 
     private void createBoard() {
         for (int col = 0; col < NUM_COLS; col++) {
@@ -96,8 +108,8 @@ public class FourBoard {
         return true;
     }
 
-    private int openRow(int col) {
-        for (int row = 0; row < NUM_ROWS; row++) {
+    int openRow(int col) {
+        for (int row = 5; row > -1; row--) {
             if (pieces[col][row].getPlayer() == 0) {
                 return row;
             }
@@ -105,7 +117,28 @@ public class FourBoard {
         return -1;
     }
 
-    public void makeMove(int col, int player) {
+    void makeMove(int col, int player) {
         pieces[col][openRow(col)].setPlayer(player);
+        switchPlayer();
+        setChanged();
+        notifyObservers();
+    }
+
+//    void undoMove(int col) {
+//        for (int row = 0; row < NUM_ROWS; row++) {
+//            if (pieces[col][row].getPlayer() != 0) {
+//                pieces[col][row].setPlayer(0);
+//            }
+//        }
+//        setChanged();
+//        notifyObservers();
+//    }
+
+    void switchPlayer(){
+        curPlayer = curPlayer == 1 ? 2 : 1;
+    }
+
+    Piece getPiece(int col, int row){
+        return pieces[col][row];
     }
 }

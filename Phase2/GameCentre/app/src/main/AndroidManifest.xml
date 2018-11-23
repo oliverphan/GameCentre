@@ -24,6 +24,7 @@
             android:name="gamelauncher.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity android:name="fall2018.csc2017.connectFour.FourGameActivity"/>
     </application>
 
 </manifest>
