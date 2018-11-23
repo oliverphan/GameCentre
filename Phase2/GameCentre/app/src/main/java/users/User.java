@@ -109,7 +109,7 @@ public class User implements Serializable {
      * @param game game name
      * @param boardManager the board manager to save to this user
      */
-    public void writeGame(String game, BoardManager boardManager) {
+    public void writeGame(String game, Object boardManager) {
         saves.put(game, boardManager);
     }
 }

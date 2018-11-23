@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.concurrent.CancellationException;
 
 import gamelauncher.LoginActivity;
 import gamelauncher.SlidingTileActivity;
@@ -272,7 +271,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     /**
      * Switch to the title screen. Only to be called when the game is won.
      */
-    private void switchToSlidingTilesTitleActivity() {
+    private void switchToSlidingTilesActivity() {
         loadUserFromFile();
         loadUsersFromFile();
         saveAccountsToFile(LoginActivity.ACCOUNTS_SAVE_FILENAME);
@@ -287,7 +286,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
 
     @Override
     public void onBackPressed() {
-        switchToSlidingTilesTitleActivity();
+        switchToSlidingTilesActivity();
     }
 
     @Override

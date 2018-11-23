@@ -29,11 +29,6 @@ import android.widget.TextView;
 
 public class SlidingTileActivity extends Fragment {
     /**
-     * The tag of the fragment
-     */
-    public static final String TAG = "SlidingTiles";
-
-    /**
      * The name of the game.
      */
     public static final String GAME_TITLE = "Sliding Tiles";
@@ -154,7 +149,6 @@ public class SlidingTileActivity extends Fragment {
      */
     private void switchToSlidingTileGameActivity() {
         Intent tmp = new Intent(getActivity(), SlidingTileGameActivity.class);
-        tmp.putExtra("currentUser", currentUser.getName());
         saveGameToFile(TEMP_SAVE_FILENAME);
         startActivity(tmp);
     }
