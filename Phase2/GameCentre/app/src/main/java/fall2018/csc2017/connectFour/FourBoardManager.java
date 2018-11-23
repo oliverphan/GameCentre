@@ -5,7 +5,7 @@ import java.util.Stack;
 
 public class FourBoardManager implements Serializable {
     private FourBoard board;
-//    private int numMoves;
+    private int numMoves;
 //    Stack<Integer> previousMoves;
     private int difficulty;
 
@@ -13,7 +13,7 @@ public class FourBoardManager implements Serializable {
         return this.board;
     }
 
-    FourBoardManager(int d){
+    public FourBoardManager(int d){
         difficulty = d;
 //        previousMoves = new Stack<>();
         board = new FourBoard();
@@ -27,12 +27,19 @@ public class FourBoardManager implements Serializable {
     void makeMove(int position){
         int col = position % board.NUM_COLS;
         if (board.openRow(col) > -1){
-//            numMoves++;
+            numMoves++;
 //            previousMoves.push(col);
             board.makeMove(col, board.curPlayer);
         }
     }
 
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public int generateScore(){
+        return 100*difficulty*numMoves - (board.isWinner(1) ? 0 : 10*difficulty);
+    }
 //    void undoMove(int numToUndo) {
 //        if (!gameFinished()) {
 //            for (int i = 0; i < numToUndo; i++) {
