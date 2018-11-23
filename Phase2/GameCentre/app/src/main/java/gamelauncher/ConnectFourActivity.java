@@ -1,5 +1,6 @@
 package gamelauncher;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import fall2018.csc2017.connectFour.FourGameActivity;
 import fall2018.csc2017.slidingtiles.R;
 
 public class ConnectFourActivity extends Fragment {
@@ -29,7 +31,8 @@ public class ConnectFourActivity extends Fragment {
         launchEasyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Launch Easy Game", Toast.LENGTH_SHORT).show();
+                Intent tmp = new Intent(getActivity(), FourGameActivity.class);
+                startActivity(tmp);
             }
         });
     }
