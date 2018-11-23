@@ -2,28 +2,45 @@ package fall2018.csc2017.connectFour;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 
 import fall2018.csc2017.slidingtiles.R;
+import gamelauncher.ConnectFourActivity;
+import gamelauncher.LoginActivity;
+import users.User;
 
 public class FourGameActivity extends AppCompatActivity implements Observer {
     private FourBoardManager boardManager;
     private ArrayList<Button> boardButtons;
-    private int difficulty = 2;
+    private int difficulty;
     private FourGestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
+    private User currentUser;
+    private HashMap<String, User> userAccounts;
+    private boolean gameWon;
+
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boardManager = new FourBoardManager(2);
+        loadGameFromFile();
+        loadUserFromFile();
+        difficulty = boardManager.getDifficulty();
         createBoardButtons();
         setContentView(R.layout.activity_connectfourgame);
 //        addUndoButtonListener();
@@ -83,7 +100,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer {
         ArrayList<Integer> bestMoves = new ArrayList<>();
         int bestMoveScore = Collections.max(potentialMoves);
         for (int i = 0; i < potentialMoves.size(); i++){
-            if (potentialMoves.get(i) == bestMoveScore){
+            if (potentialMoves.get(i) == bestMoveScore && board.openRow(i) != -1){
                 bestMoves.add(i);
             }
         }
@@ -93,7 +110,13 @@ public class FourGameActivity extends AppCompatActivity implements Observer {
         System.out.println(bestMoveScore);
         System.out.print("Best Moves:");
         System.out.println(bestMoves);
-        int move =  bestMoves.get(new Random().nextInt(bestMoves.size()));
+        ArrayList<Integer> allowedMoves = new ArrayList<>();
+        for (int i = 0; i < board.NUM_COLS; i++){
+            if (board.openRow(i) != -1){
+                allowedMoves.add(i);
+            }
+        }
+        int move =  bestMoves.size() > 0 ? bestMoves.get(new Random().nextInt(bestMoves.size())): allowedMoves.get(new Random().nextInt(allowedMoves.size()));
 //        boardManager.previousMoves.push(move);
         return move;
     }
@@ -128,7 +151,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer {
                 }else{
                     for (int eMove = 0; eMove < 7; eMove++){
                         FourBoard dupe2 = new FourBoard(dupe.pieces);
-                        if (dupe.openRow(eMove) == -1){
+                        if (dupe2.openRow(eMove) == -1){
                             continue;
                         }
                         dupe2.makeMove(eMove, 1);
@@ -160,6 +183,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer {
     public void update(Observable o, Object arg) {
         FourBoard board = boardManager.getBoard();
         if (boardManager.gameFinished()) {
+            gameWon = board.isWinner(1);
             createToast(board.isWinner(1) ? "You Win!" : "You Lose");
         }else{
         if (board.curPlayer == 2){
@@ -167,6 +191,137 @@ public class FourGameActivity extends AppCompatActivity implements Observer {
             board.switchPlayer();
         }
         display();
+    }
+
+    @Override
+    public void onBackPressed() {
+        switchToConnectFourActivity();
+    }
+
+    public void switchToConnectFourActivity(){
+        loadUserFromFile();
+        loadUsersFromFile();
+        saveAccountsToFile(LoginActivity.ACCOUNTS_SAVE_FILENAME);
+        saveUserToFile(LoginActivity.USER_SAVE_FILENAME);
+        if (!boardManager.gameFinished()) {
+            createToast("Saved");
+        } else {
+            createToast("Saved Wiped");
+        }
+        finish();
+    }
+    /**
+     * Load the board manager from fileName.
+     */
+    @SuppressWarnings("unchecked")
+    private void loadUserFromFile() {
+        try {
+            InputStream inputStream = this.openFileInput(LoginActivity.USER_SAVE_FILENAME);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                currentUser = (User) input.readObject();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("load game activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("load game activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("load game activity", "File contained unexpected data type: " + e.toString());
+        }
+    }
+
+    /**
+     * Load the board manager from fileName.
+     */
+    private void loadGameFromFile() {
+        try {
+            InputStream inputStream = this.openFileInput(ConnectFourActivity.TEMP_SAVE_FILENAME);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                boardManager = (FourBoardManager) input.readObject();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        }
+    }
+
+    /**
+     * Load the board manager from fileName.
+     */
+    @SuppressWarnings("unchecked")
+    private void loadUsersFromFile() {
+        try {
+            InputStream inputStream = this.openFileInput(LoginActivity.ACCOUNTS_SAVE_FILENAME);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                userAccounts = (HashMap<String, User>) input.readObject();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("load game activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("load game activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("load game activity", "File contained unexpected data type: " + e.toString());
+        }
+    }
+
+
+
+    /**
+     * Store the new score and delete the old save in the User if the game is won.
+     * If game hasn't been won, store the most recent boardManager to the User.
+     */
+    public void writeNewValues() {
+        if (!boardManager.gameFinished()) {
+            currentUser.writeGame(ConnectFourActivity.GAME_TITLE, boardManager);
+        } else {
+            currentUser.setNewScore(ConnectFourActivity.GAME_TITLE, boardManager.generateScore());
+            currentUser.deleteSave(ConnectFourActivity.GAME_TITLE);
+        }
+    }
+
+    /**
+     * Save the user account info to fileName.
+     *
+     * @param fileName the name of the file
+     */
+    public void saveUserToFile(String fileName) {
+        try {
+            loadUsersFromFile();
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    this.openFileOutput(fileName, MODE_PRIVATE));
+            writeNewValues();
+            outputStream.writeObject(currentUser);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    /**
+     * Save the user account info to fileName.
+     *
+     * @param fileName the name of the file
+     */
+    public void saveAccountsToFile(String fileName) {
+        try {
+            loadUsersFromFile();
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    this.openFileOutput(fileName, MODE_PRIVATE));
+            writeNewValues();
+            userAccounts.put(currentUser.getName(), currentUser);
+            outputStream.writeObject(userAccounts);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
     }
 
     private void createToast(String msg) {
