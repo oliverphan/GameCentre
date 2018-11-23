@@ -25,17 +25,37 @@ import gamelauncher.LoginActivity;
 import users.User;
 
 public class FourGameActivity extends AppCompatActivity implements Observer {
+    /**
+     * The Board manager.
+     */
     private FourBoardManager boardManager;
+
+    /**
+     * The buttons on the board.
+     */
     private ArrayList<Button> boardButtons;
+
+    /**
+     * The difficulty of the current game.
+     */
     private int difficulty;
+
+    // Grid View and calculated column height and width based on device size
     private FourGestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
+
+    /**
+     * Current user logged in.
+     */
     private User currentUser;
+
+    /**
+     * HashMap of all userAccounts
+     */
     private HashMap<String, User> userAccounts;
-    private boolean gameWon;
 
 
-
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadGameFromFile();
@@ -71,6 +91,9 @@ public class FourGameActivity extends AppCompatActivity implements Observer {
 //        });
 //    }
 
+    /**
+     * Get the initial backgrounds of the pieces on the grid.
+     */
     public void createBoardButtons() {
         FourBoard board = boardManager.getBoard();
         boardButtons = new ArrayList<>();
@@ -83,6 +106,9 @@ public class FourGameActivity extends AppCompatActivity implements Observer {
         }
     }
 
+    /**
+     * Update the backgrounds of the pieces on the grid.
+     */
     public void updateBoardButtons(){
         FourBoard board = boardManager.getBoard();
         int nextPos = 0;
@@ -94,7 +120,12 @@ public class FourGameActivity extends AppCompatActivity implements Observer {
         }
     }
 
+    /**
+     * Main method for AI player to make a smart move.
+     * @return return the best move (or random move if all moves result in a loss).
+     */
     public int getComputerMove(){
+        //TODO Remove test printing and optimize
         FourBoard board = boardManager.getBoard();
         ArrayList<Integer> potentialMoves = getPotentialMoves(boardManager.getBoard(), difficulty);
         ArrayList<Integer> bestMoves = new ArrayList<>();
@@ -121,7 +152,14 @@ public class FourGameActivity extends AppCompatActivity implements Observer {
         return move;
     }
 
+    /**
+     * Helper method to evaluate and return the best scores of moves for a given board.
+     * @param board the board being evaluated
+     * @param d amount of moves to look ahead.
+     * @return list of scores for potential moves
+     */
     public ArrayList<Integer> getPotentialMoves(FourBoard board, int d){
+        //TODO Optimize and potentially extract more methods
         if (d == 0){
             ArrayList<Integer> moves = new ArrayList<>();
             for (int i = 0; i < 7; i++){moves.add(0);}
@@ -174,16 +212,19 @@ public class FourGameActivity extends AppCompatActivity implements Observer {
         return potentialMoves;
     }
 
+    /**
+     * Update and display changes to the gameBoard.
+     */
     public void display() {
         updateBoardButtons();
         gridView.setAdapter(new FourCustomAdapter(boardButtons, columnWidth, columnHeight));
     }
 
+
     @Override
     public void update(Observable o, Object arg) {
         FourBoard board = boardManager.getBoard();
         if (boardManager.gameFinished()) {
-            gameWon = board.isWinner(1);
             createToast(board.isWinner(1) ? "You Win!" : "You Lose");
         }else{
         if (board.curPlayer == 2){
@@ -198,6 +239,9 @@ public class FourGameActivity extends AppCompatActivity implements Observer {
         switchToConnectFourActivity();
     }
 
+    /**
+     * Method to switch back to previous Activity
+     */
     public void switchToConnectFourActivity(){
         loadUserFromFile();
         loadUsersFromFile();
@@ -324,6 +368,10 @@ public class FourGameActivity extends AppCompatActivity implements Observer {
         }
     }
 
+    /**
+     * Display a message to the user in a Toast.
+     * @param msg The message to be displayed in the Toast.
+     */
     private void createToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
