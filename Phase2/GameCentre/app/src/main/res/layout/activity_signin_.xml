@@ -31,8 +31,7 @@
     <Button
         android:id="@+id/login_button"
         android:layout_width="213dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="192dp"
+        android:layout_height="48dp"
         android:background="@drawable/button_background"
         android:fontFamily="@font/baumans"
         android:shadowColor="#A8A8A8"
@@ -42,10 +41,8 @@
         android:text="Log In"
         android:textColor="@android:color/holo_green_light"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_password" />
+        tools:layout_editor_absoluteX="86dp"
+        tools:layout_editor_absoluteY="328dp" />
 
 
     <EditText
@@ -85,9 +82,9 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="14dp"
+        android:layout_width="370dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="71dp"
         android:layout_marginBottom="118dp"
         android:fontFamily="@font/baumans"
