@@ -21,12 +21,15 @@
 
     <Button
         android:id="@+id/user"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="45dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/button_custom"
+        android:textColor="@android:color/holo_green_light"
+        app:layout_constraintBottom_toTopOf="@+id/grid"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,12 +37,16 @@
 
     <Button
         android:id="@+id/undoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="85dp"
+        android:layout_height="45dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/button_custom"
         android:fontFamily="@font/baumans"
         android:text="@string/undo_button_text"
+        android:textColor="@android:color/holo_green_light"
+        app:layout_constraintBottom_toTopOf="@+id/grid"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/inputUndo"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
