@@ -11,7 +11,6 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import gamelauncher.LoginActivity;
 import users.User;
 
 /**
@@ -21,14 +20,24 @@ import users.User;
  */
  public interface SaveAndLoad {
 
+    /**
+     * The save file for userAccounts.
+     */
+    public static final String ACCOUNTS_SAVE_FILENAME = "accounts_save_file.ser";
+
+    /**
+     * The save file for currentUser.
+     */
+    public static final String USER_SAVE_FILENAME = "user_save_file.ser";
+
    /**
     * Load the user accounts
     * @return HashMap<String, User> m, the Map of the user accounts.
     */
    @SuppressWarnings("unchecked")
-    default Map<String, User> loadUserAccounts()  {
+    default HashMap<String, User> loadUserAccounts()  {
       try {
-          InputStream inputStream = getActivity().openFileInput(LoginActivity.ACCOUNTS_SAVE_FILENAME);
+          InputStream inputStream = getActivity().openFileInput(ACCOUNTS_SAVE_FILENAME);
           if (inputStream != null) {
               ObjectInputStream input = new ObjectInputStream(inputStream);
               HashMap<String, User> result = (HashMap<String, User>) input.readObject();
@@ -51,7 +60,7 @@ import users.User;
      */
     default String loadCurrentUsername() {
        try {
-           InputStream inputStream = getActivity().openFileInput(LoginActivity.USER_SAVE_FILENAME);
+           InputStream inputStream = getActivity().openFileInput(USER_SAVE_FILENAME);
            if (inputStream != null){
                ObjectInputStream input = new ObjectInputStream(inputStream);
                String result = (String) input.readObject();
@@ -75,7 +84,7 @@ import users.User;
     default void saveUserAccounts(Map<String, User> accounts) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
-                    getActivity().openFileOutput(LoginActivity.ACCOUNTS_SAVE_FILENAME, Context.MODE_PRIVATE));
+                    getActivity().openFileOutput(ACCOUNTS_SAVE_FILENAME, Context.MODE_PRIVATE));
             outputStream.writeObject(accounts);
             outputStream.close();
         } catch (IOException e) {
@@ -89,7 +98,7 @@ import users.User;
     default void saveCurrentUsername(String username) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
-                    getActivity().openFileOutput(LoginActivity.USER_SAVE_FILENAME, Context.MODE_PRIVATE));
+                    getActivity().openFileOutput(USER_SAVE_FILENAME, Context.MODE_PRIVATE));
             outputStream.writeObject(username);
             outputStream.close();
         } catch (IOException e) {

@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoad {
         ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         saveDefaultImage();
         setContentView(R.layout.activity_signin_);
-        userAccounts = (HashMap<String, User>) loadUserAccounts();
+        userAccounts = loadUserAccounts();
         mUsernameView = findViewById(R.id.input_username);
         mPasswordView = findViewById(R.id.input_password);
         addLoginButtonListener();
