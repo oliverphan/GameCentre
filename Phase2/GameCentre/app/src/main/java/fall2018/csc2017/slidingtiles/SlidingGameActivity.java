@@ -35,7 +35,7 @@ import fall2018.csc2017.R;
 /**
  * The game activity.
  */
-public class SlidingTileGameActivity extends AppCompatActivity implements Observer, SaveAndLoad {
+public class SlidingGameActivity extends AppCompatActivity implements Observer, SaveAndLoad {
 
     /**
      * The board manager.

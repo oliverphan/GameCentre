@@ -21,7 +21,7 @@ import java.util.HashMap;
 import fall2018.csc2017.common.SaveAndLoad;
 import fall2018.csc2017.slidingtiles.SlidingBoardManager;
 import fall2018.csc2017.R;
-import fall2018.csc2017.slidingtiles.SlidingTileGameActivity;
+import fall2018.csc2017.slidingtiles.SlidingGameActivity;
 import scoring.LeaderBoardActivity;
 import users.User;
 
@@ -152,7 +152,7 @@ public class SlidingTileActivity extends Fragment implements SaveAndLoad {
      * Switch to the SlidingTilesGameActivity view
      */
     private void switchToSlidingTileGameActivity() {
-        Intent tmp = new Intent(getActivity(), SlidingTileGameActivity.class);
+        Intent tmp = new Intent(getActivity(), SlidingGameActivity.class);
         saveGameToFile(TEMP_SAVE_FILENAME);
         startActivity(tmp);
     }
