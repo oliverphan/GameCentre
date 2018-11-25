@@ -47,7 +47,7 @@ public class LeaderBoardActivity extends AppCompatActivity implements SaveAndLoa
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new SlidingTileLeaderBoardFragment());
         adapter.addFragment(new FourLeaderBoardFragment());
-        adapter.addFragment(new MemoryLeaderBoardFragment());
+        adapter.addFragment(new ConcentrationLeaderBoardFragment());
         viewPager.setAdapter(adapter);
     }
 

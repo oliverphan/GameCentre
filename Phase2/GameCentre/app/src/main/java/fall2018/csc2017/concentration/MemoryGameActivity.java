@@ -22,7 +22,7 @@
 //import fall2018.csc2017.common.GestureDetectGridView;
 //import fall2018.csc2017.common.CustomAdapter;
 //import fall2018.csc2017.gamelauncher.LoginActivity;
-//import fall2018.csc2017.gamelauncher.MemoryFragment;
+//import fall2018.csc2017.gamelauncher.ConcentrationFragment;
 //import fall2018.csc2017.users.User;
 //
 ///**
@@ -31,9 +31,9 @@
 //public class MemoryGameActivity extends AppCompatActivity implements Observer, SaveAndLoad {
 //
 //    /**
-//     * The MemoryBoardManager.
+//     * The ConcentrationBoardManager.
 //     */
-//    private MemoryBoardManager memoryBoardManager;
+//    private ConcentrationBoardManager memoryBoardManager;
 //
 //    /**
 //     * The buttons to display.
@@ -114,7 +114,7 @@
 //     * Create the buttons for displaying the cards.
 //     */
 //    private void createCardButtons() {
-//        MemoryBoard board = memoryBoardManager.getMemoryBoard();
+//        ConcentrationBoard board = memoryBoardManager.getMemoryBoard();
 //        cardButtons = new ArrayList<>();
 //        for (int row = 0; row < difficulty; row++) {
 //            for (int col = 0; col < difficulty; col++) {
@@ -129,7 +129,7 @@
 //     * Update the backgrounds on the buttons to match the cards.
 //     */
 //    private void updateCardButtons() {
-//        MemoryBoard memoryBoard = memoryBoardManager.getMemoryBoard();
+//        ConcentrationBoard memoryBoard = memoryBoardManager.getMemoryBoard();
 //        // Updated pictures in event of a tap
 //        // Whether to tap to the front or the back
 //    }
@@ -163,10 +163,10 @@
 //     */
 //    private void loadGameFromFile() {
 //        try {
-//            InputStream inputStream = this.openFileInput(MemoryFragment.TEMP_SAVE_FILENAME);
+//            InputStream inputStream = this.openFileInput(ConcentrationFragment.TEMP_SAVE_FILENAME);
 //            if (inputStream != null) {
 //                ObjectInputStream input = new ObjectInputStream(inputStream);
-//                memoryBoardManager = (MemoryBoardManager) input.readObject();
+//                memoryBoardManager = (ConcentrationBoardManager) input.readObject();
 //                inputStream.close();
 //            }
 //        } catch (FileNotFoundException e) {
@@ -184,10 +184,10 @@
 //     */
 //    public void writeNewValues() {
 //        if (!memoryBoardManager.gameFinished()) {
-//            currentUser.writeGame(MemoryFragment.GAME_TITLE, memoryBoardManager);
+//            currentUser.writeGame(ConcentrationFragment.GAME_TITLE, memoryBoardManager);
 //        } else {
-//            currentUser.setNewScore(MemoryFragment.GAME_TITLE, memoryBoardManager.generateScore());
-//            currentUser.deleteSave(MemoryFragment.GAME_TITLE);
+//            currentUser.setNewScore(ConcentrationFragment.GAME_TITLE, memoryBoardManager.generateScore());
+//            currentUser.deleteSave(ConcentrationFragment.GAME_TITLE);
 //        }
 //    }
 //

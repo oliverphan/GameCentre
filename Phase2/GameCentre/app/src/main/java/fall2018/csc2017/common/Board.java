@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 
-import fall2018.csc2017.memory.Card;
+import fall2018.csc2017.concentration.Card;
 import fall2018.csc2017.connectfour.Piece;
 import fall2018.csc2017.slidingtiles.Tile;
 
@@ -49,7 +49,7 @@ public abstract class Board<T> extends Observable implements Serializable, Itera
     /**
      * @param tokens
      */
-    // For SlidingBoard, MemoryBoard
+    // For SlidingBoard, ConcentrationBoard
     protected Board(List<T> tokens) {
         Class<?> classT = tokens.get(0).getClass();
         Iterator<T> iterator = tokens.iterator();

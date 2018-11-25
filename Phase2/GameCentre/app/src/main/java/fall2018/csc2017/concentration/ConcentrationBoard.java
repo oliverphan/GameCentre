@@ -1,4 +1,4 @@
-package fall2018.csc2017.memory;
+package fall2018.csc2017.concentration;
 
 import java.util.Arrays;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.List;
 import fall2018.csc2017.common.Board;
 
 /**
- * The MemoryBoard tiles board.
+ * The ConcentrationBoard tiles board.
  */
-public class MemoryBoard extends Board<Card> {
+public class ConcentrationBoard extends Board<Card> {
 
     /**
      * The cards on the board in row-major order.
@@ -16,21 +16,21 @@ public class MemoryBoard extends Board<Card> {
     private Card[][] cards;
 
     /**
-     * A new MemoryBoard in row-major order.
+     * A new ConcentrationBoard in row-major order.
      * Precondition: len(tiles) == numRows * numCols
      *
-     * @param cards the cards contained in this MemoryBoard
+     * @param cards the cards contained in this ConcentrationBoard
      */
-    MemoryBoard(List<Card> cards) {
+    ConcentrationBoard(List<Card> cards) {
         super(cards);
         this.cards = super.tokens;
     }
 
 
 //    /**
-//     * Return the total amount of Cards contained on this MemoryBoard, not the amount of unique cards.
+//     * Return the total amount of Cards contained on this ConcentrationBoard, not the amount of unique cards.
 //     *
-//     * @return the total amount of Cards in this MemoryBoard
+//     * @return the total amount of Cards in this ConcentrationBoard
 //     */
 //    int numCards() {
 //        return numRows * this.numCols;
@@ -76,7 +76,7 @@ public class MemoryBoard extends Board<Card> {
 
     @Override
     public String toString() {
-        return "MemoryBoard{" +
+        return "ConcentrationBoard{" +
                 "cards=" + Arrays.toString(cards) +
                 "}";
     }

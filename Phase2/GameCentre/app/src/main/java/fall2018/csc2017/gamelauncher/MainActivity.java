@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements SaveAndLoad {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new SlidingFragment());
         adapter.addFragment(new FourFragment());
-        adapter.addFragment(new MemoryFragment());
+        adapter.addFragment(new ConcentrationFragment());
         viewPager.setAdapter(adapter);
     }
 
