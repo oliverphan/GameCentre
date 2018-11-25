@@ -63,7 +63,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         setContentView(R.layout.activity_signin_);
         loadUserAccounts(ACCOUNTS_SAVE_FILENAME);
         mUsernameView = findViewById(R.id.input_username);
