@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class LeaderBoardTest {
+public class LeaderSlidingBoardTest {
 
     /**
      * The LeaderBoard for testing

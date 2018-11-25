@@ -32,7 +32,7 @@ public class ConnectFourActivity extends Fragment implements SaveAndLoad {
      */
     public static final String GAME_TITLE = "Connect Four";
     /**
-     * The Board manager for the current game
+     * The SlidingBoard manager for the current game
      */
     private FourBoardManager boardManager;
 

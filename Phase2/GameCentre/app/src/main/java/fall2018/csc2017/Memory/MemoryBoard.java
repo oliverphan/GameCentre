@@ -57,17 +57,6 @@ public class MemoryBoard extends Observable implements Serializable, Iterable<Ca
         return numRows * this.numCols;
     }
 
-//    /**
-//     * Return the number of unique Cards which are contained on this MemoryBoard.
-//     *
-//     * @return the amount of unique Cards in this MemoryBoard
-//     */
-//    int numUniqueCards() {
-//        return this.numCards() / 2;
-//    }
-// TODO: I don't think we need this.....
-
-
     Card getCard(int row, int col) {
         return cards[row][col];
     }
