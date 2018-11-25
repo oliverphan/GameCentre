@@ -254,21 +254,6 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         switchToSlidingTilesActivity();
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        int moves = slidingBoardManager.getNumMoves() % 10;
-        // Autosave - Old slidingBoardManager is replaced if there is one.
-        if (moves == 0 && !gameWon) {
-            currentUser.getSaves().put(SlidingTileActivity.GAME_TITLE, slidingBoardManager);
-            saveUserAccounts(userAccounts);
-        }
-        if (slidingBoardManager.puzzleSolved()) {
-            gameWon = true;
-            createToast("You Win!");
-        }
-        display();
-    }
-
     /**
      * Load the board manager from fileName.
      */
