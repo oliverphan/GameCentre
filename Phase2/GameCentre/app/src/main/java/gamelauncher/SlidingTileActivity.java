@@ -17,14 +17,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
 
+import fall2018.csc2017.SaveAndLoad;
 import fall2018.csc2017.slidingtiles.BoardManager;
 import fall2018.csc2017.R;
 import fall2018.csc2017.slidingtiles.SlidingTileGameActivity;
 import scoring.LeaderBoardActivity;
 import users.User;
 
-public class SlidingTileActivity extends Fragment {
+public class SlidingTileActivity extends Fragment implements SaveAndLoad {
     /**
      * The name of the game.
      */
@@ -36,7 +38,7 @@ public class SlidingTileActivity extends Fragment {
     public static final String TEMP_SAVE_FILENAME = "tmp_save_file.ser";
 
     /**
-     * The current logged in user.
+     * The name of the current logged in user.
      */
     private User currentUser;
 
@@ -45,10 +47,16 @@ public class SlidingTileActivity extends Fragment {
      */
     private BoardManager boardManager;
 
+    /**
+     * A HashMap of all the Users created. The key is the username, the value is the User object.
+     */
+    private HashMap<String, User> userAccounts;
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_slidingtiles, container, false);
         Bundle args = getArguments();
-        loadUserFromFile();
+        userAccounts = loadUserAccounts();
+        currentUser = userAccounts.get(loadCurrentUsername());
         addLeaderBoardListener(view);
         addLaunchGame3Listener(view);
         addLaunchGame4Listener(view);
@@ -151,12 +159,10 @@ public class SlidingTileActivity extends Fragment {
     }
 
     /**
-     * Switch to the ScoreBoard view
+     * Switch to the Leaderboard view
      */
     private void switchToLeaderBoardActivity() {
         Intent tmp = new Intent(getActivity(), LeaderBoardActivity.class);
-//        tmp.putExtra(IntentKeys.GAME_TITLE_KEY, GAME_TITLE);
-//        tmp.putExtra(IntentKeys.CURRENTUSER_KEY, currentUser);
         startActivity(tmp);
     }
 
@@ -164,7 +170,8 @@ public class SlidingTileActivity extends Fragment {
     // Probably not needed
     public void onResume() {
         super.onResume();
-        loadUserFromFile();
+        userAccounts = loadUserAccounts();
+        currentUser = userAccounts.get(loadCurrentUsername());
         addLoadButtonListener(getView());
     }
 
@@ -184,23 +191,23 @@ public class SlidingTileActivity extends Fragment {
         }
     }
 
-    @SuppressWarnings("unchecked")
-    private void loadUserFromFile() {
-        try {
-            InputStream inputStream = getActivity().openFileInput(LoginActivity.USER_SAVE_FILENAME);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                currentUser = (User) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("load game activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("load game activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("load game activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
+//    @SuppressWarnings("unchecked")
+//    private void loadUserFromFile() {
+//        try {
+//            InputStream inputStream = getActivity().openFileInput(LoginActivity.USER_SAVE_FILENAME);
+//            if (inputStream != null) {
+//                ObjectInputStream input = new ObjectInputStream(inputStream);
+//                currentUser = (User) input.readObject();
+//                inputStream.close();
+//            }
+//        } catch (FileNotFoundException e) {
+//            Log.e("load game activity", "File not found: " + e.toString());
+//        } catch (IOException e) {
+//            Log.e("load game activity", "Can not read file: " + e.toString());
+//        } catch (ClassNotFoundException e) {
+//            Log.e("load game activity", "File contained unexpected data type: " + e.toString());
+//        }
+//    }
 
     /**
      * @param msg The message to be displayed in the Toast.

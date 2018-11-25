@@ -33,7 +33,7 @@ public interface SaveAndLoad {
     /**
      * Load the user accounts
      *
-     * @return HashMap<String   ,       User> m, the Map of the user accounts.
+     * @return HashMap<String, User> m, the Map of the user accounts.
      */
     @SuppressWarnings("unchecked")
     default HashMap<String, User> loadUserAccounts() {

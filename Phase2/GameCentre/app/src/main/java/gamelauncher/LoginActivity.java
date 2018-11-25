@@ -1,14 +1,8 @@
 package gamelauncher;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
+import android.content.Intent;;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
@@ -156,24 +150,6 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoad {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-    /**
-     * Final helper method to save image
-     *
-     * @param finalBitmap Default image provided by app.
-     */
-    public void checkGalleryEmpty(Bitmap finalBitmap){
-        String filename = Environment.getExternalStorageDirectory().toString() + "/Pictures";
-        try {
-            final String[] columns = {MediaStore.Images.Media._ID};
-            Cursor imageCursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null, null, null);
-            if (imageCursor.getColumnCount() == 0) {
-                MediaStore.Images.Media.insertImage(getContentResolver(), finalBitmap, filename, filename);
-            }
-            imageCursor.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
     public Context getActivity(){
         return this;
     }
