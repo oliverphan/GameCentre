@@ -17,6 +17,11 @@ public class MemoryBoardManager extends BoardManager<MemoryBoard> {
     private final int numCards;
 
     /**
+     * If there is an undo move left. Each game permits one undo move.
+     */
+    private boolean undoLeft = true;
+
+    /**
      * Manage a new MemoryBoard with the specified difficulty.
      *
      * @param difficulty the difficulty of this MemoryBoard
@@ -110,6 +115,30 @@ public class MemoryBoardManager extends BoardManager<MemoryBoard> {
                 cards[i][j] = cards[m][n];
                 cards[m][n] = temp;
             }
+        }
+    }
+
+    /**
+     * Undo a move if there is an undo move left.
+     */
+    private void undo(int position) {
+        int row = position / 4;
+        int col = position / difficulty;
+        int count = 0;
+        if (undoLeft) {
+            Card[][] cards = board.getCards();
+            for (Card[] c : cards) {
+                for (Card i : c) {
+                    if (i.isFaceDown()) {
+                        count++;
+                    }
+                }
+            }
+        }
+        if (count == 1) {
+            board.getCard(row, col).setFaceDown(true);
+            numMoves -= 1;
+            undoLeft = false;
         }
     }
 }
