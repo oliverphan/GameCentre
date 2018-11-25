@@ -1,14 +1,14 @@
 package fall2018.csc2017.slidingtiles;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,12 +18,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
+import fall2018.csc2017.SaveAndLoad;
 import gamelauncher.LoginActivity;
 import gamelauncher.SlidingTileActivity;
 import users.User;
@@ -32,7 +32,7 @@ import fall2018.csc2017.R;
 /**
  * The game activity.
  */
-public class SlidingTileGameActivity extends AppCompatActivity implements Observer {
+public class SlidingTileGameActivity extends AppCompatActivity implements Observer, SaveAndLoad {
 
     /**
      * The board manager.
@@ -52,7 +52,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     /**
      * The name of the current user.
      */
-    private User currentUser;
+    private String currentUser;
 
     /**
      * The number of tiles per side of the board.
@@ -177,16 +177,13 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
             userButton.setText(R.string.user_image_button_unpressed);
         else
             userButton.setText(R.string.user_image_button_pressed);
-        userButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!boardManager.userTiles) {
-                    pickImageFromGallery();
-                } else {
-                    userButton.setText(R.string.user_image_button_unpressed);
-                    boardManager.userTiles = false;
-                    display();
-                }
+        userButton.setOnClickListener(view -> {
+            if (!boardManager.userTiles) {
+                pickImageFromGallery();
+            } else {
+                userButton.setText(R.string.user_image_button_unpressed);
+                boardManager.userTiles = false;
+                display();
             }
         });
     }
@@ -196,16 +193,13 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
      */
     private void addUndoButtonListener() {
         final Button undoButton = findViewById(R.id.undoButton);
-        undoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                movesToUndo = findViewById(R.id.inputUndo);
-                try {
-                    int moves = Integer.valueOf(movesToUndo.getText().toString());
-                    boardManager.undoMove(moves);
-                } catch (NumberFormatException e) {
-                    boardManager.undoMove(1);
-                }
+        undoButton.setOnClickListener(view -> {
+            movesToUndo = findViewById(R.id.inputUndo);
+            try {
+                int moves = Integer.valueOf(movesToUndo.getText().toString());
+                boardManager.undoMove(moves);
+            } catch (NumberFormatException e) {
+                boardManager.undoMove(1);
             }
         });
     }
@@ -274,9 +268,9 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
      */
     private void switchToSlidingTilesActivity() {
         loadUserFromFile();
-        loadUsersFromFile();
-        saveAccountsToFile(LoginActivity.ACCOUNTS_SAVE_FILENAME);
-        saveUserToFile(LoginActivity.USER_SAVE_FILENAME);
+        loadUserAccounts();
+        saveUserAccounts(userAccounts);
+        saveCurrentUsername(currentUser);
         if (!gameWon) {
             createToast("Saved");
         } else {
@@ -295,8 +289,8 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         int moves = boardManager.getNumMoves() % 10;
         // Autosave - Old boardManager is replaced if there is one.
         if (moves == 0 && !gameWon) {
-            currentUser.getSaves().put(SlidingTileActivity.GAME_TITLE, boardManager);
-            saveAccountsToFile(LoginActivity.ACCOUNTS_SAVE_FILENAME);
+            userAccounts.get(currentUser).getSaves().put(SlidingTileActivity.GAME_TITLE, boardManager);
+            saveUserAccounts(userAccounts);
         }
         if (boardManager.puzzleSolved()) {
             gameWon = true;
@@ -325,26 +319,6 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         }
     }
 
-    /**
-     * Load the board manager from fileName.
-     */
-    @SuppressWarnings("unchecked")
-    private void loadUsersFromFile() {
-        try {
-            InputStream inputStream = this.openFileInput(LoginActivity.ACCOUNTS_SAVE_FILENAME);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                userAccounts = (HashMap<String, User>) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("load game activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("load game activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("load game activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
 
     /**
      * Load the board manager from fileName.
@@ -355,7 +329,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
             InputStream inputStream = this.openFileInput(LoginActivity.USER_SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                currentUser = (User) input.readObject();
+                currentUser = (String) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -373,54 +347,22 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
      */
     public void writeNewValues() {
         if (!gameWon) {
-            currentUser.writeGame(SlidingTileActivity.GAME_TITLE, boardManager);
+            userAccounts.get(currentUser).writeGame(SlidingTileActivity.GAME_TITLE, boardManager);
         } else {
-            currentUser.setNewScore(SlidingTileActivity.GAME_TITLE, boardManager.generateScore());
-            currentUser.deleteSave(SlidingTileActivity.GAME_TITLE);
+            userAccounts.get(currentUser).setNewScore(SlidingTileActivity.GAME_TITLE, boardManager.generateScore());
+            userAccounts.get(currentUser).deleteSave(SlidingTileActivity.GAME_TITLE);
         }
     }
 
-    /**
-     * Save the user account info to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveUserToFile(String fileName) {
-        try {
-            loadUsersFromFile();
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            writeNewValues();
-            outputStream.writeObject(currentUser);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
-
-    /**
-     * Save the user account info to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveAccountsToFile(String fileName) {
-        try {
-            loadUsersFromFile();
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            writeNewValues();
-            userAccounts.put(currentUser.getName(), currentUser);
-            outputStream.writeObject(userAccounts);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
 
     /**
      * @param msg The message to be displayed in the Toast.
      */
     private void createToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+
+    public Context getActivity(){
+        return this;
     }
 }

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
 
 class LeaderBoard implements Serializable {
 
@@ -27,9 +26,9 @@ class LeaderBoard implements Serializable {
         temp.add(new Score("", -1));
         temp.add(new Score( "", -1));
         temp.add(new Score("", -1));
-        this.gameScores.put("Sliding Tiles", new ArrayList<Score>(temp));
-        this.gameScores.put("Connect 4", new ArrayList<Score>(temp));
-        this.gameScores.put("Memory Tiles", new ArrayList<Score>(temp));
+        this.gameScores.put("Sliding Tiles", new ArrayList<>(temp));
+        this.gameScores.put("Connect 4", new ArrayList<>(temp));
+        this.gameScores.put("Memory Tiles", new ArrayList<>(temp));
     }
 
     /**
@@ -53,7 +52,7 @@ class LeaderBoard implements Serializable {
         // topScores is an ArrayList of the top three score objects for this game.
         ArrayList<Score> topScores = this.gameScores.get(gameName);
 
-        Collections.sort(topScores, Collections.reverseOrder(new ScoreComparator()));
+        topScores.sort(Collections.reverseOrder(new ScoreComparator()));
 
         for (int i = 0; i < NUM_LEADERBOARD_SLOTS; i++) {
             if (newScore.getValue() > topScores.get(i).getValue()) {
@@ -62,9 +61,5 @@ class LeaderBoard implements Serializable {
                 break;
             }
         }
-    }
-
-    Map getGameScores() {
-        return this.gameScores;
     }
 }
