@@ -56,8 +56,8 @@ public class LeaderBoard implements Serializable {
 
         for (int i = 0; i < NUM_LEADERBOARD_SLOTS; i++) {
             if (newScore.getValue() > topScores.get(i).getValue()) {
-                topScores.add(i, newScore);
                 topScores.remove(topScores.size() - 1);
+                topScores.add(i, newScore);
                 break;
             }
         }

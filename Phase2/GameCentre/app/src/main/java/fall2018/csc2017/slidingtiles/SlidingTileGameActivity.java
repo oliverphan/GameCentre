@@ -25,6 +25,8 @@ import java.util.Observer;
 
 import fall2018.csc2017.SaveAndLoad;
 import gamelauncher.SlidingTileActivity;
+import scoring.LeaderBoard;
+import scoring.Score;
 import users.User;
 import fall2018.csc2017.R;
 
@@ -338,6 +340,9 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         if (slidingBoardManager.puzzleSolved()) {
             gameWon = true;
             createToast("You Win!");
+            LeaderBoard leaderBoard = loadLeaderBoard();
+            leaderBoard.updateScores("Sliding Tiles", new Score(currentUser.getName(), slidingBoardManager.generateScore()));
+            saveLeaderBoard(leaderBoard);
         }
         display();
     }
