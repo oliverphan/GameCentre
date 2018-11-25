@@ -19,7 +19,8 @@
 //
 //import fall2018.csc2017.R;
 //import fall2018.csc2017.common.SaveAndLoad;
-//import fall2018.csc2017.Memory.MemoryGestureDetectGridView;
+//import fall2018.csc2017.common.GestureDetectGridView;
+//import fall2018.csc2017.common.CustomAdapter;
 //import gamelauncher.LoginActivity;
 //import gamelauncher.MemoryActivity;
 //import users.User;
@@ -60,7 +61,7 @@
 //    private boolean gameWon;
 //
 //
-//    private MemoryGestureDetectGridView gridView;
+//    private GestureDetectGridView gridView;
 //    private static int columnWidth, columnHeight;
 //
 //
@@ -71,7 +72,7 @@
 //    // Display
 //    public void display() {
 //        updateCardButtons();
-//        gridView.setAdapter(new MemoryCustomAdapter(cardButtons, columnWidth, columnHeight));
+//        gridView.setAdapter(new CustomAdapter(cardButtons, columnWidth, columnHeight));
 //    }
 //
 //    public Context getActivity() {
