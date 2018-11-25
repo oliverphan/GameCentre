@@ -24,7 +24,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import fall2018.csc2017.SaveAndLoad;
-import gamelauncher.LoginActivity;
 import gamelauncher.SlidingTileActivity;
 import users.User;
 import fall2018.csc2017.R;
@@ -131,15 +130,15 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
      * Create the buttons for displaying the tiles.
      */
     private void createTileButtons() {
-        Board board = boardManager.getBoard();
+        SlidingBoard slidingBoard = boardManager.getBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row < difficulty; row++) {
             for (int col = 0; col < difficulty; col++) {
                 Button tmp = new Button(getApplicationContext());
                 if (!boardManager.userTiles) {
-                    tmp.setBackgroundResource(board.getTile(row, col).getBackground());
+                    tmp.setBackgroundResource(slidingBoard.getTile(row, col).getBackground());
                 } else {
-                    tmp.setBackground(new BitmapDrawable(getResources(), board.getTile(row, col).getUserImage()));
+                    tmp.setBackground(new BitmapDrawable(getResources(), slidingBoard.getTile(row, col).getUserImage()));
                 }
                 this.tileButtons.add(tmp);
             }
@@ -150,18 +149,18 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        Board board = boardManager.getBoard();
+        SlidingBoard slidingBoard = boardManager.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
             int row = nextPos / difficulty;
             int col = nextPos % difficulty;
             if (!boardManager.userTiles) {
-                b.setBackgroundResource(board.getTile(row, col).getBackground());
+                b.setBackgroundResource(slidingBoard.getTile(row, col).getBackground());
             } else {
-                if (!gameWon && board.getTile(row, col).getId() == difficulty * difficulty) {
+                if (!gameWon && slidingBoard.getTile(row, col).getId() == difficulty * difficulty) {
                     b.setBackgroundResource(R.drawable.whitespace);
                 } else {
-                    b.setBackground(new BitmapDrawable(getResources(), board.getTile(row, col).getUserImage()));
+                    b.setBackground(new BitmapDrawable(getResources(), slidingBoard.getTile(row, col).getUserImage()));
                 }
             }
             nextPos++;
@@ -236,12 +235,12 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         if (userImage != null) {
             final Button userButton = findViewById(R.id.user);
             userButton.setText(R.string.user_image_button_pressed);
-            Board board = boardManager.getBoard();
+            SlidingBoard slidingBoard = boardManager.getBoard();
             boardManager.userTiles = true;
-            for (int nextPos = 0; nextPos < board.numTiles(); nextPos++) {
+            for (int nextPos = 0; nextPos < slidingBoard.numTiles(); nextPos++) {
                 int row = nextPos / difficulty;
                 int col = nextPos % difficulty;
-                board.getTile(row, col).createUserTiles(userImage, difficulty);
+                slidingBoard.getTile(row, col).createUserTiles(userImage, difficulty);
                 display();
             }
         }

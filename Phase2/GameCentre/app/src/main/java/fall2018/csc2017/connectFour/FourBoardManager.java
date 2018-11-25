@@ -5,7 +5,7 @@ import java.util.Stack;
 
 public class FourBoardManager implements Serializable {
     /**
-     * The Board being managed
+     * The SlidingBoard being managed
      */
     private FourBoard board;
 

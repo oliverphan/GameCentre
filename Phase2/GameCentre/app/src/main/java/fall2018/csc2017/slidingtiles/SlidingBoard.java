@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * The sliding tiles board.
  */
-public class Board extends Observable implements Serializable, Iterable<Tile> {
+public class SlidingBoard extends Observable implements Serializable, Iterable<Tile> {
 
     /**
      * The number of rows.
@@ -36,7 +36,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      *
      * @param tiles the tiles for the board
      */
-    Board(List<Tile> tiles) {
+    SlidingBoard(List<Tile> tiles) {
         numRows = (int) Math.sqrt(tiles.size());
         numCols = numRows;
         Iterator<Tile> iter = tiles.iterator();
@@ -87,7 +87,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
 
     @Override
     public String toString() {
-        return "Board{" +
+        return "SlidingBoard{" +
                 "tiles=" + Arrays.toString(tiles) +
                 '}';
     }
@@ -103,7 +103,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
     }
 
     /**
-     * An Iterator for Board Tiles.
+     * An Iterator for SlidingBoard Tiles.
      */
     private class BoardIterator implements Iterator<Tile> {
         /**
