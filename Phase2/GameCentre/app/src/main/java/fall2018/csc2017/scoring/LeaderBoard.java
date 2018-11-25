@@ -28,7 +28,7 @@ public class LeaderBoard implements Serializable {
         temp.add(new Score("", -1));
         this.gameScores.put("Sliding Tiles", new ArrayList<>(temp));
         this.gameScores.put("Connect Four", new ArrayList<>(temp));
-        this.gameScores.put("Memory", new ArrayList<>(temp));
+        this.gameScores.put("Concentration", new ArrayList<>(temp));
     }
 
     /**
@@ -51,13 +51,10 @@ public class LeaderBoard implements Serializable {
     public void updateScores(String gameName, Score newScore) {
         // topScores is an ArrayList of the top three score objects for this game.
         ArrayList<Score> topScores = this.gameScores.get(gameName);
-
-        topScores.sort(Collections.reverseOrder(new ScoreComparator()));
-
         for (int i = 0; i < NUM_LEADERBOARD_SLOTS; i++) {
             if (newScore.getValue() > topScores.get(i).getValue()) {
-                topScores.remove(topScores.size() - 1);
                 topScores.add(i, newScore);
+                topScores.remove(topScores.size() - 1);
                 break;
             }
         }

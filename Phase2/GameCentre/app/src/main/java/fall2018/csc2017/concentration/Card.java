@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import fall2018.csc2017.common.Token;
 
 /**
- * A card for the Memory game.
+ * A card for the Concentration game.
  */
 public class Card extends Token implements Comparable<Card> {
 
@@ -20,7 +20,7 @@ public class Card extends Token implements Comparable<Card> {
     private boolean faceDown;
 
     /**
-     * Whether or not this Card has been matched during a Memory game.
+     * Whether or not this Card has been matched during a Concentration game.
      */
     private boolean matched;
 

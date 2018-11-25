@@ -1,4 +1,4 @@
-//package fall2018.csc2017.Memory;
+//package fall2018.csc2017.concentration;
 //
 //import android.content.Context;
 //import android.os.Bundle;
@@ -28,12 +28,12 @@
 ///**
 // * The game activity.
 // */
-//public class MemoryGameActivity extends AppCompatActivity implements Observer, SaveAndLoad {
+//public class ConcentrationGameActivity extends AppCompatActivity implements Observer, SaveAndLoad {
 //
 //    /**
 //     * The ConcentrationBoardManager.
 //     */
-//    private ConcentrationBoardManager memoryBoardManager;
+//    private ConcentrationBoardManager ConcentrationBoardManager;
 //
 //    /**
 //     * The buttons to display.
@@ -86,13 +86,13 @@
 //        loadGameFromFile();
 //        userAccounts = loadUserAccounts();
 //        addUndoButtonListener();
-//        difficulty = memoryBoardManager.getDifficulty();
+//        difficulty = concentrationBoardManager.getDifficulty();
 //        createCardButtons();
 //        // Add View to activity
 //        gridView = findViewById(R.id.grid);
 //        gridView.setNumColumns(difficulty);
-//        gridView.setMemoryBoardManager(memoryBoardManager);
-//        memoryBoardManager.getMemoryBoard().addObserver(this);
+//        gridView.setConcentrationBoardManager(ConcentrationBoardManager);
+//        ConcentrationBoardManager.getConcentrationBoard().addObserver(this);
 //        // Observer sets up desired dimensions as well as calls to our display function
 //        gridView.getViewTreeObserver().addOnGlobalLayoutListener(
 //                new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -114,7 +114,7 @@
 //     * Create the buttons for displaying the cards.
 //     */
 //    private void createCardButtons() {
-//        ConcentrationBoard board = memoryBoardManager.getMemoryBoard();
+//        ConcentrationBoard board = concentrationBoardManager.getConcentrationBoard();
 //        cardButtons = new ArrayList<>();
 //        for (int row = 0; row < difficulty; row++) {
 //            for (int col = 0; col < difficulty; col++) {
@@ -129,7 +129,7 @@
 //     * Update the backgrounds on the buttons to match the cards.
 //     */
 //    private void updateCardButtons() {
-//        ConcentrationBoard memoryBoard = memoryBoardManager.getMemoryBoard();
+//        ConcentrationBoard concentrationBoard = concentrationBoardManager.getConcentrationBoard();
 //        // Updated pictures in event of a tap
 //        // Whether to tap to the front or the back
 //    }
@@ -140,17 +140,17 @@
 //    private void addUndoButtonListener() {
 //        final Button undoButton = findViewById(R.id.undoButton);
 //        undoButton.setOnClickListener(view ->
-//                memoryBoardManager.undoMove());
+//                concentrationBoardManager.undoMove());
 //    }
 //
 //    /**
 //     * Switch to the title screen. Only to be called when the game is won.
 //     */
-//    private void switchToMemoryTitleActivity() {
+//    private void switchToConcentrationTitleActivity() {
 //
 //        writeNewValues();
 //        saveUserAccounts(userAccounts);
-//        if (!memoryBoardManager.gameFinished()) {
+//        if (!concentrationBoardManager.gameFinished()) {
 //            createToast("Saved");
 //        } else {
 //            createToast("Saved Wiped");
@@ -166,7 +166,7 @@
 //            InputStream inputStream = this.openFileInput(ConcentrationFragment.TEMP_SAVE_FILENAME);
 //            if (inputStream != null) {
 //                ObjectInputStream input = new ObjectInputStream(inputStream);
-//                memoryBoardManager = (ConcentrationBoardManager) input.readObject();
+//                concentrationBoardManager = (ConcentrationBoardManager) input.readObject();
 //                inputStream.close();
 //            }
 //        } catch (FileNotFoundException e) {
@@ -183,10 +183,10 @@
 //     * If game hasn't been won, store the most recent boardManager to the User.
 //     */
 //    public void writeNewValues() {
-//        if (!memoryBoardManager.gameFinished()) {
-//            currentUser.writeGame(ConcentrationFragment.GAME_TITLE, memoryBoardManager);
+//        if (!concentrationBoardManager.gameFinished()) {
+//            currentUser.writeGame(ConcentrationFragment.GAME_TITLE, concentrationBoardManager);
 //        } else {
-//            currentUser.setNewScore(ConcentrationFragment.GAME_TITLE, memoryBoardManager.generateScore());
+//            currentUser.setNewScore(ConcentrationFragment.GAME_TITLE, concentrationBoardManager.generateScore());
 //            currentUser.deleteSave(ConcentrationFragment.GAME_TITLE);
 //        }
 //    }
@@ -200,7 +200,7 @@
 //
 //    @Override
 //    public void onBackPressed() {
-//        switchToMemoryTitleActivity();
+//        switchToConcentrationTitleActivity();
 //    }
 //
 //    @Override
