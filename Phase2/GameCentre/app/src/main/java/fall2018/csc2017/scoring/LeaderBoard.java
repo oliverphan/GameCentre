@@ -28,7 +28,7 @@ public class LeaderBoard implements Serializable {
         temp.add(new Score("", -1));
         this.gameScores.put("Sliding Tiles", new ArrayList<>(temp));
         this.gameScores.put("Connect Four", new ArrayList<>(temp));
-        this.gameScores.put("Memory", new ArrayList<>(temp));
+        this.gameScores.put("Concentration", new ArrayList<>(temp));
     }
 
     /**
