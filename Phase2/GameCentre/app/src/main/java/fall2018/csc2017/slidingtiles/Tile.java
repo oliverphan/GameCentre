@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import fall2018.csc2017.R;
+import fall2018.csc2017.common.Token;
+
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -13,17 +15,13 @@ import java.util.HashMap;
 /**
  * A Tile in a sliding tiles puzzle.
  */
-public class Tile implements Comparable<Tile>, Serializable {
+public class Tile extends Token implements Comparable<Tile> {
 
     /**
      * The HashMap of Tile Ids and user provided backgrounds.
      */
     @SuppressWarnings("all")
     private static HashMap<Integer, Bitmap> userTiles = new HashMap<>();
-    /**
-     * The background id to find the tile image.
-     */
-    private int background;
 
     /**
      * The unique id.
@@ -31,12 +29,15 @@ public class Tile implements Comparable<Tile>, Serializable {
     private int id;
 
     /**
-     * Return the background id.
+     * A tile with a background id; look up and set the id.
+     * Adapted from http://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
      *
-     * @return the background id
+     * @param backgroundId the id of the tile
+     * @param blank the id of the blank (last) tile
      */
-    public int getBackground() {
-        return background;
+    Tile(int backgroundId, int blank) {
+        super(backgroundId, blank);
+        id = backgroundId + 1;
     }
 
     /**
@@ -55,28 +56,6 @@ public class Tile implements Comparable<Tile>, Serializable {
      */
     public int getId() {
         return id;
-    }
-
-    /**
-     * A tile with a background id; look up and set the id.
-     * Adapted from http://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
-     *
-     * @param backgroundId the id of the tile
-     */
-    Tile(int backgroundId, int blank) {
-        id = backgroundId + 1;
-        if (id == blank) {
-            background = R.drawable.tile_0;
-        } else {
-            String uri = "tile_" + String.valueOf(id);
-            try {
-                Class res = R.drawable.class;
-                Field field = res.getField(uri);
-                background = field.getInt(null);
-            } catch (Exception e) {
-                Log.e("DrawableAccess", "Failed to get resource by id", e);
-            }
-        }
     }
 
     /**

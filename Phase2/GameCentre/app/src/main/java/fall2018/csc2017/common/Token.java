@@ -8,9 +8,18 @@ import java.lang.reflect.Field;
 import fall2018.csc2017.R;
 
 public abstract class Token implements Serializable {
-    int background;
 
-    int getBackground() {
+    /**
+     * The background id to find the tile image.
+     */
+    private int background;
+
+    /**
+     * Return the background id.
+     *
+     * @return the background id
+     */
+    public int getBackground() {
         return background;
     }
 
@@ -32,7 +41,14 @@ public abstract class Token implements Serializable {
         // In the Card Constructor make sure to init id
     }
 
-    // For Tile
+    /**
+     * Initialize a new Tile.
+     * A tile with a background id; look up and set the id.
+     * Adapted from http://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
+     *
+     * @param backgroundId the id of the tile
+     * @param blank the id of the blank (last) tile
+     */
     public Token(int backgroundId, int blank) {
         if (backgroundId + 1 == blank) {
             background = R.drawable.tile_0;
@@ -46,6 +62,5 @@ public abstract class Token implements Serializable {
                 Log.e("DrawableAccess", "Failed to get resource by id", e);
             }
         }
-        // In the Tile Constructor make sure to init id
     }
 }
