@@ -29,7 +29,7 @@ public class ConnectFourActivity extends Fragment implements SaveAndLoad {
     /**
      * Tag for the current game being played.
      */
-    public static final String GAME_TITLE = "ConnectFour";
+    public static final String GAME_TITLE = "Connect Four";
     /**
      * The Board manager for the current game
      */
