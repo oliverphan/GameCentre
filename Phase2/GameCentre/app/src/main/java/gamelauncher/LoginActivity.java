@@ -27,7 +27,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.R;
 import users.User;
 
 public class LoginActivity extends AppCompatActivity {

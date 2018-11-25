@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.R;
 
 public class MemoryActivity extends Fragment {
 

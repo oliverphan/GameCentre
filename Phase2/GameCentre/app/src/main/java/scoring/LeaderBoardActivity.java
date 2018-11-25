@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.R;
 import gamelauncher.SlidingTileActivity;
 import users.User;
 

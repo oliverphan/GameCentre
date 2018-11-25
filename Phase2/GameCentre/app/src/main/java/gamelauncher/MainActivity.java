@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.R;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Main";

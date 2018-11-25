@@ -6,7 +6,7 @@ import android.util.Log;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.R;
 
 /**
  * A card for the Memory game.
