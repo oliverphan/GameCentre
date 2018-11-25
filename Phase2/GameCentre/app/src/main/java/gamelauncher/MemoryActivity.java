@@ -14,22 +14,50 @@ import fall2018.csc2017.R;
 
 public class MemoryActivity extends Fragment {
 
-//    Basically onCreate
+    //    Basically onCreate
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_matching, container, false);
         Bundle args = getArguments();
 
-        addStartGameListener(view);
+        addStartGame43Listener(view);
+        addStartGame44Listener(view);
+        addStartGame45Listener(view);
         addLoadGameListener(view);
         addLeaderBoardListener(view);
         return view;
     }
 
     /**
-     * Activate the start button.
+     * Activate the start button for a 4 x 3 game.
      */
-    private void addStartGameListener(View view) {
-        Button startButton = view.findViewById(R.id.StartButton);
+    private void addStartGame43Listener(View view) {
+        Button startButton = view.findViewById(R.id.launchGame43);
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                DO SOMETHING
+            }
+        });
+    }
+
+    /**
+     * Activate the start button for a 4 x 4 game.
+     */
+    private void addStartGame44Listener(View view) {
+        Button startButton = view.findViewById(R.id.launchGame44);
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                DO SOMETHING
+            }
+        });
+    }
+
+    /**
+     * Activate the start button for a 4 x 5 game.
+     */
+    private void addStartGame45Listener(View view) {
+        Button startButton = view.findViewById(R.id.launchGame45);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
