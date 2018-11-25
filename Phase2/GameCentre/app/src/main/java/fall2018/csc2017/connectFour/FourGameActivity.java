@@ -21,6 +21,8 @@ import java.util.Random;
 
 import fall2018.csc2017.R;
 import fall2018.csc2017.SaveAndLoad;
+import fall2018.csc2017.common.CustomAdapter;
+import fall2018.csc2017.common.GestureDetectGridView;
 import gamelauncher.ConnectFourActivity;
 import scoring.LeaderBoard;
 import scoring.Score;
@@ -43,7 +45,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
     private int difficulty;
 
     // Grid View and calculated column height and width based on device size
-    private FourGestureDetectGridView gridView;
+    private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
 
     /**
@@ -228,7 +230,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
      */
     public void display() {
         updateBoardButtons();
-        gridView.setAdapter(new FourCustomAdapter(boardButtons, columnWidth, columnHeight));
+        gridView.setAdapter(new CustomAdapter(boardButtons, columnWidth, columnHeight));
     }
 
 

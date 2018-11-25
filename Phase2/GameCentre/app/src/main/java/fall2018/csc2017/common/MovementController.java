@@ -1,17 +1,19 @@
-package fall2018.csc2017.connectFour;
+package fall2018.csc2017.common;
 
 import android.content.Context;
 import android.widget.Toast;
 
+import fall2018.csc2017.common.BoardManager;
 
-public class FourMovementController {
 
-    private FourBoardManager boardManager = null;
+public class MovementController {
 
-    public FourMovementController() {
+    private BoardManager boardManager = null;
+
+    public MovementController() {
     }
 
-    public void setBoardManager(FourBoardManager boardManager) {
+    public void setBoardManager(BoardManager boardManager) {
         this.boardManager = boardManager;
     }
 
@@ -25,5 +27,4 @@ public class FourMovementController {
         }
     }
 }
-
 

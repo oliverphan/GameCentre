@@ -24,6 +24,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import fall2018.csc2017.SaveAndLoad;
+import fall2018.csc2017.common.CustomAdapter;
+import fall2018.csc2017.common.GestureDetectGridView;
 import gamelauncher.SlidingTileActivity;
 import scoring.LeaderBoard;
 import scoring.Score;
