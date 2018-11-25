@@ -50,8 +50,8 @@ public class FourLeaderBoardFragment extends Fragment implements SaveAndLoad {
         secondScore.setText(temp4);
         TextView thirdUser = view.findViewById(R.id.thirdUser);
         TextView thirdScore = view.findViewById(R.id.thirdScore);
-        String temp5 = tempScores.get(1).getUsername();
-        String temp6 = String.valueOf(tempScores.get(1).getValue());
+        String temp5 = tempScores.get(2).getUsername();
+        String temp6 = String.valueOf(tempScores.get(2).getValue());
         thirdUser.setText(temp5);
         thirdScore.setText(temp6);
 
