@@ -11,7 +11,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="384dp"
-        android:background="@color/transparent"
+        android:background="@color/colorPrimary"
         android:layout_height="67dp"
         android:fitsSystemWindows="false"
         android:theme="@style/AppTheme"
