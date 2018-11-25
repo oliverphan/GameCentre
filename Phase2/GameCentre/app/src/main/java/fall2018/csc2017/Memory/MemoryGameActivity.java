@@ -21,9 +21,9 @@
 //import fall2018.csc2017.common.SaveAndLoad;
 //import fall2018.csc2017.common.GestureDetectGridView;
 //import fall2018.csc2017.common.CustomAdapter;
-//import gamelauncher.LoginActivity;
-//import gamelauncher.MemoryFragment;
-//import users.User;
+//import fall2018.csc2017.gamelauncher.LoginActivity;
+//import fall2018.csc2017.gamelauncher.MemoryFragment;
+//import fall2018.csc2017.users.User;
 //
 ///**
 // * The game activity.

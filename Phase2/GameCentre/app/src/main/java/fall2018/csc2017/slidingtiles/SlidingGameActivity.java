@@ -26,10 +26,10 @@ import java.util.Observer;
 import fall2018.csc2017.common.SaveAndLoad;
 import fall2018.csc2017.common.CustomAdapter;
 import fall2018.csc2017.common.GestureDetectGridView;
-import gamelauncher.SlidingFragment;
-import scoring.LeaderBoard;
-import scoring.Score;
-import users.User;
+import fall2018.csc2017.gamelauncher.SlidingFragment;
+import fall2018.csc2017.scoring.LeaderBoard;
+import fall2018.csc2017.scoring.Score;
+import fall2018.csc2017.users.User;
 import fall2018.csc2017.R;
 
 /**
@@ -48,7 +48,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
     private ArrayList<Button> tileButtons;
 
     /**
-     * The HashMap of all the users by name.
+     * The HashMap of all the fall2018.csc2017.users by name.
      */
     private HashMap<String, User> userAccounts;
 

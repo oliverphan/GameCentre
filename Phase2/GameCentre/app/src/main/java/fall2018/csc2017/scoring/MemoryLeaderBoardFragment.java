@@ -1,4 +1,4 @@
-package scoring;
+package fall2018.csc2017.scoring;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;

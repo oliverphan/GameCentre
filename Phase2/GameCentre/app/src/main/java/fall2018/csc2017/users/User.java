@@ -1,4 +1,4 @@
-package users;
+package fall2018.csc2017.users;
 
 import java.io.Serializable;
 import java.util.HashMap;

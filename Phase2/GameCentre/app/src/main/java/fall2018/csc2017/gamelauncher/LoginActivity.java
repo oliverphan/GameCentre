@@ -1,4 +1,4 @@
-package gamelauncher;
+package fall2018.csc2017.gamelauncher;
 
 import android.content.Context;
 import android.content.Intent;;
@@ -12,8 +12,8 @@ import java.util.HashMap;
 
 import fall2018.csc2017.common.SaveAndLoad;
 import fall2018.csc2017.R;
-import scoring.LeaderBoard;
-import users.User;
+import fall2018.csc2017.scoring.LeaderBoard;
+import fall2018.csc2017.users.User;
 
 public class LoginActivity extends AppCompatActivity implements SaveAndLoad {
 

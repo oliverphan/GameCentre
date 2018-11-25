@@ -1,4 +1,4 @@
-package gamelauncher;
+package fall2018.csc2017.gamelauncher;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,8 +20,8 @@ import fall2018.csc2017.common.SaveAndLoad;
 import fall2018.csc2017.connectFour.FourBoardManager;
 import fall2018.csc2017.connectFour.FourGameActivity;
 import fall2018.csc2017.R;
-import scoring.LeaderBoardActivity;
-import users.User;
+import fall2018.csc2017.scoring.LeaderBoardActivity;
+import fall2018.csc2017.users.User;
 
 public class ConnectFourFragment extends Fragment implements SaveAndLoad {
     /**

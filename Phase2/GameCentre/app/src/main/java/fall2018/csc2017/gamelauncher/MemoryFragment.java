@@ -1,4 +1,4 @@
-package gamelauncher;
+package fall2018.csc2017.gamelauncher;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;

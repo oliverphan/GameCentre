@@ -23,10 +23,10 @@ import fall2018.csc2017.R;
 import fall2018.csc2017.common.SaveAndLoad;
 import fall2018.csc2017.common.CustomAdapter;
 import fall2018.csc2017.common.GestureDetectGridView;
-import gamelauncher.ConnectFourFragment;
-import scoring.LeaderBoard;
-import scoring.Score;
-import users.User;
+import fall2018.csc2017.gamelauncher.ConnectFourFragment;
+import fall2018.csc2017.scoring.LeaderBoard;
+import fall2018.csc2017.scoring.Score;
+import fall2018.csc2017.users.User;
 
 public class FourGameActivity extends AppCompatActivity implements Observer, SaveAndLoad {
     /**

@@ -1,4 +1,4 @@
-package scoring;
+package fall2018.csc2017.scoring;
 
 import java.util.Comparator;
 
