@@ -1,4 +1,4 @@
-package fall2018.csc2017.connectFour;
+package fall2018.csc2017.connectfour;
 
 import fall2018.csc2017.common.BoardManager;
 

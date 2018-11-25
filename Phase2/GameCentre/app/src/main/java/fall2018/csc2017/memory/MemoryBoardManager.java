@@ -1,4 +1,4 @@
-package fall2018.csc2017.Memory;
+package fall2018.csc2017.memory;
 
 import java.util.ArrayList;
 import java.util.List;

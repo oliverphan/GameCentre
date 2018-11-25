@@ -1,4 +1,4 @@
-package fall2018.csc2017.connectFour;
+package fall2018.csc2017.connectfour;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -23,7 +23,7 @@ import fall2018.csc2017.R;
 import fall2018.csc2017.common.SaveAndLoad;
 import fall2018.csc2017.common.CustomAdapter;
 import fall2018.csc2017.common.GestureDetectGridView;
-import fall2018.csc2017.gamelauncher.ConnectFourFragment;
+import fall2018.csc2017.gamelauncher.FourFragment;
 import fall2018.csc2017.scoring.LeaderBoard;
 import fall2018.csc2017.scoring.Score;
 import fall2018.csc2017.users.User;
@@ -275,7 +275,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
      */
     private void loadGameFromFile() {
         try {
-            InputStream inputStream = this.openFileInput(ConnectFourFragment.TEMP_SAVE_FILENAME);
+            InputStream inputStream = this.openFileInput(FourFragment.TEMP_SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 boardManager = (FourBoardManager) input.readObject();
@@ -296,10 +296,10 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
      */
     public void writeNewValues() {
         if (!boardManager.gameFinished()) {
-            currentUser.writeGame(ConnectFourFragment.GAME_TITLE, boardManager);
+            currentUser.writeGame(FourFragment.GAME_TITLE, boardManager);
         } else {
-            currentUser.setNewScore(ConnectFourFragment.GAME_TITLE, boardManager.generateScore());
-            currentUser.deleteSave(ConnectFourFragment.GAME_TITLE);
+            currentUser.setNewScore(FourFragment.GAME_TITLE, boardManager.generateScore());
+            currentUser.deleteSave(FourFragment.GAME_TITLE);
         }
     }
 
