@@ -24,7 +24,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import fall2018.csc2017.SaveAndLoad;
-import gamelauncher.LoginActivity;
 import gamelauncher.SlidingTileActivity;
 import users.User;
 import fall2018.csc2017.R;
@@ -37,7 +36,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     /**
      * The board manager.
      */
-    private BoardManager boardManager;
+    private SlidingBoardManager slidingBoardManager;
 
     /**
      * The buttons to display.
@@ -103,15 +102,15 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
      * Create the buttons for displaying the tiles.
      */
     private void createTileButtons() {
-        Board board = boardManager.getBoard();
+        SlidingBoard slidingBoard = slidingBoardManager.getBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row < difficulty; row++) {
             for (int col = 0; col < difficulty; col++) {
                 Button tmp = new Button(getApplicationContext());
-                if (!boardManager.userTiles) {
-                    tmp.setBackgroundResource(board.getTile(row, col).getBackground());
+                if (!slidingBoardManager.userTiles) {
+                    tmp.setBackgroundResource(slidingBoard.getTile(row, col).getBackground());
                 } else {
-                    tmp.setBackground(new BitmapDrawable(getResources(), board.getTile(row, col).getUserImage()));
+                    tmp.setBackground(new BitmapDrawable(getResources(), slidingBoard.getTile(row, col).getUserImage()));
                 }
                 this.tileButtons.add(tmp);
             }
@@ -122,18 +121,18 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        Board board = boardManager.getBoard();
+        SlidingBoard slidingBoard = slidingBoardManager.getBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
             int row = nextPos / difficulty;
             int col = nextPos % difficulty;
-            if (!boardManager.userTiles) {
-                b.setBackgroundResource(board.getTile(row, col).getBackground());
+            if (!slidingBoardManager.userTiles) {
+                b.setBackgroundResource(slidingBoard.getTile(row, col).getBackground());
             } else {
-                if (!gameWon && board.getTile(row, col).getId() == difficulty * difficulty) {
+                if (!gameWon && slidingBoard.getTile(row, col).getId() == difficulty * difficulty) {
                     b.setBackgroundResource(R.drawable.whitespace);
                 } else {
-                    b.setBackground(new BitmapDrawable(getResources(), board.getTile(row, col).getUserImage()));
+                    b.setBackground(new BitmapDrawable(getResources(), slidingBoard.getTile(row, col).getUserImage()));
                 }
             }
             nextPos++;
@@ -146,16 +145,16 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     private void addUserButtonListener() {
         final Button userButton = findViewById(R.id.user);
         // Try to get a ternary working here
-        if (!boardManager.userTiles)
+        if (!slidingBoardManager.userTiles)
             userButton.setText(R.string.user_image_button_unpressed);
         else
             userButton.setText(R.string.user_image_button_pressed);
         userButton.setOnClickListener(view -> {
-            if (!boardManager.userTiles) {
+            if (!slidingBoardManager.userTiles) {
                 pickImageFromGallery();
             } else {
                 userButton.setText(R.string.user_image_button_unpressed);
-                boardManager.userTiles = false;
+                slidingBoardManager.userTiles = false;
                 display();
             }
         });
@@ -170,9 +169,9 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
             movesToUndo = findViewById(R.id.inputUndo);
             try {
                 int moves = Integer.valueOf(movesToUndo.getText().toString());
-                boardManager.undoMove(moves);
+                slidingBoardManager.undoMove(moves);
             } catch (NumberFormatException e) {
-                boardManager.undoMove(1);
+                slidingBoardManager.undoMove(1);
             }
         });
     }
@@ -192,7 +191,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         loadGameFromFile();
         userAccounts = loadUserAccounts();
         currentUser = userAccounts.get(loadCurrentUsername());
-        difficulty = boardManager.getDifficulty();
+        difficulty = slidingBoardManager.getDifficulty();
         createTileButtons();
         setContentView(R.layout.activity_slidingtilesgame);
         addUserButtonListener();
@@ -200,8 +199,8 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         // Add View to activity
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(difficulty);
-        gridView.setBoardManager(boardManager);
-        boardManager.getBoard().addObserver(this);
+        gridView.setBoardManager(slidingBoardManager);
+        slidingBoardManager.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -218,8 +217,6 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
                     }
                 });
     }
-
-
 
     /**
      * Converts uri from gallery to bitmap
@@ -252,7 +249,25 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        switchToSlidingTilesActivity();
+    }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        int moves = slidingBoardManager.getNumMoves() % 10;
+        // Autosave - Old slidingBoardManager is replaced if there is one.
+        if (moves == 0 && !gameWon) {
+            currentUser.getSaves().put(SlidingTileActivity.GAME_TITLE, slidingBoardManager);
+            saveUserAccounts(userAccounts);
+        }
+        if (slidingBoardManager.puzzleSolved()) {
+            gameWon = true;
+            createToast("You Win!");
+        }
+        display();
+    }
 
     /**
      * Load the board manager from fileName.
@@ -262,7 +277,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
             InputStream inputStream = this.openFileInput(SlidingTileActivity.TEMP_SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                boardManager = (BoardManager) input.readObject();
+                slidingBoardManager = (SlidingBoardManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -276,13 +291,13 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
 
     /**
      * Store the new score and delete the old save in the User if the game is won.
-     * If game hasn't been won, store the most recent boardManager to the User.
+     * If game hasn't been won, store the most recent slidingBoardManager to the User.
      */
     public void writeNewValues() {
         if (!gameWon) {
-            currentUser.writeGame(SlidingTileActivity.GAME_TITLE, boardManager);
+            currentUser.writeGame(SlidingTileActivity.GAME_TITLE, slidingBoardManager);
         } else {
-            currentUser.setNewScore(SlidingTileActivity.GAME_TITLE, boardManager.generateScore());
+            currentUser.setNewScore(SlidingTileActivity.GAME_TITLE, slidingBoardManager.generateScore());
             currentUser.deleteSave(SlidingTileActivity.GAME_TITLE);
         }
     }
@@ -316,31 +331,26 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         if (userImage != null) {
             final Button userButton = findViewById(R.id.user);
             userButton.setText(R.string.user_image_button_pressed);
-            Board board = boardManager.getBoard();
-            boardManager.userTiles = true;
-            for (int nextPos = 0; nextPos < board.numTiles(); nextPos++) {
+            SlidingBoard slidingBoard = slidingBoardManager.getBoard();
+            slidingBoardManager.userTiles = true;
+            for (int nextPos = 0; nextPos < slidingBoard.numTiles(); nextPos++) {
                 int row = nextPos / difficulty;
                 int col = nextPos % difficulty;
-                board.getTile(row, col).createUserTiles(userImage, difficulty);
+                slidingBoard.getTile(row, col).createUserTiles(userImage, difficulty);
                 display();
             }
         }
     }
 
     @Override
-    public void onBackPressed() {
-        switchToSlidingTilesActivity();
-    }
-
-    @Override
     public void update(Observable o, Object arg) {
-        int moves = boardManager.getNumMoves() % 10;
+        int moves = slidingBoardManager.getNumMoves() % 10;
         // Autosave - Old boardManager is replaced if there is one.
         if (moves == 0 && !gameWon) {
-            currentUser.getSaves().put(SlidingTileActivity.GAME_TITLE, boardManager);
+            currentUser.getSaves().put(SlidingTileActivity.GAME_TITLE, slidingBoardManager);
             saveUserAccounts(userAccounts);
         }
-        if (boardManager.puzzleSolved()) {
+        if (slidingBoardManager.puzzleSolved()) {
             gameWon = true;
             createToast("You Win!");
         }

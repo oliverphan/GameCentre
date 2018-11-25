@@ -23,15 +23,16 @@ import fall2018.csc2017.SaveAndLoad;
 import fall2018.csc2017.connectFour.FourBoardManager;
 import fall2018.csc2017.connectFour.FourGameActivity;
 import fall2018.csc2017.R;
+import scoring.LeaderBoardActivity;
 import users.User;
 
 public class ConnectFourActivity extends Fragment implements SaveAndLoad {
     /**
      * Tag for the current game being played.
      */
-    public static final String GAME_TITLE = "ConnectFour";
+    public static final String GAME_TITLE = "Connect Four";
     /**
-     * The Board manager for the current game
+     * The SlidingBoard manager for the current game
      */
     private FourBoardManager boardManager;
 
@@ -151,7 +152,9 @@ public class ConnectFourActivity extends Fragment implements SaveAndLoad {
         scoreBoardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createToast("Launched LeaderBoard");
+                Intent tmp = new Intent(getActivity(), LeaderBoardActivity.class);
+                tmp.putExtra("frgToLoad", 1);
+                startActivity(tmp);
             }
         });
 

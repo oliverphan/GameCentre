@@ -19,7 +19,7 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
 import fall2018.csc2017.SaveAndLoad;
-import fall2018.csc2017.slidingtiles.BoardManager;
+import fall2018.csc2017.slidingtiles.SlidingBoardManager;
 import fall2018.csc2017.R;
 import fall2018.csc2017.slidingtiles.SlidingTileGameActivity;
 import scoring.LeaderBoardActivity;
@@ -44,7 +44,7 @@ public class SlidingTileActivity extends Fragment implements SaveAndLoad {
     /**
      * The board manager.
      */
-    private BoardManager boardManager;
+    private SlidingBoardManager slidingBoardManager;
 
     /**
      * A HashMap of all the Users created. The key is the username, the value is the User object.
@@ -72,7 +72,7 @@ public class SlidingTileActivity extends Fragment implements SaveAndLoad {
         launchGame3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardManager = new BoardManager(3);
+                slidingBoardManager = new SlidingBoardManager(3);
                 createToast("Game Start");
                 switchToSlidingTileGameActivity();
             }
@@ -87,7 +87,7 @@ public class SlidingTileActivity extends Fragment implements SaveAndLoad {
         launchGame4Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardManager = new BoardManager(4);
+                slidingBoardManager = new SlidingBoardManager(4);
                 createToast("Game Start");
                 switchToSlidingTileGameActivity();
             }
@@ -102,7 +102,7 @@ public class SlidingTileActivity extends Fragment implements SaveAndLoad {
         launchGame5Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardManager = new BoardManager(5);
+                slidingBoardManager = new SlidingBoardManager(5);
                 createToast("Game Start");
                 switchToSlidingTileGameActivity();
             }
@@ -121,7 +121,7 @@ public class SlidingTileActivity extends Fragment implements SaveAndLoad {
             public void onClick(View v) {
                 if (saveFileExists) {
                     createToast("Game Loaded");
-                    boardManager = (BoardManager) currentUser.getSaves().get(GAME_TITLE);
+                    slidingBoardManager = (SlidingBoardManager) currentUser.getSaves().get(GAME_TITLE);
                     switchToSlidingTileGameActivity();
                 } else {
                     createToast("No File Exists!");
@@ -162,6 +162,7 @@ public class SlidingTileActivity extends Fragment implements SaveAndLoad {
      */
     private void switchToLeaderBoardActivity() {
         Intent tmp = new Intent(getActivity(), LeaderBoardActivity.class);
+        tmp.putExtra("frgToLoad", 0);
         startActivity(tmp);
     }
 
@@ -175,7 +176,7 @@ public class SlidingTileActivity extends Fragment implements SaveAndLoad {
     }
 
     /**
-     * Save the boardManager for passing game around.
+     * Save the slidingBoardManager for passing game around.
      *
      * @param fileName the name of the file
      */
@@ -183,30 +184,13 @@ public class SlidingTileActivity extends Fragment implements SaveAndLoad {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     getActivity().openFileOutput(fileName, getContext().MODE_PRIVATE));
-            outputStream.writeObject(boardManager);
+            outputStream.writeObject(slidingBoardManager);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
     }
 
-//    @SuppressWarnings("unchecked")
-//    private void loadUserFromFile() {
-//        try {
-//            InputStream inputStream = getActivity().openFileInput(LoginActivity.USER_SAVE_FILENAME);
-//            if (inputStream != null) {
-//                ObjectInputStream input = new ObjectInputStream(inputStream);
-//                currentUser = (User) input.readObject();
-//                inputStream.close();
-//            }
-//        } catch (FileNotFoundException e) {
-//            Log.e("load game activity", "File not found: " + e.toString());
-//        } catch (IOException e) {
-//            Log.e("load game activity", "Can not read file: " + e.toString());
-//        } catch (ClassNotFoundException e) {
-//            Log.e("load game activity", "File contained unexpected data type: " + e.toString());
-//        }
-//    }
 
     /**
      * @param msg The message to be displayed in the Toast.

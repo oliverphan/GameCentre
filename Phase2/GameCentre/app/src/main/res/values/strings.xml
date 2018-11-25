@@ -18,7 +18,7 @@
     <string name="easy">Easy</string>
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
-    <string name="matching_title">Matching Game!</string>
+    <string name="memory_title">Memory Game!</string>
     <string name="start_4_x_3">4 x 3</string>
     <string name="start_4_x_5">4 x 5</string>
     <string name="one_remaining">One Undo Left!</string>
