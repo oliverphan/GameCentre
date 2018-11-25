@@ -4,11 +4,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,7 +50,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     /**
      * The name of the current user.
      */
-    private User currentUser;
+    private String currentUser;
 
     /**
      * The number of tiles per side of the board.
@@ -176,16 +175,13 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
             userButton.setText(R.string.user_image_button_unpressed);
         else
             userButton.setText(R.string.user_image_button_pressed);
-        userButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!boardManager.userTiles) {
-                    pickImageFromGallery();
-                } else {
-                    userButton.setText(R.string.user_image_button_unpressed);
-                    boardManager.userTiles = false;
-                    display();
-                }
+        userButton.setOnClickListener(view -> {
+            if (!boardManager.userTiles) {
+                pickImageFromGallery();
+            } else {
+                userButton.setText(R.string.user_image_button_unpressed);
+                boardManager.userTiles = false;
+                display();
             }
         });
     }
@@ -195,16 +191,13 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
      */
     private void addUndoButtonListener() {
         final Button undoButton = findViewById(R.id.undoButton);
-        undoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                movesToUndo = findViewById(R.id.inputUndo);
-                try {
-                    int moves = Integer.valueOf(movesToUndo.getText().toString());
-                    boardManager.undoMove(moves);
-                } catch (NumberFormatException e) {
-                    boardManager.undoMove(1);
-                }
+        undoButton.setOnClickListener(view -> {
+            movesToUndo = findViewById(R.id.inputUndo);
+            try {
+                int moves = Integer.valueOf(movesToUndo.getText().toString());
+                boardManager.undoMove(moves);
+            } catch (NumberFormatException e) {
+                boardManager.undoMove(1);
             }
         });
     }
@@ -294,7 +287,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         int moves = boardManager.getNumMoves() % 10;
         // Autosave - Old boardManager is replaced if there is one.
         if (moves == 0 && !gameWon) {
-            currentUser.getSaves().put(SlidingTileActivity.GAME_TITLE, boardManager);
+            userAccounts.get(currentUser).getSaves().put(SlidingTileActivity.GAME_TITLE, boardManager);
             saveAccountsToFile(LoginActivity.ACCOUNTS_SAVE_FILENAME);
         }
         if (boardManager.puzzleSolved()) {
@@ -354,7 +347,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
             InputStream inputStream = this.openFileInput(LoginActivity.USER_SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                currentUser = (User) input.readObject();
+                currentUser = (String) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -372,10 +365,10 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
      */
     public void writeNewValues() {
         if (!gameWon) {
-            currentUser.writeGame(SlidingTileActivity.GAME_TITLE, boardManager);
+            userAccounts.get(currentUser).writeGame(SlidingTileActivity.GAME_TITLE, boardManager);
         } else {
-            currentUser.setNewScore(SlidingTileActivity.GAME_TITLE, boardManager.generateScore());
-            currentUser.deleteSave(SlidingTileActivity.GAME_TITLE);
+            userAccounts.get(currentUser).setNewScore(SlidingTileActivity.GAME_TITLE, boardManager.generateScore());
+            userAccounts.get(currentUser).deleteSave(SlidingTileActivity.GAME_TITLE);
         }
     }
 
@@ -408,7 +401,6 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
             writeNewValues();
-            userAccounts.put(currentUser.getName(), currentUser);
             outputStream.writeObject(userAccounts);
             outputStream.close();
         } catch (IOException e) {
