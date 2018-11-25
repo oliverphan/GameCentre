@@ -1,4 +1,4 @@
-package gamelauncher;
+package fall2018.csc2017.gamelauncher;
 
 import android.content.Context;
 import android.content.Intent;
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements SaveAndLoad {
     private void setupViewPager(ViewPager viewPager) {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new SlidingFragment());
-        adapter.addFragment(new ConnectFourFragment());
+        adapter.addFragment(new FourFragment());
         adapter.addFragment(new MemoryFragment());
         viewPager.setAdapter(adapter);
     }

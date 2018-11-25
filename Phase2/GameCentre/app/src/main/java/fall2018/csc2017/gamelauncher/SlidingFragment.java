@@ -1,4 +1,4 @@
-package gamelauncher;
+package fall2018.csc2017.gamelauncher;
 
 import android.support.v4.app.Fragment;
 import android.content.Intent;
@@ -22,8 +22,8 @@ import fall2018.csc2017.common.SaveAndLoad;
 import fall2018.csc2017.slidingtiles.SlidingBoardManager;
 import fall2018.csc2017.R;
 import fall2018.csc2017.slidingtiles.SlidingGameActivity;
-import scoring.LeaderBoardActivity;
-import users.User;
+import fall2018.csc2017.scoring.LeaderBoardActivity;
+import fall2018.csc2017.users.User;
 
 public class SlidingFragment extends Fragment implements SaveAndLoad {
     /**

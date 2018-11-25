@@ -1,12 +1,9 @@
-package scoring;
+package fall2018.csc2017.scoring;
 
 
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 
 import static org.junit.Assert.*;
 

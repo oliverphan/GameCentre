@@ -11,8 +11,8 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import scoring.LeaderBoard;
-import users.User;
+import fall2018.csc2017.scoring.LeaderBoard;
+import fall2018.csc2017.users.User;
 
 /**
  * An Interface for:

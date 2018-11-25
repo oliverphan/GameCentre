@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name="gamelauncher.LoginActivity">
+        <activity android:name="fall2018.csc2017.gamelauncher.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,12 +19,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".slidingtiles.SlidingGameActivity" />
-        <activity android:name="scoring.LeaderBoardActivity" />
+        <activity android:name="fall2018.csc2017.scoring.LeaderBoardActivity" />
         <activity
-            android:name="gamelauncher.MainActivity"
+            android:name="fall2018.csc2017.gamelauncher.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
-        <activity android:name="fall2018.csc2017.connectFour.FourGameActivity"/>
+        <activity android:name="fall2018.csc2017.connectfour.FourGameActivity"/>
     </application>
 
 </manifest>

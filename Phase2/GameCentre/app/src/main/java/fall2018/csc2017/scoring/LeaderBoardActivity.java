@@ -1,4 +1,4 @@
-package scoring;
+package fall2018.csc2017.scoring;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,9 +11,9 @@ import java.util.HashMap;
 
 import fall2018.csc2017.common.SaveAndLoad;
 import fall2018.csc2017.R;
-import gamelauncher.MainActivity;
+import fall2018.csc2017.gamelauncher.MainActivity;
 import fall2018.csc2017.common.SectionsPageAdapter;
-import users.User;
+import fall2018.csc2017.users.User;
 
 //TODO: Make 3 fragments, one for each game, and put in some of the code here for each one.
 
@@ -46,7 +46,7 @@ public class LeaderBoardActivity extends AppCompatActivity implements SaveAndLoa
     private void setupViewPager(ViewPager viewPager) {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new SlidingTileLeaderBoardFragment());
-        adapter.addFragment(new ConnectFourLeaderBoardFragment());
+        adapter.addFragment(new FourLeaderBoardFragment());
         adapter.addFragment(new MemoryLeaderBoardFragment());
         viewPager.setAdapter(adapter);
     }
