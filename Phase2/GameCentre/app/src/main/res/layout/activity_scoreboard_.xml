@@ -14,6 +14,7 @@
         android:layout_height="67dp"
         android:fitsSystemWindows="false"
         android:theme="@style/AppTheme"
+        android:gravity="center"
         app:expanded="false">
 
 
@@ -24,7 +25,7 @@
             android:fontFamily="@font/baumans"
             android:text="Leaderboard"
             android:textAlignment="center"
-            android:textColor="@android:color/background_light"
+            android:textColor="@android:color/holo_green_light"
             android:textColorLink="@android:color/background_light"
             android:textSize="36sp"
             android:visibility="visible" />
@@ -33,7 +34,8 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="7dp" />
+            android:layout_height="7dp"
+            app:tabIndicatorColor="@android:color/holo_green_light" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
