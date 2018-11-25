@@ -5,12 +5,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -32,13 +29,13 @@ import users.User;
 public class LoginActivity extends AppCompatActivity {
 
     /**
-     * The save file for UserAccounts.
+     * The save file for userAccounts.
      * NOTE: Only accessed in LoginActivity and GameActivity.
      */
     public static final String ACCOUNTS_SAVE_FILENAME = "accounts_save_file.ser";
 
     /**
-     * The save file for the Current User.
+     * The save file for currentUser.
      * NOTE: Only accessed in LoginActivity and GameActivity.
      */
     public static final String USER_SAVE_FILENAME = "user_save_file.ser";

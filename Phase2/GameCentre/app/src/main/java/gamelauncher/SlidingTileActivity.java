@@ -1,10 +1,10 @@
 package gamelauncher;
 
+import android.app.Fragment;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,15 +17,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.HashMap;
 
 import fall2018.csc2017.slidingtiles.BoardManager;
 import fall2018.csc2017.slidingtiles.R;
 import fall2018.csc2017.slidingtiles.SlidingTileGameActivity;
 import scoring.LeaderBoardActivity;
 import users.User;
-
-import android.widget.TextView;
 
 public class SlidingTileActivity extends Fragment {
     /**
@@ -211,4 +208,5 @@ public class SlidingTileActivity extends Fragment {
     private void createToast(String msg) {
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
+
 }
