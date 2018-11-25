@@ -89,9 +89,8 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="370dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="71dp"
         android:layout_marginBottom="60dp"
         android:fontFamily="@font/baumans"
@@ -99,6 +98,7 @@
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/input_password"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread_inside" />
