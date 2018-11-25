@@ -8,10 +8,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 
+import fall2018.csc2017.common.Board;
+
 /**
  * The MemoryBoard tiles board.
  */
-public class MemoryBoard extends Observable implements Serializable, Iterable<Card> {
+public class MemoryBoard extends Board<Card> {
 
     /**
      * The number of rows.

@@ -1,29 +1,14 @@
 package fall2018.csc2017.slidingtiles;
 
-import android.support.annotation.NonNull;
-
-import java.util.Observable;
-
-import java.io.Serializable;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
+
+import fall2018.csc2017.common.Board;
 
 /**
  * The sliding tiles board.
  */
-public class SlidingBoard extends Observable implements Serializable, Iterable<Tile> {
-
-    /**
-     * The number of rows.
-     */
-    int numRows;
-
-
-    /**
-     * The number of columns.
-     */
-    int numCols;
+public class SlidingBoard extends Board<Tile> {
 
     /**
      * The tiles on the board in row-major order.
@@ -37,15 +22,8 @@ public class SlidingBoard extends Observable implements Serializable, Iterable<T
      * @param tiles the tiles for the board
      */
     SlidingBoard(List<Tile> tiles) {
-        numRows = (int) Math.sqrt(tiles.size());
-        numCols = numRows;
-        Iterator<Tile> iter = tiles.iterator();
-        this.tiles = new Tile[numRows][numCols];
-        for (int row = 0; row != numRows; row++) {
-            for (int col = 0; col != numCols; col++) {
-                this.tiles[row][col] = iter.next();
-            }
-        }
+        super(tiles);
+        this.tiles = super.tokens;
     }
 
     /**
@@ -90,52 +68,5 @@ public class SlidingBoard extends Observable implements Serializable, Iterable<T
         return "SlidingBoard{" +
                 "tiles=" + Arrays.toString(tiles) +
                 '}';
-    }
-
-    /**
-     * Returns an iterator for this board.
-     *
-     * @return an iterator for this board.
-     */
-    @NonNull
-    public Iterator<Tile> iterator() {
-        return new BoardIterator();
-    }
-
-    /**
-     * An Iterator for SlidingBoard Tiles.
-     */
-    private class BoardIterator implements Iterator<Tile> {
-        /**
-         * The index of the next Tile to return.
-         */
-        private int curRow = 0;
-        private int curCol = 0;
-
-        @Override
-        public boolean hasNext() {
-            return curRow < numRows && curCol < numCols;
-        }
-
-        /**
-         * Resets column to 0 and starts a new row once a column end is reached.
-         */
-        private void resetIndex() {
-            if (curCol == numCols) {
-                curCol = 0;
-                curRow++;
-            }
-        }
-
-        @Override
-        public Tile next() {
-            // Return null if next() is called when there are no other tiles
-            if (!hasNext()) return null;
-            // Return the current next Tile, prepare the next Tile
-            Tile t = tiles[curRow][curCol];
-            curCol++;
-            resetIndex();
-            return t;
-        }
     }
 }

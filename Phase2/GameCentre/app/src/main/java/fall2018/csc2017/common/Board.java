@@ -14,11 +14,19 @@ import fall2018.csc2017.slidingtiles.Tile;
 
 @SuppressWarnings("unchecked")
 public abstract class Board<T> extends Observable implements Serializable, Iterable<T> {
-    int numRows;
-    int numCols;
+
+    /**
+     * The number of rows.
+     */
+    public int numRows;
+
+    /**
+     * The number of columns.
+     */
+    public int numCols;
 
     // T is Card, Piece, or Tile
-    private T[][] tokens;
+    protected T[][] tokens;
 
 
     // For SlidingBoard, MemoryBoard
