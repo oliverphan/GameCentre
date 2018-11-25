@@ -19,7 +19,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import fall2018.csc2017.slidingtiles.BoardManager;
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.R;
 import fall2018.csc2017.slidingtiles.SlidingTileGameActivity;
 import scoring.LeaderBoardActivity;
 import users.User;

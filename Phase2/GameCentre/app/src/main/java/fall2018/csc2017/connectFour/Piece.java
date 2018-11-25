@@ -2,7 +2,7 @@ package fall2018.csc2017.connectFour;
 
 import java.io.Serializable;
 
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.R;
 
 /**
  * The Piece in a Connect Four game.

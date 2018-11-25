@@ -27,6 +27,7 @@ import fall2018.csc2017.SaveAndLoad;
 import gamelauncher.LoginActivity;
 import gamelauncher.SlidingTileActivity;
 import users.User;
+import fall2018.csc2017.R;
 
 /**
  * The game activity.

@@ -19,7 +19,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.R;
 import gamelauncher.ConnectFourActivity;
 import gamelauncher.LoginActivity;
 import users.User;

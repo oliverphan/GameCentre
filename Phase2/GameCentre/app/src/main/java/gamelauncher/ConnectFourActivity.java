@@ -20,7 +20,7 @@ import java.io.ObjectOutputStream;
 
 import fall2018.csc2017.connectFour.FourBoardManager;
 import fall2018.csc2017.connectFour.FourGameActivity;
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.R;
 import users.User;
 
 public class ConnectFourActivity extends Fragment {

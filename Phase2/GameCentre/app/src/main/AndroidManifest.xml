@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="fall2018.csc2017.slidingtiles">
+    package="fall2018.csc2017">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SlidingTileGameActivity" />
+        <activity android:name=".slidingtiles.SlidingTileGameActivity" />
         <activity android:name="scoring.LeaderBoardActivity" />
         <activity
             android:name="gamelauncher.MainActivity"
