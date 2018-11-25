@@ -28,7 +28,7 @@ import users.User;
 
 public class FourGameActivity extends AppCompatActivity implements Observer, SaveAndLoad {
     /**
-     * The Board manager.
+     * The SlidingBoard manager.
      */
     private FourBoardManager boardManager;
 

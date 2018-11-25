@@ -8,7 +8,7 @@
 
     <Button
         android:id="@+id/launchGame43"
-        android:layout_width="0dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
         android:layout_marginTop="24dp"
@@ -117,7 +117,7 @@
         android:layout_marginTop="76dp"
         android:layout_marginEnd="3dp"
         android:fontFamily="@font/baumans"
-        android:text="@string/matching_title"
+        android:text="@string/memory_title"
         android:textColor="@android:color/darker_gray"
         android:textSize="32sp"
         android:textStyle="bold"

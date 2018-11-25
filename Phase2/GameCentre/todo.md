@@ -1,7 +1,7 @@
 # TO DO
 1. Matching Tiles Game
  + Making Activities (fragments), .xml files
- + Making the gameActivity/board/boardManager
+ + Making the gameActivity/slidingBoard/boardManager
 
 2. Connect Four Game
  + Same as above, Meirbek has backend code

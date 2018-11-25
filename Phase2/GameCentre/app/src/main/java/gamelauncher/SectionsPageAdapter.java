@@ -10,7 +10,6 @@ import java.util.List;
 public class SectionsPageAdapter extends FragmentStatePagerAdapter {
 
     private final List<Fragment> mFragmentList = new ArrayList<>();
-//    private final List<String> mFragmentTitleList = new ArrayList<>();
 
     public SectionsPageAdapter(FragmentManager fm) {
         super(fm);

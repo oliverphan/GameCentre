@@ -21,7 +21,7 @@ public class Piece implements Serializable {
     /**
      * A piece with the empty_piece background and no player.
      */
-    Piece() {
+    public Piece() {
         this.player = 0;
         this.background = R.drawable.empty_piece;
     }

@@ -13,7 +13,7 @@ import fall2018.csc2017.R;
 public class SlidingTileLeaderBoardActivity extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.sliding_tile_leaderboard_activity, container, false);
+        View view = inflater.inflate(R.layout.activity_sliding_tile_leaderboard, container, false);
         Bundle args = getArguments();
 
         return view;
