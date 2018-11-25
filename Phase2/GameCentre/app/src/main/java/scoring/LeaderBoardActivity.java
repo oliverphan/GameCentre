@@ -19,6 +19,7 @@ import java.util.HashMap;
 
 import fall2018.csc2017.SaveAndLoad;
 import fall2018.csc2017.R;
+import gamelauncher.SectionsPageAdapter;
 import gamelauncher.SlidingTileActivity;
 import users.User;
 
@@ -106,30 +107,30 @@ public class LeaderBoardActivity extends AppCompatActivity implements SaveAndLoa
      *
      * @param gameName The name of the game to display top scores
      */
-    private void displayLeaders(String gameName) {
-        TextView tvScores = findViewById(R.id.tv_scores);
-        ArrayList<Score> tempScores = leaderBoard.getTopScores(gameName);
-        ArrayList<Integer> tempScoreValues = new ArrayList<>();
-        ArrayList<String> tempScoreUsers = new ArrayList<>();
-        int numScores = tempScoreValues.size(); //numScores == the number of users too
-        for (Score score: tempScores) {
-            tempScoreValues.add(score.getValue());
-            tempScoreUsers.add(score.getUsername());
-        }
-        StringBuilder sb = new StringBuilder(); // Build the display string
-        for (int i = 1; i <= numScores; i++){
-            if (tempScoreValues.get(i - 1) == -1){ // -1 means that slot hasn't been filled yet
-                break;
-            }
-            sb.append(i);
-            sb.append(": ");
-            sb.append(tempScoreValues.get(i - 1));
-            sb.append(" by ");
-            sb.append(tempScoreUsers.get(i - 1));
-            sb.append("\n");
-        }
-        tvScores.setText(sb.toString());
-    }
+//    private void displayLeaders(String gameName) {
+//        TextView tvScores = findViewById(R.id.tv_scores);
+//        ArrayList<Score> tempScores = leaderBoard.getTopScores(gameName);
+//        ArrayList<Integer> tempScoreValues = new ArrayList<>();
+//        ArrayList<String> tempScoreUsers = new ArrayList<>();
+//        int numScores = tempScoreValues.size(); //numScores == the number of users too
+//        for (Score score: tempScores) {
+//            tempScoreValues.add(score.getValue());
+//            tempScoreUsers.add(score.getUsername());
+//        }
+//        StringBuilder sb = new StringBuilder(); // Build the display string
+//        for (int i = 1; i <= numScores; i++){
+//            if (tempScoreValues.get(i - 1) == -1){ // -1 means that slot hasn't been filled yet
+//                break;
+//            }
+//            sb.append(i);
+//            sb.append(": ");
+//            sb.append(tempScoreValues.get(i - 1));
+//            sb.append(" by ");
+//            sb.append(tempScoreUsers.get(i - 1));
+//            sb.append("\n");
+//        }
+//        tvScores.setText(sb.toString());
+//    }
 
     /**
      * Load the leaderBoard from the indicated file.
