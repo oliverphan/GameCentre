@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
@@ -81,6 +82,8 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
      * A boolean tracking whether the game has been won.
      */
     private boolean gameWon;
+
+    private int score;
 
 
     // Grid View and calculated column height and width based on device size
@@ -200,6 +203,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
         setContentView(R.layout.activity_slidingtilesgame);
         addUserButtonListener();
         addUndoButtonListener();
+        updateScore();
         // Add View to activity
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(difficulty);
@@ -220,6 +224,12 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
                         display();
                     }
                 });
+    }
+
+    private void updateScore(){
+        score = slidingBoardManager.generateScore();
+        TextView curScore = findViewById(R.id.curScore);
+        curScore.setText(String.valueOf(score));
     }
 
     /**
@@ -333,6 +343,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
 
     @Override
     public void update(Observable o, Object arg) {
+        updateScore();
         int moves = slidingBoardManager.getNumMoves() % 10;
         // Autosave - Old boardManager is replaced if there is one.
         if (moves == 0 && !gameWon) {
@@ -343,7 +354,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
             gameWon = true;
             createToast("You Win!");
             LeaderBoard leaderBoard = loadLeaderBoard();
-            leaderBoard.updateScores("Sliding Tiles", new Score(currentUser.getName(), slidingBoardManager.generateScore()));
+            leaderBoard.updateScores("Sliding Tiles", new Score(currentUser.getName(), score));
             saveLeaderBoard(leaderBoard);
         }
         display();
