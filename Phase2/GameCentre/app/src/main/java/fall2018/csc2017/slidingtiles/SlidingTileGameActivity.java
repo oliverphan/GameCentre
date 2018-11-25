@@ -93,38 +93,10 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        loadGameFromFile();
-        userAccounts = loadUserAccounts();
-        currentUser = userAccounts.get(loadCurrentUsername());
-        difficulty = slidingBoardManager.getDifficulty();
-        createTileButtons();
-        setContentView(R.layout.activity_slidingtilesgame);
-        addUserButtonListener();
-        addUndoButtonListener();
-        // Add View to activity
-        gridView = findViewById(R.id.grid);
-        gridView.setNumColumns(difficulty);
-        gridView.setBoardManager(slidingBoardManager);
-        slidingBoardManager.getBoard().addObserver(this);
-        // Observer sets up desired dimensions as well as calls our display function
-        gridView.getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        gridView.getViewTreeObserver().removeOnGlobalLayoutListener(
-                                this);
-                        int displayWidth = gridView.getMeasuredWidth();
-                        int displayHeight = gridView.getMeasuredHeight();
-
-                        columnWidth = displayWidth / difficulty;
-                        columnHeight = displayHeight / difficulty;
-                        display();
-                    }
-                });
+    public Context getActivity() {
+        return this;
     }
+
 
     /**
      * Create the buttons for displaying the tiles.
@@ -213,37 +185,37 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         startActivityForResult(galleryIntent, IMAGE_REQUEST_CODE);
     }
 
-
-    /**
-     * continuation of gallery pick activity
-     *
-     * @param requestCode Request code for activity
-     * @param resultCode  Resulting code from Android
-     * @param i           intent of activity
-     */
     @Override
-    protected final void onActivityResult(final int requestCode,
-                                          final int resultCode, final Intent i) {
-        super.onActivityResult(requestCode, resultCode, i);
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case IMAGE_REQUEST_CODE:
-                    createBitmapFromUri(i.getData());
-                    break;
-            }
-        }
-        if (userImage != null) {
-            final Button userButton = findViewById(R.id.user);
-            userButton.setText(R.string.user_image_button_pressed);
-            SlidingBoard slidingBoard = slidingBoardManager.getBoard();
-            slidingBoardManager.userTiles = true;
-            for (int nextPos = 0; nextPos < slidingBoard.numTiles(); nextPos++) {
-                int row = nextPos / difficulty;
-                int col = nextPos % difficulty;
-                slidingBoard.getTile(row, col).createUserTiles(userImage, difficulty);
-                display();
-            }
-        }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        loadGameFromFile();
+        userAccounts = loadUserAccounts();
+        currentUser = userAccounts.get(loadCurrentUsername());
+        difficulty = slidingBoardManager.getDifficulty();
+        createTileButtons();
+        setContentView(R.layout.activity_slidingtilesgame);
+        addUserButtonListener();
+        addUndoButtonListener();
+        // Add View to activity
+        gridView = findViewById(R.id.grid);
+        gridView.setNumColumns(difficulty);
+        gridView.setBoardManager(slidingBoardManager);
+        slidingBoardManager.getBoard().addObserver(this);
+        // Observer sets up desired dimensions as well as calls our display function
+        gridView.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        gridView.getViewTreeObserver().removeOnGlobalLayoutListener(
+                                this);
+                        int displayWidth = gridView.getMeasuredWidth();
+                        int displayHeight = gridView.getMeasuredHeight();
+
+                        columnWidth = displayWidth / difficulty;
+                        columnHeight = displayHeight / difficulty;
+                        display();
+                    }
+                });
     }
 
     /**
@@ -280,21 +252,6 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     @Override
     public void onBackPressed() {
         switchToSlidingTilesActivity();
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        int moves = slidingBoardManager.getNumMoves() % 10;
-        // Autosave - Old slidingBoardManager is replaced if there is one.
-        if (moves == 0 && !gameWon) {
-            currentUser.getSaves().put(SlidingTileActivity.GAME_TITLE, slidingBoardManager);
-            saveUserAccounts(userAccounts);
-        }
-        if (slidingBoardManager.puzzleSolved()) {
-            gameWon = true;
-            createToast("You Win!");
-        }
-        display();
     }
 
     /**
@@ -338,7 +295,50 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
-    public Context getActivity() {
-        return this;
+    /**
+     * continuation of gallery pick activity
+     *
+     * @param requestCode Request code for activity
+     * @param resultCode  Resulting code from Android
+     * @param i           intent of activity
+     */
+    @Override
+    protected final void onActivityResult(final int requestCode,
+                                          final int resultCode, final Intent i) {
+        super.onActivityResult(requestCode, resultCode, i);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case IMAGE_REQUEST_CODE:
+                    createBitmapFromUri(i.getData());
+                    break;
+            }
+        }
+        if (userImage != null) {
+            final Button userButton = findViewById(R.id.user);
+            userButton.setText(R.string.user_image_button_pressed);
+            SlidingBoard slidingBoard = slidingBoardManager.getBoard();
+            slidingBoardManager.userTiles = true;
+            for (int nextPos = 0; nextPos < slidingBoard.numTiles(); nextPos++) {
+                int row = nextPos / difficulty;
+                int col = nextPos % difficulty;
+                slidingBoard.getTile(row, col).createUserTiles(userImage, difficulty);
+                display();
+            }
+        }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        int moves = slidingBoardManager.getNumMoves() % 10;
+        // Autosave - Old boardManager is replaced if there is one.
+        if (moves == 0 && !gameWon) {
+            currentUser.getSaves().put(SlidingTileActivity.GAME_TITLE, slidingBoardManager);
+            saveUserAccounts(userAccounts);
+        }
+        if (slidingBoardManager.puzzleSolved()) {
+            gameWon = true;
+            createToast("You Win!");
+        }
+        display();
     }
 }
