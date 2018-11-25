@@ -14,7 +14,7 @@ public class ConnectFourLeaderBoardActivity extends Fragment {
 
     //    Basically onCreate
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.connectfour_leaderboard_activity, container, false);
+        View view = inflater.inflate(R.layout.activity_connectfour_leaderboard, container, false);
         Bundle args = getArguments();
 
         return view;
