@@ -31,7 +31,7 @@ public class MemoryLeaderBoardActivity extends Fragment implements SaveAndLoad {
             View view = inflater.inflate(R.layout.activity_memory_leaderboard, container, false);
             Bundle args = getArguments();
             leaderBoard = loadLeaderBoard();
-            displayLeaders(view,"Connect Four");
+            displayLeaders(view,"Memory");
             return view;
         }
 
@@ -41,28 +41,25 @@ public class MemoryLeaderBoardActivity extends Fragment implements SaveAndLoad {
          * @param gameName The name of the game to display top scores
          */
         private void displayLeaders(View view, String gameName) {
-            TextView tvScores = view.findViewById(R.id.tv_scores);
             ArrayList<Score> tempScores = leaderBoard.getTopScores(gameName);
-            ArrayList<Integer> tempScoreValues = new ArrayList<>();
-            ArrayList<String> tempScoreUsers = new ArrayList<>();
-            int numScores = tempScoreValues.size(); //numScores == the number of users too
-            for (Score score: tempScores) {
-                tempScoreValues.add(score.getValue());
-                tempScoreUsers.add(score.getUsername());
-            }
-            StringBuilder sb = new StringBuilder(); // Build the display string
-            for (int i = 1; i <= numScores; i++){
-                if (tempScoreValues.get(i - 1) == -1){ // -1 means that slot hasn't been filled yet
-                    break;
-                }
-                sb.append(i);
-                sb.append(": ");
-                sb.append(tempScoreValues.get(i - 1));
-                sb.append(" by ");
-                sb.append(tempScoreUsers.get(i - 1));
-                sb.append("\n");
-            }
-            tvScores.setText(sb.toString());
+            TextView firstUser = view.findViewById(R.id.firstUser);
+            TextView firstScore = view.findViewById(R.id.firstScore);
+            String temp1 = tempScores.get(0).getUsername();
+            String temp2 = String.valueOf(tempScores.get(0).getValue());
+            firstUser.setText(temp1);
+            firstScore.setText(temp2);
+            TextView secondUser = view.findViewById(R.id.secondUser);
+            TextView secondScore = view.findViewById(R.id.secondScore);
+            String temp3 = tempScores.get(1).getUsername();
+            String temp4 = String.valueOf(tempScores.get(1).getValue());
+            secondUser.setText(temp3);
+            secondScore.setText(temp4);
+            TextView thirdUser = view.findViewById(R.id.thirdUser);
+            TextView thirdScore = view.findViewById(R.id.thirdScore);
+            String temp5 = tempScores.get(1).getUsername();
+            String temp6 = String.valueOf(tempScores.get(1).getValue());
+            thirdUser.setText(temp5);
+            thirdScore.setText(temp6);
         }
 
 
