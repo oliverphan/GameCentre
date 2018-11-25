@@ -13,6 +13,15 @@ import android.widget.Toast;
 import fall2018.csc2017.R;
 
 public class MemoryActivity extends Fragment {
+    /**
+     * Tag for the current game being played.
+     */
+    public static final String GAME_TITLE = "Memory";
+
+    /**
+     * Save file for the memoryBoardManager being created
+     */
+    public static final String TEMP_SAVE_FILENAME = "memory_save_file.ser";
 
     //    Basically onCreate
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
