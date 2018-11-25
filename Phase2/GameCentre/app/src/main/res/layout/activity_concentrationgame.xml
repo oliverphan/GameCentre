@@ -23,15 +23,18 @@
 
     <Button
         android:id="@+id/undoButton"
-        android:layout_width="wrap_content"
+        android:layout_width="90"
         android:layout_height="wrap_content"
 
         android:layout_marginTop="8dp"
         android:layout_marginBottom="9dp"
+        android:background="@drawable/button_custom"
         android:fontFamily="@font/baumans"
         android:text="@string/undo_button_text"
+        android:textColor="@android:color/holo_green_light"
         app:layout_constraintBottom_toTopOf="@+id/gridView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/undoInfo"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -45,6 +48,7 @@
         android:fontFamily="@font/baumans"
         android:gravity="center|end"
         android:text="@string/one_remaining"
+        android:textColor="@android:color/holo_green_light"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/gridView"
         app:layout_constraintEnd_toStartOf="@+id/undoButton"
