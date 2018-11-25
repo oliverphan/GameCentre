@@ -1,27 +1,28 @@
 package scoring;
 
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-
-import fall2018.csc2017.R;
-import gamelauncher.SlidingTileActivity;
-import users.User;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import fall2018.csc2017.SaveAndLoad;
+import fall2018.csc2017.slidingtiles.R;
+import gamelauncher.SlidingTileActivity;
+import users.User;
 
-public class LeaderBoardActivity extends AppCompatActivity {
+//TODO: Make 3 fragments, one for each game, and put in some of the code here for each one.
+
+public class LeaderBoardActivity extends AppCompatActivity implements SaveAndLoad {
 
     /**
      * The leaderBoard.
@@ -48,21 +49,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
     @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_scoreboard_);
-//        leaderBoard = new LeaderBoard();
-//        loadFromFile(SAVE_FILENAME);
-//        Intent intent = getIntent();
-////        String gameName = intent.getStringExtra(IntentKeys.GAME_TITLE_KEY);
-////
-////        int score = intent.getIntExtra(IntentKeys.SCORE_KEY, 0);
-////        userAccounts = (HashMap<String, User>) intent.getSerializableExtra(IntentKeys.USERACCOUNTS_KEY);
-////        currentUser = (User) intent.getSerializableExtra(IntentKeys.CURRENTUSER_KEY);
-//
-//        Score storageScore = new Score(currentUser.getName(), score);
-//
-//        leaderBoard.updateScores(gameName, storageScore);
-//        displayLeaders(gameName);
-//        saveToFile(SAVE_FILENAME);
+        setContentView(R.layout.activity_scoreboard_);
     }
 
     /**
@@ -70,8 +57,6 @@ public class LeaderBoardActivity extends AppCompatActivity {
      */
     private void switchToTitleActivity() {
         Intent tmp = new Intent(this, SlidingTileActivity.class);
-//        tmp.putExtra(IntentKeys.USERACCOUNTS_KEY, userAccounts);
-//        tmp.putExtra(IntentKeys.CURRENTUSER_KEY, currentUser);
         startActivity(tmp);
     }
 
@@ -82,14 +67,6 @@ public class LeaderBoardActivity extends AppCompatActivity {
     @SuppressWarnings("unchecked")
     protected void onResume() {
         super.onResume();
-//        loadFromFile(SAVE_FILENAME);
-//
-//        Intent intent = getIntent();
-//
-//        String gameName = intent.getStringExtra(IntentKeys.GAME_TITLE_KEY);
-//
-//        displayLeaders(gameName);
-//        saveToFile(SAVE_FILENAME);
     }
 
     /**
@@ -114,36 +91,27 @@ public class LeaderBoardActivity extends AppCompatActivity {
      */
     private void displayLeaders(String gameName) {
         TextView tvScores = findViewById(R.id.tv_scores);
-
-        // A public SharedPreferences interface.
-        SharedPreferences prefs = getSharedPreferences("PREFS", 0);
-        SharedPreferences.Editor editor = prefs.edit();
         ArrayList<Score> tempScores = leaderBoard.getTopScores(gameName);
-
-        Integer topScore1 = tempScores.get(0).getValue();
-        Integer topScore2 = tempScores.get(1).getValue();
-        Integer topScore3 = tempScores.get(2).getValue();
-
-        String user1 = tempScores.get(0).getUsername();
-        String user2 = tempScores.get(1).getUsername();
-        String user3 = tempScores.get(2).getUsername();
-
-        // Load top 3 scores
-        editor.putInt("topScore1", topScore1);
-        editor.putInt("topScore2", topScore2);
-        editor.putInt("topScore3", topScore3);
-        editor.apply();
-
-        // Load users of top 3 scores
-        editor.putString("user1", user1);
-        editor.putString("user2", user2);
-        editor.putString("user3", user3);
-        editor.apply();
-
-        //set the tvScores
-        String tvScoresText = ("1: " + topScore1 + " by " + user1 + "\n"
-                + "2: " + topScore2 + " by " + user2 + "\n" + "3: " + topScore3 + " by " + user3);
-        tvScores.setText(tvScoresText);
+        ArrayList<Integer> tempScoreValues = new ArrayList<>();
+        ArrayList<String> tempScoreUsers = new ArrayList<>();
+        int numScores = tempScoreValues.size(); //numScores == the number of users too
+        for (Score score: tempScores) {
+            tempScoreValues.add(score.getValue());
+            tempScoreUsers.add(score.getUsername());
+        }
+        StringBuilder sb = new StringBuilder(); // Build the display string
+        for (int i = 1; i <= numScores; i++){
+            if (tempScoreValues.get(i - 1) == -1){ // -1 means that slot hasn't been filled yet
+                break;
+            }
+            sb.append(i);
+            sb.append(": ");
+            sb.append(tempScoreValues.get(i - 1));
+            sb.append(" by ");
+            sb.append(tempScoreUsers.get(i - 1));
+            sb.append("\n");
+        }
+        tvScores.setText(sb.toString());
     }
 
     /**
@@ -184,5 +152,9 @@ public class LeaderBoardActivity extends AppCompatActivity {
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
+    }
+
+    public Context getActivity(){
+        return this;
     }
 }
