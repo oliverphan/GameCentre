@@ -1,5 +1,6 @@
 package scoring;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,13 +15,14 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import fall2018.csc2017.SaveAndLoad;
 import fall2018.csc2017.slidingtiles.R;
 import gamelauncher.SlidingTileActivity;
 import users.User;
 
 //TODO: Make 3 fragments, one for each game, and put in some of the code here for each one.
 
-public class LeaderBoardActivity extends AppCompatActivity {
+public class LeaderBoardActivity extends AppCompatActivity implements SaveAndLoad {
 
     /**
      * The leaderBoard.
@@ -150,5 +152,9 @@ public class LeaderBoardActivity extends AppCompatActivity {
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
+    }
+
+    public Context getActivity(){
+        return this;
     }
 }
