@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import scoring.LeaderBoard;
 import users.User;
 
 /**
@@ -29,6 +30,11 @@ public interface SaveAndLoad {
      * The save file for currentUser.
      */
     public static final String USER_SAVE_FILENAME = "user_save_file.ser";
+
+    /**
+     * Save file for the leaderBoard.
+     */
+    static final String LEADERBOARD_SAVE_FILENAME = "leaderboard_save.ser";
 
     /**
      * Load the user accounts
@@ -108,6 +114,38 @@ public interface SaveAndLoad {
             outputStream.close();
         } catch (IOException e) {
             Log.e("save current username", "File write failed: " + e.toString());
+        }
+    }
+
+
+    @SuppressWarnings({"SameParameterValue"})
+    default LeaderBoard loadLeaderBoard() {
+        try {
+            InputStream inputStream = getActivity().openFileInput(LEADERBOARD_SAVE_FILENAME);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                LeaderBoard leaderBoard = (LeaderBoard) input.readObject();
+                inputStream.close();
+                return leaderBoard;
+            }
+        } catch (FileNotFoundException e) {
+            return new LeaderBoard();
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        }
+        return null;
+    }
+
+    default void saveLeaderBoard(LeaderBoard leaderBoard) {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    getActivity().openFileOutput(LEADERBOARD_SAVE_FILENAME, Context.MODE_PRIVATE));
+            outputStream.writeObject(leaderBoard);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
         }
     }
 

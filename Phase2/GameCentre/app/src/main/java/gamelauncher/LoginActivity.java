@@ -12,6 +12,7 @@ import java.util.HashMap;
 
 import fall2018.csc2017.SaveAndLoad;
 import fall2018.csc2017.R;
+import scoring.LeaderBoard;
 import users.User;
 
 public class LoginActivity extends AppCompatActivity implements SaveAndLoad {
@@ -21,6 +22,8 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoad {
      * A HashMap of all the Users created. The key is the username, the value is the User object.
      */
     private HashMap<String, User> userAccounts;
+
+    private LeaderBoard leaderBoard;
 
     /**
      * The current logged in user.
@@ -38,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoad {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin_);
         userAccounts = loadUserAccounts();
+        leaderBoard = loadLeaderBoard();
         mUsernameView = findViewById(R.id.input_username);
         mPasswordView = findViewById(R.id.input_password);
         addLoginButtonListener();
