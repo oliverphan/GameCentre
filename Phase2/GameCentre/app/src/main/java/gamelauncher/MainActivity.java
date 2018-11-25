@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import fall2018.csc2017.SaveAndLoad;
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.R;
 
 public class MainActivity extends AppCompatActivity implements SaveAndLoad {
     private static final String TAG = "Main";

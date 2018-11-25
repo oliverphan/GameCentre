@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -18,7 +17,7 @@ import android.widget.Toast;
 import java.util.HashMap;
 
 import fall2018.csc2017.SaveAndLoad;
-import fall2018.csc2017.slidingtiles.R;
+import fall2018.csc2017.R;
 import users.User;
 
 public class LoginActivity extends AppCompatActivity implements SaveAndLoad {
@@ -43,8 +42,6 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoad {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        saveDefaultImage();
         setContentView(R.layout.activity_signin_);
         userAccounts = loadUserAccounts();
         mUsernameView = findViewById(R.id.input_username);
@@ -157,16 +154,6 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoad {
      */
     private void createToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * Saves an image so that there is always a user image to choose from.
-     */
-    public void saveDefaultImage() {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.defaultimage);
-        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())){
-            checkGalleryEmpty(bitmap);
-        }
     }
 
     /**
