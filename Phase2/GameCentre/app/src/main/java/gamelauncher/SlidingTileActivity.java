@@ -162,6 +162,7 @@ public class SlidingTileActivity extends Fragment implements SaveAndLoad {
      */
     private void switchToLeaderBoardActivity() {
         Intent tmp = new Intent(getActivity(), LeaderBoardActivity.class);
+        tmp.putExtra("frgToLoad", 0);
         startActivity(tmp);
     }
 
@@ -190,23 +191,6 @@ public class SlidingTileActivity extends Fragment implements SaveAndLoad {
         }
     }
 
-//    @SuppressWarnings("unchecked")
-//    private void loadUserFromFile() {
-//        try {
-//            InputStream inputStream = getActivity().openFileInput(LoginActivity.USER_SAVE_FILENAME);
-//            if (inputStream != null) {
-//                ObjectInputStream input = new ObjectInputStream(inputStream);
-//                currentUser = (User) input.readObject();
-//                inputStream.close();
-//            }
-//        } catch (FileNotFoundException e) {
-//            Log.e("load game activity", "File not found: " + e.toString());
-//        } catch (IOException e) {
-//            Log.e("load game activity", "Can not read file: " + e.toString());
-//        } catch (ClassNotFoundException e) {
-//            Log.e("load game activity", "File contained unexpected data type: " + e.toString());
-//        }
-//    }
 
     /**
      * @param msg The message to be displayed in the Toast.

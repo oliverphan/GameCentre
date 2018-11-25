@@ -13,6 +13,7 @@ import android.widget.Toast;
 import fall2018.csc2017.R;
 
 public class MemoryActivity extends Fragment {
+    public static final String GAME_TITLE = "Memory";
 
     //    Basically onCreate
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
