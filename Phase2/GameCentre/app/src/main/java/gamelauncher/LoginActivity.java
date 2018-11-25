@@ -1,6 +1,7 @@
 package gamelauncher;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -10,35 +11,18 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
+import fall2018.csc2017.SaveAndLoad;
 import fall2018.csc2017.slidingtiles.R;
 import users.User;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements SaveAndLoad {
 
-    /**
-     * The save file for userAccounts.
-     * NOTE: Only accessed in LoginActivity and GameActivity.
-     */
-    public static final String ACCOUNTS_SAVE_FILENAME = "accounts_save_file.ser";
-
-    /**
-     * The save file for currentUser.
-     * NOTE: Only accessed in LoginActivity and GameActivity.
-     */
-    public static final String USER_SAVE_FILENAME = "user_save_file.ser";
 
     /**
      * A HashMap of all the Users created. The key is the username, the value is the User object.
@@ -48,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * The current logged in user.
      */
-    private User currentUser;
+    private String currentUser;
 
     /**
      * UI References
@@ -62,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         saveDefaultImage();
         setContentView(R.layout.activity_signin_);
-        loadUserAccounts(ACCOUNTS_SAVE_FILENAME);
+        userAccounts = (HashMap<String, User>) loadUserAccounts();
         mUsernameView = findViewById(R.id.input_username);
         mPasswordView = findViewById(R.id.input_password);
         addLoginButtonListener();
@@ -89,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         // Check if password matches for this User
         if (u.getPassword().equals(password)) {
             createToast("Login successful");
-            currentUser = u;
+            currentUser = u.getName();
             return true;
         } else {
             createToast("Wrong password, try again");
@@ -102,12 +86,9 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void addLoginButtonListener() {
         Button loginButton = findViewById(R.id.login_button);
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (attemptLogin()) {
-                    switchToSlidingTileTitle();
-                }
+        loginButton.setOnClickListener(v -> {
+            if (attemptLogin()) {
+                switchToSlidingTileTitle();
             }
         });
     }
@@ -117,24 +98,19 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void addSignUpButtonListener() {
         Button signUpButton = findViewById(R.id.signup_button);
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Store values at the time of the login attempt.
-                String username = mUsernameView.getText().toString();
-                String password = mPasswordView.getText().toString();
-                if (exists(username)) {
-                    createToast("User already exists");
-                } else {
-                    User u = new User(username, password);
-                    addUser(u);
-                    // On successful signup:
-                    // Save the signed in user, and userAccounts
-                    saveToFile(USER_SAVE_FILENAME, u);
-                    currentUser = u;
-                    saveToFile(ACCOUNTS_SAVE_FILENAME, userAccounts);
-                    switchToSlidingTileTitle();
-                }
+        signUpButton.setOnClickListener(v -> {
+            // Store values at the time of the login attempt.
+            String username = mUsernameView.getText().toString();
+            String password = mPasswordView.getText().toString();
+            if (exists(username)) {
+                createToast("User already exists");
+            } else {
+                User u = new User(username, password);
+                addUser(u);
+                // On successful signup:
+                // Save the signed in user, and userAccounts
+                currentUser = u.getName();
+                switchToSlidingTileTitle();
             }
         });
     }
@@ -145,54 +121,11 @@ public class LoginActivity extends AppCompatActivity {
     private void switchToSlidingTileTitle() {
         Intent tmp = new Intent(this, MainActivity.class);
         // Pass in the username of the user.
-        tmp.putExtra("currentName", currentUser.getName());
-        saveToFile(USER_SAVE_FILENAME, currentUser);
+        saveCurrentUsername(currentUser);
+        saveUserAccounts(userAccounts);
         startActivity(tmp);
         finish();
     }
-
-    /**
-     * Load the userAccounts from fileName.
-     *
-     * @param fileName the name of the file
-     */
-    @SuppressWarnings({"unchecked", "SameParameterValue"})
-    private void loadUserAccounts(String fileName) {
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                userAccounts = (HashMap<String, User>) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            userAccounts = new HashMap<>();
-            saveToFile(ACCOUNTS_SAVE_FILENAME, userAccounts);
-            Log.e("login activity", "File Not Found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
-
-    /**
-     * Save the user accounts in fileName.
-     *
-     * @param fileName the name of the file
-     * @param obj      the object to write to fileName
-     */
-    public void saveToFile(String fileName, Object obj) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(obj);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
-
     /**
      * Add a User to userAccounts collection.
      * Key: The username
@@ -253,5 +186,8 @@ public class LoginActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public Context getActivity(){
+        return this;
     }
 }
