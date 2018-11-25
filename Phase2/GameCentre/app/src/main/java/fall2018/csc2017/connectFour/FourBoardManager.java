@@ -29,7 +29,7 @@ public class FourBoardManager implements Serializable {
     }
 
     /**
-     * Create a BoardManager with the selected difficulty
+     * Create a SlidingBoardManager with the selected difficulty
      *
      * @param d the difficulty selected
      */

@@ -10,7 +10,7 @@ import java.util.Stack;
 /**
  * Manage a slidingBoard, including swapping tiles, checking for a win, and managing taps.
  */
-public class BoardManager implements Serializable {
+public class SlidingBoardManager implements Serializable {
 
     /**
      * The slidingBoard being managed.
@@ -49,7 +49,7 @@ public class BoardManager implements Serializable {
      *
      * @param d the difficulty.
      */
-    public BoardManager(int d) {
+    public SlidingBoardManager(int d) {
         numMoves = 0;
         difficulty = d;
         numTiles = difficulty * difficulty;
