@@ -145,7 +145,7 @@ public class SlidingBoardManager implements Serializable {
             int[] a = {row - 1, col};
             moves.add(a);
         }
-        if (row != slidingBoard.numRows - 1) {
+        if (row != slidingBoard.getNumRows() - 1) {
             int[] b = {row + 1, col};
             moves.add(b);
         }
@@ -153,7 +153,7 @@ public class SlidingBoardManager implements Serializable {
             int[] l = {row, col - 1};
             moves.add(l);
         }
-        if (col != slidingBoard.numCols - 1) {
+        if (col != slidingBoard.getNumCols() - 1) {
             int[] r = {row, col + 1};
             moves.add(r);
         }
@@ -187,12 +187,12 @@ public class SlidingBoardManager implements Serializable {
      * @return whether the tile at position is surrounded by a blank tile
      */
     boolean isValidTap(int position) {
-        int row = position / slidingBoard.numCols;
-        int col = position % slidingBoard.numCols;
+        int row = position / slidingBoard.getNumCols();
+        int col = position % slidingBoard.getNumCols();
         Tile above = row == 0 ? null : slidingBoard.getTile(row - 1, col);
-        Tile below = row == slidingBoard.numRows - 1 ? null : slidingBoard.getTile(row + 1, col);
+        Tile below = row == slidingBoard.getNumRows() - 1 ? null : slidingBoard.getTile(row + 1, col);
         Tile left = col == 0 ? null : slidingBoard.getTile(row, col - 1);
-        Tile right = col == slidingBoard.numCols - 1 ? null : slidingBoard.getTile(row, col + 1);
+        Tile right = col == slidingBoard.getNumCols() - 1 ? null : slidingBoard.getTile(row, col + 1);
         return (below != null && below.getId() == numTiles)
                 || (above != null && above.getId() == numTiles)
                 || (left != null && left.getId() == numTiles)
@@ -206,8 +206,8 @@ public class SlidingBoardManager implements Serializable {
      * @param position the position
      */
     void touchMove(int position) {
-        int row = position / slidingBoard.numRows;
-        int col = position % slidingBoard.numCols;
+        int row = position / slidingBoard.getNumRows();
+        int col = position % slidingBoard.getNumCols();
         int[] move = findBlank(position);
         int[] cordPair = {row, col, move[0], move[1]};
         previousMoves.push(cordPair);
@@ -247,7 +247,7 @@ public class SlidingBoardManager implements Serializable {
                 blankFoundAt++;
             }
         }
-        return new int[]{blankFoundAt / slidingBoard.numRows, blankFoundAt % slidingBoard.numCols};
+        return new int[]{blankFoundAt / slidingBoard.getNumRows(), blankFoundAt % slidingBoard.getNumCols()};
     }
 
 

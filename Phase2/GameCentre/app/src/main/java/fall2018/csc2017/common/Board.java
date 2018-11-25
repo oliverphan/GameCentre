@@ -18,19 +18,40 @@ public abstract class Board<T> extends Observable implements Serializable, Itera
     /**
      * The number of rows.
      */
-    public int numRows;
+    protected int numRows;
 
     /**
      * The number of columns.
      */
-    public int numCols;
+    protected int numCols;
 
     // T is Card, Piece, or Tile
     protected T[][] tokens;
 
+    /**
+     * Return the number of rows for this Board.
+     *
+     * @return number of rows
+     */
+    public int getNumRows() {
+        return numRows;
+    }
 
+    /**
+     * Return the number of columns for this board.
+     *
+     * @return number of columns
+     */
+    public int getNumCols() {
+        return numCols;
+    }
+
+    /**
+     *
+     * @param tokens
+     */
     // For SlidingBoard, MemoryBoard
-    public Board(List<T> tokens) {
+    protected Board(List<T> tokens) {
         Class<?> classT = tokens.get(0).getClass();
         Iterator<T> iterator = tokens.iterator();
         T tmp = tokens.get(0);
@@ -56,7 +77,7 @@ public abstract class Board<T> extends Observable implements Serializable, Itera
     /**
      * Constructs a board filled of type T
      */
-    public Board() {
+    protected Board() {
         numCols = 7;
         numRows = 6;
         T tmp = (T) new Piece();
