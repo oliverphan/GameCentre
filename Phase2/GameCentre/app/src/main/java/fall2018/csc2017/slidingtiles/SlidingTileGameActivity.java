@@ -98,7 +98,8 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadGameFromFile();
-        loadUserFromFile();
+        userAccounts = loadUserAccounts();
+        currentUser = loadCurrentUsername();
         difficulty = boardManager.getDifficulty();
         createTileButtons();
         setContentView(R.layout.activity_slidingtilesgame);
@@ -157,7 +158,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
             if (!boardManager.userTiles) {
                 b.setBackgroundResource(board.getTile(row, col).getBackground());
             } else {
-                if (!gameWon && board.getTile(row, col).getId() == difficulty*difficulty) {
+                if (!gameWon && board.getTile(row, col).getId() == difficulty * difficulty) {
                     b.setBackgroundResource(R.drawable.whitespace);
                 } else {
                     b.setBackground(new BitmapDrawable(getResources(), board.getTile(row, col).getUserImage()));
@@ -267,8 +268,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
      * Switch to the title screen. Only to be called when the game is won.
      */
     private void switchToSlidingTilesActivity() {
-        loadUserFromFile();
-        loadUserAccounts();
+        writeNewValues();
         saveUserAccounts(userAccounts);
         saveCurrentUsername(currentUser);
         if (!gameWon) {
@@ -319,28 +319,6 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         }
     }
 
-
-    /**
-     * Load the board manager from fileName.
-     */
-    @SuppressWarnings("unchecked")
-    private void loadUserFromFile() {
-        try {
-            InputStream inputStream = this.openFileInput(LoginActivity.USER_SAVE_FILENAME);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                currentUser = (String) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("load game activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("load game activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("load game activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
-
     /**
      * Store the new score and delete the old save in the User if the game is won.
      * If game hasn't been won, store the most recent boardManager to the User.
@@ -362,7 +340,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
-    public Context getActivity(){
+    public Context getActivity() {
         return this;
     }
 }

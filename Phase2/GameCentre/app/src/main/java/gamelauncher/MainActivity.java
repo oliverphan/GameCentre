@@ -86,8 +86,7 @@ public class MainActivity extends AppCompatActivity implements SaveAndLoad {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-    public Context getActivity()
-    {
+    public Context getActivity() {
         return this;
     }
 }
