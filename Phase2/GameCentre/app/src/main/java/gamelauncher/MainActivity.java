@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements SaveAndLoad {
 
         ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(mViewPager);
+        mViewPager.setCurrentItem(1);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
         addLogOutButtonListener();
