@@ -53,9 +53,9 @@ public class LeaderBoardActivity extends AppCompatActivity implements SaveAndLoa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard_);
-
         ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(mViewPager);
+        mViewPager.setCurrentItem(getIntent().getIntExtra("frgToLoad", 0));
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
