@@ -4,21 +4,15 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import fall2018.csc2017.R;
-import fall2018.csc2017.SaveAndLoad;
+import fall2018.csc2017.common.SaveAndLoad;
 
 public class MemoryLeaderBoardActivity extends Fragment implements SaveAndLoad {
         /**

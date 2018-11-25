@@ -6,22 +6,13 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.TextView;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import fall2018.csc2017.SaveAndLoad;
+import fall2018.csc2017.common.SaveAndLoad;
 import fall2018.csc2017.R;
 import gamelauncher.MainActivity;
 import gamelauncher.SectionsPageAdapter;
-import gamelauncher.SlidingTileActivity;
 import users.User;
 
 //TODO: Make 3 fragments, one for each game, and put in some of the code here for each one.

@@ -1,4 +1,4 @@
-package fall2018.csc2017;
+package fall2018.csc2017.common;
 
 import android.content.Context;
 import android.util.Log;

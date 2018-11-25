@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
-import fall2018.csc2017.SaveAndLoad;
+import fall2018.csc2017.common.SaveAndLoad;
 import fall2018.csc2017.common.CustomAdapter;
 import fall2018.csc2017.common.GestureDetectGridView;
 import gamelauncher.SlidingTileActivity;
@@ -35,7 +35,7 @@ import fall2018.csc2017.R;
 /**
  * The game activity.
  */
-public class SlidingTileGameActivity extends AppCompatActivity implements Observer, SaveAndLoad {
+public class SlidingGameActivity extends AppCompatActivity implements Observer, SaveAndLoad {
 
     /**
      * The board manager.
