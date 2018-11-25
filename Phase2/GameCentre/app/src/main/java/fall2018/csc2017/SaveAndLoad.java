@@ -18,7 +18,7 @@ import users.User;
  * Loading userAccounts, the current User, the boardManager
  * Saving userAccounts, the current User, the boardManager
  */
- public interface SaveAndLoad {
+public interface SaveAndLoad {
 
     /**
      * The save file for userAccounts.
@@ -30,55 +30,58 @@ import users.User;
      */
     public static final String USER_SAVE_FILENAME = "user_save_file.ser";
 
-   /**
-    * Load the user accounts
-    * @return HashMap<String, User> m, the Map of the user accounts.
-    */
-   @SuppressWarnings("unchecked")
-    default HashMap<String, User> loadUserAccounts()  {
-      try {
-          InputStream inputStream = getActivity().openFileInput(ACCOUNTS_SAVE_FILENAME);
-          if (inputStream != null) {
-              ObjectInputStream input = new ObjectInputStream(inputStream);
-              HashMap<String, User> result = (HashMap<String, User>) input.readObject();
-              inputStream.close();
-              return result;
-          }
-      } catch (FileNotFoundException e) {
-          return new HashMap<>();
-      } catch (IOException e) {
-          Log.e("load user accounts", "Can not read file: " + e.toString());
-      } catch (ClassNotFoundException e) {
-          Log.e("load user accounts", "File contained unexpected data type: " + e.toString());
-      }
-      return null;
+    /**
+     * Load the user accounts
+     *
+     * @return HashMap<String   ,       User> m, the Map of the user accounts.
+     */
+    @SuppressWarnings("unchecked")
+    default HashMap<String, User> loadUserAccounts() {
+        try {
+            InputStream inputStream = getActivity().openFileInput(ACCOUNTS_SAVE_FILENAME);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                HashMap<String, User> result = (HashMap<String, User>) input.readObject();
+                inputStream.close();
+                return result;
+            }
+        } catch (FileNotFoundException e) {
+            return new HashMap<>();
+        } catch (IOException e) {
+            Log.e("load user accounts", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("load user accounts", "File contained unexpected data type: " + e.toString());
+        }
+        return null;
     }
 
     /**
      * Load the current username
+     *
      * @return String s, the name of the current user.
      */
     default String loadCurrentUsername() {
-       try {
-           InputStream inputStream = getActivity().openFileInput(USER_SAVE_FILENAME);
-           if (inputStream != null){
-               ObjectInputStream input = new ObjectInputStream(inputStream);
-               String result = (String) input.readObject();
-               inputStream.close();
-               return result;
-           }
-       } catch (FileNotFoundException e) {
-           return "";
-       } catch (IOException e) {
-           Log.e("load current username", "Can not read file: " + e.toString());
-       } catch (ClassNotFoundException e) {
-           Log.e("load current username", "File contained unexpected data type: " + e.toString());
-       }
-       return "";
+        try {
+            InputStream inputStream = getActivity().openFileInput(USER_SAVE_FILENAME);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                String result = (String) input.readObject();
+                inputStream.close();
+                return result;
+            }
+        } catch (FileNotFoundException e) {
+            return "";
+        } catch (IOException e) {
+            Log.e("load current username", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("load current username", "File contained unexpected data type: " + e.toString());
+        }
+        return "";
     }
 
     /**
      * Save the map of user accounts to file.
+     *
      * @param accounts the map of user accounts to be written.
      */
     default void saveUserAccounts(Map<String, User> accounts) {
@@ -91,8 +94,10 @@ import users.User;
             Log.e("save user accounts", "File write failed: " + e.toString());
         }
     }
+
     /**
      * Save the current username to file.
+     *
      * @param username the username to be written.
      */
     default void saveCurrentUsername(String username) {
