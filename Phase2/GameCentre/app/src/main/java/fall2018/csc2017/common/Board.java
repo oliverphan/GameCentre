@@ -14,15 +14,43 @@ import fall2018.csc2017.slidingtiles.Tile;
 
 @SuppressWarnings("unchecked")
 public abstract class Board<T> extends Observable implements Serializable, Iterable<T> {
-    int numRows;
-    int numCols;
+
+    /**
+     * The number of rows.
+     */
+    protected int numRows;
+
+    /**
+     * The number of columns.
+     */
+    protected int numCols;
 
     // T is Card, Piece, or Tile
-    private T[][] tokens;
+    protected T[][] tokens;
 
+    /**
+     * Return the number of rows for this Board.
+     *
+     * @return number of rows
+     */
+    public int getNumRows() {
+        return numRows;
+    }
 
+    /**
+     * Return the number of columns for this board.
+     *
+     * @return number of columns
+     */
+    public int getNumCols() {
+        return numCols;
+    }
+
+    /**
+     * @param tokens
+     */
     // For SlidingBoard, MemoryBoard
-    public Board(List<T> tokens) {
+    protected Board(List<T> tokens) {
         Class<?> classT = tokens.get(0).getClass();
         Iterator<T> iterator = tokens.iterator();
         T tmp = tokens.get(0);
@@ -48,7 +76,7 @@ public abstract class Board<T> extends Observable implements Serializable, Itera
     /**
      * Constructs a board filled of type T
      */
-    public Board() {
+    protected Board() {
         numCols = 7;
         numRows = 6;
         T tmp = (T) new Piece();

@@ -1,36 +1,22 @@
 package fall2018.csc2017.slidingtiles;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Stack;
 
+import fall2018.csc2017.common.BoardManager;
+
 /**
  * Manage a slidingBoard, including swapping tiles, checking for a win, and managing taps.
  */
-public class SlidingBoardManager implements Serializable {
-
-    /**
-     * The slidingBoard being managed.
-     */
-    private SlidingBoard slidingBoard;
-
-    /**
-     * The number of moves made so far.
-     */
-    private int numMoves;
+public class SlidingBoardManager extends BoardManager<SlidingBoard> {
 
     /**
      * Stores all of the moves that have been made so far.
      */
     private Stack<int[]> previousMoves;
-
-    /**
-     * The number of tiles per side in the slidingBoard.
-     */
-    private int difficulty;
 
     /**
      * Whether or not the image background is the default number pictures or
@@ -43,54 +29,17 @@ public class SlidingBoardManager implements Serializable {
      */
     private final int numTiles;
 
-
     /**
      * Manage a new shuffled slidingBoard with difficulty d.
      *
-     * @param d the difficulty.
+     * @param difficulty the difficulty.
      */
-    public SlidingBoardManager(int d) {
-        numMoves = 0;
-        difficulty = d;
+    public SlidingBoardManager(int difficulty) {
+        super(difficulty);
+        setName("Sliding Tiles");
         numTiles = difficulty * difficulty;
         previousMoves = new Stack<>();
         setDifficulty(difficulty);
-    }
-
-    /**
-     * The name of this game is "Sliding Tiles".
-     *
-     * @return the name of the game.
-     */
-    public String getName() {
-        return "Sliding Tiles";
-    }
-
-    /**
-     * Return the slidingBoard.
-     *
-     * @return the slidingBoard.
-     */
-    SlidingBoard getBoard() {
-        return slidingBoard;
-    }
-
-    /**
-     * Return the difficulty.
-     *
-     * @return the difficulty.
-     */
-    int getDifficulty() {
-        return difficulty;
-    }
-
-    /**
-     * Return the number of moves made so far.
-     *
-     * @return the number of moves.
-     */
-    int getNumMoves() {
-        return numMoves;
     }
 
     /**
@@ -99,8 +48,63 @@ public class SlidingBoardManager implements Serializable {
      *
      * @return the calculated score.
      */
-    int generateScore() {
+    @Override
+    public int generateScore() {
         return Math.max(((difficulty * 100) - numMoves), 0);
+    }
+
+    /**
+     * Return whether the tiles are in row-major order.
+     *
+     * @return whether the tiles are in row-major order
+     */
+    @Override
+    protected boolean gameFinished() {
+        Iterator<Tile> puzzleIterator = board.iterator();
+        int curId = 1;
+        Tile t = puzzleIterator.next();
+        while (curId < board.numTiles()) {
+            if (t.getId() != curId) {
+                return false;
+            }
+            t = puzzleIterator.next();
+            curId++;
+        }
+        return true;
+    }
+
+    /**
+     * Return whether any of the four surrounding tiles is the blank tile.
+     *
+     * @param position the tile to check
+     * @return whether the tile at position is surrounded by a blank tile
+     */
+    protected boolean isValidTap(int position) {
+        int row = position / board.getNumCols();
+        int col = position % board.getNumCols();
+        Tile above = row == 0 ? null : board.getTile(row - 1, col);
+        Tile below = row == board.getNumRows() - 1 ? null : board.getTile(row + 1, col);
+        Tile left = col == 0 ? null : board.getTile(row, col - 1);
+        Tile right = col == board.getNumCols() - 1 ? null : board.getTile(row, col + 1);
+        return (below != null && below.getId() == numTiles)
+                || (above != null && above.getId() == numTiles)
+                || (left != null && left.getId() == numTiles)
+                || (right != null && right.getId() == numTiles);
+    }
+
+    /**
+     * Process a touch at position in the slidingBoard, swapping tiles as appropriate.
+     *
+     * @param position the position
+     */
+    protected void touchMove(int position) {
+        int row = position / board.getNumRows();
+        int col = position % board.getNumCols();
+        int[] move = findBlank(position);
+        int[] cordPair = {row, col, move[0], move[1]};
+        previousMoves.push(cordPair);
+        numMoves += 1;
+        board.swapTiles(row, col, move[0], move[1]);
     }
 
     /**
@@ -113,7 +117,7 @@ public class SlidingBoardManager implements Serializable {
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             tiles.add(new Tile(tileNum, numTiles));
         }
-        this.slidingBoard = new SlidingBoard(tiles);
+        this.board = new SlidingBoard(tiles);
         shuffle(d);
     }
 
@@ -127,7 +131,7 @@ public class SlidingBoardManager implements Serializable {
         for (int i = 0; i < d * 100; i++) {
             ArrayList<int[]> moves = validShuffles(blankPos[0], blankPos[1]);
             int[] randomMove = moves.get(new Random().nextInt(moves.size()));
-            slidingBoard.swapTiles(blankPos[0], blankPos[1], randomMove[0], randomMove[1]);
+            this.board.swapTiles(blankPos[0], blankPos[1], randomMove[0], randomMove[1]);
             blankPos = randomMove;
         }
     }
@@ -145,7 +149,7 @@ public class SlidingBoardManager implements Serializable {
             int[] a = {row - 1, col};
             moves.add(a);
         }
-        if (row != slidingBoard.numRows - 1) {
+        if (row != board.getNumRows() - 1) {
             int[] b = {row + 1, col};
             moves.add(b);
         }
@@ -153,66 +157,11 @@ public class SlidingBoardManager implements Serializable {
             int[] l = {row, col - 1};
             moves.add(l);
         }
-        if (col != slidingBoard.numCols - 1) {
+        if (col != board.getNumCols() - 1) {
             int[] r = {row, col + 1};
             moves.add(r);
         }
         return moves;
-    }
-
-
-    /**
-     * Return whether the tiles are in row-major order.
-     *
-     * @return whether the tiles are in row-major order
-     */
-    boolean puzzleSolved() {
-        Iterator<Tile> puzzleIterator = slidingBoard.iterator();
-        int curId = 1;
-        Tile t = puzzleIterator.next();
-        while (curId < slidingBoard.numTiles()) {
-            if (t.getId() != curId) {
-                return false;
-            }
-            t = puzzleIterator.next();
-            curId++;
-        }
-        return true;
-    }
-
-    /**
-     * Return whether any of the four surrounding tiles is the blank tile.
-     *
-     * @param position the tile to check
-     * @return whether the tile at position is surrounded by a blank tile
-     */
-    boolean isValidTap(int position) {
-        int row = position / slidingBoard.numCols;
-        int col = position % slidingBoard.numCols;
-        Tile above = row == 0 ? null : slidingBoard.getTile(row - 1, col);
-        Tile below = row == slidingBoard.numRows - 1 ? null : slidingBoard.getTile(row + 1, col);
-        Tile left = col == 0 ? null : slidingBoard.getTile(row, col - 1);
-        Tile right = col == slidingBoard.numCols - 1 ? null : slidingBoard.getTile(row, col + 1);
-        return (below != null && below.getId() == numTiles)
-                || (above != null && above.getId() == numTiles)
-                || (left != null && left.getId() == numTiles)
-                || (right != null && right.getId() == numTiles);
-    }
-
-
-    /**
-     * Process a touch at position in the slidingBoard, swapping tiles as appropriate.
-     *
-     * @param position the position
-     */
-    void touchMove(int position) {
-        int row = position / slidingBoard.numRows;
-        int col = position % slidingBoard.numCols;
-        int[] move = findBlank(position);
-        int[] cordPair = {row, col, move[0], move[1]};
-        previousMoves.push(cordPair);
-        numMoves += 1;
-        slidingBoard.swapTiles(row, col, move[0], move[1]);
     }
 
     /**
@@ -222,13 +171,13 @@ public class SlidingBoardManager implements Serializable {
      * @param numToUndo the number of moves to undo.
      */
     void undoMove(int numToUndo) {
-        if (!puzzleSolved()) {
+        if (!gameFinished()) {
             for (int i = 0; i < numToUndo; i++) {
                 // Break if previous moves stack is empty
                 if (previousMoves.isEmpty())
                     return;
                 int[] tmp = previousMoves.pop();
-                slidingBoard.swapTiles(tmp[0], tmp[1], tmp[2], tmp[3]);
+                board.swapTiles(tmp[0], tmp[1], tmp[2], tmp[3]);
             }
         }
     }
@@ -240,14 +189,14 @@ public class SlidingBoardManager implements Serializable {
      * @return int[row, column] of the blank tile.
      */
     private int[] findBlank(int position) {
-        Iterator<Tile> blankIterator = slidingBoard.iterator();
+        Iterator<Tile> blankIterator = board.iterator();
         int blankFoundAt = 0;
         if (isValidTap(position)) {
             while (blankIterator.next().getId() != numTiles) {
                 blankFoundAt++;
             }
         }
-        return new int[]{blankFoundAt / slidingBoard.numRows, blankFoundAt % slidingBoard.numCols};
+        return new int[]{blankFoundAt / board.getNumRows(), blankFoundAt % board.getNumCols()};
     }
 
 

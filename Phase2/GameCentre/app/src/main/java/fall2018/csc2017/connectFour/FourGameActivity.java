@@ -12,7 +12,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -23,7 +22,6 @@ import java.util.Random;
 import fall2018.csc2017.R;
 import fall2018.csc2017.SaveAndLoad;
 import gamelauncher.ConnectFourActivity;
-import gamelauncher.LoginActivity;
 import scoring.LeaderBoard;
 import scoring.Score;
 import users.User;
@@ -148,7 +146,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
         System.out.print("Best Moves:");
         System.out.println(bestMoves);
         ArrayList<Integer> allowedMoves = new ArrayList<>();
-        for (int i = 0; i < board.NUM_COLS; i++) {
+        for (int i = 0; i < board.getNumCols(); i++) {
             if (board.openRow(i) != -1) {
                 allowedMoves.add(i);
             }
@@ -192,7 +190,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
             if (dupe.openRow(move) == -1) {
                 continue;
             }
-            dupe.makeMove(move, 2);
+            dupe.placePiece(move, 2);
             if (dupe.isWinner(2)) {
                 potentialMoves.set(move, 1);
                 break;
@@ -205,7 +203,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
                         if (dupe2.openRow(eMove) == -1) {
                             continue;
                         }
-                        dupe2.makeMove(eMove, 1);
+                        dupe2.placePiece(eMove, 1);
                         if (dupe2.isWinner(1)) {
                             potentialMoves.set(move, -1);
                             break;
@@ -244,7 +242,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
             saveLeaderBoard(leaderBoard);
         } else {
             if (board.curPlayer == 2) {
-                board.makeMove(getComputerMove(), 2);
+                board.placePiece(getComputerMove(), 2);
             }
             board.switchPlayer();
         }

@@ -337,7 +337,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
             currentUser.getSaves().put(SlidingTileActivity.GAME_TITLE, slidingBoardManager);
             saveUserAccounts(userAccounts);
         }
-        if (slidingBoardManager.puzzleSolved()) {
+        if (slidingBoardManager.gameFinished()) {
             gameWon = true;
             createToast("You Win!");
             LeaderBoard leaderBoard = loadLeaderBoard();
