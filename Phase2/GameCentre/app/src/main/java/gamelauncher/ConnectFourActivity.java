@@ -17,13 +17,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
 
+import fall2018.csc2017.SaveAndLoad;
 import fall2018.csc2017.connectFour.FourBoardManager;
 import fall2018.csc2017.connectFour.FourGameActivity;
 import fall2018.csc2017.R;
 import users.User;
 
-public class ConnectFourActivity extends Fragment {
+public class ConnectFourActivity extends Fragment implements SaveAndLoad {
     /**
      * Tag for the current game being played.
      */
@@ -43,10 +45,16 @@ public class ConnectFourActivity extends Fragment {
      */
     private User currentUser;
 
+    /**
+     * A HashMap of all the Users created. The key is the username, the value is the User object.
+     */
+    private HashMap<String, User> userAccounts;
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_connectfour, container, false);
         Bundle args = getArguments();
-        loadUserFromFile();
+        userAccounts = loadUserAccounts();
+        currentUser = userAccounts.get(loadCurrentUsername());
         addLaunchEasyListener(view);
         addLaunchMediumListener(view);
         addLaunchHardListener(view);
@@ -65,7 +73,6 @@ public class ConnectFourActivity extends Fragment {
         launchEasyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent tmp = new Intent(getActivity(), FourGameActivity.class);
                 boardManager = new FourBoardManager(0);
                 createToast("Game Start");
                 switchToFourGameActivity();
@@ -175,30 +182,11 @@ public class ConnectFourActivity extends Fragment {
         }
     }
 
-    /**
-     * Loads the current user logged in.
-     */
-    private void loadUserFromFile() {
-        try {
-            InputStream inputStream = getActivity().openFileInput(LoginActivity.USER_SAVE_FILENAME);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                currentUser = (User) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("load game activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("load game activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("load game activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
-
     @Override
     public void onResume() {
         super.onResume();
-        loadUserFromFile();
+        userAccounts = loadUserAccounts();
+        currentUser = userAccounts.get(loadCurrentUsername());
         addLoadButtonListener(getView());
     }
 
