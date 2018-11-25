@@ -11,6 +11,7 @@ public class FourBoardManager extends BoardManager<FourBoard> {
      */
     public FourBoardManager(int difficulty) {
         super(difficulty);
+        setName("Connect Four");
         board = new FourBoard();
     }
 

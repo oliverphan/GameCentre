@@ -4,7 +4,15 @@ import java.io.Serializable;
 
 public abstract class BoardManager<T> implements Serializable {
 
+
+    /**
+     * The Board being Managed.
+     */
     protected T board;
+
+    /**
+     * The difficulty of the game.
+     */
     protected int difficulty;
 
     /**

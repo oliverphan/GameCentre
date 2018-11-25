@@ -149,7 +149,7 @@
 //
 //        writeNewValues();
 //        saveUserAccounts(userAccounts);
-//        if (!memoryBoardManager.gameOver()) {
+//        if (!memoryBoardManager.gameFinished()) {
 //            createToast("Saved");
 //        } else {
 //            createToast("Saved Wiped");
@@ -182,7 +182,7 @@
 //     * If game hasn't been won, store the most recent boardManager to the User.
 //     */
 //    public void writeNewValues() {
-//        if (!memoryBoardManager.gameOver()) {
+//        if (!memoryBoardManager.gameFinished()) {
 //            currentUser.writeGame(MemoryActivity.GAME_TITLE, memoryBoardManager);
 //        } else {
 //            currentUser.setNewScore(MemoryActivity.GAME_TITLE, memoryBoardManager.generateScore());

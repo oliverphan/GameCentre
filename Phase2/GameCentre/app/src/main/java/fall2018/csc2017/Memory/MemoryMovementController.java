@@ -17,7 +17,7 @@ public class MemoryMovementController {
     }
 
     public void processTapMovement(Context context, int position, boolean display) {
-        if (!memoryBoardManager.gameOver()) {
+        if (!memoryBoardManager.gameFinished()) {
             if (memoryBoardManager.isValidTap(position)) {
                 memoryBoardManager.touchMove(position);
             } else {

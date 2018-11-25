@@ -36,7 +36,7 @@ public class SlidingBoardManager extends BoardManager<SlidingBoard> {
      */
     public SlidingBoardManager(int difficulty) {
         super(difficulty);
-        super.setName("Sliding Tiles");
+        setName("Sliding Tiles");
         numTiles = difficulty * difficulty;
         previousMoves = new Stack<>();
         setDifficulty(difficulty);
