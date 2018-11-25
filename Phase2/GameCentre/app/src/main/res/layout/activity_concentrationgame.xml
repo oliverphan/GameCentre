@@ -48,7 +48,7 @@
         android:fontFamily="@font/baumans"
         android:gravity="center|end"
         android:text="@string/one_remaining"
-        android:textColor="@android:color/holo_green_light"
+        android:textColor="@android:color/darker_gray"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/gridView"
         app:layout_constraintEnd_toStartOf="@+id/undoButton"

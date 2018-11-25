@@ -13,7 +13,7 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="67dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/transparent"
         android:fitsSystemWindows="false"
         android:theme="@style/AppTheme"
         app:expanded="false">
@@ -27,7 +27,7 @@
             android:fontFamily="@font/baumans"
             android:text="Current User"
             android:textAlignment="textStart"
-            android:textColor="@android:color/holo_green_light"
+            android:textColor="@android:color/darker_gray"
             android:textSize="20sp" />
 
         <Button
