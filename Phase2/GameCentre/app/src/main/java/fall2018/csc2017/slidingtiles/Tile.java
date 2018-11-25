@@ -2,13 +2,9 @@ package fall2018.csc2017.slidingtiles;
 
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
-import fall2018.csc2017.R;
 import fall2018.csc2017.common.Token;
 
-import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.util.HashMap;
 
 

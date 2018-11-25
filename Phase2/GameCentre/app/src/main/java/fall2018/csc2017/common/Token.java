@@ -10,7 +10,7 @@ import fall2018.csc2017.R;
 public abstract class Token implements Serializable {
 
     /**
-     * The background id to find the tile image.
+     * The background id to find the Token image.
      */
     private int background;
 
@@ -28,7 +28,12 @@ public abstract class Token implements Serializable {
         this.background = R.drawable.empty_piece;
     }
 
-    // For Card
+    /**
+     * Set the Token to have a Card background.
+     * A Card with a background id; look up and set the id.
+     *
+     * @param backgroundId the id of the Card
+     */
     public Token(int backgroundId) {
         String uri = "card_" + String.valueOf(backgroundId);
         try {
@@ -42,7 +47,7 @@ public abstract class Token implements Serializable {
     }
 
     /**
-     * Initialize a new Tile.
+     * Set the Token to have a Tile background.
      * A tile with a background id; look up and set the id.
      * Adapted from http://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
      *
