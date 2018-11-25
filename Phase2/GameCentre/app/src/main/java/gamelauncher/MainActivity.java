@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import fall2018.csc2017.SaveAndLoad;
+import fall2018.csc2017.common.SaveAndLoad;
 import fall2018.csc2017.R;
 
 public class MainActivity extends AppCompatActivity implements SaveAndLoad {

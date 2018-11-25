@@ -20,7 +20,7 @@ import java.util.Observer;
 import java.util.Random;
 
 import fall2018.csc2017.R;
-import fall2018.csc2017.SaveAndLoad;
+import fall2018.csc2017.common.SaveAndLoad;
 import fall2018.csc2017.common.CustomAdapter;
 import fall2018.csc2017.common.GestureDetectGridView;
 import gamelauncher.ConnectFourActivity;

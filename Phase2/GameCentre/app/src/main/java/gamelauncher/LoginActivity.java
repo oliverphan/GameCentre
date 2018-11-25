@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 
-import fall2018.csc2017.SaveAndLoad;
+import fall2018.csc2017.common.SaveAndLoad;
 import fall2018.csc2017.R;
 import scoring.LeaderBoard;
 import users.User;
