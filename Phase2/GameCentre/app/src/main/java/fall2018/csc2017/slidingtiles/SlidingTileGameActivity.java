@@ -52,7 +52,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     /**
      * The name of the current user.
      */
-    private String currentUser;
+    private User currentUser;
 
     /**
      * The number of tiles per side of the board.
@@ -99,7 +99,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         super.onCreate(savedInstanceState);
         loadGameFromFile();
         userAccounts = loadUserAccounts();
-        currentUser = loadCurrentUsername();
+        currentUser = userAccounts.get(loadCurrentUsername());
         difficulty = boardManager.getDifficulty();
         createTileButtons();
         setContentView(R.layout.activity_slidingtilesgame);
@@ -270,7 +270,6 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
     private void switchToSlidingTilesActivity() {
         writeNewValues();
         saveUserAccounts(userAccounts);
-        saveCurrentUsername(currentUser);
         if (!gameWon) {
             createToast("Saved");
         } else {
@@ -289,7 +288,7 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
         int moves = boardManager.getNumMoves() % 10;
         // Autosave - Old boardManager is replaced if there is one.
         if (moves == 0 && !gameWon) {
-            userAccounts.get(currentUser).getSaves().put(SlidingTileActivity.GAME_TITLE, boardManager);
+            currentUser.getSaves().put(SlidingTileActivity.GAME_TITLE, boardManager);
             saveUserAccounts(userAccounts);
         }
         if (boardManager.puzzleSolved()) {
@@ -325,10 +324,10 @@ public class SlidingTileGameActivity extends AppCompatActivity implements Observ
      */
     public void writeNewValues() {
         if (!gameWon) {
-            userAccounts.get(currentUser).writeGame(SlidingTileActivity.GAME_TITLE, boardManager);
+            currentUser.writeGame(SlidingTileActivity.GAME_TITLE, boardManager);
         } else {
-            userAccounts.get(currentUser).setNewScore(SlidingTileActivity.GAME_TITLE, boardManager.generateScore());
-            userAccounts.get(currentUser).deleteSave(SlidingTileActivity.GAME_TITLE);
+            currentUser.setNewScore(SlidingTileActivity.GAME_TITLE, boardManager.generateScore());
+            currentUser.deleteSave(SlidingTileActivity.GAME_TITLE);
         }
     }
 
