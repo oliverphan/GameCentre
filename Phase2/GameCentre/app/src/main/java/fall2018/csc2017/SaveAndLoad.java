@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import fall2018.csc2017.slidingtiles.BoardManager;
 import gamelauncher.LoginActivity;
 import users.User;
 
@@ -26,7 +27,7 @@ import users.User;
     * @return HashMap<String, User> m, the Map of the user accounts.
     */
    @SuppressWarnings("unchecked")
-    default Map<String, User> loadUserAccounts()  {
+    default HashMap<String, User> loadUserAccounts()  {
       try {
           InputStream inputStream = getActivity().openFileInput(LoginActivity.ACCOUNTS_SAVE_FILENAME);
           if (inputStream != null) {
@@ -69,10 +70,10 @@ import users.User;
     }
 
     /**
-     * Save the map of user accounts to file.
+     * Save the Hashmap of user accounts to file.
      * @param accounts the map of user accounts to be written.
      */
-    default void saveUserAccounts(Map<String, User> accounts) {
+    default void saveUserAccounts(HashMap<String, User> accounts) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     getActivity().openFileOutput(LoginActivity.ACCOUNTS_SAVE_FILENAME, Context.MODE_PRIVATE));
@@ -96,6 +97,50 @@ import users.User;
             Log.e("save current username", "File write failed: " + e.toString());
         }
     }
+
+    /**
+     * Load the BoardManager for the corresponding user and game.
+     * @param username the username of the user
+     * @param game the name of the game
+     * @return (BoardManager) the BoardManager for the corresponding user and game
+     */
+    default Object loadBoardManager(String username, String game){
+        try {
+            InputStream inputStream = getActivity().openFileInput(LoginActivity.ACCOUNTS_SAVE_FILENAME);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                HashMap<String, User> userAccounts = (HashMap<String, User>) input.readObject();
+                BoardManager result = (BoardManager) userAccounts.get(username).getSaves().get(game);
+                inputStream.close();
+                return result;
+            }
+        } catch (FileNotFoundException e) {
+            return null;
+        } catch (IOException e) {
+            Log.e("load user accounts", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("load user accounts", "File contained unexpected data type: " + e.toString());
+        }
+        return null;
+        }
+
+    /**
+     * Save the BoardManager of user accounts to file.
+     * @param username the username of the user
+     * @param game the name of the game
+     * @param boardManager the BoardManager to be saved.
+     */
+
+    default void saveBoardManager(String username, String game, BoardManager boardManager){
+
+        HashMap<String, User> userAccounts = loadUserAccounts();
+        User u = userAccounts.get(username);
+        u.writeGame(game, boardManager);
+        saveUserAccounts(userAccounts);
+
+    }
+
+
 
     Context getActivity();
 }
