@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -63,7 +64,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        saveDefaultImage();
         setContentView(R.layout.activity_signin_);
         loadUserAccounts(ACCOUNTS_SAVE_FILENAME);
         mUsernameView = findViewById(R.id.input_username);
@@ -227,34 +227,5 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void createToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * Saves an image so that there is always a user image to choose from.
-     */
-    public void saveDefaultImage() {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.defaultimage);
-        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())){
-            checkGalleryEmpty(bitmap);
-        }
-    }
-
-    /**
-     * Final helper method to save image
-     *
-     * @param finalBitmap Default image provided by app.
-     */
-    public void checkGalleryEmpty(Bitmap finalBitmap){
-        String filename = Environment.getExternalStorageDirectory().toString() + "/Pictures";
-        try {
-            final String[] columns = {MediaStore.Images.Media._ID};
-            Cursor imageCursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null, null, null);
-            if (imageCursor.getColumnCount() == 0) {
-                MediaStore.Images.Media.insertImage(getContentResolver(), finalBitmap, filename, filename);
-            }
-            imageCursor.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
