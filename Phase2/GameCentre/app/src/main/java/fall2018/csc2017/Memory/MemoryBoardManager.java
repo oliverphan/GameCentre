@@ -48,13 +48,20 @@ public class MemoryBoardManager extends BoardManager<MemoryBoard> {
     }
 
     /**
-     *
      * @return whether the game has finished or not
      */
     @Override
     protected boolean gameFinished() {
         // TODO: Return whether or not all of the tiles have been paired.
-        return false;
+        Card[][] cards = board.getCards();
+        for (Card[] c : cards) {
+            for (Card card : c) {
+                if (!card.isMatched()) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
@@ -129,7 +136,7 @@ public class MemoryBoardManager extends BoardManager<MemoryBoard> {
             Card[][] cards = board.getCards();
             for (Card[] c : cards) {
                 for (Card i : c) {
-                    if (i.isFaceDown()) {
+                    if (!(i.isFaceDown())) {
                         count++;
                     }
                 }
@@ -141,4 +148,5 @@ public class MemoryBoardManager extends BoardManager<MemoryBoard> {
             undoLeft = false;
         }
     }
+
 }
