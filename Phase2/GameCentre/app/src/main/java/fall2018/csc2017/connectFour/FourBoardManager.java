@@ -1,7 +1,6 @@
 package fall2018.csc2017.connectFour;
 
 import java.io.Serializable;
-import java.util.Stack;
 
 public class FourBoardManager implements Serializable {
     /**
@@ -46,7 +45,7 @@ public class FourBoardManager implements Serializable {
      * @return boolean whether the tap is valid or not
      */
     boolean isValidTap(int position) {
-        int col = position % board.NUM_COLS;
+        int col = position % board.getNumCols();
         return board.openRow(col) > -1;
     }
 
@@ -56,11 +55,11 @@ public class FourBoardManager implements Serializable {
      * @param position the position tapped
      */
     void makeMove(int position) {
-        int col = position % board.NUM_COLS;
+        int col = position % board.getNumCols();
         if (board.openRow(col) > -1) {
             numMoves++;
 //            previousMoves.push(col);
-            board.makeMove(col, board.curPlayer);
+            board.placePiece(col, board.curPlayer);
         }
     }
 
@@ -82,25 +81,6 @@ public class FourBoardManager implements Serializable {
     int generateScore() {
         return 100 * difficulty * numMoves - (board.isWinner(1) ? 0 : 10 * difficulty);
     }
-//    void undoMove(int numToUndo) {
-//        if (!gameFinished()) {
-//            for (int i = 0; i < numToUndo; i++) {
-//                if (previousMoves.isEmpty())
-//                    return;
-//                if (board.curPlayer == 1 && numMoves >= 2) {
-//                    int tmp = previousMoves.pop();
-//                    board.undoMove(tmp);
-//                    int tmp2 = previousMoves.pop();
-//                    board.undoMove(tmp2);
-//                    numMoves -= 2;
-//                }else{
-//                    int tmp = previousMoves.pop();
-//                    board.undoMove(tmp);
-//                    numMoves--;
-//                }
-//            }
-//        }
-//    }
 
     /**
      * Returns if the game is finished whether the board is full or there is a winner

@@ -47,7 +47,6 @@ public abstract class Board<T> extends Observable implements Serializable, Itera
     }
 
     /**
-     *
      * @param tokens
      */
     // For SlidingBoard, MemoryBoard
