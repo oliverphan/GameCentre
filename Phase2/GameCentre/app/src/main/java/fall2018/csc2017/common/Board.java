@@ -92,10 +92,10 @@ public abstract class Board<T> extends Observable implements Serializable, Itera
 
         @Override
         public T next() {
-            // Return null if next() is called when there are no other tiles
+            // Return null if next() is called when there are no other Token
             if (!hasNext()) return null;
-            // Return the current next Tile, prepare the next Tile
-            T t = T[curRow][curCol];
+            // Return the current next Token, prepare the next Token
+            T t = tokens[curRow][curCol];
             curCol++;
             resetIndex();
             return t;
