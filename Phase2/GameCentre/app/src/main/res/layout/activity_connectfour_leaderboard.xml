@@ -1,6 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/gameName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="102dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="102dp"
+        android:layout_marginBottom="510dp"
+        android:text="@string/connect_4_title"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/labels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="338dp"
+        android:layout_marginBottom="337dp"
+        android:text="1.\n\n2.\n\n3."
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.152" />
+
+    <TextView
+        android:id="@+id/firstUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="10dp"
+        android:text="TextView"
+        android:textAlignment="textStart"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toStartOf="@+id/firstScore"
+        app:layout_constraintStart_toEndOf="@+id/labels"
+        app:layout_constraintTop_toBottomOf="@+id/gameName" />
+
+    <TextView
+        android:id="@+id/firstScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="16dp"
+        android:text="TextView"
+        android:textAlignment="textEnd"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/firstUser"
+        app:layout_constraintTop_toBottomOf="@+id/gameName" />
+
+    <TextView
+        android:id="@+id/secondUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="10dp"
+        android:text="TextView"
+        android:textAlignment="textStart"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toStartOf="@+id/secondScore"
+        app:layout_constraintStart_toEndOf="@+id/labels"
+        app:layout_constraintTop_toBottomOf="@+id/firstUser" />
+
+    <TextView
+        android:id="@+id/secondScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="16dp"
+        android:text="TextView"
+        android:textAlignment="textEnd"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/secondUser"
+        app:layout_constraintTop_toBottomOf="@+id/firstScore" />
+
+    <TextView
+        android:id="@+id/thirdUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="10dp"
+        android:text="TextView"
+        android:textAlignment="textStart"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toStartOf="@+id/thirdScore"
+        app:layout_constraintStart_toEndOf="@+id/labels"
+        app:layout_constraintTop_toBottomOf="@+id/secondUser" />
+
+    <TextView
+        android:id="@+id/thirdScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="17dp"
+        android:text="TextView"
+        android:textAlignment="textEnd"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/thirdUser"
+        app:layout_constraintTop_toBottomOf="@+id/secondScore" />
 </android.support.constraint.ConstraintLayout>

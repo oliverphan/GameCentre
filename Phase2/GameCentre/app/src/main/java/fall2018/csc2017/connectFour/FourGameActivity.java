@@ -22,6 +22,8 @@ import java.util.Random;
 import fall2018.csc2017.R;
 import fall2018.csc2017.SaveAndLoad;
 import gamelauncher.ConnectFourActivity;
+import scoring.LeaderBoard;
+import scoring.Score;
 import users.User;
 
 public class FourGameActivity extends AppCompatActivity implements Observer, SaveAndLoad {
@@ -235,6 +237,9 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
         FourBoard board = boardManager.getBoard();
         if (boardManager.gameFinished()) {
             createToast(board.isWinner(1) ? "You Win!" : "You Lose");
+            LeaderBoard leaderBoard = loadLeaderBoard();
+            leaderBoard.updateScores("Connect Four", new Score(currentUser.getName(), boardManager.generateScore()));
+            saveLeaderBoard(leaderBoard);
         } else {
             if (board.curPlayer == 2) {
                 board.placePiece(getComputerMove(), 2);

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-class LeaderBoard implements Serializable {
+public class LeaderBoard implements Serializable {
 
     /**
      * A HashMap representing the games and their top three scores.
@@ -20,15 +20,15 @@ class LeaderBoard implements Serializable {
     @SuppressWarnings("FieldCanBeLocal")
     private final int NUM_LEADERBOARD_SLOTS = 3;
 
-    LeaderBoard() {
+    public LeaderBoard() {
         this.gameScores = new HashMap<>();
         ArrayList<Score> temp = new ArrayList<>();
         temp.add(new Score("", -1));
         temp.add(new Score( "", -1));
         temp.add(new Score("", -1));
         this.gameScores.put("Sliding Tiles", new ArrayList<>(temp));
-        this.gameScores.put("Connect 4", new ArrayList<>(temp));
-        this.gameScores.put("Memory Tiles", new ArrayList<>(temp));
+        this.gameScores.put("Connect Four", new ArrayList<>(temp));
+        this.gameScores.put("Memory", new ArrayList<>(temp));
     }
 
     /**
@@ -48,7 +48,7 @@ class LeaderBoard implements Serializable {
      * @param gameName the game to have its LeaderBoard checked
      * @param newScore the Score object to be compared with the existing scores
      */
-    void updateScores(String gameName, Score newScore) {
+    public void updateScores(String gameName, Score newScore) {
         // topScores is an ArrayList of the top three score objects for this game.
         ArrayList<Score> topScores = this.gameScores.get(gameName);
 
@@ -56,8 +56,8 @@ class LeaderBoard implements Serializable {
 
         for (int i = 0; i < NUM_LEADERBOARD_SLOTS; i++) {
             if (newScore.getValue() > topScores.get(i).getValue()) {
-                topScores.add(i, newScore);
                 topScores.remove(topScores.size() - 1);
+                topScores.add(i, newScore);
                 break;
             }
         }
