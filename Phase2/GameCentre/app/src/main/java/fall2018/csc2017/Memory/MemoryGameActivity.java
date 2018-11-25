@@ -22,7 +22,7 @@
 //import fall2018.csc2017.common.GestureDetectGridView;
 //import fall2018.csc2017.common.CustomAdapter;
 //import gamelauncher.LoginActivity;
-//import gamelauncher.MemoryActivity;
+//import gamelauncher.MemoryFragment;
 //import users.User;
 //
 ///**
@@ -163,7 +163,7 @@
 //     */
 //    private void loadGameFromFile() {
 //        try {
-//            InputStream inputStream = this.openFileInput(MemoryActivity.TEMP_SAVE_FILENAME);
+//            InputStream inputStream = this.openFileInput(MemoryFragment.TEMP_SAVE_FILENAME);
 //            if (inputStream != null) {
 //                ObjectInputStream input = new ObjectInputStream(inputStream);
 //                memoryBoardManager = (MemoryBoardManager) input.readObject();
@@ -184,10 +184,10 @@
 //     */
 //    public void writeNewValues() {
 //        if (!memoryBoardManager.gameFinished()) {
-//            currentUser.writeGame(MemoryActivity.GAME_TITLE, memoryBoardManager);
+//            currentUser.writeGame(MemoryFragment.GAME_TITLE, memoryBoardManager);
 //        } else {
-//            currentUser.setNewScore(MemoryActivity.GAME_TITLE, memoryBoardManager.generateScore());
-//            currentUser.deleteSave(MemoryActivity.GAME_TITLE);
+//            currentUser.setNewScore(MemoryFragment.GAME_TITLE, memoryBoardManager.generateScore());
+//            currentUser.deleteSave(MemoryFragment.GAME_TITLE);
 //        }
 //    }
 //

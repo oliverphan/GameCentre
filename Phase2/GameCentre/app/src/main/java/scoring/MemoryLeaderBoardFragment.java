@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import fall2018.csc2017.R;
 import fall2018.csc2017.common.SaveAndLoad;
 
-public class MemoryLeaderBoardActivity extends Fragment implements SaveAndLoad {
+public class MemoryLeaderBoardFragment extends Fragment implements SaveAndLoad {
         /**
          * The leaderBoard.
          */

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import fall2018.csc2017.R;
 import fall2018.csc2017.common.SaveAndLoad;
 
-public class SlidingTileLeaderBoardActivity extends Fragment implements SaveAndLoad {
+public class ConnectFourLeaderBoardFragment extends Fragment implements SaveAndLoad {
     /**
      * The leaderBoard.
      */
@@ -22,10 +22,10 @@ public class SlidingTileLeaderBoardActivity extends Fragment implements SaveAndL
 
     //    Basically onCreate
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_sliding_tile_leaderboard, container, false);
+        View view = inflater.inflate(R.layout.activity_connectfour_leaderboard, container, false);
         Bundle args = getArguments();
         leaderBoard = loadLeaderBoard();
-        displayLeaders(view,"Sliding Tiles");
+        displayLeaders(view,"Connect Four");
         return view;
     }
 
@@ -54,6 +54,7 @@ public class SlidingTileLeaderBoardActivity extends Fragment implements SaveAndL
         String temp6 = String.valueOf(tempScores.get(1).getValue());
         thirdUser.setText(temp5);
         thirdScore.setText(temp6);
+
     }
 
 

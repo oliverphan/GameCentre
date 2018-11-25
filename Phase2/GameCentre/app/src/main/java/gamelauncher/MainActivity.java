@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import fall2018.csc2017.common.SaveAndLoad;
 import fall2018.csc2017.R;
+import fall2018.csc2017.common.SectionsPageAdapter;
 
 public class MainActivity extends AppCompatActivity implements SaveAndLoad {
     private static final String TAG = "Main";
@@ -37,9 +38,9 @@ public class MainActivity extends AppCompatActivity implements SaveAndLoad {
 
     private void setupViewPager(ViewPager viewPager) {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new SlidingTileActivity());
-        adapter.addFragment(new ConnectFourActivity());
-        adapter.addFragment(new MemoryActivity());
+        adapter.addFragment(new SlidingFragment());
+        adapter.addFragment(new ConnectFourFragment());
+        adapter.addFragment(new MemoryFragment());
         viewPager.setAdapter(adapter);
     }
 
