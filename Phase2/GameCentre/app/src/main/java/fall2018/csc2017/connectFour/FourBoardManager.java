@@ -1,40 +1,38 @@
 package fall2018.csc2017.connectFour;
 
-import java.io.Serializable;
+import fall2018.csc2017.common.BoardManager;
 
-public class FourBoardManager implements Serializable {
-    /**
-     * The SlidingBoard being managed
-     */
-    private FourBoard board;
+public class FourBoardManager extends BoardManager<FourBoard> {
 
     /**
-     * The amount of moves the player has completed
-     */
-    private int numMoves;
-//    Stack<Integer> previousMoves;
-    /**
-     * The difficulty of the current game.
-     */
-    private int difficulty;
-
-    /**
-     * Return the current board being managed
+     * Create a FourBoardManager with the selected difficulty.
      *
-     * @return the board being managed
+     * @param difficulty the difficulty selected
      */
-    FourBoard getBoard() {
-        return this.board;
+    public FourBoardManager(int difficulty) {
+        super(difficulty);
+        board = new FourBoard();
     }
 
     /**
-     * Create a SlidingBoardManager with the selected difficulty
+     * Generate the score for the current game
+     * a more difficult game yields a higher score, losing subtracts a higher amount from score
      *
-     * @param d the difficulty selected
+     * @return the score generated
      */
-    public FourBoardManager(int d) {
-        difficulty = d;
-        board = new FourBoard();
+    @Override
+    public int generateScore() {
+        return 100 * difficulty * numMoves - (board.isWinner(1) ? 0 : 10 * difficulty);
+    }
+
+    /**
+     * Returns if the game is finished whether the board is full or there is a winner
+     *
+     * @return true if the game is finished
+     */
+    @Override
+    protected boolean gameFinished() {
+        return board.isBoardFull() || board.isWinner(1) || board.isWinner(2);
     }
 
     /**
@@ -43,7 +41,8 @@ public class FourBoardManager implements Serializable {
      * @param position the position tapped
      * @return boolean whether the tap is valid or not
      */
-    boolean isValidTap(int position) {
+    @Override
+    protected boolean isValidTap(int position) {
         int col = position % board.getNumCols();
         return board.openRow(col) > -1;
     }
@@ -53,40 +52,11 @@ public class FourBoardManager implements Serializable {
      *
      * @param position the position tapped
      */
-    void makeMove(int position) {
+    protected void touchMove(int position) {
         int col = position % board.getNumCols();
         if (board.openRow(col) > -1) {
             numMoves++;
-//            previousMoves.push(col);
             board.placePiece(col, board.curPlayer);
         }
-    }
-
-    /**
-     * Return the difficulty of the board manager
-     *
-     * @return the difficulty
-     */
-    int getDifficulty() {
-        return difficulty;
-    }
-
-    /**
-     * Generate the score for the current game
-     * a more difficult game yields a higher score, losing subtracts a higher amount from score
-     *
-     * @return the score generated
-     */
-    int generateScore() {
-        return 100 * difficulty * numMoves - (board.isWinner(1) ? 0 : 10 * difficulty);
-    }
-
-    /**
-     * Returns if the game is finished whether the board is full or there is a winner
-     *
-     * @return true if the game is finished
-     */
-    boolean gameFinished() {
-        return board.isBoardFull() || board.isWinner(1) || board.isWinner(2);
     }
 }

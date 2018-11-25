@@ -18,7 +18,7 @@ public class FourMovementController {
     public void processTapMovement(Context context, int position, boolean display) {
         if (!boardManager.gameFinished()) {
             if (boardManager.isValidTap(position)) {
-                boardManager.makeMove(position);
+                boardManager.touchMove(position);
             } else {
                 Toast.makeText(context, "Invalid Tap", Toast.LENGTH_LONG).show();
             }

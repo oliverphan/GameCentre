@@ -5,7 +5,7 @@ import java.io.Serializable;
 public abstract class BoardManager<T> implements Serializable {
 
     protected T board;
-    private int difficulty;
+    protected int difficulty;
 
     /**
      * The number of moves made so far.
@@ -46,7 +46,7 @@ public abstract class BoardManager<T> implements Serializable {
     }
 
     /**
-     * Return the board.
+     * Return the current board being managed.
      *
      * @return the board
      */
@@ -55,7 +55,7 @@ public abstract class BoardManager<T> implements Serializable {
     }
 
     /**
-     * Return the difficulty.
+     * Return the difficulty of the game.
      *
      * @return the difficulty
      */
@@ -73,7 +73,10 @@ public abstract class BoardManager<T> implements Serializable {
     }
 
     public abstract int generateScore();
+
     protected abstract boolean gameFinished();
+
     protected abstract boolean isValidTap(int position);
-    protected  abstract void touchMove(int position);
+
+    protected abstract void touchMove(int position);
 }

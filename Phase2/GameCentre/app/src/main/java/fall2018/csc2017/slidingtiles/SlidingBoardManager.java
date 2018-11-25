@@ -50,7 +50,7 @@ public class SlidingBoardManager extends BoardManager<SlidingBoard> {
      */
     @Override
     public int generateScore() {
-        return Math.max(((super.getDifficulty() * 100) - numMoves), 0);
+        return Math.max(((difficulty * 100) - numMoves), 0);
     }
 
     /**
