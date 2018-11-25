@@ -26,7 +26,7 @@ import java.util.Observer;
 import fall2018.csc2017.common.SaveAndLoad;
 import fall2018.csc2017.common.CustomAdapter;
 import fall2018.csc2017.common.GestureDetectGridView;
-import gamelauncher.SlidingTileActivity;
+import gamelauncher.SlidingFragment;
 import scoring.LeaderBoard;
 import scoring.Score;
 import users.User;
@@ -263,7 +263,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
      */
     private void loadGameFromFile() {
         try {
-            InputStream inputStream = this.openFileInput(SlidingTileActivity.TEMP_SAVE_FILENAME);
+            InputStream inputStream = this.openFileInput(SlidingFragment.TEMP_SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 slidingBoardManager = (SlidingBoardManager) input.readObject();
@@ -284,10 +284,10 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
      */
     public void writeNewValues() {
         if (!gameWon) {
-            currentUser.writeGame(SlidingTileActivity.GAME_TITLE, slidingBoardManager);
+            currentUser.writeGame(SlidingFragment.GAME_TITLE, slidingBoardManager);
         } else {
-            currentUser.setNewScore(SlidingTileActivity.GAME_TITLE, slidingBoardManager.generateScore());
-            currentUser.deleteSave(SlidingTileActivity.GAME_TITLE);
+            currentUser.setNewScore(SlidingFragment.GAME_TITLE, slidingBoardManager.generateScore());
+            currentUser.deleteSave(SlidingFragment.GAME_TITLE);
         }
     }
 
@@ -336,7 +336,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
         int moves = slidingBoardManager.getNumMoves() % 10;
         // Autosave - Old boardManager is replaced if there is one.
         if (moves == 0 && !gameWon) {
-            currentUser.getSaves().put(SlidingTileActivity.GAME_TITLE, slidingBoardManager);
+            currentUser.getSaves().put(SlidingFragment.GAME_TITLE, slidingBoardManager);
             saveUserAccounts(userAccounts);
         }
         if (slidingBoardManager.gameFinished()) {

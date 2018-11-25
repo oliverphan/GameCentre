@@ -23,7 +23,7 @@ import fall2018.csc2017.R;
 import fall2018.csc2017.common.SaveAndLoad;
 import fall2018.csc2017.common.CustomAdapter;
 import fall2018.csc2017.common.GestureDetectGridView;
-import gamelauncher.ConnectFourActivity;
+import gamelauncher.ConnectFourFragment;
 import scoring.LeaderBoard;
 import scoring.Score;
 import users.User;
@@ -275,7 +275,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
      */
     private void loadGameFromFile() {
         try {
-            InputStream inputStream = this.openFileInput(ConnectFourActivity.TEMP_SAVE_FILENAME);
+            InputStream inputStream = this.openFileInput(ConnectFourFragment.TEMP_SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 boardManager = (FourBoardManager) input.readObject();
@@ -296,10 +296,10 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
      */
     public void writeNewValues() {
         if (!boardManager.gameFinished()) {
-            currentUser.writeGame(ConnectFourActivity.GAME_TITLE, boardManager);
+            currentUser.writeGame(ConnectFourFragment.GAME_TITLE, boardManager);
         } else {
-            currentUser.setNewScore(ConnectFourActivity.GAME_TITLE, boardManager.generateScore());
-            currentUser.deleteSave(ConnectFourActivity.GAME_TITLE);
+            currentUser.setNewScore(ConnectFourFragment.GAME_TITLE, boardManager.generateScore());
+            currentUser.deleteSave(ConnectFourFragment.GAME_TITLE);
         }
     }
 
