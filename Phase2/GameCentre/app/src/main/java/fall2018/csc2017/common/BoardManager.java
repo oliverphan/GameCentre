@@ -2,11 +2,19 @@ package fall2018.csc2017.common;
 
 import java.io.Serializable;
 
-public abstract class BoardManager implements Serializable {
+public abstract class BoardManager<T> implements Serializable {
 
-    private Board board;
+    protected T board;
     private int difficulty;
-    private int numMoves;
+
+    /**
+     * The number of moves made so far.
+     */
+    protected int numMoves;
+
+    /**
+     *
+     */
     private String name;
 
     /**
@@ -29,11 +37,20 @@ public abstract class BoardManager implements Serializable {
     }
 
     /**
+     * Set the name of game.
+     *
+     * @param s the name of the game
+     */
+    protected void setName(String s) {
+        name = s;
+    }
+
+    /**
      * Return the board.
      *
      * @return the board
      */
-    public Board getBoard() {
+    public T getBoard() {
         return board;
     }
 
@@ -51,12 +68,12 @@ public abstract class BoardManager implements Serializable {
      *
      * @return the number of moves
      */
-    int getNumMoves() {
+    public int getNumMoves() {
         return numMoves;
     }
 
-    abstract boolean isValidTap(int position);
-    abstract int generateScore();
-    abstract void touchMove(int position);
-    abstract boolean gameFinished();
+    public abstract int generateScore();
+    protected abstract boolean gameFinished();
+    protected abstract boolean isValidTap(int position);
+    protected  abstract void touchMove(int position);
 }

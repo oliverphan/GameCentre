@@ -34,7 +34,6 @@ public class FourBoardManager implements Serializable {
      */
     public FourBoardManager(int d) {
         difficulty = d;
-//        previousMoves = new Stack<>();
         board = new FourBoard();
     }
 
