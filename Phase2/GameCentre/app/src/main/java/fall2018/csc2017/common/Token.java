@@ -12,7 +12,7 @@ public abstract class Token implements Serializable {
     /**
      * The background id to find the Token image.
      */
-    private int background;
+    public int background;
 
     /**
      * Return the background id.
@@ -23,7 +23,10 @@ public abstract class Token implements Serializable {
         return background;
     }
 
-    // For Piece
+    /**
+     * Set the Token to have a Piece background.
+     * A piece with the empty_piece background and no player.
+     */
     public Token() {
         this.background = R.drawable.empty_piece;
     }

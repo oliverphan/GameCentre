@@ -1,29 +1,24 @@
 package fall2018.csc2017.connectFour;
 
-import java.io.Serializable;
-
 import fall2018.csc2017.R;
+import fall2018.csc2017.common.Token;
 
 /**
  * The Piece in a Connect Four game.
  */
-public class Piece implements Serializable {
+public class Piece extends Token {
     /**
      * Player that the piece belongs to.
      */
     private int player;
 
-    /**
-     * The background id of the Piece
-     */
-    private int background;
 
     /**
      * A piece with the empty_piece background and no player.
      */
     public Piece() {
+        super();
         this.player = 0;
-        this.background = R.drawable.empty_piece;
     }
 
     /**
@@ -33,15 +28,6 @@ public class Piece implements Serializable {
      */
     int getPlayer() {
         return this.player;
-    }
-
-    /**
-     * Return the background id of this piece
-     *
-     * @return the background id
-     */
-    int getBackground() {
-        return this.background;
     }
 
     /**
