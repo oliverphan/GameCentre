@@ -126,7 +126,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     private void createCardButtons() {
         MatchingBoard board = matchingBoardManager.getBoard();
         cardButtons = new ArrayList<>();
-        for (int row = 0; row < difficulty; row++) {
+        for (int row = 0; row < 4; row++) {
             for (int col = 0; col < difficulty; col++) {
                 Button tmp = new Button(getApplicationContext());
                 tmp.setBackgroundResource(board.getCard(row, col).getBackground());
@@ -157,7 +157,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     private void addUndoButtonListener() {
         final Button undoButton = findViewById(R.id.undoButton);
         undoButton.setOnClickListener(view -> {
-                matchingBoardManager.undoMove();
+            matchingBoardManager.undoMove();
         });
     }
 

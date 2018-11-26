@@ -39,10 +39,8 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
     private void setDifficulty() {
         List<Card> cards = new ArrayList<>();
         for (int cardNum = 0; cardNum != numCards; cardNum++) {
-            Card newCard = new Card(cardNum);
-            // Cards are added in pairs.
-            cards.add(newCard);
-            cards.add(newCard);
+            cards.add(new Card(cardNum));
+            cards.add(new Card(cardNum));
         }
         this.board = new MatchingBoard(cards);
         shuffle(board.getCards());
@@ -111,7 +109,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
     @Override
     protected void touchMove(int position) {
         int row = position / 4;
-        int col = position / difficulty;
+        int col = position % difficulty;
         numMoves += 1;
         board.flipCard(row, col);
     }
