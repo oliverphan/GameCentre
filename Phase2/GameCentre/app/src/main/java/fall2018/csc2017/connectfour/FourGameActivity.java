@@ -23,17 +23,18 @@ import fall2018.csc2017.R;
 import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.CustomAdapter;
 import fall2018.csc2017.common.GestureDetectGridView;
+import fall2018.csc2017.common.SaveAndLoadGames;
 import fall2018.csc2017.gamelauncher.FourFragment;
 import fall2018.csc2017.scoring.LeaderBoard;
 import fall2018.csc2017.scoring.Score;
 import fall2018.csc2017.users.User;
 
-public class FourGameActivity extends AppCompatActivity implements Observer, SaveAndLoadFiles {
+public class FourGameActivity extends AppCompatActivity implements Observer, SaveAndLoadFiles, SaveAndLoadGames {
 
     /**
      * The SlidingBoard manager.
      */
-    private FourBoardManager boardManager;
+    private FourBoardManager fourBoardManager;
 
     /**
      * The buttons on the board.
@@ -63,17 +64,19 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadGameFromFile();
+        setContentView(R.layout.activity_connectfourgame);
+        fourBoardManager = (FourBoardManager) loadGameFromFile(FourFragment.TEMP_SAVE_FILENAME);
+
         userAccounts = loadUserAccounts();
         currentUser = userAccounts.get(loadCurrentUsername());
-        difficulty = boardManager.getDifficulty();
+        difficulty = fourBoardManager.getDifficulty();
+
         createBoardButtons();
-        setContentView(R.layout.activity_connectfourgame);
-//        addUndoButtonListener();
+        
         gridView = findViewById(R.id.gridView);
         gridView.setNumColumns(7);
-        gridView.setBoardManager(boardManager);
-        boardManager.getBoard().addObserver(this);
+        gridView.setBoardManager(fourBoardManager);
+        fourBoardManager.getBoard().addObserver(this);
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -86,22 +89,12 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
             }
         });
     }
-//
-//    public void addUndoButtonListener(){
-//        final Button undoButton = findViewById(R.id.undo);
-//        undoButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                boardManager.undoMove(1);
-//            }
-//        });
-//    }
 
     /**
      * Get the initial backgrounds of the pieces on the grid.
      */
     public void createBoardButtons() {
-        FourBoard board = boardManager.getBoard();
+        FourBoard board = fourBoardManager.getBoard();
         boardButtons = new ArrayList<>();
         for (int col = 0; col < 7; col++) {
             for (int row = 0; row < 6; row++) {
@@ -116,7 +109,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
      * Update the backgrounds of the pieces on the grid.
      */
     public void updateBoardButtons() {
-        FourBoard board = boardManager.getBoard();
+        FourBoard board = fourBoardManager.getBoard();
         int nextPos = 0;
         for (Button b : boardButtons) {
             int col = nextPos % 7;
@@ -133,8 +126,8 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
      */
     public int getComputerMove() {
         //TODO Remove test printing and optimize
-        FourBoard board = boardManager.getBoard();
-        ArrayList<Integer> potentialMoves = getPotentialMoves(boardManager.getBoard(), difficulty);
+        FourBoard board = fourBoardManager.getBoard();
+        ArrayList<Integer> potentialMoves = getPotentialMoves(fourBoardManager.getBoard(), difficulty);
         ArrayList<Integer> bestMoves = new ArrayList<>();
         int bestMoveScore = Collections.max(potentialMoves);
         for (int i = 0; i < potentialMoves.size(); i++) {
@@ -154,9 +147,8 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
                 allowedMoves.add(i);
             }
         }
-        int move = bestMoves.size() > 0 ? bestMoves.get(new Random().nextInt(bestMoves.size())) : allowedMoves.get(new Random().nextInt(allowedMoves.size()));
-//        boardManager.previousMoves.push(move);
-        return move;
+        return bestMoves.size() > 0 ? bestMoves.get(new Random().nextInt(bestMoves.size())) : allowedMoves.get(new Random().nextInt(allowedMoves.size()));
+//        fourBoardManager.previousMoves.push(move);
     }
 
     /**
@@ -237,11 +229,11 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
 
     @Override
     public void update(Observable o, Object arg) {
-        FourBoard board = boardManager.getBoard();
-        if (boardManager.gameFinished()) {
+        FourBoard board = fourBoardManager.getBoard();
+        if (fourBoardManager.gameFinished()) {
             createToast(board.isWinner(1) ? "You Win!" : "You Lose");
             LeaderBoard leaderBoard = loadLeaderBoard();
-            leaderBoard.updateScores("Connect Four", new Score(currentUser.getName(), boardManager.generateScore()));
+            leaderBoard.updateScores("Connect Four", new Score(currentUser.getName(), fourBoardManager.generateScore()));
             saveLeaderBoard(leaderBoard);
         } else {
             if (board.curPlayer == 2) {
@@ -261,47 +253,14 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
      * Method to switch back to previous Activity
      */
     public void switchToConnectFourActivity() {
-        writeNewValues();
+        writeNewValues(currentUser, FourFragment.GAME_TITLE, fourBoardManager);
         saveUserAccounts(userAccounts);
-        if (!boardManager.gameFinished()) {
+        if (!fourBoardManager.gameFinished()) {
             createToast("Saved");
         } else {
             createToast("Saved Wiped");
         }
         finish();
-    }
-
-    /**
-     * Load the board manager from fileName.
-     */
-    private void loadGameFromFile() {
-        try {
-            InputStream inputStream = this.openFileInput(FourFragment.TEMP_SAVE_FILENAME);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                boardManager = (FourBoardManager) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
-
-    /**
-     * Store the new score and delete the old save in the User if the game is won.
-     * If game hasn't been won, store the most recent boardManager to the User.
-     */
-    public void writeNewValues() {
-        if (!boardManager.gameFinished()) {
-            currentUser.writeGame(FourFragment.GAME_TITLE, boardManager);
-        } else {
-            currentUser.setNewScore(FourFragment.GAME_TITLE, boardManager.generateScore());
-            currentUser.deleteSave(FourFragment.GAME_TITLE);
-        }
     }
 
     /**
