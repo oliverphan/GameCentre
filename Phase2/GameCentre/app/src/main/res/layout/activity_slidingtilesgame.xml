@@ -41,14 +41,13 @@
         android:layout_width="85dp"
         android:layout_height="45dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/curScore"
         android:background="@drawable/button_custom"
         android:fontFamily="@font/baumans"
         android:text="@string/undo_button_text"
         android:textColor="@android:color/holo_green_light"
         app:layout_constraintBottom_toTopOf="@+id/grid"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/curScore"
         app:layout_constraintStart_toEndOf="@+id/inputUndo"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -74,8 +73,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/baumans"
         android:text="TextView"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/undoButton"
         app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

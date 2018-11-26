@@ -1,148 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="25dp">
 
     <TextView
         android:id="@+id/gameName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="102dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="102dp"
-        android:layout_marginBottom="510dp"
         android:text="@string/connect_4_title"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteX="107dp"
+        tools:layout_editor_absoluteY="33dp" />
 
     <TextView
         android:id="@+id/labels"
-        android:layout_width="27dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="96dp"
-        android:layout_marginEnd="338dp"
-        android:layout_marginBottom="50dp"
+        android:layout_width="30dp"
+        android:layout_height="388dp"
         android:fontFamily="@font/baumans"
-        android:text="1.\n\n2.\n\n3."
+        android:text="1.\n\n2.\n\n3.\n 4.\n 5."
         android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.53" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="158dp" />
 
     <TextView
         android:id="@+id/user1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="144dp"
         android:fontFamily="@font/baumans"
         android:text="TextView"
         android:textAlignment="textStart"
         android:textSize="36sp"
-        app:layout_constraintEnd_toStartOf="@+id/score1"
-        app:layout_constraintStart_toEndOf="@+id/labels"
-        app:layout_constraintTop_toBottomOf="@+id/gameName" />
+        tools:layout_editor_absoluteX="60dp"
+        tools:layout_editor_absoluteY="158dp" />
 
     <TextView
         android:id="@+id/score1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="144dp"
-        android:layout_marginEnd="16dp"
         android:fontFamily="@font/baumans"
         android:text="TextView"
         android:textAlignment="textEnd"
         android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/user1"
-        app:layout_constraintTop_toBottomOf="@+id/gameName" />
+        tools:layout_editor_absoluteX="220dp"
+        tools:layout_editor_absoluteY="158dp" />
+
 
     <TextView
         android:id="@+id/user2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="10dp"
         android:fontFamily="@font/baumans"
         android:text="TextView"
         android:textAlignment="textStart"
         android:textSize="36sp"
-        app:layout_constraintEnd_toStartOf="@+id/score2"
-        app:layout_constraintStart_toEndOf="@+id/labels"
-        app:layout_constraintTop_toBottomOf="@+id/user1" />
+        tools:layout_editor_absoluteX="60dp"
+        tools:layout_editor_absoluteY="242dp" />
+
+    <TextView
+        android:id="@+id/user4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/baumans"
+        android:text="TextView"
+        android:textAlignment="textStart"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteX="60dp"
+        tools:layout_editor_absoluteY="502dp" />
+
+    <TextView
+        android:id="@+id/user5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/baumans"
+        android:text="TextView"
+        android:textAlignment="textStart"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteX="60dp"
+        tools:layout_editor_absoluteY="419dp" />
 
     <TextView
         android:id="@+id/score2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="70dp"
         android:fontFamily="@font/baumans"
         android:text="TextView"
         android:textAlignment="textEnd"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/score3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/user2"
-        app:layout_constraintTop_toBottomOf="@+id/score1" />
-
-    <TextView
-        android:id="@+id/user3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="10dp"
-        android:fontFamily="@font/baumans"
-        android:text="TextView"
-        android:textAlignment="textStart"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toStartOf="@+id/score3"
-        app:layout_constraintStart_toEndOf="@+id/labels"
-        app:layout_constraintTop_toBottomOf="@+id/user2" />
+        tools:layout_editor_absoluteX="220dp"
+        tools:layout_editor_absoluteY="242dp" />
 
     <TextView
         android:id="@+id/score3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="17dp"
         android:fontFamily="@font/baumans"
         android:text="TextView"
         android:textAlignment="textEnd"
         android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/user3"
-        app:layout_constraintTop_toBottomOf="@+id/score2" />
+        tools:layout_editor_absoluteX="220dp"
+        tools:layout_editor_absoluteY="331dp" />
+
+    <TextView
+        android:id="@+id/score4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/baumans"
+        android:text="TextView"
+        android:textAlignment="textEnd"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteX="220dp"
+        tools:layout_editor_absoluteY="419dp" />
+
+    <TextView
+        android:id="@+id/score5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/baumans"
+        android:text="TextView"
+        android:textAlignment="textEnd"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteX="220dp"
+        tools:layout_editor_absoluteY="502dp" />
+
+
+    <TextView
+        android:id="@+id/user3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/baumans"
+        android:text="TextView"
+        android:textAlignment="textStart"
+        android:textSize="36sp"
+        tools:layout_editor_absoluteX="60dp"
+        tools:layout_editor_absoluteY="331dp" />
+
 
     <TextView
         android:id="@+id/user_high_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="235dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="164dp"
         android:fontFamily="@font/baumans"
         android:text="TextView"
         android:textColor="@android:color/holo_green_light"
         android:textSize="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.77"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gameName" />
+        tools:layout_editor_absoluteX="134dp"
+        tools:layout_editor_absoluteY="93dp" />
 </android.support.constraint.ConstraintLayout>
