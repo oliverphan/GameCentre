@@ -1,8 +1,11 @@
 package fall2018.csc2017.matchingcards;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.TimerTask;
 
 import fall2018.csc2017.common.BoardManager;
 
@@ -21,6 +24,25 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
      */
     private boolean undoLeft = true;
 
+    private Card firstCard;
+    private Card secondCard;
+
+    public Card getFirstCard() {
+        return this.firstCard;
+    }
+
+    public void setFirstCard(Card c) {
+        this.firstCard = c;
+    }
+
+    public Card getSecondCard() {
+        return this.secondCard;
+    }
+
+    public void setSecondCard(Card c) {
+        this.secondCard = c;
+    }
+
     /**
      * Manage a new MatchingBoard with the specified difficulty.
      *
@@ -30,6 +52,8 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
         super(difficulty);
         setName("Matching Cards");
         this.numCards = 4 * difficulty;
+        this.firstCard = null;
+        this.secondCard = null;
         setDifficulty();
     }
 
@@ -38,7 +62,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
      */
     private void setDifficulty() {
         List<Card> cards = new ArrayList<>();
-        for (int cardNum = 0; cardNum != numCards/2; cardNum++) {
+        for (int cardNum = 0; cardNum != numCards / 2; cardNum++) {
             cards.add(new Card(cardNum));
             cards.add(new Card(cardNum));
         }
@@ -69,12 +93,30 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
     /**
      * Undo a move if there is an undo move left.
      */
-    public void undoMove() {
+    void undoMove() {
         if (undoLeft) {
             board.allFaceDown();
+            this.firstCard = null;
             numMoves -= 1;
             undoLeft = false;
         }
+    }
+
+    private boolean checkCardsMatch() {
+        if (!this.firstCard.equals(this.secondCard)) {
+            try {
+                Thread.sleep(2000);
+                this.firstCard.flip();
+                this.secondCard.flip();
+                this.firstCard = null;
+                this.secondCard = null;
+            } catch (InterruptedException e) {
+                Log.e("Thread Interrupted", "Failed to sleep!");
+                Thread.currentThread().interrupt();
+            }
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -113,5 +155,15 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
         int col = position % difficulty;
         numMoves += 1;
         board.flipCard(row, col);
+
+        if (this.firstCard == null) {
+            this.firstCard = board.getCard(row, col);
+        } else {
+            this.secondCard = board.getCard(row, col);
+            if (checkCardsMatch()) {
+                this.firstCard.setMatched();
+                this.secondCard.setMatched();
+            }
+        }
     }
 }

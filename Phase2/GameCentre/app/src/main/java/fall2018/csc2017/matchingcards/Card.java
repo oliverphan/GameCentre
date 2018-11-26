@@ -79,6 +79,10 @@ public class Card extends Token implements Serializable {
         return matched;
     }
 
+    void setMatched() {
+        this.matched = true;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
