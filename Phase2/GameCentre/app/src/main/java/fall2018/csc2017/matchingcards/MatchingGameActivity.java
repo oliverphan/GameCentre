@@ -144,8 +144,6 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         for (Button b : cardButtons) {
             int row = nextPos / difficulty;
             int col = nextPos % difficulty;
-            System.out.print(row);
-            System.out.println(col);
             b.setBackgroundResource(matchingBoard.getCard(row, col).getBackground());
             nextPos++;
         }

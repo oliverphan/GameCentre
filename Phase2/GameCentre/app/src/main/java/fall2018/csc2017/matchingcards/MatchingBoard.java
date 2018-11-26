@@ -29,7 +29,6 @@ public class MatchingBoard extends Board<Card> {
         for (int row = 0; row != numRows; row++) {
             for (int col = 0; col != numCols; col++) {
                 Card next = iterator.next();
-                System.out.println(next);
                 this.cards[row][col] = next;
             }
         }
