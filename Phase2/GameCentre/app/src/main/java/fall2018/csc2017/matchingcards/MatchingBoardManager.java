@@ -34,64 +34,6 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
     }
 
     /**
-     * Return the final score of this game.
-     *
-     * @return the final score of the game
-     */
-    @Override
-    public int generateScore() {
-        int score = (100 * numCards) - (numMoves * 5);
-        if (score >= 0) {
-            return score;
-        }
-        return 0;
-    }
-
-    /**
-     * @return whether the game has finished or not
-     */
-    @Override
-    protected boolean gameFinished() {
-        // TODO: Return whether or not all of the tiles have been paired.
-        Card[][] cards = board.getCards();
-        for (Card[] c : cards) {
-            for (Card card : c) {
-                if (!card.isMatched()) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Return whether or not this Card is facing down and has not yet had it's pair located.
-     *
-     * @param position the position of the Card to check.
-     * @return if this Card is unmatched and currently facing down
-     */
-    @Override
-    protected boolean isValidTap(int position) {
-        int row = position / 4;
-        int col = position % difficulty;
-        Card toTap = board.getCard(row, col);
-        return toTap.isFaceDown() && toTap.isMatched();
-    }
-
-    /**
-     * Process a touch at position on the MatchingBoard, turning over the Card as appropriate.
-     *
-     * @param position the position of the touch on the board
-     */
-    @Override
-    protected void touchMove(int position) {
-        int row = position / 4;
-        int col = position / difficulty;
-        numMoves += 1;
-        board.flipCard(row, col);
-    }
-
-    /**
      * Set the difficulty for this MatchingBoard, and generate a new board based on the difficulty.
      */
     private void setDifficulty() {
@@ -136,4 +78,41 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
         }
     }
 
+    @Override
+    public int generateScore() {
+        int score = (100 * numCards) - (numMoves * 5);
+        if (score >= 0) {
+            return score;
+        }
+        return 0;
+    }
+
+    @Override
+    protected boolean gameFinished() {
+        Card[][] cards = board.getCards();
+        for (Card[] c : cards) {
+            for (Card card : c) {
+                if (!card.isMatched()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    protected boolean isValidTap(int position) {
+        int row = position / 4;
+        int col = position % difficulty;
+        Card toTap = board.getCard(row, col);
+        return toTap.isFaceDown() && toTap.isMatched();
+    }
+
+    @Override
+    protected void touchMove(int position) {
+        int row = position / 4;
+        int col = position / difficulty;
+        numMoves += 1;
+        board.flipCard(row, col);
+    }
 }
