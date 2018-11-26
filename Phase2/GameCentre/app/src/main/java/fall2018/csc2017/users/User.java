@@ -2,6 +2,7 @@ package fall2018.csc2017.users;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
 public class User implements Serializable {
 
@@ -18,12 +19,12 @@ public class User implements Serializable {
     /**
      * A hashmap storing all the scores for this user with key gameName and value scoreValue
      */
-    private HashMap<String, Integer> scores;
+    private Map<String, Integer> scores;
 
     /**
      * A hashmap storing all the saves for this user with key gameName and value (the save file).
      */
-    private HashMap<String, Object> saves;
+    private Map<String, Object> saves;
 
     /**
      * Constructor for a non-guest User. Which adds itself to the GameLaunchCentre.
@@ -61,7 +62,7 @@ public class User implements Serializable {
      *
      * @return HashMap of scores.
      */
-    public HashMap<String, Integer> getScores() {
+    public Map<String, Integer> getScores() {
         return scores;
     }
 
@@ -86,7 +87,7 @@ public class User implements Serializable {
      *
      * @return HashMap of saves.
      */
-    public HashMap<String, Object> getSaves() {
+    public Map<String, Object> getSaves() {
         return saves;
     }
 

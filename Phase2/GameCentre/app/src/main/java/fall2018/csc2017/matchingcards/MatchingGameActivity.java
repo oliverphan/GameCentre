@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -41,7 +42,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     /**
      * The Map of all the Users by name.
      */
-    private HashMap<String, User> userAccounts;
+    private Map<String, User> userAccounts;
 
     /**
      * The current User.

@@ -3,6 +3,7 @@ package fall2018.csc2017.scoring;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import fall2018.csc2017.common.ScoreDisplay;
 
@@ -13,7 +14,7 @@ public class LeaderBoard implements Serializable, ScoreDisplay {
      * Key: The name of the game
      * Value: The top three scores
      */
-    private HashMap<String, ArrayList<Score>> gameScores;
+    private Map<String, ArrayList<Score>> gameScores;
 
     /**
      * The number of names and scores to show up on the leaderboard.

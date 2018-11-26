@@ -10,6 +10,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
@@ -53,7 +54,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
     /**
      * HashMap of all userAccounts
      */
-    private HashMap<String, User> userAccounts;
+    private Map<String, User> userAccounts;
 
 
     @Override

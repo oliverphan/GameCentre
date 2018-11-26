@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.R;
@@ -19,7 +20,7 @@ public class LeaderBoardActivity extends AppCompatActivity implements SaveAndLoa
     /**
      * A HashMap of user accounts, by  name.
      */
-    private HashMap<String, User> userAccounts;
+    private Map<String, User> userAccounts;
 
     /**
      * The name of the current user.
