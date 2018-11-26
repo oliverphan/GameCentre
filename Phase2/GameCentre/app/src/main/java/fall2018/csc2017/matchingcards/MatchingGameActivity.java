@@ -1,4 +1,4 @@
-package fall2018.csc2017.concentration;
+package fall2018.csc2017.matchingcards;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileNotFoundException;
@@ -21,7 +22,7 @@ import fall2018.csc2017.R;
 import fall2018.csc2017.common.SaveAndLoad;
 import fall2018.csc2017.common.GestureDetectGridView;
 import fall2018.csc2017.common.CustomAdapter;
-import fall2018.csc2017.gamelauncher.ConcentrationFragment;
+import fall2018.csc2017.gamelauncher.MatchingFragment;
 import fall2018.csc2017.scoring.LeaderBoard;
 import fall2018.csc2017.scoring.Score;
 import fall2018.csc2017.users.User;
@@ -29,12 +30,12 @@ import fall2018.csc2017.users.User;
 /**
  * The game activity.
  */
-public class ConcentrationGameActivity extends AppCompatActivity implements Observer, SaveAndLoad {
+public class MatchingGameActivity extends AppCompatActivity implements Observer, SaveAndLoad {
 
     /**
-     * The ConcentrationBoardManager.
+     * The MatchingBoardManager.
      */
-    private ConcentrationBoardManager concentrationBoardManager;
+    private MatchingBoardManager matchingBoardManager;
 
     /**
      * The buttons to display.
@@ -92,14 +93,19 @@ public class ConcentrationGameActivity extends AppCompatActivity implements Obse
         setContentView(R.layout.activity_matching);
         loadGameFromFile();
         userAccounts = loadUserAccounts();
-        addUndoButtonListener();
-        difficulty = concentrationBoardManager.getDifficulty();
+        currentUser = userAccounts.get(loadCurrentUsername());
+        difficulty = matchingBoardManager.getDifficulty();
+
         createCardButtons();
+
+        addUndoButtonListener();
+        updateScore();
+
         // Add View to activity
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(difficulty);
-        gridView.setBoardManager(concentrationBoardManager);
-        concentrationBoardManager.getBoard().addObserver(this);
+        gridView.setBoardManager(matchingBoardManager);
+        matchingBoardManager.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls to our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -121,7 +127,7 @@ public class ConcentrationGameActivity extends AppCompatActivity implements Obse
      * Create the buttons for displaying the cards.
      */
     private void createCardButtons() {
-        ConcentrationBoard board = concentrationBoardManager.getBoard();
+        MatchingBoard board = matchingBoardManager.getBoard();
         cardButtons = new ArrayList<>();
         for (int row = 0; row < difficulty; row++) {
             for (int col = 0; col < difficulty; col++) {
@@ -136,13 +142,13 @@ public class ConcentrationGameActivity extends AppCompatActivity implements Obse
      * Update the backgrounds on the buttons to match the cards.
      */
     private void updateCardButtons() {
-        ConcentrationBoard concentrationBoard = concentrationBoardManager.getBoard();
+        MatchingBoard matchingBoard = matchingBoardManager.getBoard();
         int nextPos = 0;
-        int row = nextPos / difficulty;
-        int col = nextPos % difficulty;
         for (Button b : cardButtons) {
-            b.setBackgroundResource(concentrationBoard.getCard(row, col).getBackground());
-
+            int row = nextPos / difficulty;
+            int col = nextPos % difficulty;
+            b.setBackgroundResource(matchingBoard.getCard(row, col).getBackground());
+            nextPos++;
         }
         // Updated pictures in event of a tap
         // Whether to tap to the front or the back
@@ -153,14 +159,61 @@ public class ConcentrationGameActivity extends AppCompatActivity implements Obse
      */
     private void addUndoButtonListener() {
         final Button undoButton = findViewById(R.id.undoButton);
-        undoButton.setOnClickListener(view ->
-                concentrationBoardManager.undoMove());
+        undoButton.setOnClickListener(view -> {
+                matchingBoardManager.undoMove();
+        });
     }
 
     /**
-     * Switch to the title screen. Only to be called when the game is won.
+     * Display the score as you play the game.
      */
-    private void switchToConcentrationTitleActivity() {
+    private void updateScore() {
+        score = matchingBoardManager.generateScore();
+        TextView curScore = findViewById(R.id.curScore);
+        curScore.setText(String.valueOf(score));
+    }
+
+    /**
+     * Store the new score and delete the old save in the User if the game is won.
+     * If game hasn't been won, store the most recent boardManager to the User.
+     */
+    public void writeNewValues() {
+        if (!gameWon) {
+            currentUser.writeGame(MatchingFragment.GAME_TITLE, matchingBoardManager);
+        } else {
+            currentUser.setNewScore(MatchingFragment.GAME_TITLE, matchingBoardManager.generateScore());
+            currentUser.deleteSave(MatchingFragment.GAME_TITLE);
+        }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        updateScore();
+        // Automatic save every 5 moves
+        int moves = matchingBoardManager.getNumMoves() % 5;
+        if (moves == 0 && !gameWon) {
+            currentUser.getSaves().put(MatchingFragment.GAME_TITLE, matchingBoardManager);
+            saveUserAccounts(userAccounts);
+        }
+        if (matchingBoardManager.gameFinished()) {
+            gameWon = true;
+            createToast("You Win!");
+            LeaderBoard leaderBoard = loadLeaderBoard();
+            leaderBoard.updateScores("Concentration", new Score(currentUser.getName(), score));
+            saveLeaderBoard(leaderBoard);
+        }
+        display();
+    }
+
+    @Override
+    public void onBackPressed() {
+        switchToMatchingTitleActivity();
+    }
+
+    /**
+     * Switch to the title screen. Only to be called when back pressed.
+     */
+    private void switchToMatchingTitleActivity() {
 
         writeNewValues();
         saveUserAccounts(userAccounts);
@@ -177,10 +230,10 @@ public class ConcentrationGameActivity extends AppCompatActivity implements Obse
      */
     private void loadGameFromFile() {
         try {
-            InputStream inputStream = this.openFileInput(ConcentrationFragment.TEMP_SAVE_FILENAME);
+            InputStream inputStream = this.openFileInput(MatchingFragment.TEMP_SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                concentrationBoardManager = (ConcentrationBoardManager) input.readObject();
+                matchingBoardManager = (MatchingBoardManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -193,48 +246,9 @@ public class ConcentrationGameActivity extends AppCompatActivity implements Obse
     }
 
     /**
-     * Store the new score and delete the old save in the User if the game is won.
-     * If game hasn't been won, store the most recent boardManager to the User.
-     */
-    public void writeNewValues() {
-        if (!gameWon) {
-            currentUser.writeGame(ConcentrationFragment.GAME_TITLE, concentrationBoardManager);
-        } else {
-            currentUser.setNewScore(ConcentrationFragment.GAME_TITLE, concentrationBoardManager.generateScore());
-            currentUser.deleteSave(ConcentrationFragment.GAME_TITLE);
-        }
-    }
-
-    /**
      * @param msg The message to be displayed in the Toast.
      */
     private void createToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-    }
-
-    private void setScore() {
-        this.score = concentrationBoardManager.generateScore();
-    }
-
-    @Override
-    public void onBackPressed() {
-        switchToConcentrationTitleActivity();
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        int moves = concentrationBoardManager.getNumMoves() % 10;
-        if (moves == 0 && !gameWon) {
-            currentUser.getSaves().put(ConcentrationFragment.GAME_TITLE, concentrationBoardManager);
-            saveUserAccounts(userAccounts);
-        }
-        if (concentrationBoardManager.gameFinished()) {
-            gameWon = true;
-            createToast("You Win!");
-            LeaderBoard leaderBoard = loadLeaderBoard();
-            leaderBoard.updateScores("Concentration", new Score(currentUser.getName(), score));
-            saveLeaderBoard(leaderBoard);
-        }
-        display();
     }
 }

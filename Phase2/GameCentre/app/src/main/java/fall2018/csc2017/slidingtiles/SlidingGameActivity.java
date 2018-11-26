@@ -104,6 +104,44 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
         return this;
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_slidingtilesgame);
+        loadGameFromFile();
+
+        userAccounts = loadUserAccounts();
+        currentUser = userAccounts.get(loadCurrentUsername());
+        difficulty = slidingBoardManager.getDifficulty();
+
+        createTileButtons();
+
+        addUserButtonListener();
+        addUndoButtonListener();
+
+        updateScore();
+
+        // Add View to activity
+        gridView = findViewById(R.id.grid);
+        gridView.setNumColumns(difficulty);
+        gridView.setBoardManager(slidingBoardManager);
+        slidingBoardManager.getBoard().addObserver(this);
+        // Observer sets up desired dimensions as well as calls our display function
+        gridView.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        gridView.getViewTreeObserver().removeOnGlobalLayoutListener(
+                                this);
+                        int displayWidth = gridView.getMeasuredWidth();
+                        int displayHeight = gridView.getMeasuredHeight();
+
+                        columnWidth = displayWidth / difficulty;
+                        columnHeight = displayHeight / difficulty;
+                        display();
+                    }
+                });
+    }
 
     /**
      * Create the buttons for displaying the tiles.
@@ -147,27 +185,6 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
     }
 
     /**
-     * The listener for the add user images button.
-     */
-    private void addUserButtonListener() {
-        final Button userButton = findViewById(R.id.user);
-        // Try to get a ternary working here
-        if (!slidingBoardManager.userTiles)
-            userButton.setText(R.string.user_image_button_unpressed);
-        else
-            userButton.setText(R.string.user_image_button_pressed);
-        userButton.setOnClickListener(view -> {
-            if (!slidingBoardManager.userTiles) {
-                pickImageFromGallery();
-            } else {
-                userButton.setText(R.string.user_image_button_unpressed);
-                slidingBoardManager.userTiles = false;
-                display();
-            }
-        });
-    }
-
-    /**
      * The listener for the undo button.
      */
     private void addUndoButtonListener() {
@@ -184,48 +201,8 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
     }
 
     /**
-     * Start activity to pick image from user gallery.
+     * Display the score as you play the game.
      */
-    private void pickImageFromGallery() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(galleryIntent, IMAGE_REQUEST_CODE);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        loadGameFromFile();
-        userAccounts = loadUserAccounts();
-        currentUser = userAccounts.get(loadCurrentUsername());
-        difficulty = slidingBoardManager.getDifficulty();
-        createTileButtons();
-        setContentView(R.layout.activity_slidingtilesgame);
-        addUserButtonListener();
-        addUndoButtonListener();
-        updateScore();
-        // Add View to activity
-        gridView = findViewById(R.id.grid);
-        gridView.setNumColumns(difficulty);
-        gridView.setBoardManager(slidingBoardManager);
-        slidingBoardManager.getBoard().addObserver(this);
-        // Observer sets up desired dimensions as well as calls our display function
-        gridView.getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        gridView.getViewTreeObserver().removeOnGlobalLayoutListener(
-                                this);
-                        int displayWidth = gridView.getMeasuredWidth();
-                        int displayHeight = gridView.getMeasuredHeight();
-
-                        columnWidth = displayWidth / difficulty;
-                        columnHeight = displayHeight / difficulty;
-                        display();
-                    }
-                });
-    }
-
     private void updateScore(){
         score = slidingBoardManager.generateScore();
         TextView curScore = findViewById(R.id.curScore);
@@ -233,24 +210,44 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
     }
 
     /**
-     * Converts uri from gallery to bitmap
-     *
-     * @param imageUri uri of selected image.
+     * Store the new score and delete the old save in the User if the game is won.
+     * If game hasn't been won, store the most recent slidingBoardManager to the User.
      */
-    private void createBitmapFromUri(Uri imageUri) {
-        Bitmap bitmap = null;
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-        } catch (Exception e) {
-            Log.e("GalleryAccessActivity", "Image select error", e);
-        }
-        if (bitmap != null) {
-            userImage = Bitmap.createScaledBitmap(bitmap, 247 * difficulty, 391 * difficulty, true);
+    public void writeNewValues() {
+        if (!gameWon) {
+            currentUser.writeGame(SlidingFragment.GAME_TITLE, slidingBoardManager);
+        } else {
+            currentUser.setNewScore(SlidingFragment.GAME_TITLE, slidingBoardManager.generateScore());
+            currentUser.deleteSave(SlidingFragment.GAME_TITLE);
         }
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        updateScore();
+        int moves = slidingBoardManager.getNumMoves() % 10;
+        // Autosave - Old boardManager is replaced if there is one.
+        if (moves == 0 && !gameWon) {
+            currentUser.getSaves().put(SlidingFragment.GAME_TITLE, slidingBoardManager);
+            saveUserAccounts(userAccounts);
+        }
+        if (slidingBoardManager.gameFinished()) {
+            gameWon = true;
+            createToast("You Win!");
+            LeaderBoard leaderBoard = loadLeaderBoard();
+            leaderBoard.updateScores("Sliding Tiles", new Score(currentUser.getName(), score));
+            saveLeaderBoard(leaderBoard);
+        }
+        display();
+    }
+
+    @Override
+    public void onBackPressed() {
+        switchToSlidingTilesActivity();
+    }
+
     /**
-     * Switch to the title screen. Only to be called when the game is won.
+     * Switch to the title screen. Only to be called when back pressed.
      */
     private void switchToSlidingTilesActivity() {
         writeNewValues();
@@ -261,11 +258,6 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
             createToast("Saved Wiped");
         }
         finish();
-    }
-
-    @Override
-    public void onBackPressed() {
-        switchToSlidingTilesActivity();
     }
 
     /**
@@ -289,24 +281,27 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
     }
 
     /**
-     * Store the new score and delete the old save in the User if the game is won.
-     * If game hasn't been won, store the most recent slidingBoardManager to the User.
-     */
-    public void writeNewValues() {
-        if (!gameWon) {
-            currentUser.writeGame(SlidingFragment.GAME_TITLE, slidingBoardManager);
-        } else {
-            currentUser.setNewScore(SlidingFragment.GAME_TITLE, slidingBoardManager.generateScore());
-            currentUser.deleteSave(SlidingFragment.GAME_TITLE);
-        }
-    }
-
-
-    /**
      * @param msg The message to be displayed in the Toast.
      */
     private void createToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Converts uri from gallery to bitmap
+     *
+     * @param imageUri uri of selected image.
+     */
+    private void createBitmapFromUri(Uri imageUri) {
+        Bitmap bitmap = null;
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+        } catch (Exception e) {
+            Log.e("GalleryAccessActivity", "Image select error", e);
+        }
+        if (bitmap != null) {
+            userImage = Bitmap.createScaledBitmap(bitmap, 247 * difficulty, 391 * difficulty, true);
+        }
     }
 
     /**
@@ -341,22 +336,33 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
         }
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        updateScore();
-        int moves = slidingBoardManager.getNumMoves() % 10;
-        // Autosave - Old boardManager is replaced if there is one.
-        if (moves == 0 && !gameWon) {
-            currentUser.getSaves().put(SlidingFragment.GAME_TITLE, slidingBoardManager);
-            saveUserAccounts(userAccounts);
-        }
-        if (slidingBoardManager.gameFinished()) {
-            gameWon = true;
-            createToast("You Win!");
-            LeaderBoard leaderBoard = loadLeaderBoard();
-            leaderBoard.updateScores("Sliding Tiles", new Score(currentUser.getName(), score));
-            saveLeaderBoard(leaderBoard);
-        }
-        display();
+    /**
+     * Start activity to pick image from user gallery.
+     */
+    private void pickImageFromGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, IMAGE_REQUEST_CODE);
+    }
+
+    /**
+     * The listener for the add user images button.
+     */
+    private void addUserButtonListener() {
+        final Button userButton = findViewById(R.id.user);
+        // Try to get a ternary working here
+        if (!slidingBoardManager.userTiles)
+            userButton.setText(R.string.user_image_button_unpressed);
+        else
+            userButton.setText(R.string.user_image_button_pressed);
+        userButton.setOnClickListener(view -> {
+            if (!slidingBoardManager.userTiles) {
+                pickImageFromGallery();
+            } else {
+                userButton.setText(R.string.user_image_button_unpressed);
+                slidingBoardManager.userTiles = false;
+                display();
+            }
+        });
     }
 }

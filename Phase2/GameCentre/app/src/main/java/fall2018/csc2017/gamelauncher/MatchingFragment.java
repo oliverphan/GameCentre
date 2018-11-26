@@ -12,11 +12,11 @@ import android.widget.Toast;
 
 import fall2018.csc2017.R;
 
-public class ConcentrationFragment extends Fragment {
+public class MatchingFragment extends Fragment {
     /**
      * Tag for the current game being played.
      */
-    public static final String GAME_TITLE = "Memory";
+    public static final String GAME_TITLE = "Matching Cards";
 
     /**
      * Save file for the memoryBoardManager being created
@@ -25,7 +25,7 @@ public class ConcentrationFragment extends Fragment {
 
     //    Basically onCreate
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_concentration, container, false);
+        View view = inflater.inflate(R.layout.activity_matching, container, false);
         Bundle args = getArguments();
 
         addStartGame43Listener(view);

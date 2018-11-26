@@ -2,7 +2,7 @@
     <string name="app_name">GameCentre</string>
     <string name="user_image_button_unpressed">Use Image</string>
     <string name="user_image_button_pressed">Use Tiles</string>
-    <string name="undo_field_text">Undo Num</string>
+    <string name="undo_field_text">#</string>
     <string name="undo_button_text">Undo</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="action_settings">Settings</string>
@@ -18,7 +18,7 @@
     <string name="easy">Easy</string>
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
-    <string name="concentration_title">Concentration Game!</string>
+    <string name="matching_title">Matching Cards Game!</string>
     <string name="start_4_x_3">4 x 3</string>
     <string name="start_4_x_5">4 x 5</string>
     <string name="one_remaining">One Undo Left!</string>

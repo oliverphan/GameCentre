@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".slidingtiles.SlidingGameActivity" />
-        <activity android:name="fall2018.csc2017.scoring.LeaderBoardActivity" />
+        <activity android:name=".matchingcards.MatchingGameActivity"></activity>
+        <activity android:name="fall2018.csc2017.scoring.LeaderBoardActivity"> </activity>
         <activity
             android:name="fall2018.csc2017.gamelauncher.MainActivity"
             android:label="@string/title_activity_main"
