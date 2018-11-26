@@ -19,17 +19,13 @@ public class LeaderBoard implements Serializable, ScoreDisplay {
      * The number of names and scores to show up on the leaderboard.
      */
     @SuppressWarnings("FieldCanBeLocal")
-    private final int NUM_LEADERBOARD_SLOTS = 3;
+    private final int NUM_LEADERBOARD_SLOTS = 5;
 
     public LeaderBoard() {
         this.gameScores = new HashMap<>();
-        ArrayList<Score> temp = new ArrayList<>();
-        temp.add(new Score("", -1));
-        temp.add(new Score( "", -1));
-        temp.add(new Score("", -1));
-        this.gameScores.put("Sliding Tiles", new ArrayList<>(temp));
-        this.gameScores.put("Connect Four", new ArrayList<>(temp));
-        this.gameScores.put("Matching Cards", new ArrayList<>(temp));
+        this.gameScores.put("Sliding Tiles", new ArrayList<>());
+        this.gameScores.put("Connect Four", new ArrayList<>());
+        this.gameScores.put("Matching Cards", new ArrayList<>());
     }
 
     /**
@@ -50,9 +46,9 @@ public class LeaderBoard implements Serializable, ScoreDisplay {
      * @param newScore the Score object to be compared with the existing scores
      */
     public void updateScores(String gameName, Score newScore) {
-        // topScores is an ArrayList of the top three score objects for this game.
+        // topScores is an ArrayList of the top 5 score objects for this game.
         ArrayList<Score> topScores = this.gameScores.get(gameName);
-        for (int i = 0; i < NUM_LEADERBOARD_SLOTS; i++) {
+        for (int i = 0; i < NUM_LEADERBOARD_SLOTS && i < topScores.size(); i++) {
             if (newScore.getValue() > topScores.get(i).getValue()) {
                 topScores.add(i, newScore);
                 topScores.remove(topScores.size() - 1);

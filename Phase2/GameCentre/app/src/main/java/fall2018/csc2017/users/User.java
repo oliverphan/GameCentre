@@ -35,8 +35,6 @@ public class User implements Serializable {
         this.username = username;
         this.password = password;
         this.scores = new HashMap<>();
-//        String temp = "Sliding Tiles";
-//        scores.put(temp, 0);
         this.saves = new HashMap<>();
     }
 
