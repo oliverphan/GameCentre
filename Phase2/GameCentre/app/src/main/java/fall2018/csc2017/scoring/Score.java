@@ -40,7 +40,7 @@ public class Score implements Serializable {
      *
      * @return This Scores Users username
      */
-    String getUsername() {
+    public String getUsername() {
         return this.username;
     }
 

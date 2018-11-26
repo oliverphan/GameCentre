@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.R;
@@ -20,7 +21,7 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
     /**
      * A HashMap of all the Users created. The key is the username, the value is the User object.
      */
-    private HashMap<String, User> userAccounts;
+    private Map<String, User> userAccounts;
 
     /**
      * The current logged in user.

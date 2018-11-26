@@ -62,7 +62,7 @@ public class User implements Serializable {
      *
      * @return HashMap of scores.
      */
-    public HashMap<String, Integer> getScores() {
+    public Map<String, Integer> getScores() {
         return scores;
     }
 
@@ -87,7 +87,7 @@ public class User implements Serializable {
      *
      * @return HashMap of saves.
      */
-    public HashMap<String, Object> getSaves() {
+    public Map<String, Object> getSaves() {
         return saves;
     }
 

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -48,7 +49,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
     /**
      * The HashMap of all the fall2018.csc2017.users by name.
      */
-    private HashMap<String, User> userAccounts;
+    private Map<String, User> userAccounts;
 
     /**
      * The name of the current user.
