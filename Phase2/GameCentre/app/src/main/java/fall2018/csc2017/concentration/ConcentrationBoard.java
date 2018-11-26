@@ -26,16 +26,6 @@ public class ConcentrationBoard extends Board<Card> {
         this.cards = super.tokens;
     }
 
-
-//    /**
-//     * Return the total amount of Cards contained on this ConcentrationBoard, not the amount of unique cards.
-//     *
-//     * @return the total amount of Cards in this ConcentrationBoard
-//     */
-//    int numCards() {
-//        return numRows * this.numCols;
-//    }
-
     Card getCard(int row, int col) {
         return cards[row][col];
     }
@@ -44,17 +34,6 @@ public class ConcentrationBoard extends Board<Card> {
         return this.cards;
     }
 
-//    public boolean gameFinished() {
-//        for (Card[] c : cards) {
-//            for (Card card : c) {
-//                if (!card.isMatched()) {
-//                    return false;
-//                }
-//            }
-//        }
-//        return true;
-//    }
-
     /**
      * Set the Card at row, col to be face up.
      *
@@ -62,14 +41,14 @@ public class ConcentrationBoard extends Board<Card> {
      * @param col the column which contains the target Card
      */
     void flipCard(int row, int col) {
-        getCard(row, col).setFaceDown(false);
+        getCard(row, col).flip();
     }
 
     void allFaceDown() {
         for (Card[] c : cards) {
             for (Card card : c) {
                 if (!card.isMatched()) {
-                    card.setFaceDown(true);
+                    card.flip();
                 }
             }
         }
