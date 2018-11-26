@@ -1,4 +1,4 @@
-package fall2018.csc2017.concentration;
+package fall2018.csc2017.matchingcards;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,12 +7,12 @@ import java.util.Random;
 import fall2018.csc2017.common.BoardManager;
 
 /**
- * Manage a ConcentrationBoard, checking for win, and managing taps.
+ * Manage a MatchingBoard, checking for win, and managing taps.
  */
-public class ConcentrationBoardManager extends BoardManager<ConcentrationBoard> {
+public class MatchingBoardManager extends BoardManager<MatchingBoard> {
 
     /**
-     * The number of Cards in the ConcentrationBoard.
+     * The number of Cards in the MatchingBoard.
      */
     private final int numCards;
 
@@ -22,13 +22,13 @@ public class ConcentrationBoardManager extends BoardManager<ConcentrationBoard> 
     private boolean undoLeft = true;
 
     /**
-     * Manage a new ConcentrationBoard with the specified difficulty.
+     * Manage a new MatchingBoard with the specified difficulty.
      *
-     * @param difficulty the difficulty of this ConcentrationBoard
+     * @param difficulty the difficulty of this MatchingBoard
      */
-    public ConcentrationBoardManager(int difficulty) {
+    public MatchingBoardManager(int difficulty) {
         super(difficulty);
-        setName("Concentration");
+        setName("Matching Cards");
         this.numCards = 4 * difficulty;
         setDifficulty();
     }
@@ -79,7 +79,7 @@ public class ConcentrationBoardManager extends BoardManager<ConcentrationBoard> 
     }
 
     /**
-     * Process a touch at position on the ConcentrationBoard, turning over the Card as appropriate.
+     * Process a touch at position on the MatchingBoard, turning over the Card as appropriate.
      *
      * @param position the position of the touch on the board
      */
@@ -92,7 +92,7 @@ public class ConcentrationBoardManager extends BoardManager<ConcentrationBoard> 
     }
 
     /**
-     * Set the difficulty for this ConcentrationBoard, and generate a new board based on the difficulty.
+     * Set the difficulty for this MatchingBoard, and generate a new board based on the difficulty.
      */
     private void setDifficulty() {
         List<Card> cards = new ArrayList<>();
@@ -102,12 +102,12 @@ public class ConcentrationBoardManager extends BoardManager<ConcentrationBoard> 
             cards.add(newCard);
             cards.add(newCard);
         }
-        this.board = new ConcentrationBoard(cards);
+        this.board = new MatchingBoard(cards);
         shuffle(board.getCards());
     }
 
     /**
-     * Shuffles the Cards in this ConcentrationBoard to random positions.
+     * Shuffles the Cards in this MatchingBoard to random positions.
      * Adapted from Fisher-Yates algorithm.
      */
     private void shuffle(Card[][] cards) {
