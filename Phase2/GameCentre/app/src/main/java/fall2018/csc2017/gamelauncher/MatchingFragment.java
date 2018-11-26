@@ -69,6 +69,8 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
             @Override
             public void onClick(View v) {
 //                DO SOMETHING
+                createToast("Game Start");
+                switchToMatchingGameActivity();
             }
         });
     }
@@ -82,6 +84,8 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
             @Override
             public void onClick(View v) {
 //                DO SOMETHING
+                createToast("Game Start");
+                switchToMatchingGameActivity();
             }
         });
     }
@@ -95,6 +99,8 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
             @Override
             public void onClick(View v) {
 //                DO SOMETHING
+                createToast("Game Start");
+                switchToMatchingGameActivity();
             }
         });
     }
@@ -108,6 +114,7 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
             @Override
             public void onClick(View v) {
 //                DO SOMETHING
+                switchToMatchingGameActivity();
             }
         });
     }

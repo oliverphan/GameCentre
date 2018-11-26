@@ -27,6 +27,7 @@ import java.util.Observer;
 import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.CustomAdapter;
 import fall2018.csc2017.common.GestureDetectGridView;
+import fall2018.csc2017.common.SaveAndLoadGames;
 import fall2018.csc2017.gamelauncher.SlidingFragment;
 import fall2018.csc2017.scoring.LeaderBoard;
 import fall2018.csc2017.scoring.Score;
@@ -36,7 +37,7 @@ import fall2018.csc2017.R;
 /**
  * The game activity.
  */
-public class SlidingGameActivity extends AppCompatActivity implements Observer, SaveAndLoadFiles {
+public class SlidingGameActivity extends AppCompatActivity implements Observer, SaveAndLoadFiles, SaveAndLoadGames {
 
     /**
      * The board manager.
@@ -108,7 +109,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slidingtilesgame);
-        loadGameFromFile();
+        slidingBoardManager = (SlidingBoardManager) loadGameFromFile(SlidingFragment.TEMP_SAVE_FILENAME);
 
         userAccounts = loadUserAccounts();
         currentUser = userAccounts.get(loadCurrentUsername());
@@ -228,19 +229,6 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
         display();
     }
 
-    /**
-     * Store the new score and delete the old save in the User if the game is won.
-     * If game hasn't been won, store the most recent slidingBoardManager to the User.
-     */
-    public void writeNewValues() {
-        if (!gameWon) {
-            currentUser.writeGame(SlidingFragment.GAME_TITLE, slidingBoardManager);
-        } else {
-            currentUser.setNewScore(SlidingFragment.GAME_TITLE, slidingBoardManager.generateScore());
-            currentUser.deleteSave(SlidingFragment.GAME_TITLE);
-        }
-    }
-
     @Override
     public void onBackPressed() {
         switchToSlidingTilesActivity();
@@ -250,7 +238,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
      * Switch to the title screen. Only to be called when back pressed.
      */
     private void switchToSlidingTilesActivity() {
-        writeNewValues();
+        writeNewValues(currentUser, SlidingFragment.GAME_TITLE, slidingBoardManager);
         saveUserAccounts(userAccounts);
         if (!gameWon) {
             createToast("Saved");
@@ -258,26 +246,6 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
             createToast("Saved Wiped");
         }
         finish();
-    }
-
-    /**
-     * Load the board manager from fileName.
-     */
-    private void loadGameFromFile() {
-        try {
-            InputStream inputStream = this.openFileInput(SlidingFragment.TEMP_SAVE_FILENAME);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                slidingBoardManager = (SlidingBoardManager) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
     }
 
     /**
