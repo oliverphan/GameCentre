@@ -116,7 +116,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
         int row = position / difficulty;
         int col = position % difficulty;
         Card toTap = board.getCard(row, col);
-        return toTap.isFaceDown()  && !toTap.isMatched();
+        return toTap.isFaceDown() && !toTap.isMatched();
     }
 
     @Override
@@ -142,35 +142,33 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
         }
     }
 
-        private void checkMatched() {
-            if (firstCard.equals(secondCard)) {
-                System.out.println("THE CARDS ARE EQUAL");
-                firstCard.setMatched();
-                secondCard.setMatched();
-            } else {
-                System.out.println("THE CARDS ARE NOT EQUAL");
+    private void checkMatched() {
+        if (firstCard.equals(secondCard)) {
+            System.out.println("THE CARDS ARE EQUAL");
+            firstCard.setMatched();
+            secondCard.setMatched();
+        } else {
+            System.out.println("THE CARDS ARE NOT EQUAL");
+            board.flipCard(secondCard, "second card");
+            try {
+                Thread.sleep(5000);
 
+
+                board.flipCard(firstCard, "first card");
                 board.flipCard(secondCard, "second card");
-                try {
-                    Thread.sleep(5000);
+                System.out.println("FIRST CARD MATCH STATUS: " + firstCard.isMatched());
+                System.out.println("SECOND CARD MATCH STATUS: " + secondCard.isMatched());
+                System.out.println("FIRST CARD SIDE STATUS: " + firstCard.isFaceDown());
+                System.out.println("SECOND CARD SIDE STATUS: " + secondCard.isFaceDown());
 
-
-
-                    board.flipCard(firstCard, "first card");
-                    board.flipCard(secondCard, "second card");
-                    System.out.println("FIRST CARD MATCH STATUS: " + firstCard.isMatched());
-                    System.out.println("SECOND CARD MATCH STATUS: " + secondCard.isMatched());
-                    System.out.println("FIRST CARD SIDE STATUS: " + firstCard.isFaceDown());
-                    System.out.println("SECOND CARD SIDE STATUS: " + secondCard.isFaceDown());
-
-                } catch (InterruptedException e) {
-                    Log.e("Thread Interrupted", "Failed to sleep!");
-                    Thread.currentThread().interrupt();
-                }
+            } catch (InterruptedException e) {
+                Log.e("Thread Interrupted", "Failed to sleep!");
+                Thread.currentThread().interrupt();
             }
-            System.out.println("SET FIRST CARD TO NULL");
-            firstCard = null;
-            System.out.println("SET SECOND CARD TO NULL");
-            secondCard = null;
         }
+        System.out.println("SET FIRST CARD TO NULL");
+        firstCard = null;
+        System.out.println("SET SECOND CARD TO NULL");
+        secondCard = null;
+    }
 }
