@@ -19,7 +19,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import fall2018.csc2017.R;
-import fall2018.csc2017.common.SaveAndLoad;
+import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.GestureDetectGridView;
 import fall2018.csc2017.common.CustomAdapter;
 import fall2018.csc2017.gamelauncher.MatchingFragment;
@@ -30,7 +30,7 @@ import fall2018.csc2017.users.User;
 /**
  * The game activity.
  */
-public class MatchingGameActivity extends AppCompatActivity implements Observer, SaveAndLoad {
+public class MatchingGameActivity extends AppCompatActivity implements Observer, SaveAndLoadFiles {
 
     /**
      * The MatchingBoardManager.
@@ -173,19 +173,6 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         curScore.setText(String.valueOf(score));
     }
 
-    /**
-     * Store the new score and delete the old save in the User if the game is won.
-     * If game hasn't been won, store the most recent boardManager to the User.
-     */
-    public void writeNewValues() {
-        if (!gameWon) {
-            currentUser.writeGame(MatchingFragment.GAME_TITLE, matchingBoardManager);
-        } else {
-            currentUser.setNewScore(MatchingFragment.GAME_TITLE, matchingBoardManager.generateScore());
-            currentUser.deleteSave(MatchingFragment.GAME_TITLE);
-        }
-    }
-
     @Override
     public void update(Observable o, Object arg) {
         updateScore();
@@ -199,10 +186,23 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
             gameWon = true;
             createToast("You Win!");
             LeaderBoard leaderBoard = loadLeaderBoard();
-            leaderBoard.updateScores("Concentration", new Score(currentUser.getName(), score));
+            leaderBoard.updateScores("Matching Cards", new Score(currentUser.getName(), score));
             saveLeaderBoard(leaderBoard);
         }
         display();
+    }
+
+    /**
+     * Store the new score and delete the old save in the User if the game is won.
+     * If game hasn't been won, store the most recent boardManager to the User.
+     */
+    public void writeNewValues() {
+        if (!gameWon) {
+            currentUser.writeGame(MatchingFragment.GAME_TITLE, matchingBoardManager);
+        } else {
+            currentUser.setNewScore(MatchingFragment.GAME_TITLE, matchingBoardManager.generateScore());
+            currentUser.deleteSave(MatchingFragment.GAME_TITLE);
+        }
     }
 
     @Override

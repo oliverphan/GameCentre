@@ -18,14 +18,14 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
-import fall2018.csc2017.common.SaveAndLoad;
+import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.slidingtiles.SlidingBoardManager;
 import fall2018.csc2017.R;
 import fall2018.csc2017.slidingtiles.SlidingGameActivity;
 import fall2018.csc2017.scoring.LeaderBoardActivity;
 import fall2018.csc2017.users.User;
 
-public class SlidingFragment extends Fragment implements SaveAndLoad {
+public class SlidingFragment extends Fragment implements SaveAndLoadFiles {
     /**
      * The name of the game.
      */

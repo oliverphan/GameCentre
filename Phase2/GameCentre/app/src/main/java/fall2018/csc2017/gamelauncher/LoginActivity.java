@@ -10,12 +10,12 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 
-import fall2018.csc2017.common.SaveAndLoad;
+import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.R;
 import fall2018.csc2017.scoring.LeaderBoard;
 import fall2018.csc2017.users.User;
 
-public class LoginActivity extends AppCompatActivity implements SaveAndLoad {
+public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles {
 
 
     /**

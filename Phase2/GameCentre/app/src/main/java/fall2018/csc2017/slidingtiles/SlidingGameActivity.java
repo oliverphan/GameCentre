@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
-import fall2018.csc2017.common.SaveAndLoad;
+import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.CustomAdapter;
 import fall2018.csc2017.common.GestureDetectGridView;
 import fall2018.csc2017.gamelauncher.SlidingFragment;
@@ -36,7 +36,7 @@ import fall2018.csc2017.R;
 /**
  * The game activity.
  */
-public class SlidingGameActivity extends AppCompatActivity implements Observer, SaveAndLoad {
+public class SlidingGameActivity extends AppCompatActivity implements Observer, SaveAndLoadFiles {
 
     /**
      * The board manager.
@@ -209,19 +209,6 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
         curScore.setText(String.valueOf(score));
     }
 
-    /**
-     * Store the new score and delete the old save in the User if the game is won.
-     * If game hasn't been won, store the most recent slidingBoardManager to the User.
-     */
-    public void writeNewValues() {
-        if (!gameWon) {
-            currentUser.writeGame(SlidingFragment.GAME_TITLE, slidingBoardManager);
-        } else {
-            currentUser.setNewScore(SlidingFragment.GAME_TITLE, slidingBoardManager.generateScore());
-            currentUser.deleteSave(SlidingFragment.GAME_TITLE);
-        }
-    }
-
     @Override
     public void update(Observable o, Object arg) {
         updateScore();
@@ -239,6 +226,19 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
             saveLeaderBoard(leaderBoard);
         }
         display();
+    }
+
+    /**
+     * Store the new score and delete the old save in the User if the game is won.
+     * If game hasn't been won, store the most recent slidingBoardManager to the User.
+     */
+    public void writeNewValues() {
+        if (!gameWon) {
+            currentUser.writeGame(SlidingFragment.GAME_TITLE, slidingBoardManager);
+        } else {
+            currentUser.setNewScore(SlidingFragment.GAME_TITLE, slidingBoardManager.generateScore());
+            currentUser.deleteSave(SlidingFragment.GAME_TITLE);
+        }
     }
 
     @Override

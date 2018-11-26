@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.HashMap;
 
-import fall2018.csc2017.common.SaveAndLoad;
+import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.R;
 import fall2018.csc2017.gamelauncher.MainActivity;
 import fall2018.csc2017.common.SectionsPageAdapter;
@@ -17,7 +17,7 @@ import fall2018.csc2017.users.User;
 
 //TODO: Make 3 fragments, one for each game, and put in some of the code here for each one.
 
-public class LeaderBoardActivity extends AppCompatActivity implements SaveAndLoad {
+public class LeaderBoardActivity extends AppCompatActivity implements SaveAndLoadFiles {
     /**
      * A HashMap of user accounts, by  name.
      */
@@ -47,7 +47,7 @@ public class LeaderBoardActivity extends AppCompatActivity implements SaveAndLoa
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new SlidingTileLeaderBoardFragment());
         adapter.addFragment(new FourLeaderBoardFragment());
-        adapter.addFragment(new ConcentrationLeaderBoardFragment());
+        adapter.addFragment(new MatchingLeaderBoardFragment());
         viewPager.setAdapter(adapter);
     }
 

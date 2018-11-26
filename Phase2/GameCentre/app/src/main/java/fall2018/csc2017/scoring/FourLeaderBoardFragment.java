@@ -12,9 +12,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import fall2018.csc2017.R;
-import fall2018.csc2017.common.SaveAndLoad;
+import fall2018.csc2017.common.SaveAndLoadFiles;
 
-public class FourLeaderBoardFragment extends Fragment implements SaveAndLoad {
+public class FourLeaderBoardFragment extends Fragment implements SaveAndLoadFiles {
     /**
      * The leaderBoard.
      */
