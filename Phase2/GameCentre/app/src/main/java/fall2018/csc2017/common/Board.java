@@ -49,7 +49,7 @@ public abstract class Board<T> extends Observable implements Serializable, Itera
     /**
      * @param tokens
      */
-    // For SlidingBoard, ConcentrationBoard
+    // For SlidingBoard, MatchingBoard
     protected Board(List<T> tokens) {
         Class<?> classT = tokens.get(0).getClass();
         Iterator<T> iterator = tokens.iterator();

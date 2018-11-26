@@ -6,9 +6,9 @@ import java.util.List;
 import fall2018.csc2017.common.Board;
 
 /**
- * The ConcentrationBoard tiles board.
+ * The MatchingBoard tiles board.
  */
-public class ConcentrationBoard extends Board<Card> {
+public class MatchingBoard extends Board<Card> {
 
     /**
      * The cards on the board in row-major order.
@@ -16,21 +16,21 @@ public class ConcentrationBoard extends Board<Card> {
     private Card[][] cards;
 
     /**
-     * A new ConcentrationBoard in row-major order.
+     * A new MatchingBoard in row-major order.
      * Precondition: len(tiles) == numRows * numCols
      *
-     * @param cards the cards contained in this ConcentrationBoard
+     * @param cards the cards contained in this MatchingBoard
      */
-    ConcentrationBoard(List<Card> cards) {
+    MatchingBoard(List<Card> cards) {
         super(cards);
         this.cards = super.tokens;
     }
 
 
 //    /**
-//     * Return the total amount of Cards contained on this ConcentrationBoard, not the amount of unique cards.
+//     * Return the total amount of Cards contained on this MatchingBoard, not the amount of unique cards.
 //     *
-//     * @return the total amount of Cards in this ConcentrationBoard
+//     * @return the total amount of Cards in this MatchingBoard
 //     */
 //    int numCards() {
 //        return numRows * this.numCols;
@@ -77,7 +77,7 @@ public class ConcentrationBoard extends Board<Card> {
 
     @Override
     public String toString() {
-        return "ConcentrationBoard{" +
+        return "MatchingBoard{" +
                 "cards=" + Arrays.toString(cards) +
                 "}";
     }

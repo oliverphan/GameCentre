@@ -29,12 +29,12 @@ import fall2018.csc2017.users.User;
 /**
  * The game activity.
  */
-public class ConcentrationGameActivity extends AppCompatActivity implements Observer, SaveAndLoad {
+public class MatchingGameActivity extends AppCompatActivity implements Observer, SaveAndLoad {
 
     /**
-     * The ConcentrationBoardManager.
+     * The MatchingBoardManager.
      */
-    private ConcentrationBoardManager concentrationBoardManager;
+    private MatchingBoardManager matchingBoardManager;
 
     /**
      * The buttons to display.
@@ -93,13 +93,13 @@ public class ConcentrationGameActivity extends AppCompatActivity implements Obse
         loadGameFromFile();
         userAccounts = loadUserAccounts();
         addUndoButtonListener();
-        difficulty = concentrationBoardManager.getDifficulty();
+        difficulty = matchingBoardManager.getDifficulty();
         createCardButtons();
         // Add View to activity
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(difficulty);
-        gridView.setBoardManager(concentrationBoardManager);
-        concentrationBoardManager.getBoard().addObserver(this);
+        gridView.setBoardManager(matchingBoardManager);
+        matchingBoardManager.getBoard().addObserver(this);
         // Observer sets up desired dimensions as well as calls to our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -121,7 +121,7 @@ public class ConcentrationGameActivity extends AppCompatActivity implements Obse
      * Create the buttons for displaying the cards.
      */
     private void createCardButtons() {
-        ConcentrationBoard board = concentrationBoardManager.getBoard();
+        MatchingBoard board = matchingBoardManager.getBoard();
         cardButtons = new ArrayList<>();
         for (int row = 0; row < difficulty; row++) {
             for (int col = 0; col < difficulty; col++) {
@@ -136,12 +136,12 @@ public class ConcentrationGameActivity extends AppCompatActivity implements Obse
      * Update the backgrounds on the buttons to match the cards.
      */
     private void updateCardButtons() {
-        ConcentrationBoard concentrationBoard = concentrationBoardManager.getBoard();
+        MatchingBoard matchingBoard = matchingBoardManager.getBoard();
         int nextPos = 0;
         int row = nextPos / difficulty;
         int col = nextPos % difficulty;
         for (Button b : cardButtons) {
-            b.setBackgroundResource(concentrationBoard.getCard(row, col).getBackground());
+            b.setBackgroundResource(matchingBoard.getCard(row, col).getBackground());
 
         }
         // Updated pictures in event of a tap
@@ -154,7 +154,7 @@ public class ConcentrationGameActivity extends AppCompatActivity implements Obse
     private void addUndoButtonListener() {
         final Button undoButton = findViewById(R.id.undoButton);
         undoButton.setOnClickListener(view ->
-                concentrationBoardManager.undoMove());
+                matchingBoardManager.undoMove());
     }
 
     /**
@@ -180,7 +180,7 @@ public class ConcentrationGameActivity extends AppCompatActivity implements Obse
             InputStream inputStream = this.openFileInput(ConcentrationFragment.TEMP_SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                concentrationBoardManager = (ConcentrationBoardManager) input.readObject();
+                matchingBoardManager = (MatchingBoardManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -198,9 +198,9 @@ public class ConcentrationGameActivity extends AppCompatActivity implements Obse
      */
     public void writeNewValues() {
         if (!gameWon) {
-            currentUser.writeGame(ConcentrationFragment.GAME_TITLE, concentrationBoardManager);
+            currentUser.writeGame(ConcentrationFragment.GAME_TITLE, matchingBoardManager);
         } else {
-            currentUser.setNewScore(ConcentrationFragment.GAME_TITLE, concentrationBoardManager.generateScore());
+            currentUser.setNewScore(ConcentrationFragment.GAME_TITLE, matchingBoardManager.generateScore());
             currentUser.deleteSave(ConcentrationFragment.GAME_TITLE);
         }
     }
@@ -213,7 +213,7 @@ public class ConcentrationGameActivity extends AppCompatActivity implements Obse
     }
 
     private void setScore() {
-        this.score = concentrationBoardManager.generateScore();
+        this.score = matchingBoardManager.generateScore();
     }
 
     @Override
@@ -223,12 +223,12 @@ public class ConcentrationGameActivity extends AppCompatActivity implements Obse
 
     @Override
     public void update(Observable o, Object arg) {
-        int moves = concentrationBoardManager.getNumMoves() % 10;
+        int moves = matchingBoardManager.getNumMoves() % 10;
         if (moves == 0 && !gameWon) {
-            currentUser.getSaves().put(ConcentrationFragment.GAME_TITLE, concentrationBoardManager);
+            currentUser.getSaves().put(ConcentrationFragment.GAME_TITLE, matchingBoardManager);
             saveUserAccounts(userAccounts);
         }
-        if (concentrationBoardManager.gameFinished()) {
+        if (matchingBoardManager.gameFinished()) {
             gameWon = true;
             createToast("You Win!");
             LeaderBoard leaderBoard = loadLeaderBoard();
