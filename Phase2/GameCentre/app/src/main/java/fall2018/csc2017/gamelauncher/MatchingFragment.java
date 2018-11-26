@@ -16,7 +16,7 @@ public class MatchingFragment extends Fragment {
     /**
      * Tag for the current game being played.
      */
-    public static final String GAME_TITLE = "Memory";
+    public static final String GAME_TITLE = "Matching Cards";
 
     /**
      * Save file for the memoryBoardManager being created

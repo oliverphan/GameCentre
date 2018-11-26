@@ -19,7 +19,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import fall2018.csc2017.R;
-import fall2018.csc2017.common.SaveAndLoad;
+import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.GestureDetectGridView;
 import fall2018.csc2017.common.CustomAdapter;
 import fall2018.csc2017.gamelauncher.MatchingFragment;
@@ -30,7 +30,7 @@ import fall2018.csc2017.users.User;
 /**
  * The game activity.
  */
-public class MatchingGameActivity extends AppCompatActivity implements Observer, SaveAndLoad {
+public class MatchingGameActivity extends AppCompatActivity implements Observer, SaveAndLoadFiles {
 
     /**
      * The MatchingBoardManager.
@@ -144,11 +144,11 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     private void updateCardButtons() {
         MatchingBoard matchingBoard = matchingBoardManager.getBoard();
         int nextPos = 0;
-        int row = nextPos / difficulty;
-        int col = nextPos % difficulty;
         for (Button b : cardButtons) {
+            int row = nextPos / difficulty;
+            int col = nextPos % difficulty;
             b.setBackgroundResource(matchingBoard.getCard(row, col).getBackground());
-
+            nextPos++;
         }
         // Updated pictures in event of a tap
         // Whether to tap to the front or the back
@@ -159,8 +159,9 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
      */
     private void addUndoButtonListener() {
         final Button undoButton = findViewById(R.id.undoButton);
-        undoButton.setOnClickListener(view ->
-                matchingBoardManager.undoMove());
+        undoButton.setOnClickListener(view -> {
+                matchingBoardManager.undoMove();
+        });
     }
 
     /**
@@ -172,7 +173,24 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         curScore.setText(String.valueOf(score));
     }
 
-
+    @Override
+    public void update(Observable o, Object arg) {
+        updateScore();
+        // Automatic save every 5 moves
+        int moves = matchingBoardManager.getNumMoves() % 5;
+        if (moves == 0 && !gameWon) {
+            currentUser.getSaves().put(MatchingFragment.GAME_TITLE, matchingBoardManager);
+            saveUserAccounts(userAccounts);
+        }
+        if (matchingBoardManager.gameFinished()) {
+            gameWon = true;
+            createToast("You Win!");
+            LeaderBoard leaderBoard = loadLeaderBoard();
+            leaderBoard.updateScores("Matching Cards", new Score(currentUser.getName(), score));
+            saveLeaderBoard(leaderBoard);
+        }
+        display();
+    }
 
     /**
      * Store the new score and delete the old save in the User if the game is won.
@@ -185,17 +203,6 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
             currentUser.setNewScore(MatchingFragment.GAME_TITLE, matchingBoardManager.generateScore());
             currentUser.deleteSave(MatchingFragment.GAME_TITLE);
         }
-    }
-
-    /**
-     * @param msg The message to be displayed in the Toast.
-     */
-    private void createToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-    }
-
-    private void setScore() {
-        this.score = matchingBoardManager.generateScore();
     }
 
     @Override
@@ -218,24 +225,6 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         finish();
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        updateScore();
-        int moves = matchingBoardManager.getNumMoves() % 10;
-        if (moves == 0 && !gameWon) {
-            currentUser.getSaves().put(MatchingFragment.GAME_TITLE, matchingBoardManager);
-            saveUserAccounts(userAccounts);
-        }
-        if (matchingBoardManager.gameFinished()) {
-            gameWon = true;
-            createToast("You Win!");
-            LeaderBoard leaderBoard = loadLeaderBoard();
-            leaderBoard.updateScores("Concentration", new Score(currentUser.getName(), score));
-            saveLeaderBoard(leaderBoard);
-        }
-        display();
-    }
-
     /**
      * Load the board manager from fileName.
      */
@@ -254,5 +243,12 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         } catch (ClassNotFoundException e) {
             Log.e("login activity", "File contained unexpected data type: " + e.toString());
         }
+    }
+
+    /**
+     * @param msg The message to be displayed in the Toast.
+     */
+    private void createToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 }

@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
-import fall2018.csc2017.common.SaveAndLoad;
+import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.CustomAdapter;
 import fall2018.csc2017.common.GestureDetectGridView;
 import fall2018.csc2017.gamelauncher.SlidingFragment;
@@ -36,7 +36,7 @@ import fall2018.csc2017.R;
 /**
  * The game activity.
  */
-public class SlidingGameActivity extends AppCompatActivity implements Observer, SaveAndLoad {
+public class SlidingGameActivity extends AppCompatActivity implements Observer, SaveAndLoadFiles {
 
     /**
      * The board manager.
@@ -185,27 +185,6 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
     }
 
     /**
-     * The listener for the add user images button.
-     */
-    private void addUserButtonListener() {
-        final Button userButton = findViewById(R.id.user);
-        // Try to get a ternary working here
-        if (!slidingBoardManager.userTiles)
-            userButton.setText(R.string.user_image_button_unpressed);
-        else
-            userButton.setText(R.string.user_image_button_pressed);
-        userButton.setOnClickListener(view -> {
-            if (!slidingBoardManager.userTiles) {
-                pickImageFromGallery();
-            } else {
-                userButton.setText(R.string.user_image_button_unpressed);
-                slidingBoardManager.userTiles = false;
-                display();
-            }
-        });
-    }
-
-    /**
      * The listener for the undo button.
      */
     private void addUndoButtonListener() {
@@ -222,91 +201,12 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
     }
 
     /**
-     * Start activity to pick image from user gallery.
-     */
-    private void pickImageFromGallery() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(galleryIntent, IMAGE_REQUEST_CODE);
-    }
-
-    /**
      * Display the score as you play the game.
      */
     private void updateScore(){
         score = slidingBoardManager.generateScore();
         TextView curScore = findViewById(R.id.curScore);
         curScore.setText(String.valueOf(score));
-    }
-
-    /**
-     * Converts uri from gallery to bitmap
-     *
-     * @param imageUri uri of selected image.
-     */
-    private void createBitmapFromUri(Uri imageUri) {
-        Bitmap bitmap = null;
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-        } catch (Exception e) {
-            Log.e("GalleryAccessActivity", "Image select error", e);
-        }
-        if (bitmap != null) {
-            userImage = Bitmap.createScaledBitmap(bitmap, 247 * difficulty, 391 * difficulty, true);
-        }
-    }
-
-    /**
-     * Store the new score and delete the old save in the User if the game is won.
-     * If game hasn't been won, store the most recent slidingBoardManager to the User.
-     */
-    public void writeNewValues() {
-        if (!gameWon) {
-            currentUser.writeGame(SlidingFragment.GAME_TITLE, slidingBoardManager);
-        } else {
-            currentUser.setNewScore(SlidingFragment.GAME_TITLE, slidingBoardManager.generateScore());
-            currentUser.deleteSave(SlidingFragment.GAME_TITLE);
-        }
-    }
-
-
-    /**
-     * @param msg The message to be displayed in the Toast.
-     */
-    private void createToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-    }
-
-    /**
-     * continuation of gallery pick activity
-     *
-     * @param requestCode Request code for activity
-     * @param resultCode  Resulting code from Android
-     * @param i           intent of activity
-     */
-    @Override
-    protected final void onActivityResult(final int requestCode,
-                                          final int resultCode, final Intent i) {
-        super.onActivityResult(requestCode, resultCode, i);
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case IMAGE_REQUEST_CODE:
-                    createBitmapFromUri(i.getData());
-                    break;
-            }
-        }
-        if (userImage != null) {
-            final Button userButton = findViewById(R.id.user);
-            userButton.setText(R.string.user_image_button_pressed);
-            SlidingBoard slidingBoard = slidingBoardManager.getBoard();
-            slidingBoardManager.userTiles = true;
-            for (int nextPos = 0; nextPos < slidingBoard.numTiles(); nextPos++) {
-                int row = nextPos / difficulty;
-                int col = nextPos % difficulty;
-                slidingBoard.getTile(row, col).createUserTiles(userImage, difficulty);
-                display();
-            }
-        }
     }
 
     @Override
@@ -326,6 +226,19 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
             saveLeaderBoard(leaderBoard);
         }
         display();
+    }
+
+    /**
+     * Store the new score and delete the old save in the User if the game is won.
+     * If game hasn't been won, store the most recent slidingBoardManager to the User.
+     */
+    public void writeNewValues() {
+        if (!gameWon) {
+            currentUser.writeGame(SlidingFragment.GAME_TITLE, slidingBoardManager);
+        } else {
+            currentUser.setNewScore(SlidingFragment.GAME_TITLE, slidingBoardManager.generateScore());
+            currentUser.deleteSave(SlidingFragment.GAME_TITLE);
+        }
     }
 
     @Override
@@ -365,5 +278,91 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
         } catch (ClassNotFoundException e) {
             Log.e("login activity", "File contained unexpected data type: " + e.toString());
         }
+    }
+
+    /**
+     * @param msg The message to be displayed in the Toast.
+     */
+    private void createToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Converts uri from gallery to bitmap
+     *
+     * @param imageUri uri of selected image.
+     */
+    private void createBitmapFromUri(Uri imageUri) {
+        Bitmap bitmap = null;
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+        } catch (Exception e) {
+            Log.e("GalleryAccessActivity", "Image select error", e);
+        }
+        if (bitmap != null) {
+            userImage = Bitmap.createScaledBitmap(bitmap, 247 * difficulty, 391 * difficulty, true);
+        }
+    }
+
+    /**
+     * continuation of gallery pick activity
+     *
+     * @param requestCode Request code for activity
+     * @param resultCode  Resulting code from Android
+     * @param i           intent of activity
+     */
+    @Override
+    protected final void onActivityResult(final int requestCode,
+                                          final int resultCode, final Intent i) {
+        super.onActivityResult(requestCode, resultCode, i);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case IMAGE_REQUEST_CODE:
+                    createBitmapFromUri(i.getData());
+                    break;
+            }
+        }
+        if (userImage != null) {
+            final Button userButton = findViewById(R.id.user);
+            userButton.setText(R.string.user_image_button_pressed);
+            SlidingBoard slidingBoard = slidingBoardManager.getBoard();
+            slidingBoardManager.userTiles = true;
+            for (int nextPos = 0; nextPos < slidingBoard.numTiles(); nextPos++) {
+                int row = nextPos / difficulty;
+                int col = nextPos % difficulty;
+                slidingBoard.getTile(row, col).createUserTiles(userImage, difficulty);
+                display();
+            }
+        }
+    }
+
+    /**
+     * Start activity to pick image from user gallery.
+     */
+    private void pickImageFromGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, IMAGE_REQUEST_CODE);
+    }
+
+    /**
+     * The listener for the add user images button.
+     */
+    private void addUserButtonListener() {
+        final Button userButton = findViewById(R.id.user);
+        // Try to get a ternary working here
+        if (!slidingBoardManager.userTiles)
+            userButton.setText(R.string.user_image_button_unpressed);
+        else
+            userButton.setText(R.string.user_image_button_pressed);
+        userButton.setOnClickListener(view -> {
+            if (!slidingBoardManager.userTiles) {
+                pickImageFromGallery();
+            } else {
+                userButton.setText(R.string.user_image_button_unpressed);
+                slidingBoardManager.userTiles = false;
+                display();
+            }
+        });
     }
 }

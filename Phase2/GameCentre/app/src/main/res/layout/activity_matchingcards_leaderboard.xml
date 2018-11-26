@@ -10,7 +10,7 @@
         android:id="@+id/gameName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/concentration_title"
+        android:text="@string/matching_title"
         android:textSize="30sp"
         tools:layout_editor_absoluteX="51dp"
         tools:layout_editor_absoluteY="34dp" />
