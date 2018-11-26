@@ -12,9 +12,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import fall2018.csc2017.R;
-import fall2018.csc2017.common.SaveAndLoad;
+import fall2018.csc2017.common.SaveAndLoadFiles;
 
-public class SlidingTileLeaderBoardFragment extends Fragment implements SaveAndLoad {
+public class SlidingTileLeaderBoardFragment extends Fragment implements SaveAndLoadFiles {
     /**
      * The leaderBoard.
      */
@@ -22,7 +22,7 @@ public class SlidingTileLeaderBoardFragment extends Fragment implements SaveAndL
 
     //    Basically onCreate
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_sliding_tile_leaderboard, container, false);
+        View view = inflater.inflate(R.layout.activity_slidingtile_leaderboard, container, false);
         Bundle args = getArguments();
         leaderBoard = loadLeaderBoard();
         displayLeaders(view,"Sliding Tiles");

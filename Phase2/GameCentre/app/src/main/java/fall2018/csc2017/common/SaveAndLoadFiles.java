@@ -19,7 +19,7 @@ import fall2018.csc2017.users.User;
  * Loading userAccounts, the current User, the boardManager
  * Saving userAccounts, the current User, the boardManager
  */
-public interface SaveAndLoad {
+public interface SaveAndLoadFiles {
 
     /**
      * The save file for userAccounts.
