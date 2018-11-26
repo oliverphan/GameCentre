@@ -17,7 +17,7 @@ public class FourBoard extends Board<Piece> {
     /**
      *
      */
-    public FourBoard() {
+    FourBoard() {
         super();
         this.pieces = super.tokens;
         createBoard();
@@ -27,7 +27,7 @@ public class FourBoard extends Board<Piece> {
     /**
      *
      */
-    public FourBoard(Piece[][] pieces) {
+    FourBoard(Piece[][] pieces) {
         this.pieces = new Piece[numCols][numRows];
         for (int col = 0; col < numCols; col++) {
             for (int row = 0; row < numRows; row++) {

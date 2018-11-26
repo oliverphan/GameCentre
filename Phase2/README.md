@@ -7,6 +7,12 @@
 + Meirbek Zeinulla: Meirbek, meirbek.zeinulla@mail.utoronto.ca; zeinulla, meirbek.zeinulla@mail.utoronto.ca;
 
 
++ WALKTHROUGH.pdf
+ + What is your unit test coverage?
+ + What are the most important classes in your program?
+ + What design patterns did you use? What problems do each of them solve?
+ + How did you design your scoreboard? Where are high scores stored? How do they get displayed?
+
 # Setup Instructions for group_0540 CSC207 Phase1
 
 ## Cloning the repo

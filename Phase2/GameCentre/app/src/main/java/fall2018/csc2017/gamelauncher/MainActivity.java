@@ -36,6 +36,11 @@ public class MainActivity extends AppCompatActivity implements SaveAndLoadFiles 
         displayCurrentUser();
     }
 
+    /**
+     * Set up the slider for the three fragments.
+     *
+     * @param viewPager the viewPager to set up
+     */
     private void setupViewPager(ViewPager viewPager) {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new SlidingFragment());

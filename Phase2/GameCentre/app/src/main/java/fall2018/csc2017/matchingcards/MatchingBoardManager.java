@@ -68,7 +68,6 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
         }
         this.board = new MatchingBoard(cards);
         shuffle(board.getCards());
-        System.out.println(cards);
     }
 
     /**

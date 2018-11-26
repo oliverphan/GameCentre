@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -41,7 +42,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     /**
      * The Map of all the Users by name.
      */
-    private HashMap<String, User> userAccounts;
+    private Map<String, User> userAccounts;
 
     /**
      * The current User.
@@ -59,15 +60,25 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     private boolean gameWon;
 
 
+    /**
+     * The grid for the game activity.
+     */
     private GestureDetectGridView gridView;
+
+    /**
+     * Width of each card.
+     */
     private static int columnWidth;
+
+    /**
+     * Height of each card.
+     */
     private static int columnHeight;
 
     /**
      * The score of this Matching cards game.
      */
     private int score;
-
 
     /**
      * Set up the background image for each button based on the master list
@@ -77,10 +88,6 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     public void display() {
         updateCardButtons();
         gridView.setAdapter(new CustomAdapter(cardButtons, columnWidth, columnHeight));
-    }
-
-    public Context getActivity() {
-        return this;
     }
 
     @Override
@@ -144,8 +151,6 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         for (Button b : cardButtons) {
             int row = nextPos / difficulty;
             int col = nextPos % difficulty;
-            System.out.print(row);
-            System.out.println(col);
             b.setBackgroundResource(matchingBoard.getCard(row, col).getBackground());
             nextPos++;
         }
@@ -212,9 +217,20 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     }
 
     /**
+     * Display a toast message.
+     *
      * @param msg The message to be displayed in the Toast.
      */
     private void createToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Get the
+     *
+     * @return
+     */
+    public Context getActivity() {
+        return this;
     }
 }

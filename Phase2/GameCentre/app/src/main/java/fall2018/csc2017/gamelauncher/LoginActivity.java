@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.HashMap;
+import java.util.Map;
 
 import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.R;
@@ -17,13 +17,10 @@ import fall2018.csc2017.users.User;
 
 public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles {
 
-
     /**
      * A HashMap of all the Users created. The key is the username, the value is the User object.
      */
-    private HashMap<String, User> userAccounts;
-
-    private LeaderBoard leaderBoard;
+    private Map<String, User> userAccounts;
 
     /**
      * The current logged in user.
@@ -41,7 +38,6 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin_);
         userAccounts = loadUserAccounts();
-        leaderBoard = loadLeaderBoard();
         mUsernameView = findViewById(R.id.input_username);
         mPasswordView = findViewById(R.id.input_password);
         addLoginButtonListener();
@@ -121,6 +117,7 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
         startActivity(tmp);
         finish();
     }
+
     /**
      * Add a User to userAccounts collection.
      * Key: The username
@@ -154,7 +151,7 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-    public Context getActivity(){
+    public Context getActivity() {
         return this;
     }
 }

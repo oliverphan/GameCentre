@@ -29,17 +29,26 @@ public class MatchingBoard extends Board<Card> {
         for (int row = 0; row != numRows; row++) {
             for (int col = 0; col != numCols; col++) {
                 Card next = iterator.next();
-                System.out.println(next);
                 this.cards[row][col] = next;
             }
         }
 
     }
 
+    /**
+     *
+     * @param row
+     * @param col
+     * @return
+     */
     Card getCard(int row, int col) {
         return cards[row][col];
     }
 
+    /**
+     *
+     * @return
+     */
     Card[][] getCards() {
         return this.cards;
     }
@@ -56,6 +65,9 @@ public class MatchingBoard extends Board<Card> {
         notifyObservers();
     }
 
+    /**
+     *
+     */
     void allFaceDown() {
         for (Card[] c : cards) {
             for (Card card : c) {

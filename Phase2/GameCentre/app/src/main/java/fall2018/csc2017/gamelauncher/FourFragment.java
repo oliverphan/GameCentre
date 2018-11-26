@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.SaveAndLoadGames;
@@ -44,7 +45,7 @@ public class FourFragment extends Fragment implements SaveAndLoadFiles, SaveAndL
     /**
      * A HashMap of all the Users created. The key is the username, the value is the User object.
      */
-    private HashMap<String, User> userAccounts;
+    private Map<String, User> userAccounts;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_connectfour, container, false);
