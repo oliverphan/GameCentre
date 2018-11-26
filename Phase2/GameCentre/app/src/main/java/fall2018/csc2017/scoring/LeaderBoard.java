@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class LeaderBoard implements Serializable {
+import fall2018.csc2017.common.ScoreDisplay;
+
+public class LeaderBoard implements Serializable, ScoreDisplay {
 
     /**
      * A HashMap representing the games and their top three scores.
@@ -37,7 +39,7 @@ public class LeaderBoard implements Serializable {
      * @param gameName the game whose scores should be returned
      * @return An ArrayList of the top three scores of this game
      */
-    ArrayList<Score> getTopScores(String gameName) {
+    public ArrayList<Score> getTopScores(String gameName) {
         return gameScores.get(gameName);
     }
 

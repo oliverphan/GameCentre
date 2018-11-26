@@ -13,8 +13,9 @@ import java.util.ArrayList;
 
 import fall2018.csc2017.R;
 import fall2018.csc2017.common.SaveAndLoad;
+import fall2018.csc2017.common.ScoreDisplay;
 
-public class SlidingTileLeaderBoardFragment extends Fragment implements SaveAndLoad {
+public class SlidingTileLeaderBoardFragment extends Fragment implements SaveAndLoad, ScoreDisplay {
     /**
      * The leaderBoard.
      */
@@ -25,35 +26,8 @@ public class SlidingTileLeaderBoardFragment extends Fragment implements SaveAndL
         View view = inflater.inflate(R.layout.activity_sliding_tile_leaderboard, container, false);
         Bundle args = getArguments();
         leaderBoard = loadLeaderBoard();
-        displayLeaders(view,"Sliding Tiles");
+        displayLeaders(view, leaderBoard,"Sliding Tiles");
         return view;
-    }
-
-    /**
-     * Write the score values and username to the TextView display.
-     *
-     * @param gameName The name of the game to display top scores
-     */
-    private void displayLeaders(View view, String gameName) {
-        ArrayList<Score> tempScores = leaderBoard.getTopScores(gameName);
-        TextView firstUser = view.findViewById(R.id.firstUser);
-        TextView firstScore = view.findViewById(R.id.firstScore);
-        String temp1 = tempScores.get(0).getUsername();
-        String temp2 = String.valueOf(tempScores.get(0).getValue());
-        firstUser.setText(temp1);
-        firstScore.setText(temp2);
-        TextView secondUser = view.findViewById(R.id.secondUser);
-        TextView secondScore = view.findViewById(R.id.secondScore);
-        String temp3 = tempScores.get(1).getUsername();
-        String temp4 = String.valueOf(tempScores.get(1).getValue());
-        secondUser.setText(temp3);
-        secondScore.setText(temp4);
-        TextView thirdUser = view.findViewById(R.id.thirdUser);
-        TextView thirdScore = view.findViewById(R.id.thirdScore);
-        String temp5 = tempScores.get(2).getUsername();
-        String temp6 = String.valueOf(tempScores.get(2).getValue());
-        thirdUser.setText(temp5);
-        thirdScore.setText(temp6);
     }
 
 
