@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
@@ -21,12 +23,13 @@
 
     <TextView
         android:id="@+id/labels"
-        android:layout_width="wrap_content"
+        android:layout_width="27dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="96dp"
         android:layout_marginEnd="338dp"
-        android:layout_marginBottom="337dp"
+        android:layout_marginBottom="50dp"
+        android:fontFamily="@font/baumans"
         android:text="1.\n\n2.\n\n3."
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,15 +37,15 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.152" />
+        app:layout_constraintVertical_bias="0.53" />
 
     <TextView
         android:id="@+id/firstUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="13dp"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="144dp"
+        android:fontFamily="@font/baumans"
         android:text="TextView"
         android:textAlignment="textStart"
         android:textSize="36sp"
@@ -55,8 +58,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="144dp"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/baumans"
         android:text="TextView"
         android:textAlignment="textEnd"
         android:textSize="36sp"
@@ -69,8 +73,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="13dp"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="10dp"
+        android:fontFamily="@font/baumans"
         android:text="TextView"
         android:textAlignment="textStart"
         android:textSize="36sp"
@@ -83,11 +88,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="70dp"
+        android:fontFamily="@font/baumans"
         android:text="TextView"
         android:textAlignment="textEnd"
         android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/thirdScore"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/secondUser"
         app:layout_constraintTop_toBottomOf="@+id/firstScore" />
@@ -97,8 +105,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="10dp"
+        android:fontFamily="@font/baumans"
         android:text="TextView"
         android:textAlignment="textStart"
         android:textSize="36sp"
@@ -111,8 +120,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="17dp"
+        android:fontFamily="@font/baumans"
         android:text="TextView"
         android:textAlignment="textEnd"
         android:textSize="36sp"
@@ -120,4 +130,19 @@
         app:layout_constraintStart_toEndOf="@+id/thirdUser"
         app:layout_constraintTop_toBottomOf="@+id/secondScore" />
 
+    <TextView
+        android:id="@+id/user_high_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="235dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="164dp"
+        android:fontFamily="@font/baumans"
+        android:text="TextView"
+        android:textColor="@android:color/holo_green_light"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.77"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameName" />
 </android.support.constraint.ConstraintLayout>

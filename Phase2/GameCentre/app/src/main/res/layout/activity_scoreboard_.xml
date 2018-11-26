@@ -10,13 +10,17 @@
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
-        android:layout_width="384dp"
-        android:background="@color/transparent"
+        android:layout_width="0dp"
         android:layout_height="67dp"
+        android:background="@color/transparent"
         android:fitsSystemWindows="false"
-        android:theme="@style/AppTheme"
         android:gravity="center"
-        app:expanded="false">
+        android:theme="@style/AppTheme"
+        app:expanded="false"
+        app:layout_constraintBottom_toTopOf="@+id/container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <TextView
