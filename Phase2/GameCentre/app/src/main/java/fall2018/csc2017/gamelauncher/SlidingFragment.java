@@ -19,13 +19,14 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
 import fall2018.csc2017.common.SaveAndLoadFiles;
+import fall2018.csc2017.common.SaveAndLoadGames;
 import fall2018.csc2017.slidingtiles.SlidingBoardManager;
 import fall2018.csc2017.R;
 import fall2018.csc2017.slidingtiles.SlidingGameActivity;
 import fall2018.csc2017.scoring.LeaderBoardActivity;
 import fall2018.csc2017.users.User;
 
-public class SlidingFragment extends Fragment implements SaveAndLoadFiles {
+public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveAndLoadGames {
     /**
      * The name of the game.
      */
@@ -34,7 +35,7 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles {
     /**
      * The main save file.
      */
-    public static final String TEMP_SAVE_FILENAME = "tmp_save_file.ser";
+    public static final String TEMP_SAVE_FILENAME = "st_save_file.ser";
 
     /**
      * The name of the current logged in user.
@@ -153,7 +154,7 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles {
      */
     private void switchToSlidingTileGameActivity() {
         Intent tmp = new Intent(getActivity(), SlidingGameActivity.class);
-        saveGameToFile(TEMP_SAVE_FILENAME);
+        saveGameToFile(TEMP_SAVE_FILENAME, slidingBoardManager);
         startActivity(tmp);
     }
 
@@ -173,23 +174,6 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles {
         currentUser = userAccounts.get(loadCurrentUsername());
         addLoadButtonListener(getView());
     }
-
-    /**
-     * Save the slidingBoardManager for passing game around.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveGameToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    getActivity().openFileOutput(fileName, getContext().MODE_PRIVATE));
-            outputStream.writeObject(slidingBoardManager);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
-
 
     /**
      * @param msg The message to be displayed in the Toast.
