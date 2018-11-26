@@ -86,7 +86,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_matching);
+        setContentView(R.layout.activity_matchingcardsgame);
         matchingBoardManager = (MatchingBoardManager) loadGameFromFile(MatchingFragment.TEMP_SAVE_FILENAME);
         userAccounts = loadUserAccounts();
         currentUser = userAccounts.get(loadCurrentUsername());
