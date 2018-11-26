@@ -16,7 +16,6 @@ import java.util.HashMap;
 import fall2018.csc2017.R;
 import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.SaveAndLoadGames;
-import fall2018.csc2017.connectfour.FourGameActivity;
 import fall2018.csc2017.matchingcards.MatchingBoardManager;
 import fall2018.csc2017.matchingcards.MatchingGameActivity;
 import fall2018.csc2017.scoring.LeaderBoardActivity;

@@ -2,7 +2,6 @@ package fall2018.csc2017.scoring;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 public class LeaderBoard implements Serializable {
