@@ -40,7 +40,7 @@
         app:layout_constraintVertical_bias="0.53" />
 
     <TextView
-        android:id="@+id/firstUser"
+        android:id="@+id/user1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="13dp"
@@ -49,12 +49,12 @@
         android:text="TextView"
         android:textAlignment="textStart"
         android:textSize="36sp"
-        app:layout_constraintEnd_toStartOf="@+id/firstScore"
+        app:layout_constraintEnd_toStartOf="@+id/score1"
         app:layout_constraintStart_toEndOf="@+id/labels"
         app:layout_constraintTop_toBottomOf="@+id/gameName" />
 
     <TextView
-        android:id="@+id/firstScore"
+        android:id="@+id/score1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -65,11 +65,11 @@
         android:textAlignment="textEnd"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/firstUser"
+        app:layout_constraintStart_toEndOf="@+id/user1"
         app:layout_constraintTop_toBottomOf="@+id/gameName" />
 
     <TextView
-        android:id="@+id/secondUser"
+        android:id="@+id/user2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="13dp"
@@ -79,12 +79,12 @@
         android:text="TextView"
         android:textAlignment="textStart"
         android:textSize="36sp"
-        app:layout_constraintEnd_toStartOf="@+id/secondScore"
+        app:layout_constraintEnd_toStartOf="@+id/score2"
         app:layout_constraintStart_toEndOf="@+id/labels"
-        app:layout_constraintTop_toBottomOf="@+id/firstUser" />
+        app:layout_constraintTop_toBottomOf="@+id/user1" />
 
     <TextView
-        android:id="@+id/secondScore"
+        android:id="@+id/score2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -95,13 +95,13 @@
         android:text="TextView"
         android:textAlignment="textEnd"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/thirdScore"
+        app:layout_constraintBottom_toTopOf="@+id/score3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/secondUser"
-        app:layout_constraintTop_toBottomOf="@+id/firstScore" />
+        app:layout_constraintStart_toEndOf="@+id/user2"
+        app:layout_constraintTop_toBottomOf="@+id/score1" />
 
     <TextView
-        android:id="@+id/thirdUser"
+        android:id="@+id/user3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -111,12 +111,12 @@
         android:text="TextView"
         android:textAlignment="textStart"
         android:textSize="36sp"
-        app:layout_constraintEnd_toStartOf="@+id/thirdScore"
+        app:layout_constraintEnd_toStartOf="@+id/score3"
         app:layout_constraintStart_toEndOf="@+id/labels"
-        app:layout_constraintTop_toBottomOf="@+id/secondUser" />
+        app:layout_constraintTop_toBottomOf="@+id/user2" />
 
     <TextView
-        android:id="@+id/thirdScore"
+        android:id="@+id/score3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -127,8 +127,8 @@
         android:textAlignment="textEnd"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/thirdUser"
-        app:layout_constraintTop_toBottomOf="@+id/secondScore" />
+        app:layout_constraintStart_toEndOf="@+id/user3"
+        app:layout_constraintTop_toBottomOf="@+id/score2" />
 
     <TextView
         android:id="@+id/user_high_score"
