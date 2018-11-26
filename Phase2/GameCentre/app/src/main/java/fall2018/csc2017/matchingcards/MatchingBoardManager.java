@@ -38,12 +38,13 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
      */
     private void setDifficulty() {
         List<Card> cards = new ArrayList<>();
-        for (int cardNum = 0; cardNum != numCards; cardNum++) {
+        for (int cardNum = 0; cardNum != numCards/2; cardNum++) {
             cards.add(new Card(cardNum));
             cards.add(new Card(cardNum));
         }
         this.board = new MatchingBoard(cards);
         shuffle(board.getCards());
+        System.out.println(cards);
     }
 
     /**
@@ -100,7 +101,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
 
     @Override
     protected boolean isValidTap(int position) {
-        int row = position / 4;
+        int row = position / difficulty;
         int col = position % difficulty;
         Card toTap = board.getCard(row, col);
         return toTap.isFaceDown();
@@ -108,7 +109,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
 
     @Override
     protected void touchMove(int position) {
-        int row = position / 4;
+        int row = position / difficulty;
         int col = position % difficulty;
         numMoves += 1;
         board.flipCard(row, col);
