@@ -1,6 +1,5 @@
 package fall2018.csc2017.matchingcards;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.Serializable;
@@ -46,10 +45,19 @@ public class Card extends Token implements Serializable {
         return id;
     }
 
+    /**
+     * Returns whether or not this Card is face up or face down.
+     *
+     * @return Whether or not this Card is faceDown
+     */
     boolean isFaceDown() {
         return faceDown;
     }
 
+    /**
+     * Set this Card to be face up, or face down, depending on its current state.
+     * Changes the image resource to be displayed on this Card.
+     */
     void flip() {
         this.faceDown = !this.faceDown;
         String uri = "card_" + this.id;
@@ -62,12 +70,14 @@ public class Card extends Token implements Serializable {
         }
     }
 
+    /**
+     * Return whether or not this Card has been matched with another.
+     *
+     * @return If this Card has been matched
+     */
     boolean isMatched() {
         return matched;
     }
-
-    //Method to display back or front of card ???
-
 
     @Override
     public boolean equals(Object o) {
