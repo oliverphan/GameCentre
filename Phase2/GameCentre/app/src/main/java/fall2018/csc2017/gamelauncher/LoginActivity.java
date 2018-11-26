@@ -100,6 +100,7 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
                 addUser(u);
                 // On successful signup:
                 // Save the signed in user, and userAccounts
+                createToast("Sign Up Successful");
                 currentUser = u.getName();
                 switchToSlidingTileTitle();
             }

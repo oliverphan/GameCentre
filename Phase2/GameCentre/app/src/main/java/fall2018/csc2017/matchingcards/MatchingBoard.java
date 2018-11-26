@@ -36,7 +36,6 @@ public class MatchingBoard extends Board<Card> {
     }
 
     /**
-     *
      * @param row
      * @param col
      * @return
@@ -46,7 +45,6 @@ public class MatchingBoard extends Board<Card> {
     }
 
     /**
-     *
      * @return
      */
     Card[][] getCards() {
@@ -54,13 +52,13 @@ public class MatchingBoard extends Board<Card> {
     }
 
     /**
-     * Set the Card at row, col to be face up.
+     * Flip a card in the board.
      *
-     * @param row the row which contains the target Card
-     * @param col the column which contains the target Card
+     * @param card the card to be flipped in the board
      */
-    void flipCard(int row, int col) {
-        getCard(row, col).flip();
+    void flipCard(Card card, String s) {
+        System.out.println("THE CARD FLIPPED IS: " + s);
+        card.flip();
         setChanged();
         notifyObservers();
     }
@@ -71,9 +69,7 @@ public class MatchingBoard extends Board<Card> {
     void allFaceDown() {
         for (Card[] c : cards) {
             for (Card card : c) {
-                if (!card.isMatched()) {
-                    card.flip();
-                }
+                card.flip();
             }
         }
     }

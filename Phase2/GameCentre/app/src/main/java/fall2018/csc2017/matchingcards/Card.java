@@ -59,14 +59,22 @@ public class Card extends Token implements Serializable {
      * Changes the image resource to be displayed on this Card.
      */
     void flip() {
-        this.faceDown = !this.faceDown;
-        String uri = "card_" + this.id;
-        try {
-            Class res = R.drawable.class;
-            Field field = res.getField(uri);
-            background = faceDown ? R.drawable.card_0 : field.getInt(null);
-        } catch (Exception e) {
-            Log.e("DrawableAccess", "Failed to get resource by id", e);
+        if (!isMatched()) {
+            this.faceDown = !this.faceDown;
+            String uri = "card_" + this.id;
+            try {
+                Class res = R.drawable.class;
+                Field field = res.getField(uri);
+                if (faceDown) {
+                    System.out.println("CARD IS FACE DOWN");
+                } else if (!faceDown) {
+                    System.out.println("CARD IS FACE UP");
+                }
+                background = faceDown ? R.drawable.card_0 : field.getInt(null);
+//                System.out.println(faceDown);
+            } catch (Exception e) {
+                Log.e("DrawableAccess", "Failed to get resource by id", e);
+            }
         }
     }
 
@@ -81,13 +89,14 @@ public class Card extends Token implements Serializable {
 
     void setMatched() {
         this.matched = true;
+        System.out.println("THE CARD IS SET TO MATCHED");
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
+//        if (this == o) {
+//            return true;
+//        }
         if (o == null) {
             return false;
         }

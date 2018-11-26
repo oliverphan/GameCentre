@@ -5,8 +5,12 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
+import fall2018.csc2017.R;
 import fall2018.csc2017.common.BoardManager;
 
 /**
@@ -26,22 +30,6 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
 
     private Card firstCard;
     private Card secondCard;
-
-    public Card getFirstCard() {
-        return this.firstCard;
-    }
-
-    public void setFirstCard(Card c) {
-        this.firstCard = c;
-    }
-
-    public Card getSecondCard() {
-        return this.secondCard;
-    }
-
-    public void setSecondCard(Card c) {
-        this.secondCard = c;
-    }
 
     /**
      * Manage a new MatchingBoard with the specified difficulty.
@@ -101,23 +89,6 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
         }
     }
 
-    private boolean checkCardsMatch() {
-        if (!this.firstCard.equals(this.secondCard)) {
-            try {
-                Thread.sleep(2000);
-                this.firstCard.flip();
-                this.secondCard.flip();
-                this.firstCard = null;
-                this.secondCard = null;
-            } catch (InterruptedException e) {
-                Log.e("Thread Interrupted", "Failed to sleep!");
-                Thread.currentThread().interrupt();
-            }
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public int generateScore() {
         int score = (100 * numCards) - (numMoves * 5);
@@ -145,24 +116,109 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
         int row = position / difficulty;
         int col = position % difficulty;
         Card toTap = board.getCard(row, col);
-        return toTap.isFaceDown();
+        return toTap.isFaceDown()  && !toTap.isMatched();
     }
 
     @Override
     protected void touchMove(int position) {
         int row = position / difficulty;
         int col = position % difficulty;
-        numMoves += 1;
-        board.flipCard(row, col);
 
-        if (this.firstCard == null) {
-            this.firstCard = board.getCard(row, col);
+        // If this is the first card, flip it and you're done.
+        if (null == firstCard) {
+            System.out.println("THE FIRST CARD IS CHOSEN AT: " + row + col);
+            firstCard = board.getCard(row, col);
+            board.flipCard(firstCard, "first card");
         } else {
-            this.secondCard = board.getCard(row, col);
-            if (checkCardsMatch()) {
-                this.firstCard.setMatched();
-                this.secondCard.setMatched();
-            }
+            System.out.println("THE SECOND CARD IS HERE AT: " + row + col);
+            secondCard = board.getCard(row, col);
+
+            board.flipCard(secondCard, "second card");
+
+            System.out.println("FIRST CARD MATCH STATUS: " + firstCard.isMatched());
+            System.out.println("SECOND CARD MATCH STATUS: " + secondCard.isMatched());
+            System.out.println("SECOND CARD SIDE STATUS: " + secondCard.isFaceDown());
+            checkMatched();
         }
     }
+
+        private void checkMatched() {
+            if (firstCard.equals(secondCard)) {
+                System.out.println("THE CARDS ARE EQUAL");
+                firstCard.setMatched();
+                secondCard.setMatched();
+            } else {
+                System.out.println("THE CARDS ARE NOT EQUAL");
+
+                board.flipCard(secondCard, "second card");
+                try {
+                    Thread.sleep(5000);
+
+
+
+                    board.flipCard(firstCard, "first card");
+                    board.flipCard(secondCard, "second card");
+                    System.out.println("FIRST CARD MATCH STATUS: " + firstCard.isMatched());
+                    System.out.println("SECOND CARD MATCH STATUS: " + secondCard.isMatched());
+                    System.out.println("FIRST CARD SIDE STATUS: " + firstCard.isFaceDown());
+                    System.out.println("SECOND CARD SIDE STATUS: " + secondCard.isFaceDown());
+
+                } catch (InterruptedException e) {
+                    Log.e("Thread Interrupted", "Failed to sleep!");
+                    Thread.currentThread().interrupt();
+                }
+            }
+            System.out.println("SET FIRST CARD TO NULL");
+            firstCard = null;
+            System.out.println("SET SECOND CARD TO NULL");
+            secondCard = null;
+        }
+
+
+        // If this is the second card, flip it.
+        // Then check if it matches with the first
+        //      If it does match: set both to matched
+        //          if it doesnt match, delay, and unflip both
+        //          then send first and second card back to null
+
+
+
+//    @Override
+//    protected void touchMove(int position) {
+//        int row = position / difficulty;
+//        int col = position % difficulty;
+//        numMoves += 1;
+//        board.flipCard(board.getCard(row, col));
+//
+//        if (this.firstCard == null) { // First card is in the position
+//            this.firstCard = board.getCard(row, col);
+//            System.out.println("THIS FIRST CARD IS AT: " + row + col);
+//        } else { // Second card is in the position
+//            this.secondCard = board.getCard(row, col);
+//            System.out.println("THIS SECOND CARD IS AT: " + row + col);
+//            board.flipCard(board.getCard(row, col));
+//            checkCardsMatch();
+//        }
+//    }
+
+//    private void checkCardsMatch() {
+//        if (!this.firstCard.equals(this.secondCard)) {
+//            try {
+//                Thread.sleep(500);
+//                board.flipCard(firstCard);
+//                board.flipCard(secondCard);
+//
+//                this.firstCard = null;
+//                this.secondCard = null;
+//            } catch (InterruptedException e) {
+//                Log.e("Thread Interrupted", "Failed to sleep!");
+//                Thread.currentThread().interrupt();
+//            }
+//            if (this.firstCard != null && this.secondCard != null) {
+//                this.firstCard.setMatched();
+//                this.secondCard.setMatched();
+//            }
+//        }
+//
+//    }
 }
