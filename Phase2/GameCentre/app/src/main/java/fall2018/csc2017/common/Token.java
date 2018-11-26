@@ -12,7 +12,7 @@ public abstract class Token implements Serializable {
     /**
      * The background id to find the Token image.
      */
-    public int background;
+    protected int background;
 
     /**
      * Return the background id.

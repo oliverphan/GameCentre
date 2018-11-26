@@ -23,6 +23,7 @@ import fall2018.csc2017.scoring.LeaderBoardActivity;
 import fall2018.csc2017.users.User;
 
 public class MatchingFragment extends Fragment implements SaveAndLoadFiles, SaveAndLoadGames {
+
     /**
      * Tag for the current game being played.
      */
@@ -48,7 +49,7 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
      */
     private Map<String, User> userAccounts;
 
-    //    Basically onCreate
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_matching, container, false);
         Bundle args = getArguments();

@@ -4,9 +4,23 @@ import java.io.Serializable;
 
 
 public class Score implements Serializable {
+
+    /**
+     * The name of the user that got this Score.
+     */
     private String username;
+
+    /**
+     * The value of the Score.
+     */
     private int value;
 
+    /**
+     * Initialize a new Score object.
+     *
+     * @param username the name of the user that got this Score
+     * @param value the value of this score
+     */
     public Score(String username, int value) {
         this.username = username;
         this.value = value;
