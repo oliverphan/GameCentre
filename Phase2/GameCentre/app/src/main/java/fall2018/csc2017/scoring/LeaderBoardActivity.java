@@ -33,7 +33,7 @@ public class LeaderBoardActivity extends AppCompatActivity implements SaveAndLoa
     @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scoreboard_);
+        setContentView(R.layout.activity_leaderboard);
         ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(mViewPager);
         mViewPager.setCurrentItem(getIntent().getIntExtra("frgToLoad", 0));
