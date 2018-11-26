@@ -104,6 +104,44 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
         return this;
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_slidingtilesgame);
+        loadGameFromFile();
+
+        userAccounts = loadUserAccounts();
+        currentUser = userAccounts.get(loadCurrentUsername());
+        difficulty = slidingBoardManager.getDifficulty();
+
+        createTileButtons();
+
+        addUserButtonListener();
+        addUndoButtonListener();
+
+        updateScore();
+
+        // Add View to activity
+        gridView = findViewById(R.id.grid);
+        gridView.setNumColumns(difficulty);
+        gridView.setBoardManager(slidingBoardManager);
+        slidingBoardManager.getBoard().addObserver(this);
+        // Observer sets up desired dimensions as well as calls our display function
+        gridView.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        gridView.getViewTreeObserver().removeOnGlobalLayoutListener(
+                                this);
+                        int displayWidth = gridView.getMeasuredWidth();
+                        int displayHeight = gridView.getMeasuredHeight();
+
+                        columnWidth = displayWidth / difficulty;
+                        columnHeight = displayHeight / difficulty;
+                        display();
+                    }
+                });
+    }
 
     /**
      * Create the buttons for displaying the tiles.
@@ -192,40 +230,9 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
         startActivityForResult(galleryIntent, IMAGE_REQUEST_CODE);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        loadGameFromFile();
-        userAccounts = loadUserAccounts();
-        currentUser = userAccounts.get(loadCurrentUsername());
-        difficulty = slidingBoardManager.getDifficulty();
-        createTileButtons();
-        setContentView(R.layout.activity_slidingtilesgame);
-        addUserButtonListener();
-        addUndoButtonListener();
-        updateScore();
-        // Add View to activity
-        gridView = findViewById(R.id.grid);
-        gridView.setNumColumns(difficulty);
-        gridView.setBoardManager(slidingBoardManager);
-        slidingBoardManager.getBoard().addObserver(this);
-        // Observer sets up desired dimensions as well as calls our display function
-        gridView.getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        gridView.getViewTreeObserver().removeOnGlobalLayoutListener(
-                                this);
-                        int displayWidth = gridView.getMeasuredWidth();
-                        int displayHeight = gridView.getMeasuredHeight();
-
-                        columnWidth = displayWidth / difficulty;
-                        columnHeight = displayHeight / difficulty;
-                        display();
-                    }
-                });
-    }
-
+    /**
+     * Display the score as you play the game.
+     */
     private void updateScore(){
         score = slidingBoardManager.generateScore();
         TextView curScore = findViewById(R.id.curScore);
@@ -246,45 +253,6 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
         }
         if (bitmap != null) {
             userImage = Bitmap.createScaledBitmap(bitmap, 247 * difficulty, 391 * difficulty, true);
-        }
-    }
-
-    /**
-     * Switch to the title screen. Only to be called when the game is won.
-     */
-    private void switchToSlidingTilesActivity() {
-        writeNewValues();
-        saveUserAccounts(userAccounts);
-        if (!gameWon) {
-            createToast("Saved");
-        } else {
-            createToast("Saved Wiped");
-        }
-        finish();
-    }
-
-    @Override
-    public void onBackPressed() {
-        switchToSlidingTilesActivity();
-    }
-
-    /**
-     * Load the board manager from fileName.
-     */
-    private void loadGameFromFile() {
-        try {
-            InputStream inputStream = this.openFileInput(SlidingFragment.TEMP_SAVE_FILENAME);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                slidingBoardManager = (SlidingBoardManager) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
         }
     }
 
@@ -358,5 +326,44 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
             saveLeaderBoard(leaderBoard);
         }
         display();
+    }
+
+    @Override
+    public void onBackPressed() {
+        switchToSlidingTilesActivity();
+    }
+
+    /**
+     * Switch to the title screen. Only to be called when back pressed.
+     */
+    private void switchToSlidingTilesActivity() {
+        writeNewValues();
+        saveUserAccounts(userAccounts);
+        if (!gameWon) {
+            createToast("Saved");
+        } else {
+            createToast("Saved Wiped");
+        }
+        finish();
+    }
+
+    /**
+     * Load the board manager from fileName.
+     */
+    private void loadGameFromFile() {
+        try {
+            InputStream inputStream = this.openFileInput(SlidingFragment.TEMP_SAVE_FILENAME);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                slidingBoardManager = (SlidingBoardManager) input.readObject();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        }
     }
 }

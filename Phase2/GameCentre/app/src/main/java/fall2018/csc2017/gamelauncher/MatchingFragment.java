@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import fall2018.csc2017.R;
 
-public class ConcentrationFragment extends Fragment {
+public class MatchingFragment extends Fragment {
     /**
      * Tag for the current game being played.
      */
