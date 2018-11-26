@@ -36,20 +36,20 @@ public class FourLeaderBoardFragment extends Fragment implements SaveAndLoadFile
      */
     private void displayLeaders(View view, String gameName) {
         ArrayList<Score> tempScores = leaderBoard.getTopScores(gameName);
-        TextView firstUser = view.findViewById(R.id.firstUser);
-        TextView firstScore = view.findViewById(R.id.firstScore);
+        TextView firstUser = view.findViewById(R.id.user1);
+        TextView firstScore = view.findViewById(R.id.score1);
         String temp1 = tempScores.get(0).getUsername();
         String temp2 = String.valueOf(tempScores.get(0).getValue());
         firstUser.setText(temp1);
         firstScore.setText(temp2);
-        TextView secondUser = view.findViewById(R.id.secondUser);
-        TextView secondScore = view.findViewById(R.id.secondScore);
+        TextView secondUser = view.findViewById(R.id.user2);
+        TextView secondScore = view.findViewById(R.id.score2);
         String temp3 = tempScores.get(1).getUsername();
         String temp4 = String.valueOf(tempScores.get(1).getValue());
         secondUser.setText(temp3);
         secondScore.setText(temp4);
-        TextView thirdUser = view.findViewById(R.id.thirdUser);
-        TextView thirdScore = view.findViewById(R.id.thirdScore);
+        TextView thirdUser = view.findViewById(R.id.user3);
+        TextView thirdScore = view.findViewById(R.id.score3);
         String temp5 = tempScores.get(2).getUsername();
         String temp6 = String.valueOf(tempScores.get(2).getValue());
         thirdUser.setText(temp5);

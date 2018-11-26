@@ -167,7 +167,6 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles {
     }
 
     @Override
-    // Probably not needed
     public void onResume() {
         super.onResume();
         userAccounts = loadUserAccounts();

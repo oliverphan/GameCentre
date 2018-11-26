@@ -68,7 +68,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     private static int columnHeight;
 
     /**
-     * The score of this Concentration game.
+     * The score of this Matching cards game.
      */
     private int score;
 

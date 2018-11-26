@@ -29,6 +29,7 @@ import fall2018.csc2017.scoring.Score;
 import fall2018.csc2017.users.User;
 
 public class FourGameActivity extends AppCompatActivity implements Observer, SaveAndLoadFiles {
+
     /**
      * The SlidingBoard manager.
      */
