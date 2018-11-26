@@ -66,10 +66,11 @@ public class ConcentrationBoard extends Board<Card> {
     }
 
     void allFaceDown() {
-        // TODO: Is this necessary???? At the end of a turn to ensure no cards are face up.
         for (Card[] c : cards) {
             for (Card card : c) {
-                card.setFaceDown(true);
+                if (!card.isMatched()) {
+                    card.setFaceDown(true);
+                }
             }
         }
     }
