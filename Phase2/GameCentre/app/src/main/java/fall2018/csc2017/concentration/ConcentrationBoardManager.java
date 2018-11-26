@@ -128,22 +128,9 @@ public class ConcentrationBoardManager extends BoardManager<ConcentrationBoard> 
     /**
      * Undo a move if there is an undo move left.
      */
-    private void undo(int position) {
-        int row = position / 4;
-        int col = position / difficulty;
-        int count = 0;
+    public void undoMove() {
         if (undoLeft) {
-            Card[][] cards = board.getCards();
-            for (Card[] c : cards) {
-                for (Card i : c) {
-                    if (!(i.isFaceDown())) {
-                        count++;
-                    }
-                }
-            }
-        }
-        if (count == 1) {
-            board.getCard(row, col).setFaceDown(true);
+            board.allFaceDown();
             numMoves -= 1;
             undoLeft = false;
         }
