@@ -128,14 +128,12 @@ public interface SaveAndLoadFiles {
                 inputStream.close();
                 return leaderBoard;
             }
-        } catch (FileNotFoundException e) {
-            return new LeaderBoard();
         } catch (IOException e) {
             Log.e("login activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
             Log.e("login activity", "File contained unexpected data type: " + e.toString());
         }
-        return null;
+        return new LeaderBoard();
     }
 
     default void saveLeaderBoard(LeaderBoard leaderBoard) {
