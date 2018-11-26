@@ -18,6 +18,8 @@ import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.SaveAndLoadGames;
 import fall2018.csc2017.connectfour.FourGameActivity;
 import fall2018.csc2017.matchingcards.MatchingBoardManager;
+import fall2018.csc2017.matchingcards.MatchingGameActivity;
+import fall2018.csc2017.scoring.LeaderBoardActivity;
 import fall2018.csc2017.users.User;
 
 public class MatchingFragment extends Fragment implements SaveAndLoadFiles, SaveAndLoadGames {
@@ -52,7 +54,7 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
         Bundle args = getArguments();
         userAccounts = loadUserAccounts();
         currentUser = userAccounts.get(loadCurrentUsername());
-        addLaucnhGame3Listener(view);
+        addLaunchGame3Listener(view);
         addLaunchGame4Listener(view);
         addLaunchGame5Listener(view);
         addLoadButtonListener(view);
@@ -63,12 +65,12 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
     /**
      * Activate the start button for a 4 x 3 game.
      */
-    private void addLaucnhGame3Listener(View view) {
+    private void addLaunchGame3Listener(View view) {
         Button startButton = view.findViewById(R.id.launchGame43);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                DO SOMETHING
+                matchingBoardManager = new MatchingBoardManager(3);
                 createToast("Game Start");
                 switchToMatchingGameActivity();
             }
@@ -83,7 +85,7 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                DO SOMETHING
+                matchingBoardManager = new MatchingBoardManager(4);
                 createToast("Game Start");
                 switchToMatchingGameActivity();
             }
@@ -98,7 +100,7 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                DO SOMETHING
+                matchingBoardManager = new MatchingBoardManager(5);
                 createToast("Game Start");
                 switchToMatchingGameActivity();
             }
@@ -110,24 +112,35 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
      */
     private void addLoadButtonListener(View view) {
         Button loadButton = view.findViewById(R.id.LoadButton);
+        final boolean saveFileExists = currentUser.getSaves().containsKey(GAME_TITLE);
+        loadButton.setAlpha(1);
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                DO SOMETHING
-                switchToMatchingGameActivity();
+                if (saveFileExists) {
+                    createToast("Game Loaded");
+                    matchingBoardManager = (MatchingBoardManager) currentUser.getSaves().get(GAME_TITLE);
+                    switchToMatchingGameActivity();
+                } else {
+                    createToast("No File Exists!");
+                }
             }
         });
     }
 
     /**
-     * Activate the button to go the leaderboard.
+     * Activate the LeaderBoard button
+     *
+     * @param view the current fragment being displayed
      */
     private void addLeaderBoardListener(View view) {
         Button leaderBoardButton = view.findViewById(R.id.LeaderBoardButton);
         leaderBoardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                DO SOMETHING
+                Intent tmp = new Intent(getActivity(), LeaderBoardActivity.class);
+                tmp.putExtra("frgToLoad", 1);
+                startActivity(tmp);
             }
         });
     }
@@ -136,7 +149,7 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
      * Switch to the MatchingCardsGameActivity view
      */
     private void switchToMatchingGameActivity() {
-        Intent tmp = new Intent(getActivity(), FourGameActivity.class);
+        Intent tmp = new Intent(getActivity(), MatchingGameActivity.class);
         saveGameToFile(TEMP_SAVE_FILENAME, matchingBoardManager);
         startActivity(tmp);
     }

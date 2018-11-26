@@ -105,7 +105,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
         int row = position / 4;
         int col = position % difficulty;
         Card toTap = board.getCard(row, col);
-        return toTap.isFaceDown() && toTap.isMatched();
+        return toTap.isFaceDown();
     }
 
     @Override
