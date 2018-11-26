@@ -40,15 +40,15 @@ public class Card extends Token implements Comparable<Card> {
         return id;
     }
 
-    public boolean isFaceDown() {
+    boolean isFaceDown() {
         return faceDown;
     }
 
-    public void setFaceDown(boolean bool) {
+    void setFaceDown(boolean bool) {
         this.faceDown = bool;
     }
 
-    public boolean isMatched() {
+    boolean isMatched() {
         return matched;
     }
 
