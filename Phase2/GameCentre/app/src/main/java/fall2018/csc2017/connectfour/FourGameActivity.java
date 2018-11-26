@@ -3,15 +3,10 @@ package fall2018.csc2017.connectfour;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -72,7 +67,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
         difficulty = fourBoardManager.getDifficulty();
 
         createBoardButtons();
-        
+
         gridView = findViewById(R.id.gridView);
         gridView.setNumColumns(7);
         gridView.setBoardManager(fourBoardManager);
