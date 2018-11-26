@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import fall2018.csc2017.common.Token;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -17,7 +18,7 @@ public class Tile extends Token implements Comparable<Tile> {
      * The HashMap of Tile Ids and user provided backgrounds.
      */
     @SuppressWarnings("all")
-    private static HashMap<Integer, Bitmap> userTiles = new HashMap<>();
+    private static Map<Integer, Bitmap> userTiles = new HashMap<>();
 
     /**
      * The unique id.

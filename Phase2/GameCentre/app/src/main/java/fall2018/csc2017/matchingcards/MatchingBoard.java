@@ -26,10 +26,20 @@ public class MatchingBoard extends Board<Card> {
         this.cards = super.tokens;
     }
 
+    /**
+     *
+     * @param row
+     * @param col
+     * @return
+     */
     Card getCard(int row, int col) {
         return cards[row][col];
     }
 
+    /**
+     *
+     * @return
+     */
     Card[][] getCards() {
         return this.cards;
     }
@@ -46,6 +56,9 @@ public class MatchingBoard extends Board<Card> {
         notifyObservers();
     }
 
+    /**
+     *
+     */
     void allFaceDown() {
         for (Card[] c : cards) {
             for (Card card : c) {

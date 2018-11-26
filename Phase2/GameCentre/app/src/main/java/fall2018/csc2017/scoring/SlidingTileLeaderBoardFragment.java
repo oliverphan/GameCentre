@@ -20,7 +20,13 @@ public class SlidingTileLeaderBoardFragment extends Fragment implements SaveAndL
      */
     private LeaderBoard leaderBoard;
 
-    //    Basically onCreate
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_slidingtile_leaderboard, container, false);
         Bundle args = getArguments();

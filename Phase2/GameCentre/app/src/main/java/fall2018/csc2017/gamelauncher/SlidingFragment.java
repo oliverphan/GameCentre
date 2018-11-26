@@ -22,6 +22,7 @@ import fall2018.csc2017.scoring.LeaderBoardActivity;
 import fall2018.csc2017.users.User;
 
 public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveAndLoadGames {
+
     /**
      * The name of the game.
      */
