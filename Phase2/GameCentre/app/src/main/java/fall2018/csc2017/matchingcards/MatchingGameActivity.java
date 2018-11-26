@@ -3,16 +3,11 @@ package fall2018.csc2017.matchingcards;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
@@ -22,6 +17,7 @@ import fall2018.csc2017.R;
 import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.GestureDetectGridView;
 import fall2018.csc2017.common.CustomAdapter;
+import fall2018.csc2017.common.SaveAndLoadGames;
 import fall2018.csc2017.gamelauncher.MatchingFragment;
 import fall2018.csc2017.scoring.LeaderBoard;
 import fall2018.csc2017.scoring.Score;
@@ -30,7 +26,7 @@ import fall2018.csc2017.users.User;
 /**
  * The game activity.
  */
-public class MatchingGameActivity extends AppCompatActivity implements Observer, SaveAndLoadFiles {
+public class MatchingGameActivity extends AppCompatActivity implements Observer, SaveAndLoadFiles, SaveAndLoadGames {
 
     /**
      * The MatchingBoardManager.
@@ -68,7 +64,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     private static int columnHeight;
 
     /**
-     * The score of this Concentration game.
+     * The score of this Matching cards game.
      */
     private int score;
 
@@ -90,8 +86,8 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_matching);
-        loadGameFromFile();
+        setContentView(R.layout.activity_matchingcardsgame);
+        matchingBoardManager = (MatchingBoardManager) loadGameFromFile(MatchingFragment.TEMP_SAVE_FILENAME);
         userAccounts = loadUserAccounts();
         currentUser = userAccounts.get(loadCurrentUsername());
         difficulty = matchingBoardManager.getDifficulty();
@@ -99,6 +95,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         createCardButtons();
 
         addUndoButtonListener();
+
         updateScore();
 
         // Add View to activity
@@ -129,7 +126,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     private void createCardButtons() {
         MatchingBoard board = matchingBoardManager.getBoard();
         cardButtons = new ArrayList<>();
-        for (int row = 0; row < difficulty; row++) {
+        for (int row = 0; row < 4; row++) {
             for (int col = 0; col < difficulty; col++) {
                 Button tmp = new Button(getApplicationContext());
                 tmp.setBackgroundResource(board.getCard(row, col).getBackground());
@@ -160,7 +157,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     private void addUndoButtonListener() {
         final Button undoButton = findViewById(R.id.undoButton);
         undoButton.setOnClickListener(view -> {
-                matchingBoardManager.undoMove();
+            matchingBoardManager.undoMove();
         });
     }
 
@@ -192,19 +189,6 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         display();
     }
 
-    /**
-     * Store the new score and delete the old save in the User if the game is won.
-     * If game hasn't been won, store the most recent boardManager to the User.
-     */
-    public void writeNewValues() {
-        if (!gameWon) {
-            currentUser.writeGame(MatchingFragment.GAME_TITLE, matchingBoardManager);
-        } else {
-            currentUser.setNewScore(MatchingFragment.GAME_TITLE, matchingBoardManager.generateScore());
-            currentUser.deleteSave(MatchingFragment.GAME_TITLE);
-        }
-    }
-
     @Override
     public void onBackPressed() {
         switchToMatchingTitleActivity();
@@ -215,7 +199,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
      */
     private void switchToMatchingTitleActivity() {
 
-        writeNewValues();
+        writeNewValues(currentUser, MatchingFragment.GAME_TITLE, matchingBoardManager);
         saveUserAccounts(userAccounts);
         if (!gameWon) {
             createToast("Saved");
@@ -223,26 +207,6 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
             createToast("Saved Wiped");
         }
         finish();
-    }
-
-    /**
-     * Load the board manager from fileName.
-     */
-    private void loadGameFromFile() {
-        try {
-            InputStream inputStream = this.openFileInput(MatchingFragment.TEMP_SAVE_FILENAME);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                matchingBoardManager = (MatchingBoardManager) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
     }
 
     /**

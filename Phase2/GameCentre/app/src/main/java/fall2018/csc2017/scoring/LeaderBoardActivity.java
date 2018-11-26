@@ -15,8 +15,6 @@ import fall2018.csc2017.gamelauncher.MainActivity;
 import fall2018.csc2017.common.SectionsPageAdapter;
 import fall2018.csc2017.users.User;
 
-//TODO: Make 3 fragments, one for each game, and put in some of the code here for each one.
-
 public class LeaderBoardActivity extends AppCompatActivity implements SaveAndLoadFiles {
     /**
      * A HashMap of user accounts, by  name.

@@ -42,6 +42,8 @@ public class MatchingBoard extends Board<Card> {
      */
     void flipCard(int row, int col) {
         getCard(row, col).flip();
+        setChanged();
+        notifyObservers();
     }
 
     void allFaceDown() {

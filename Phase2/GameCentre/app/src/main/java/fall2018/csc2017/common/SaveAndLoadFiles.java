@@ -24,17 +24,17 @@ public interface SaveAndLoadFiles {
     /**
      * The save file for userAccounts.
      */
-    public static final String ACCOUNTS_SAVE_FILENAME = "accounts_save_file.ser";
+    String ACCOUNTS_SAVE_FILENAME = "accounts_save_file.ser";
 
     /**
      * The save file for currentUser.
      */
-    public static final String USER_SAVE_FILENAME = "user_save_file.ser";
+    String USER_SAVE_FILENAME = "user_save_file.ser";
 
     /**
      * Save file for the leaderBoard.
      */
-    static final String LEADERBOARD_SAVE_FILENAME = "leaderboard_save.ser";
+    String LEADERBOARD_SAVE_FILENAME = "leaderboard_save.ser";
 
     /**
      * Load the user accounts

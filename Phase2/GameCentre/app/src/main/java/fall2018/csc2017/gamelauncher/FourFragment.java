@@ -5,25 +5,23 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
 import fall2018.csc2017.common.SaveAndLoadFiles;
+import fall2018.csc2017.common.SaveAndLoadGames;
 import fall2018.csc2017.connectfour.FourBoardManager;
 import fall2018.csc2017.connectfour.FourGameActivity;
 import fall2018.csc2017.R;
 import fall2018.csc2017.scoring.LeaderBoardActivity;
 import fall2018.csc2017.users.User;
 
-public class FourFragment extends Fragment implements SaveAndLoadFiles {
+public class FourFragment extends Fragment implements SaveAndLoadFiles, SaveAndLoadGames {
     /**
      * Tag for the current game being played.
      */
@@ -31,7 +29,7 @@ public class FourFragment extends Fragment implements SaveAndLoadFiles {
     /**
      * The SlidingBoard manager for the current game
      */
-    private FourBoardManager boardManager;
+    private FourBoardManager fourBoardManager;
 
     /**
      * Save file for the boardManager being created
@@ -71,7 +69,7 @@ public class FourFragment extends Fragment implements SaveAndLoadFiles {
         launchEasyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardManager = new FourBoardManager(0);
+                fourBoardManager = new FourBoardManager(0);
                 createToast("Game Start");
                 switchToFourGameActivity();
             }
@@ -88,7 +86,7 @@ public class FourFragment extends Fragment implements SaveAndLoadFiles {
         launchMediumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardManager = new FourBoardManager(1);
+                fourBoardManager = new FourBoardManager(1);
                 createToast("Game Start");
                 switchToFourGameActivity();
             }
@@ -105,7 +103,7 @@ public class FourFragment extends Fragment implements SaveAndLoadFiles {
         launchHardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boardManager = new FourBoardManager(2);
+                fourBoardManager = new FourBoardManager(2);
                 createToast("Game Start");
                 switchToFourGameActivity();
             }
@@ -126,7 +124,7 @@ public class FourFragment extends Fragment implements SaveAndLoadFiles {
             public void onClick(View v) {
                 if (saveFileExists) {
                     createToast("Game Loaded");
-                    boardManager = (FourBoardManager) currentUser.getSaves().get(GAME_TITLE);
+                    fourBoardManager = (FourBoardManager) currentUser.getSaves().get(GAME_TITLE);
                     switchToFourGameActivity();
                 } else {
                     createToast("No File Exists!");
@@ -158,29 +156,14 @@ public class FourFragment extends Fragment implements SaveAndLoadFiles {
     }
 
     /**
-     * Switch to the SlidingTilesGameActivity view
+     * Switch to the ConnectFourGameActivity view
      */
     private void switchToFourGameActivity() {
         Intent tmp = new Intent(getActivity(), FourGameActivity.class);
-        saveGameToFile(TEMP_SAVE_FILENAME);
+        saveGameToFile(TEMP_SAVE_FILENAME, fourBoardManager);
         startActivity(tmp);
     }
 
-    /**
-     * Save the boardManager for passing game around.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveGameToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    getActivity().openFileOutput(fileName, getContext().MODE_PRIVATE));
-            outputStream.writeObject(boardManager);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
 
     @Override
     public void onResume() {
