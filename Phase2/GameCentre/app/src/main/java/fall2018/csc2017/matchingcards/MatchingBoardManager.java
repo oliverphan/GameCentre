@@ -1,5 +1,6 @@
 package fall2018.csc2017.matchingcards;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -8,7 +9,9 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Handler;
+import android.os.Handler;
+import android.widget.Toast;
+
 import java.util.logging.LogRecord;
 
 import fall2018.csc2017.R;
@@ -127,51 +130,50 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
 
         // If this is the first card, flip it and you're done.
         if (null == firstCard) {
-            System.out.println("THE FIRST CARD IS CHOSEN AT: " + row + col);
             firstCard = board.getCard(row, col);
             board.flipCard(firstCard, "first card");
         } else {
-            System.out.println("THE SECOND CARD IS HERE AT: " + row + col);
             secondCard = board.getCard(row, col);
 
             board.flipCard(secondCard, "second card");
 
-            System.out.println("FIRST CARD MATCH STATUS: " + firstCard.isMatched());
-            System.out.println("SECOND CARD MATCH STATUS: " + secondCard.isMatched());
-            System.out.println("SECOND CARD SIDE STATUS: " + secondCard.isFaceDown());
             checkMatched();
         }
     }
 
+    /**
+     *
+     */
     private void checkMatched() {
         if (firstCard.equals(secondCard)) {
-            System.out.println("THE CARDS ARE EQUAL");
             firstCard.setMatched();
             secondCard.setMatched();
+
+            firstCard = null;
+            secondCard = null;
         } else {
             System.out.println("THE CARDS ARE NOT EQUAL");
-//            board.flipCard(secondCard, "second card");
-            try {
-//                Thread.sleep(5000);
-                TimeUnit.SECONDS.sleep(2);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run () {
+                        board.flipCard(firstCard, "first card");
+                        board.flipCard(secondCard, "second card");
 
-
-
-                board.flipCard(firstCard, "first card");
-                board.flipCard(secondCard, "second card");
-                System.out.println("FIRST CARD MATCH STATUS: " + firstCard.isMatched());
-                System.out.println("SECOND CARD MATCH STATUS: " + secondCard.isMatched());
-                System.out.println("FIRST CARD SIDE STATUS: " + firstCard.isFaceDown());
-                System.out.println("SECOND CARD SIDE STATUS: " + secondCard.isFaceDown());
-
-            } catch (InterruptedException e) {
-                Log.e("Thread Interrupted", "Failed to sleep!");
-                Thread.currentThread().interrupt();
-            }
+                        firstCard = null;
+                        secondCard = null;
+                    }
+                }, 1000);
         }
-        System.out.println("SET FIRST CARD TO NULL");
-        firstCard = null;
-        System.out.println("SET SECOND CARD TO NULL");
-        secondCard = null;
+
     }
+
+//    /**
+//     * Display a toast message.
+//     *
+//     * @param msg The message to be displayed in the Toast.
+//     */
+//    private void createToast(String msg) {
+//        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+//    }
 }
