@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
@@ -116,7 +117,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
         int row = position / difficulty;
         int col = position % difficulty;
         Card toTap = board.getCard(row, col);
-        return toTap.isFaceDown() && !toTap.isMatched();
+        return toTap.isFaceDown()  && !toTap.isMatched();
     }
 
     @Override
@@ -149,9 +150,11 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
             secondCard.setMatched();
         } else {
             System.out.println("THE CARDS ARE NOT EQUAL");
-            board.flipCard(secondCard, "second card");
+//            board.flipCard(secondCard, "second card");
             try {
-                Thread.sleep(5000);
+//                Thread.sleep(5000);
+                TimeUnit.SECONDS.sleep(2);
+
 
 
                 board.flipCard(firstCard, "first card");

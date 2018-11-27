@@ -24,7 +24,7 @@ public class MatchingBoard extends Board<Card> {
      */
     MatchingBoard(List<Card> cards) {
         super(cards);
-        this.cards = new Card[4][3];
+        this.cards = new Card[numRows][numCols];
         Iterator<Card> iterator = cards.iterator();
         for (int row = 0; row != numRows; row++) {
             for (int col = 0; col != numCols; col++) {
