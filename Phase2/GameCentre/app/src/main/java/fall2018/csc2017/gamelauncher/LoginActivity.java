@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -33,14 +35,44 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
     private EditText mUsernameView;
     private EditText mPasswordView;
 
+    /**
+     * TextWatcher to ensure no empty username.
+     */
+    private TextWatcher mTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            checkFieldsForEmptyValues();
+        }
+    };
+
+    /**
+     * Checks if username field is empty and turns login button on accordingly.
+     */
+    void checkFieldsForEmptyValues() {
+        Button loginButton = findViewById(R.id.login_button);
+        String username = mUsernameView.getText().toString();
+        loginButton.setClickable(!username.equals(""));
+        loginButton.setAlpha(username.equals("") || username.equals(null) ? 0.5f : 1f);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin_);
-        userAccounts = loadUserAccounts();
         mUsernameView = findViewById(R.id.input_username);
+        mUsernameView.addTextChangedListener(mTextWatcher);
         mPasswordView = findViewById(R.id.input_password);
+        userAccounts = loadUserAccounts();
         addLoginButtonListener();
+        checkFieldsForEmptyValues();
         addSignUpButtonListener();
     }
 
