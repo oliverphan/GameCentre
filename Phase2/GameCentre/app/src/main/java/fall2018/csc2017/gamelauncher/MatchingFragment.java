@@ -127,6 +127,10 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
                 }
             }
         });
+        if (!saveFileExists) {
+            loadButton.setClickable(saveFileExists);
+            loadButton.setAlpha(.5f);
+        }
     }
 
     /**
