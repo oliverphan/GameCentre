@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/app_background"
-    tools:context="fall2018.csc2017.connectfour.FourGameActivity">
+    tools:context="fall2018.csc2017.connectfour.FourGameActivity"
+    tools:layout_editor_absoluteY="25dp">
 
 
     <fall2018.csc2017.common.GestureDetectGridView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,61 +16,60 @@
         android:id="@+id/grid"
         android:layout_width="match_parent"
         android:layout_height="502dp"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/undoButton" />
 
     <Button
         android:id="@+id/undoButton"
         android:layout_width="90dp"
         android:layout_height="wrap_content"
 
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="140dp"
-        android:layout_marginBottom="9dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/button_custom"
         android:fontFamily="@font/baumans"
         android:text="@string/undo_button_text"
         android:textColor="@android:color/holo_green_light"
-        app:layout_constraintBottom_toTopOf="@+id/gridView"
+        app:layout_constraintBottom_toTopOf="@+id/grid"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/undoInfo"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.833" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/undoInfo"
         android:layout_width="133dp"
         android:layout_height="46dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:fontFamily="@font/baumans"
         android:gravity="center|end"
         android:text="@string/one_remaining"
         android:textColor="@android:color/darker_gray"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/gridView"
+        app:layout_constraintBottom_toTopOf="@+id/grid"
         app:layout_constraintEnd_toStartOf="@+id/undoButton"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/curScore"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/curScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="27dp"
         android:fontFamily="@font/baumans"
         android:text="TextView"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/undoButton"
+        app:layout_constraintBottom_toTopOf="@+id/grid"
+        app:layout_constraintEnd_toStartOf="@+id/undoInfo"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
