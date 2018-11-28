@@ -1,20 +1,12 @@
 package fall2018.csc2017.matchingcards;
 
-import android.content.Context;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
+
 import android.os.Handler;
-import android.widget.Toast;
 
-import java.util.logging.LogRecord;
-
-import fall2018.csc2017.R;
 import fall2018.csc2017.common.BoardManager;
 
 /**
@@ -30,7 +22,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
     /**
      * If there is an undo move left. Each game permits one undo move.
      */
-    private boolean undoLeft = true;
+    private boolean undoUsed = false;
 
     private Card firstCard;
     private Card secondCard;
@@ -85,13 +77,30 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
      * Undo a move if there is an undo move left.
      */
     void undoMove() {
-        if (undoLeft) {
-            board.allFaceDown();
-            this.firstCard = null;
-            numMoves -= 1;
-            undoLeft = false;
+        if (!undoUsed) {
+            for (int i = 0; i < board.getCards().length; i++) {
+                for (int j = 0; j < board.getCards()[i].length; j++) {
+                    Card checkCard = board.getCard(i, j);
+                    if (!checkCard.isFaceDown() && !checkCard.isMatched() && !undoUsed()) {
+                        firstCard = null;
+                        board.flipCard(checkCard);
+                        this.undoUsed = true;
+
+                    }
+                }
+            }
         }
     }
+
+    /**
+     * Return whether or not undo has been used in this game.
+     *
+     * @return if the undo button has been used, or not
+     */
+    boolean undoUsed() {
+        return this.undoUsed;
+    }
+
 
     @Override
     public int generateScore() {
@@ -120,7 +129,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
         int row = position / difficulty;
         int col = position % difficulty;
         Card toTap = board.getCard(row, col);
-        return toTap.isFaceDown()  && !toTap.isMatched();
+        return toTap.isFaceDown() && !toTap.isMatched();
     }
 
     @Override
@@ -128,21 +137,19 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
         int row = position / difficulty;
         int col = position % difficulty;
 
-        // If this is the first card, flip it and you're done.
         if (null == firstCard) {
             firstCard = board.getCard(row, col);
-            board.flipCard(firstCard, "first card");
+            board.flipCard(firstCard);
         } else {
             secondCard = board.getCard(row, col);
-
-            board.flipCard(secondCard, "second card");
-
+            board.flipCard(secondCard);
             checkMatched();
         }
     }
 
     /**
-     *
+     * Check to see if two Cards are matched. If two Cards do not match,
+     * there is a two second delay, then the two Cards are turned to be face down.
      */
     private void checkMatched() {
         if (firstCard.equals(secondCard)) {
@@ -152,28 +159,17 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
             firstCard = null;
             secondCard = null;
         } else {
-            System.out.println("THE CARDS ARE NOT EQUAL");
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run () {
-                        board.flipCard(firstCard, "first card");
-                        board.flipCard(secondCard, "second card");
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    board.flipCard(firstCard);
+                    board.flipCard(secondCard);
 
-                        firstCard = null;
-                        secondCard = null;
-                    }
-                }, 1000);
+                    firstCard = null;
+                    secondCard = null;
+                }
+            }, 1000);
         }
-
     }
-
-//    /**
-//     * Display a toast message.
-//     *
-//     * @param msg The message to be displayed in the Toast.
-//     */
-//    private void createToast(String msg) {
-//        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
-//    }
 }
