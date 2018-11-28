@@ -37,9 +37,9 @@ public interface SaveAndLoadFiles {
     String LEADERBOARD_SAVE_FILENAME = "leaderboard_save.ser";
 
     /**
-     * Load the user accounts
+     * Return the user accounts from file.
      *
-     * @return HashMap<String, User> m, the Map of the user accounts.
+     * @return a Map of the user accounts, loaded from file
      */
     @SuppressWarnings("unchecked")
     default HashMap<String, User> loadUserAccounts() {
@@ -62,9 +62,9 @@ public interface SaveAndLoadFiles {
     }
 
     /**
-     * Load the current username
+     * Return a String representation of the current users name.
      *
-     * @return String s, the name of the current user.
+     * @return String s, the name of the current user
      */
     default String loadCurrentUsername() {
         try {
@@ -86,9 +86,9 @@ public interface SaveAndLoadFiles {
     }
 
     /**
-     * Save the map of user accounts to file.
+     * Save user accounts to file.
      *
-     * @param accounts the map of user accounts to be written.
+     * @param accounts the map of user accounts to be written to the file
      */
     default void saveUserAccounts(Map<String, User> accounts) {
         try {
@@ -104,7 +104,7 @@ public interface SaveAndLoadFiles {
     /**
      * Save the current username to file.
      *
-     * @param username the username to be written.
+     * @param username the username to be written to the file
      */
     default void saveCurrentUsername(String username) {
         try {
@@ -117,7 +117,11 @@ public interface SaveAndLoadFiles {
         }
     }
 
-
+    /**
+     * Return a LeaderBoard from file.
+     *
+     * @return return a LeaderBoard from file
+     */
     @SuppressWarnings({"SameParameterValue"})
     default LeaderBoard loadLeaderBoard() {
         try {
@@ -138,6 +142,11 @@ public interface SaveAndLoadFiles {
         return null;
     }
 
+    /**
+     * Save a LeaderBoard to file.
+     *
+     * @param leaderBoard the LeaderBoard to be written to a file
+     */
     default void saveLeaderBoard(LeaderBoard leaderBoard) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
