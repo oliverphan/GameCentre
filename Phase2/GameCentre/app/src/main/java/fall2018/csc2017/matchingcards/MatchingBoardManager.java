@@ -2,7 +2,6 @@ package fall2018.csc2017.matchingcards;
 
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -25,7 +24,14 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
      */
     private boolean undoUsed = false;
 
+    /**
+     * The first Card selected in a move.
+     */
     private Card firstCard;
+
+    /**
+     * The second Card selected in a move.
+     */
     private Card secondCard;
 
     /**

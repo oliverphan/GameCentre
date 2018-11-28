@@ -68,6 +68,11 @@ public class MatchingBoard extends Board<Card> {
         notifyObservers();
     }
 
+    /**
+     * Set the Card targetCards isMatched status to true.
+     *
+     * @param targetCard the Card to change the status of
+     */
     void setCardMatched(Card targetCard) {
         for (Card[] row : this.cards) {
             for (Card c : row) {
