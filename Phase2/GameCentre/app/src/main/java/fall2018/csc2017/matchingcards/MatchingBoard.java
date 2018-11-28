@@ -36,16 +36,20 @@ public class MatchingBoard extends Board<Card> {
     }
 
     /**
-     * @param row
-     * @param col
-     * @return
+     * Return the Card at the given location in this Matching Board.
+     *
+     * @param row the row location of the desired Card
+     * @param col the col location of the desired Card
+     * @return the card at the location (row, col) in this Matching Board
      */
     Card getCard(int row, int col) {
         return cards[row][col];
     }
 
     /**
-     * @return
+     * Returns the cards in this Matching Board.
+     *
+     * @return the cards in this Matching Board, in row descending order.
      */
     Card[][] getCards() {
         return this.cards;
@@ -56,22 +60,10 @@ public class MatchingBoard extends Board<Card> {
      *
      * @param card the card to be flipped in the board
      */
-    void flipCard(Card card, String s) {
-        System.out.println("THE CARD FLIPPED IS: " + s);
+    void flipCard(Card card) {
         card.flip();
         setChanged();
         notifyObservers();
-    }
-
-    /**
-     *
-     */
-    void allFaceDown() {
-        for (Card[] c : cards) {
-            for (Card card : c) {
-                card.flip();
-            }
-        }
     }
 
     @Override
