@@ -27,16 +27,18 @@ public class LeaderBoardActivity extends AppCompatActivity implements SaveAndLoa
      */
     private User currentUser;
 
+    private ViewPager mViewPager;
+
 
     @Override
     @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
-        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         setupViewPager(mViewPager);
         mViewPager.setCurrentItem(getIntent().getIntExtra("frgToLoad", 0));
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
     }
@@ -53,14 +55,15 @@ public class LeaderBoardActivity extends AppCompatActivity implements SaveAndLoa
     /**
      * Switch to the MainActivity view.
      */
-    private void switchToTitleActivity() {
+    private void switchToTitleActivity(int page) {
         Intent tmp = new Intent(this, MainActivity.class);
+        tmp.putExtra("frgToLoad", page);
         startActivity(tmp);
     }
 
     @Override
     public void onBackPressed(){
-        switchToTitleActivity();
+        switchToTitleActivity(mViewPager.getCurrentItem());
         finish();
     }
 

@@ -144,7 +144,7 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
             @Override
             public void onClick(View v) {
                 Intent tmp = new Intent(getActivity(), LeaderBoardActivity.class);
-                tmp.putExtra("frgToLoad", 1);
+                tmp.putExtra("frgToLoad", 2);
                 startActivity(tmp);
             }
         });
