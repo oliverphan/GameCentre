@@ -99,10 +99,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         difficulty = matchingBoardManager.getDifficulty();
 
         createCardButtons();
-
         addUndoButtonListener();
-
-        updateScore();
 
         // Add View to activity
         gridView = findViewById(R.id.grid);
@@ -171,18 +168,8 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         });
     }
 
-    /**
-     * Display the score as you play the game.
-     */
-    private void updateScore() {
-        score = matchingBoardManager.generateScore();
-        TextView curScore = findViewById(R.id.curScore);
-        curScore.setText(String.valueOf(score));
-    }
-
     @Override
     public void update(Observable o, Object arg) {
-        updateScore();
         // Automatic save every 5 moves
         int moves = matchingBoardManager.getNumMoves() % 5;
         if (moves == 0 && !gameWon) {
