@@ -66,11 +66,10 @@ public interface SaveAndLoadGames {
         if (!boardManager.gameFinished()) {
             currentUser.writeGame(gameName, boardManager);
         } else {
-//            THIS MIGHT NOT WORK
+//            TODO THIS MIGHT NOT WORK
             currentUser.setNewScore(gameName, boardManager.generateScore());
             currentUser.deleteSave(gameName);
         }
     }
-
     Context getActivity();
 }

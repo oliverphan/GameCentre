@@ -26,6 +26,7 @@ public abstract class Token implements Serializable {
     /**
      * Set the Token to have a Piece background.
      * A piece with the empty_piece background and no player.
+     * (Connect Four)
      */
     public Token() {
         this.background = R.drawable.empty_piece;
@@ -34,6 +35,7 @@ public abstract class Token implements Serializable {
     /**
      * Set the Token to have a Card background.
      * A Card with a background id; look up and set the id.
+     * (Matching Cards)
      *
      * @param backgroundId the id of the Card
      */
@@ -53,6 +55,7 @@ public abstract class Token implements Serializable {
      * Set the Token to have a Tile background.
      * A tile with a background id; look up and set the id.
      * Adapted from http://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
+     * (Sliding Tiles)
      *
      * @param backgroundId the id of the tile
      * @param blank the id of the blank (last) tile

@@ -79,6 +79,9 @@ public class Card extends Token implements Serializable {
         return matched;
     }
 
+    /**
+     * Set this Cards matched status to be true.
+     */
     void setMatched() {
         this.matched = true;
     }

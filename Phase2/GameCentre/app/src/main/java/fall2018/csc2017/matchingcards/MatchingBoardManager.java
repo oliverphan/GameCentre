@@ -2,7 +2,6 @@ package fall2018.csc2017.matchingcards;
 
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -25,8 +24,20 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
      */
     private boolean undoUsed = false;
 
+    /**
+     * The first Card selected in a move.
+     */
     private Card firstCard;
+
+    /**
+     * The second Card selected in a move.
+     */
     private Card secondCard;
+
+    /**
+     * Pausing used to flag whether or not a delay is happening during checkMatched
+     */
+    private boolean pausing;
 
     /**
      * Manage a new MatchingBoard with the specified difficulty.
@@ -39,6 +50,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
         this.numCards = 4 * difficulty;
         this.firstCard = null;
         this.secondCard = null;
+        this.pausing = false;
         setDifficulty();
     }
 
@@ -117,7 +129,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
         int row = position / difficulty;
         int col = position % difficulty;
         Card toTap = board.getCard(row, col);
-        return toTap.isFaceDown() && !toTap.isMatched();
+        return toTap.isFaceDown() && !toTap.isMatched() && !pausing;
     }
 
     @Override
@@ -160,17 +172,18 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
             firstCard = null;
             secondCard = null;
         } else {
+            pausing = true;
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     board.flipCard(firstCard);
                     board.flipCard(secondCard);
-
                     firstCard = null;
                     secondCard = null;
                 }
-            }, 1000);
+            }, 500);
+            pausing = false;
         }
     }
 }

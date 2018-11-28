@@ -16,22 +16,22 @@ import fall2018.csc2017.slidingtiles.Tile;
 public abstract class Board<T> extends Observable implements Serializable, Iterable<T> {
 
     /**
-     * The number of rows.
+     * The number of rows in this Board.
      */
     protected int numRows;
 
     /**
-     * The number of columns.
+     * The number of columns in this Board.
      */
     protected int numCols;
 
-    // T is Card, Piece, or Tile
+    // T is a Card, Piece, or Tile.
     protected T[][] tokens;
 
     /**
      * Return the number of rows for this Board.
      *
-     * @return number of rows
+     * @return number of rows in this Board
      */
     public int getNumRows() {
         return numRows;
@@ -40,16 +40,17 @@ public abstract class Board<T> extends Observable implements Serializable, Itera
     /**
      * Return the number of columns for this board.
      *
-     * @return number of columns
+     * @return number of columns in this Board
      */
     public int getNumCols() {
         return numCols;
     }
 
     /**
-     * @param tokens
+     * Create a new Board (SlidingBoard, or MatchingBoard) with the given tokens, tokens.
+     *
+     * @param tokens The tokens that belong in the new Board
      */
-    // For SlidingBoard, MatchingBoard
     protected Board(List<T> tokens) {
         Class<?> classT = tokens.get(0).getClass();
         Iterator<T> iterator = tokens.iterator();
@@ -72,9 +73,8 @@ public abstract class Board<T> extends Observable implements Serializable, Itera
         }
     }
 
-    // For FourBoard (which only uses the null constructor)
     /**
-     * Constructs a board filled of type T
+     * Constructs a Board filled of type T. Used for creating a FourBoard.
      */
     protected Board() {
         numCols = 7;
@@ -84,9 +84,9 @@ public abstract class Board<T> extends Observable implements Serializable, Itera
     }
 
     /**
-     * Returns an iterator for this board.
+     * Returns an iterator for this Board.
      *
-     * @return an iterator for this board.
+     * @return an iterator for this Board.
      */
     @NonNull
     public Iterator<T> iterator() {

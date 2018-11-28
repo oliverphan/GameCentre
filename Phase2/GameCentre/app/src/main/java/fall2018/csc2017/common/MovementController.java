@@ -3,9 +3,6 @@ package fall2018.csc2017.common;
 import android.content.Context;
 import android.widget.Toast;
 
-import fall2018.csc2017.common.BoardManager;
-
-
 public class MovementController {
 
     private BoardManager boardManager = null;

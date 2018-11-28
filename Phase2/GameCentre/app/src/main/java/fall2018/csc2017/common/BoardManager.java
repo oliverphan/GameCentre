@@ -21,7 +21,7 @@ public abstract class BoardManager<T> implements Serializable {
     protected int numMoves;
 
     /**
-     *
+     * The name of this game.
      */
     private String name;
 
@@ -56,7 +56,7 @@ public abstract class BoardManager<T> implements Serializable {
     /**
      * Return the current board being managed.
      *
-     * @return the board
+     * @return this board
      */
     public T getBoard() {
         return board;
@@ -65,7 +65,7 @@ public abstract class BoardManager<T> implements Serializable {
     /**
      * Return the difficulty of the game.
      *
-     * @return the difficulty
+     * @return the difficulty of this game
      */
     public int getDifficulty() {
         return difficulty;
@@ -74,17 +74,39 @@ public abstract class BoardManager<T> implements Serializable {
     /**
      * Return the number of moves made so far.
      *
-     * @return the number of moves
+     * @return the number of moves made so far
      */
     public int getNumMoves() {
         return numMoves;
     }
 
+    /**
+     * Generate a Score specific to the game being played.
+     *
+     * @return the score for the current game
+     */
     public abstract int generateScore();
 
+    /**
+     * Return whether or not this game is finished, or won.
+     *
+     * @return if this game is finished (win or lose)
+     */
     protected abstract boolean gameFinished();
 
+    /**
+     * Return whether or not a tap on the display is valid:
+     * there is a move available in position.
+     *
+     * @param position the location where the display was touched
+     * @return if the position corresponds with a valid move
+     */
     protected abstract boolean isValidTap(int position);
 
+    /**
+     * Make a move at position.
+     *
+     * @param position where to make a move
+     */
     protected abstract void touchMove(int position);
 }

@@ -83,7 +83,6 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
      */
-    // Display
     public void display() {
         updateCardButtons();
         gridView.setAdapter(new CustomAdapter(cardButtons, columnWidth, columnHeight));
@@ -150,8 +149,6 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
             b.setBackgroundResource(matchingBoard.getCard(row, col).getBackground());
             nextPos++;
         }
-        // Updated pictures in event of a tap
-        // Whether to tap to the front or the back
     }
 
     /**
