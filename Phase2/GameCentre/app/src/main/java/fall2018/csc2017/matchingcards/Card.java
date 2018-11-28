@@ -88,13 +88,10 @@ public class Card extends Token implements Serializable {
         if (this == o) {
             return true;
         }
-        if (o == null) {
+        if (!(o instanceof Card)) {
             return false;
         }
-        if (o instanceof Card) {
-            Card obj = (Card) o;
-            return obj.id == this.id;
-        }
-        return false;
+        Card obj = (Card) o;
+        return obj.id == this.id;
     }
 }

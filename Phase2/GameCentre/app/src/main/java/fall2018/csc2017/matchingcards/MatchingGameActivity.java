@@ -165,6 +165,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
                 TextView undoText = findViewById(R.id.undoInfo);
                 undoText.setText(R.string.none_remaining);
                 undoButton.setEnabled(false);
+                undoButton.setAlpha(.5f);
             }
         });
     }
@@ -180,7 +181,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         if (matchingBoardManager.gameFinished()) {
             gameWon = true;
             createToast("You Win!");
-            LeaderBoard leaderBoard = loadLeaderBoard();
+            LeaderBoard leaderBoard = new LeaderBoard();
             leaderBoard.updateScores("Matching Cards", new Score(currentUser.getName(), score));
             saveLeaderBoard(leaderBoard);
         }

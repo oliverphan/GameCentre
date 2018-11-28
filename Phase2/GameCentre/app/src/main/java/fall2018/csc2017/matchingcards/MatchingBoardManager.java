@@ -2,6 +2,7 @@ package fall2018.csc2017.matchingcards;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -112,19 +113,6 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
     }
 
     @Override
-    protected boolean gameFinished() {
-        Card[][] cards = board.getCards();
-        for (Card[] c : cards) {
-            for (Card card : c) {
-                if (!card.isMatched()) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    @Override
     protected boolean isValidTap(int position) {
         int row = position / difficulty;
         int col = position % difficulty;
@@ -147,14 +135,27 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
         }
     }
 
+    @Override
+    protected boolean gameFinished() {
+        for (Card[] row : board.getCards()) {
+            for (Card c : row) {
+                if (!c.isMatched()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     /**
      * Check to see if two Cards are matched. If two Cards do not match,
      * there is a two second delay, then the two Cards are turned to be face down.
      */
     private void checkMatched() {
         if (firstCard.equals(secondCard)) {
-            firstCard.setMatched();
-            secondCard.setMatched();
+            board.setCardMatched(firstCard);
+            board.setCardMatched(secondCard);
+
 
             firstCard = null;
             secondCard = null;

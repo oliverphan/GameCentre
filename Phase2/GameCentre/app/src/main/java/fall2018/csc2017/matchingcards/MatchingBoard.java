@@ -16,6 +16,7 @@ public class MatchingBoard extends Board<Card> {
      */
     private Card[][] cards;
 
+
     /**
      * A new MatchingBoard in row-major order.
      * Precondition: len(tiles) == numRows * numCols
@@ -46,6 +47,7 @@ public class MatchingBoard extends Board<Card> {
         return cards[row][col];
     }
 
+
     /**
      * Returns the cards in this Matching Board.
      *
@@ -64,6 +66,18 @@ public class MatchingBoard extends Board<Card> {
         card.flip();
         setChanged();
         notifyObservers();
+    }
+
+    void setCardMatched(Card targetCard) {
+        for (Card[] row : this.cards) {
+            for (Card c : row) {
+                if (c == targetCard) {
+                    c.setMatched();
+                    setChanged();
+                    notifyObservers();
+                }
+            }
+        }
     }
 
     @Override
