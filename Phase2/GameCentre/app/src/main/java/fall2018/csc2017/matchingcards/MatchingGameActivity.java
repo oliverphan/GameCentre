@@ -9,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -165,6 +164,10 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         final Button undoButton = findViewById(R.id.undoButton);
         undoButton.setOnClickListener(view -> {
             matchingBoardManager.undoMove();
+            if (matchingBoardManager.undoUsed()) {
+                TextView undoText = findViewById(R.id.undoInfo);
+                undoText.setText(R.string.none_remaining);
+            }
         });
     }
 
@@ -226,9 +229,9 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     }
 
     /**
-     * Get the
+     * Return this Activity.
      *
-     * @return
+     * @return this Activity
      */
     public Context getActivity() {
         return this;
