@@ -27,10 +27,10 @@ public class MainActivity extends AppCompatActivity implements SaveAndLoadFiles 
         setContentView(R.layout.activity_main);
         Log.d(TAG, "onCreate: Starting.");
 
-        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
+        ViewPager mViewPager = findViewById(R.id.container);
         setupViewPager(mViewPager);
-        mViewPager.setCurrentItem(1);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        mViewPager.setCurrentItem(getIntent().getIntExtra("frgToLoad", 0));
+        TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
         addLogOutButtonListener();
         displayCurrentUser();
