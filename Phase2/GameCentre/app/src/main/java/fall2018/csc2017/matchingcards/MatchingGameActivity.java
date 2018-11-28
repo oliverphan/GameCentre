@@ -164,6 +164,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
             if (matchingBoardManager.undoUsed()) {
                 TextView undoText = findViewById(R.id.undoInfo);
                 undoText.setText(R.string.none_remaining);
+                undoButton.setEnabled(false);
             }
         });
     }
