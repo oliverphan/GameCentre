@@ -182,7 +182,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
                     firstCard = null;
                     secondCard = null;
                 }
-            }, 500);
+            }, 200);
             pausing = false;
         }
     }

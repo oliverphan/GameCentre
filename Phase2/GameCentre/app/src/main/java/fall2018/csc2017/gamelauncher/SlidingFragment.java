@@ -156,6 +156,7 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveA
         startActivity(tmp);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onResume() {
         super.onResume();

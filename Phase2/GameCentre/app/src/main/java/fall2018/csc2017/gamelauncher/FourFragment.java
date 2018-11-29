@@ -22,10 +22,12 @@ import fall2018.csc2017.scoring.LeaderBoardActivity;
 import fall2018.csc2017.users.User;
 
 public class FourFragment extends Fragment implements SaveAndLoadFiles, SaveAndLoadGames {
+
     /**
      * Tag for the current game being played.
      */
     public static final String GAME_TITLE = "Connect Four";
+
     /**
      * The SlidingBoard manager for the current game
      */
@@ -48,7 +50,6 @@ public class FourFragment extends Fragment implements SaveAndLoadFiles, SaveAndL
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_connectfour, container, false);
-        Bundle args = getArguments();
         userAccounts = loadUserAccounts();
         currentUser = userAccounts.get(loadCurrentUsername());
         addLaunchEasyListener(view);
@@ -157,7 +158,7 @@ public class FourFragment extends Fragment implements SaveAndLoadFiles, SaveAndL
         startActivity(tmp);
     }
 
-
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onResume() {
         super.onResume();
