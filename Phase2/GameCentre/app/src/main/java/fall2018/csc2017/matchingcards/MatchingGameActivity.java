@@ -181,7 +181,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         if (matchingBoardManager.gameFinished()) {
             gameWon = true;
             createToast("You Win!");
-            LeaderBoard leaderBoard = new LeaderBoard();
+            LeaderBoard leaderBoard = loadLeaderBoard();
             leaderBoard.updateScores(
                     "Matching Cards", new Score(currentUser.getName(), score));
             saveLeaderBoard(leaderBoard);
