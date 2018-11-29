@@ -21,7 +21,7 @@ public interface ScoreDisplay {
      * @param gameName the Name of the game
      */
     default void displayLeaders(View view, LeaderBoard leaderBoard, String gameName) {
-        ArrayList<Score> tempScores = leaderBoard.getTopScores(gameName);
+        ArrayList<Score> tempScores = leaderBoard.getGameScores(gameName);
         Class res = R.id.class;
         int numScores = tempScores.size(); //numScores == the number of users too
         try {

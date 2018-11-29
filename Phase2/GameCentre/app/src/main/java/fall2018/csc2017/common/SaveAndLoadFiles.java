@@ -124,7 +124,6 @@ public interface SaveAndLoadFiles {
      *
      * @return return a LeaderBoard from file
      */
-    @SuppressWarnings({"SameParameterValue"})
     default LeaderBoard loadLeaderBoard() {
         try {
             InputStream inputStream = getActivity().openFileInput(LEADERBOARD_SAVE_FILENAME);

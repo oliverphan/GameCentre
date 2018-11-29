@@ -33,9 +33,9 @@ public class LeaderBoard implements Serializable, ScoreDisplay {
      * Returns a string containing the top scores of this game.
      *
      * @param gameName the game whose scores should be returned
-     * @return An ArrayList of the top three scores of this game
+     * @return An ArrayList of the top five scores of this game
      */
-    public ArrayList<Score> getTopScores(String gameName) {
+    public ArrayList<Score> getGameScores(String gameName) {
         return gameScores.get(gameName);
     }
 
@@ -47,13 +47,18 @@ public class LeaderBoard implements Serializable, ScoreDisplay {
      * @param newScore the Score object to be compared with the existing scores
      */
     public void updateScores(String gameName, Score newScore) {
-        // topScores is an ArrayList of the top 5 score objects for this game.
-        ArrayList<Score> topScores = this.gameScores.get(gameName);
-        for (int i = 0; i < NUM_LEADERBOARD_SLOTS && i < topScores.size(); i++) {
-            if (newScore.getValue() > topScores.get(i).getValue()) {
-                topScores.add(i, newScore);
-                topScores.remove(topScores.size() - 1);
-                break;
+        ArrayList<Score> scores = getGameScores(gameName);
+        for (int i = 0; i < NUM_LEADERBOARD_SLOTS; i++) {
+            int scoreValue;
+            try {
+                scoreValue = scores.get(i).getValue();
+            } catch (IndexOutOfBoundsException e) {
+                scoreValue = -1;
+            }
+            if (newScore.getValue() > scoreValue) {
+                scores.add(i, newScore);
+                scores.remove(scores.size() - 1);
+                return;
             }
         }
     }
