@@ -27,7 +27,8 @@ public class Tile extends Token implements Comparable<Tile> {
 
     /**
      * A tile with a background id; look up and set the id.
-     * Adapted from http://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
+     * Adapted from
+     * http://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
      *
      * @param backgroundId the id of the tile
      * @param blank        the id of the blank (last) tile
@@ -67,9 +68,11 @@ public class Tile extends Token implements Comparable<Tile> {
         int row = (this.id - 1) / diff;
         int col = (this.id - 1) % diff;
         if (this.id == (diff * diff)) {
-            userTiles.put(this.id, Bitmap.createBitmap(image, (diff - 1) * width, (diff - 1) * height, width, height));
+            userTiles.put(this.id, Bitmap.createBitmap(image,
+                    (diff - 1) * width, (diff - 1) * height, width, height));
         } else {
-            userTiles.put(this.id, Bitmap.createBitmap(image, width * col, height * row, width, height));
+            userTiles.put(this.id, Bitmap.createBitmap(image,
+                    width * col, height * row, width, height));
         }
     }
 

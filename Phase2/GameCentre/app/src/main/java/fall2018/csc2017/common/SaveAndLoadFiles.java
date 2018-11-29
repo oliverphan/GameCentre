@@ -56,7 +56,8 @@ public interface SaveAndLoadFiles {
         } catch (IOException e) {
             Log.e("load user accounts", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
-            Log.e("load user accounts", "File contained unexpected data type: " + e.toString());
+            Log.e("load user accounts", "File contained unexpected data type: "
+                    + e.toString());
         }
         return null;
     }
@@ -80,7 +81,8 @@ public interface SaveAndLoadFiles {
         } catch (IOException e) {
             Log.e("load current username", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
-            Log.e("load current username", "File contained unexpected data type: " + e.toString());
+            Log.e("load current username", "File contained unexpected data type: "
+                    + e.toString());
         }
         return "";
     }
@@ -137,7 +139,8 @@ public interface SaveAndLoadFiles {
         } catch (IOException e) {
             Log.e("leaderboard activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
-            Log.e("leaderboard activity", "File contained unexpected data type: " + e.toString());
+            Log.e("leaderboard activity", "File contained unexpected data type: "
+                    + e.toString());
         }
         return null;
     }

@@ -48,7 +48,8 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveA
      */
     private Map<String, User> userAccounts;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_slidingtiles, container, false);
         Bundle args = getArguments();
         userAccounts = loadUserAccounts();
@@ -116,7 +117,8 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveA
             @Override
             public void onClick(View v) {
                 createToast("Game Loaded");
-                slidingBoardManager = (SlidingBoardManager) currentUser.getSaves().get(GAME_TITLE);
+                slidingBoardManager =
+                        (SlidingBoardManager) currentUser.getSaves().get(GAME_TITLE);
                 switchToSlidingTileGameActivity();
             }
         });

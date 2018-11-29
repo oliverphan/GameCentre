@@ -25,7 +25,8 @@ public class FourBoard extends Board<Piece> {
     }
 
     /**
-     * Initialize a new FourBoard with the pieces in place. Used to calculate potential future moves.
+     * Initialize a new FourBoard with the pieces in place.
+     * Used to calculate potential future moves.
      */
     FourBoard(Piece[][] pieces) {
         this.pieces = new Piece[numCols][numRows];
@@ -55,7 +56,8 @@ public class FourBoard extends Board<Piece> {
      * @return true if this player has met a win condition
      */
     public boolean isWinner(int player) {
-        return winHorizontal(player) || winVertical(player) || winDRight(player) || winDLeft(player);
+        return winHorizontal(player) || winVertical(player)
+                || winDRight(player) || winDLeft(player);
     }
 
     /**

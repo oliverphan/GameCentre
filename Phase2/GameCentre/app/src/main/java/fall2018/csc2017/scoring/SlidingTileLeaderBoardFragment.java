@@ -12,7 +12,8 @@ import fall2018.csc2017.R;
 import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.ScoreDisplay;
 
-public class SlidingTileLeaderBoardFragment extends Fragment implements SaveAndLoadFiles, ScoreDisplay {
+public class SlidingTileLeaderBoardFragment extends Fragment implements SaveAndLoadFiles,
+        ScoreDisplay {
     /**
      * The leaderBoard.
      */
@@ -25,8 +26,10 @@ public class SlidingTileLeaderBoardFragment extends Fragment implements SaveAndL
      * @param savedInstanceState
      * @return
      */
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_slidingtile_leaderboard, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_slidingtile_leaderboard, container,
+                false);
         leaderBoard = loadLeaderBoard();
         displayLeaders(view, leaderBoard,"Sliding Tiles");
         return view;

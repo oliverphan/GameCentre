@@ -43,8 +43,8 @@ public class SlidingBoardManager extends BoardManager<SlidingBoard> {
     }
 
     /**
-     * The score is calculated by difficulty*100 - (number of moves). The score cannot be less than
-     * 0.
+     * The score is calculated by difficulty*100 - (number of moves).
+     * The score cannot be less than 0.
      *
      * @return the calculated score.
      */
@@ -108,7 +108,8 @@ public class SlidingBoardManager extends BoardManager<SlidingBoard> {
     }
 
     /**
-     * Set the difficulty for the slidingBoard, and generate a new slidingBoard based on the difficulty.
+     * Set the difficulty for the slidingBoard, and
+     * generate a new slidingBoard based on the difficulty.
      *
      * @param d the difficulty of the slidingBoard.
      */

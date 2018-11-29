@@ -33,7 +33,8 @@ import fall2018.csc2017.R;
 /**
  * The game activity.
  */
-public class SlidingGameActivity extends AppCompatActivity implements Observer, SaveAndLoadFiles, SaveAndLoadGames {
+public class SlidingGameActivity extends AppCompatActivity implements Observer, SaveAndLoadFiles,
+        SaveAndLoadGames {
 
     /**
      * The board manager.
@@ -105,7 +106,8 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slidingtilesgame);
-        slidingBoardManager = (SlidingBoardManager) loadGameFromFile(SlidingFragment.TEMP_SAVE_FILENAME);
+        slidingBoardManager =
+                (SlidingBoardManager) loadGameFromFile(SlidingFragment.TEMP_SAVE_FILENAME);
 
         userAccounts = loadUserAccounts();
         currentUser = userAccounts.get(loadCurrentUsername());
@@ -152,7 +154,8 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
                 if (!slidingBoardManager.userTiles) {
                     tmp.setBackgroundResource(slidingBoard.getTile(row, col).getBackground());
                 } else {
-                    tmp.setBackground(new BitmapDrawable(getResources(), slidingBoard.getTile(row, col).getUserImage()));
+                    tmp.setBackground(new BitmapDrawable(getResources(),
+                            slidingBoard.getTile(row, col).getUserImage()));
                 }
                 this.tileButtons.add(tmp);
             }
@@ -174,7 +177,8 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
                 if (!gameWon && slidingBoard.getTile(row, col).getId() == difficulty * difficulty) {
                     b.setBackgroundResource(R.drawable.whitespace);
                 } else {
-                    b.setBackground(new BitmapDrawable(getResources(), slidingBoard.getTile(row, col).getUserImage()));
+                    b.setBackground(new BitmapDrawable(getResources(),
+                            slidingBoard.getTile(row, col).getUserImage()));
                 }
             }
             nextPos++;
@@ -218,7 +222,8 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
             gameWon = true;
             createToast("You Win!");
             LeaderBoard leaderBoard = loadLeaderBoard();
-            leaderBoard.updateScores("Sliding Tiles", new Score(currentUser.getName(), score));
+            leaderBoard.updateScores("Sliding Tiles",
+                    new Score(currentUser.getName(), score));
             saveLeaderBoard(leaderBoard);
         }
         display();
@@ -244,13 +249,6 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
     }
 
     /**
-     * @param msg The message to be displayed in the Toast.
-     */
-    private void createToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-    }
-
-    /**
      * Converts uri from gallery to bitmap
      *
      * @param imageUri uri of selected image.
@@ -263,7 +261,8 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
             Log.e("GalleryAccessActivity", "Image select error", e);
         }
         if (bitmap != null) {
-            userImage = Bitmap.createScaledBitmap(bitmap, 247 * difficulty, 391 * difficulty, true);
+            userImage = Bitmap.createScaledBitmap(
+                    bitmap, 247 * difficulty, 391 * difficulty, true);
         }
     }
 
@@ -327,5 +326,13 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
                 display();
             }
         });
+    }
+
+    /**
+     * @param msg The message to be displayed in the Toast.
+     */
+    private void createToast(String msg) {
+        Toast.makeText(
+                this, msg, Toast.LENGTH_LONG).show();
     }
 }

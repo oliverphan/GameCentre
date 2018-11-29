@@ -19,8 +19,10 @@ public class FourLeaderBoardFragment extends Fragment implements SaveAndLoadFile
     private LeaderBoard leaderBoard;
 
     //    Basically onCreate
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_connectfour_leaderboard, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_connectfour_leaderboard, container,
+                false);
         leaderBoard = loadLeaderBoard();
         displayLeaders(view, leaderBoard, "Connect Four");
         return view;

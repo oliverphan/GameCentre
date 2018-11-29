@@ -20,8 +20,10 @@ public class MatchingLeaderBoardFragment extends Fragment implements SaveAndLoad
 
 
     //    Basically onCreate
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_matchingcards_leaderboard, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_matchingcards_leaderboard, container,
+                false);
         leaderBoard = loadLeaderBoard();
         displayLeaders(view, leaderBoard, "Matching Cards");
         return view;

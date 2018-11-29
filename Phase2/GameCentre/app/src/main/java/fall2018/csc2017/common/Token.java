@@ -54,7 +54,8 @@ public abstract class Token implements Serializable {
     /**
      * Set the Token to have a Tile background.
      * A tile with a background id; look up and set the id.
-     * Adapted from http://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
+     * Adapted from
+     * http://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
      * (Sliding Tiles)
      *
      * @param backgroundId the id of the tile

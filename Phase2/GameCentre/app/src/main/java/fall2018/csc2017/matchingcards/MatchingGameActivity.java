@@ -26,7 +26,8 @@ import fall2018.csc2017.users.User;
 /**
  * The game activity.
  */
-public class MatchingGameActivity extends AppCompatActivity implements Observer, SaveAndLoadFiles, SaveAndLoadGames {
+public class MatchingGameActivity extends AppCompatActivity implements Observer,
+        SaveAndLoadFiles, SaveAndLoadGames {
 
     /**
      * The MatchingBoardManager.
@@ -92,7 +93,8 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matchingcardsgame);
-        matchingBoardManager = (MatchingBoardManager) loadGameFromFile(MatchingFragment.TEMP_SAVE_FILENAME);
+        matchingBoardManager = (MatchingBoardManager) loadGameFromFile(
+                MatchingFragment.TEMP_SAVE_FILENAME);
         userAccounts = loadUserAccounts();
         currentUser = userAccounts.get(loadCurrentUsername());
         difficulty = matchingBoardManager.getDifficulty();
@@ -179,7 +181,8 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
             gameWon = true;
             createToast("You Win!");
             LeaderBoard leaderBoard = new LeaderBoard();
-            leaderBoard.updateScores("Matching Cards", new Score(currentUser.getName(), score));
+            leaderBoard.updateScores(
+                    "Matching Cards", new Score(currentUser.getName(), score));
             saveLeaderBoard(leaderBoard);
         }
         display();
@@ -211,7 +214,8 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
      * @param msg The message to be displayed in the Toast.
      */
     private void createToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(
+                this, msg, Toast.LENGTH_SHORT).show();
     }
 
     /**

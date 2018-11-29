@@ -49,7 +49,8 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
     private Map<String, User> userAccounts;
 
 
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_matching, container, false);
         Bundle args = getArguments();
         userAccounts = loadUserAccounts();
@@ -117,7 +118,8 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
             @Override
             public void onClick(View v) {
                 createToast("Game Loaded");
-                matchingBoardManager = (MatchingBoardManager) currentUser.getSaves().get(GAME_TITLE);
+                matchingBoardManager =
+                        (MatchingBoardManager) currentUser.getSaves().get(GAME_TITLE);
                 switchToMatchingGameActivity();
             }
         });

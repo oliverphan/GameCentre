@@ -177,7 +177,8 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
      * @param msg The message to be displayed in the Toast.
      */
     private void createToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(
+                this, msg, Toast.LENGTH_SHORT).show();
     }
 
     public Context getActivity() {

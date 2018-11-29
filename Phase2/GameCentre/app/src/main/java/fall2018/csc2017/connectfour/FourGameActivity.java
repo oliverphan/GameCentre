@@ -24,7 +24,8 @@ import fall2018.csc2017.scoring.LeaderBoard;
 import fall2018.csc2017.scoring.Score;
 import fall2018.csc2017.users.User;
 
-public class FourGameActivity extends AppCompatActivity implements Observer, SaveAndLoadFiles, SaveAndLoadGames {
+public class FourGameActivity extends AppCompatActivity implements Observer,
+        SaveAndLoadFiles, SaveAndLoadGames {
 
     /**
      * The SlidingBoard manager.
@@ -72,7 +73,8 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
         gridView.setNumColumns(7);
         gridView.setBoardManager(fourBoardManager);
         fourBoardManager.getBoard().addObserver(this);
-        gridView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        gridView.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 gridView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
@@ -121,7 +123,8 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
      */
     public int getComputerMove() {
         FourBoard board = fourBoardManager.getBoard();
-        ArrayList<Integer> potentialMoves = getPotentialMoves(fourBoardManager.getBoard(), difficulty);
+        ArrayList<Integer> potentialMoves = getPotentialMoves(
+                fourBoardManager.getBoard(), difficulty);
         ArrayList<Integer> bestMoves = new ArrayList<>();
         int bestMoveScore = Collections.max(potentialMoves);
         for (int i = 0; i < potentialMoves.size(); i++) {
@@ -135,7 +138,8 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
                 allowedMoves.add(i);
             }
         }
-        return bestMoves.size() > 0 ? bestMoves.get(new Random().nextInt(bestMoves.size())) : allowedMoves.get(new Random().nextInt(allowedMoves.size()));
+        return bestMoves.size() > 0 ? bestMoves.get(new Random().nextInt(bestMoves.size())) :
+                allowedMoves.get(new Random().nextInt(allowedMoves.size()));
     }
 
     /**
@@ -219,7 +223,8 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
         if (fourBoardManager.gameFinished()) {
             createToast(board.isWinner(1) ? "You Win!" : "You Lose");
             LeaderBoard leaderBoard = loadLeaderBoard();
-            leaderBoard.updateScores("Connect Four", new Score(currentUser.getName(), fourBoardManager.generateScore()));
+            leaderBoard.updateScores("Connect Four", new Score(
+                    currentUser.getName(), fourBoardManager.generateScore()));
             saveLeaderBoard(leaderBoard);
         } else {
             if (board.curPlayer == 2) {
@@ -255,7 +260,8 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
      * @param msg The message to be displayed in the Toast.
      */
     private void createToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(
+                this, msg, Toast.LENGTH_LONG).show();
     }
 
     public Context getActivity() {

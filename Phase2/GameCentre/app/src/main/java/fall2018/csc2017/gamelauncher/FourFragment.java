@@ -48,7 +48,8 @@ public class FourFragment extends Fragment implements SaveAndLoadFiles, SaveAndL
      */
     private Map<String, User> userAccounts;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_connectfour, container, false);
         userAccounts = loadUserAccounts();
         currentUser = userAccounts.get(loadCurrentUsername());

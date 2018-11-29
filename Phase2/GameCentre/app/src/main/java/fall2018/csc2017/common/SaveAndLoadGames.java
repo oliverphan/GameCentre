@@ -53,7 +53,8 @@ public interface SaveAndLoadGames {
         } catch (IOException e) {
             Log.e("Game activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
-            Log.e("Game activity", "File contained unexpected data type: " + e.toString());
+            Log.e("Game activity", "File contained unexpected data type: "
+                    + e.toString());
         }
         return null;
     }
