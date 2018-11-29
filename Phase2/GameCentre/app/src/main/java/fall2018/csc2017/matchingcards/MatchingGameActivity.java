@@ -200,7 +200,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         if (!gameWon) {
             createToast("Saved");
         } else {
-            createToast("Saved Wiped");
+            createToast("Your score is " + matchingBoardManager.generateScore());
         }
         finish();
     }

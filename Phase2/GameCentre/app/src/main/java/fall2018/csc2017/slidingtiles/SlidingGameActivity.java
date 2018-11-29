@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -211,7 +210,6 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
     public void update(Observable o, Object arg) {
         updateScore();
         int moves = slidingBoardManager.getNumMoves() % 10;
-        // Autosave - Old boardManager is replaced if there is one.
         if (moves == 0 && !gameWon) {
             currentUser.getSaves().put(SlidingFragment.GAME_TITLE, slidingBoardManager);
             saveUserAccounts(userAccounts);
@@ -240,7 +238,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
         if (!gameWon) {
             createToast("Saved");
         } else {
-            createToast("Saved Wiped");
+            createToast("Your score is " + slidingBoardManager.generateScore());
         }
         finish();
     }

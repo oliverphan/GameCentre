@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import fall2018.csc2017.common.SaveAndLoadFiles;
@@ -149,7 +148,7 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveA
     }
 
     /**
-     * Switch to the Leaderboard view
+     * Switch to the LeaderBoard view
      */
     private void switchToLeaderBoardActivity() {
         Intent tmp = new Intent(getActivity(), LeaderBoardActivity.class);

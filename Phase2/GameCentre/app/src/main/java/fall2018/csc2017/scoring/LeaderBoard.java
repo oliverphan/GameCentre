@@ -17,7 +17,7 @@ public class LeaderBoard implements Serializable, ScoreDisplay {
     private Map<String, ArrayList<Score>> gameScores;
 
     /**
-     * The number of names and scores to show up on the leaderboard.
+     * The number of names and scores to show up on the LeaderBoard.
      */
     @SuppressWarnings("FieldCanBeLocal")
     private final int NUM_LEADERBOARD_SLOTS = 5;

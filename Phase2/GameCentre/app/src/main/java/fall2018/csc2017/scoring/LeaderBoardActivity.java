@@ -7,7 +7,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import fall2018.csc2017.common.SaveAndLoadFiles;
@@ -62,12 +61,12 @@ public class LeaderBoardActivity extends AppCompatActivity implements SaveAndLoa
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         switchToTitleActivity(mViewPager.getCurrentItem());
         finish();
     }
 
-    public Context getActivity(){
+    public Context getActivity() {
         return this;
     }
 }
