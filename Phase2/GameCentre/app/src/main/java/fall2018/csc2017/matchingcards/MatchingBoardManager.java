@@ -167,7 +167,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
         if (firstCard.equals(secondCard)) {
             board.setCardMatched(firstCard);
             board.setCardMatched(secondCard);
-
+            numMoves -= 2;
 
             firstCard = null;
             secondCard = null;

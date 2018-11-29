@@ -67,6 +67,8 @@ public class Card extends Token implements Serializable {
             background = faceDown ? R.drawable.card_0 : field.getInt(null);
         } catch (IllegalAccessException e) {
             Log.e("DrawableAccess", "Failed to get resource by id", e);
+        } catch (NoSuchFieldException e) {
+            Log.e("DrawableAccess", "No such image", e);
         }
     }
 
