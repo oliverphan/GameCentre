@@ -117,7 +117,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
 
     @Override
     public int generateScore() {
-        int score = (100 * numCards) - (numMoves * 5);
+        int score = (100 * numCards) - (numMoves * 50);
         if (score >= 0) {
             return score;
         }
@@ -139,12 +139,12 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
 
         if (null == firstCard) {
             firstCard = board.getCard(row, col);
-            board.flipCard(firstCard);
             numMoves++;
+            board.flipCard(firstCard);
         } else {
             secondCard = board.getCard(row, col);
-            board.flipCard(secondCard);
             numMoves++;
+            board.flipCard(secondCard);
             checkMatched();
         }
     }
@@ -167,9 +167,9 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
      */
     private void checkMatched() {
         if (firstCard.equals(secondCard)) {
+            numMoves -= 2;
             board.setCardMatched(firstCard);
             board.setCardMatched(secondCard);
-            numMoves -= 2;
 
             firstCard = null;
             secondCard = null;
