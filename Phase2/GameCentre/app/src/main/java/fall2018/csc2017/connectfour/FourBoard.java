@@ -5,17 +5,17 @@ import fall2018.csc2017.common.Board;
 public class FourBoard extends Board<Piece> {
 
     /**
-     *
+     * The pieces on the board.
      */
     Piece[][] pieces;
 
     /**
-     *
+     * The current player making the move. 1 for the player, 2 for the computer
      */
     int curPlayer;
 
     /**
-     *
+     * Initialize a new FourBoard with empty pieces.
      */
     FourBoard() {
         super();
@@ -25,7 +25,7 @@ public class FourBoard extends Board<Piece> {
     }
 
     /**
-     *
+     * Initialize a new FourBoard with the pieces in place. Used to calculate potential future moves.
      */
     FourBoard(Piece[][] pieces) {
         this.pieces = new Piece[numCols][numRows];
@@ -37,12 +37,8 @@ public class FourBoard extends Board<Piece> {
         }
     }
 
-//    private void initPlayer() {
-//        this.curPlayer = new Random().nextInt(2) + 1;
-//    }
-
     /**
-     *
+     * Fill the board with empty pieces.
      */
     private void createBoard() {
         for (int col = 0; col < numCols; col++) {
@@ -53,14 +49,20 @@ public class FourBoard extends Board<Piece> {
     }
 
     /**
+     * Return whether the player has met the winning condition or not (lining up four pieces).
      *
+     * @param player the player to check. 1 for human player, 2 for computer
+     * @return true if this player has met a win condition
      */
     public boolean isWinner(int player) {
         return winHorizontal(player) || winVertical(player) || winDRight(player) || winDLeft(player);
     }
 
     /**
+     * Return whether this player has won lining 4 Pieces horizontally.
      *
+     * @param player the player to check. 1 for human player, 2 for computer
+     * @return true if this player has aligned 4 Pieces horizontally
      */
     private boolean winHorizontal(int player) {
         for (int row = 0; row < numRows; row++) {
@@ -77,7 +79,10 @@ public class FourBoard extends Board<Piece> {
     }
 
     /**
+     * Return whether this player has won lining 4 Pieces vertically.
      *
+     * @param player the player to check. 1 for human player, 2 for computer
+     * @return true if this player has aligned 4 Pieces vertically
      */
     private boolean winVertical(int player) {
         for (int col = 0; col < numCols; col++) {
@@ -94,7 +99,10 @@ public class FourBoard extends Board<Piece> {
     }
 
     /**
+     * Return whether this player has won lining 4 Pieces Diagonally Right.
      *
+     * @param player the player to check. 1 for human player, 2 for computer
+     * @return true if this player has aligned 4 Pieces Diagonally Right
      */
     private boolean winDRight(int player) {
         for (int col = 0; col < numCols - 3; col++) {
@@ -111,7 +119,10 @@ public class FourBoard extends Board<Piece> {
     }
 
     /**
+     * Return whether this player has won lining 4 Pieces Diagonally Left.
      *
+     * @param player the player to check. 1 for human player, 2 for computer
+     * @return true if this player has aligned 4 Pieces Diagonally Left
      */
     private boolean winDLeft(int player) {
         for (int col = 0; col < numCols - 3; col++) {
@@ -128,7 +139,9 @@ public class FourBoard extends Board<Piece> {
     }
 
     /**
+     * Return if the board is full.
      *
+     * @return true iff all pieces belong to player 1 or player 2
      */
     public boolean isBoardFull() {
         for (int col = 0; col < numCols; col++) {
@@ -142,7 +155,10 @@ public class FourBoard extends Board<Piece> {
     }
 
     /**
+     * Check if the column has an empty piece in any row.
      *
+     * @param col the column to verify
+     * @return -1 if all Pieces belong to a player
      */
     int openRow(int col) {
         for (int row = 5; row > -1; row--) {
@@ -154,7 +170,10 @@ public class FourBoard extends Board<Piece> {
     }
 
     /**
+     * Place a Piece in the Board, and then switch to the next player's turn.
      *
+     * @param col    the column to be placed in
+     * @param player the player placing the Piece
      */
     void placePiece(int col, int player) {
         pieces[col][openRow(col)].setPlayer(player);
@@ -164,14 +183,18 @@ public class FourBoard extends Board<Piece> {
     }
 
     /**
-     *
+     * Switch to the next player's turn.
      */
     void switchPlayer() {
         curPlayer = curPlayer == 1 ? 2 : 1;
     }
 
     /**
+     * Get the specific Piece at the passed in column and row.
      *
+     * @param col the column to take from
+     * @param row the row to take from
+     * @return a Piece
      */
     Piece getPiece(int col, int row) {
         return pieces[col][row];

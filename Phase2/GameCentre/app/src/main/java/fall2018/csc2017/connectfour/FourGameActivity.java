@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -121,7 +120,6 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
      * @return return the best move (or random move if all moves result in a loss).
      */
     public int getComputerMove() {
-        //TODO Remove test printing and optimize
         FourBoard board = fourBoardManager.getBoard();
         ArrayList<Integer> potentialMoves = getPotentialMoves(fourBoardManager.getBoard(), difficulty);
         ArrayList<Integer> bestMoves = new ArrayList<>();
@@ -131,12 +129,6 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
                 bestMoves.add(i);
             }
         }
-        System.out.print("Potential Moves:");
-        System.out.println(potentialMoves);
-        System.out.print("Best Move Score:");
-        System.out.println(bestMoveScore);
-        System.out.print("Best Moves:");
-        System.out.println(bestMoves);
         ArrayList<Integer> allowedMoves = new ArrayList<>();
         for (int i = 0; i < board.getNumCols(); i++) {
             if (board.openRow(i) != -1) {
@@ -144,7 +136,6 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
             }
         }
         return bestMoves.size() > 0 ? bestMoves.get(new Random().nextInt(bestMoves.size())) : allowedMoves.get(new Random().nextInt(allowedMoves.size()));
-//        fourBoardManager.previousMoves.push(move);
     }
 
     /**
@@ -155,7 +146,6 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
      * @return list of scores for potential moves
      */
     public ArrayList<Integer> getPotentialMoves(FourBoard board, int d) {
-        //TODO Optimize and potentially extract more methods
         if (d == 0) {
             ArrayList<Integer> moves = new ArrayList<>();
             for (int i = 0; i < 7; i++) {

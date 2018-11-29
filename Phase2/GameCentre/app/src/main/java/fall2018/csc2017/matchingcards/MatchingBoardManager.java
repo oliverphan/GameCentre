@@ -161,7 +161,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
 
     /**
      * Check to see if two Cards are matched. If two Cards do not match,
-     * there is a two second delay, then the two Cards are turned to be face down.
+     * there is a half second delay, then the two Cards are turned to be face down.
      */
     private void checkMatched() {
         if (firstCard.equals(secondCard)) {
