@@ -30,7 +30,7 @@ public class Tile extends Token implements Comparable<Tile> {
      * Adapted from http://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
      *
      * @param backgroundId the id of the tile
-     * @param blank the id of the blank (last) tile
+     * @param blank        the id of the blank (last) tile
      */
     Tile(int backgroundId, int blank) {
         super(backgroundId, blank);
