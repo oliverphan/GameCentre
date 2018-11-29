@@ -11,7 +11,7 @@
  + What is your unit test coverage?
  + What are the most important classes in your program?
  + What design patterns did you use? What problems do each of them solve?
- + How did you design your scoreboard? Where are high scores stored? How do they get displayed?
+ + How did you design your scoreboard? Where are high scores stored? How do they get displayed?***
 
 # Setup Instructions for group_0540 CSC207 Phase1
 
@@ -20,6 +20,10 @@
 2. Click "Check out project from Version Control" from Git.
 3. Paste to URL Box: https://markus.teach.cs.toronto.edu/git/csc207-2018-09-reg/group_0540
 4. Select the destination directory and press "Clone".
+
++ Completing the User image
++ Sliding tile everything solvable: Start with a unshuffled board, then do a number of valid moves with the blank tile to shuffle
++ Saving & Loading methods inside an interface to transfer the User information
 
 ----
 ## Building the Project
