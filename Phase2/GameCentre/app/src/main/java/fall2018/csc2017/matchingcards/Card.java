@@ -65,8 +65,10 @@ public class Card extends Token implements Serializable {
             Class res = R.drawable.class;
             Field field = res.getField(uri);
             background = faceDown ? R.drawable.card_0 : field.getInt(null);
-        } catch (Exception e) {
+        } catch (IllegalAccessException e) {
             Log.e("DrawableAccess", "Failed to get resource by id", e);
+        } catch (NoSuchFieldException e) {
+            Log.e("DrawableAccess", "No such image", e);
         }
     }
 
@@ -88,9 +90,6 @@ public class Card extends Token implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
         if (!(o instanceof Card)) {
             return false;
         }
