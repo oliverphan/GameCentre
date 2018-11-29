@@ -7,15 +7,10 @@
 + Meirbek Zeinulla: Meirbek, meirbek.zeinulla@mail.utoronto.ca; zeinulla, meirbek.zeinulla@mail.utoronto.ca;
 
 
-+ WALKTHROUGH.pdf
- + What is your unit test coverage?
- + What are the most important classes in your program?
- + What design patterns did you use? What problems do each of them solve?
- + How did you design your scoreboard? Where are high scores stored? How do they get displayed?***
-
 # Setup Instructions for group_0540 CSC207 Phase1
 
 ## Cloning the repo
+---
 1. Open Android Studio and close any open projects. (File -> Close Project)
 2. Click "Check out project from Version Control" from Git.
 3. Paste to URL Box: https://markus.teach.cs.toronto.edu/git/csc207-2018-09-reg/group_0540
@@ -25,8 +20,8 @@
 + Sliding tile everything solvable: Start with a unshuffled board, then do a number of valid moves with the blank tile to shuffle
 + Saving & Loading methods inside an interface to transfer the User information
 
-----
 ## Building the Project
+---
 1. As soon as you press Clone, press "Yes" to create an Android Studio Project.
 2. Select "Import project from external model", choosing the non-Android Gradle model and click Next.
 3. Add "\Phase1\GameCentre" to the Gradle project path, and make sure to use "Explicit Module Groups" and the "Default Gradle Wrapper". Press Finish.
@@ -34,10 +29,12 @@
 5. Press "Ok" on the Sync Android SDKs.
 6. There should be a popup to say "Unregistered VCS root detected. Press "Add root".
 7. Do not add GameCentre.iml to Git.
+8. If caches are not being created properly, run the following command in the terminal:
+ + cd $HOME/.gradle/caches
+ + rm -rf $HOME/.gradle/caches, then re-open Android Studio
 
-
-----
 ## Functionalities Implemented
+---
 + Login and Sign in using username and password
 + The User is able to:
  + Save their games (games are saved automatically when the user returns to the login screen).
