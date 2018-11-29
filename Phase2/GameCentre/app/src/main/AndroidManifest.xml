@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name="fall2018.csc2017.gamelauncher.LoginActivity">
+        <activity android:name="fall2018.csc2017.gamelauncher.LoginActivity"
+            android:theme="@style/FinalTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -22,7 +23,8 @@
         </activity>
         <activity android:name=".slidingtiles.SlidingGameActivity"
             android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".matchingcards.MatchingGameActivity"/>
+        <activity android:name=".matchingcards.MatchingGameActivity"
+            android:theme="@style/FinalTheme" />
         <activity android:name="fall2018.csc2017.scoring.LeaderBoardActivity"/>
         <activity
             android:name="fall2018.csc2017.gamelauncher.MainActivity"
