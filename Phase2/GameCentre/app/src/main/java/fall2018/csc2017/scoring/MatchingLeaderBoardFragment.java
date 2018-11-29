@@ -7,10 +7,12 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import fall2018.csc2017.R;
 import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.ScoreDisplay;
+import fall2018.csc2017.users.User;
 
 public class MatchingLeaderBoardFragment extends Fragment implements SaveAndLoadFiles, ScoreDisplay {
     /**
@@ -25,6 +27,9 @@ public class MatchingLeaderBoardFragment extends Fragment implements SaveAndLoad
         View view = inflater.inflate(R.layout.activity_matchingcards_leaderboard, container,
                 false);
         leaderBoard = loadLeaderBoard();
+        User currentUser = loadUserAccounts().get(loadCurrentUsername());
+        TextView userScore = view.findViewById(R.id.user_high_score);
+        userScore.setText(String.valueOf(currentUser.getScores().get("Matching Cards")));
         displayLeaders(view, leaderBoard, "Matching Cards");
         return view;
     }

@@ -1,6 +1,7 @@
 package fall2018.csc2017.scoring;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,11 +25,18 @@ public class LeaderBoard implements Serializable, ScoreDisplay {
 
     public LeaderBoard() {
         this.gameScores = new HashMap<>();
-        this.gameScores.put("Sliding Tiles", new ArrayList<>());
-        this.gameScores.put("Connect Four", new ArrayList<>());
-        this.gameScores.put("Matching Cards", new ArrayList<>());
+        this.gameScores.put("Sliding Tiles", initialList());
+        this.gameScores.put("Connect Four", initialList());
+        this.gameScores.put("Matching Cards", initialList());
     }
 
+    private ArrayList<Score> initialList(){
+        ArrayList<Score> list = new ArrayList<>();
+        for (int i = 0; i < NUM_LEADERBOARD_SLOTS; i++){
+            list.add(new Score("", 0));
+        }
+        return list;
+    }
     /**
      * Returns a string containing the top scores of this game.
      *
@@ -49,12 +57,7 @@ public class LeaderBoard implements Serializable, ScoreDisplay {
     public void updateScores(String gameName, Score newScore) {
         ArrayList<Score> scores = getGameScores(gameName);
         for (int i = 0; i < NUM_LEADERBOARD_SLOTS; i++) {
-            int scoreValue;
-            try {
-                scoreValue = scores.get(i).getValue();
-            } catch (IndexOutOfBoundsException e) {
-                scoreValue = -1;
-            }
+            int scoreValue = scores.get(i).getValue();
             if (newScore.getValue() > scoreValue) {
                 scores.add(i, newScore);
                 scores.remove(scores.size() - 1);

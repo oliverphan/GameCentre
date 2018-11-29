@@ -198,7 +198,6 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
      * Switch to the title screen. Only to be called when back pressed.
      */
     private void switchToMatchingTitleActivity() {
-
         writeNewValues(currentUser, MatchingFragment.GAME_TITLE, matchingBoardManager);
         saveUserAccounts(userAccounts);
         if (!gameWon) {

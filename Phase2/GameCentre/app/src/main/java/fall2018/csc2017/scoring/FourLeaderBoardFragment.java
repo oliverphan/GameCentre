@@ -7,10 +7,12 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import fall2018.csc2017.R;
 import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.ScoreDisplay;
+import fall2018.csc2017.users.User;
 
 public class FourLeaderBoardFragment extends Fragment implements SaveAndLoadFiles, ScoreDisplay {
     /**
@@ -24,6 +26,9 @@ public class FourLeaderBoardFragment extends Fragment implements SaveAndLoadFile
         View view = inflater.inflate(R.layout.activity_connectfour_leaderboard, container,
                 false);
         leaderBoard = loadLeaderBoard();
+        User currentUser = loadUserAccounts().get(loadCurrentUsername());
+        TextView userScore = view.findViewById(R.id.user_high_score);
+        userScore.setText(String.valueOf(currentUser.getScores().get("Connect Four")));
         displayLeaders(view, leaderBoard, "Connect Four");
         return view;
     }
