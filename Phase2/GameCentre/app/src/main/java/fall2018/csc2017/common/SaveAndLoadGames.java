@@ -66,7 +66,6 @@ public interface SaveAndLoadGames {
     default void writeNewValues(User currentUser, String gameName, BoardManager boardManager) {
         if (!boardManager.gameFinished()) {
             currentUser.writeGame(gameName, boardManager);
-            currentUser.setNewScore(gameName, boardManager.generateScore());
         } else {
             currentUser.setNewScore(gameName, boardManager.generateScore());
             currentUser.deleteSave(gameName);
