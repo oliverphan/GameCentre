@@ -253,7 +253,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer, Sav
         if (!fourBoardManager.gameFinished()) {
             createToast("Saved");
         } else {
-            createToast("Saved Wiped");
+            createToast("Your score is " + fourBoardManager.generateScore());
         }
         finish();
     }
