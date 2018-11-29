@@ -139,12 +139,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
                 allowedMoves.add(i);
             }
         }
-<<<<<<< HEAD
-        return bestMoves.size() > 0 ? bestMoves.get(new Random().nextInt(bestMoves.size())) :
-                allowedMoves.get(new Random().nextInt(allowedMoves.size()));
-=======
         return bestMoves.isEmpty() ? bestMoves.get(new Random().nextInt(bestMoves.size())) : allowedMoves.get(new Random().nextInt(allowedMoves.size()));
->>>>>>> e67409d09621fc7f50d6e4e55970f348f187da95
     }
 
     /**
