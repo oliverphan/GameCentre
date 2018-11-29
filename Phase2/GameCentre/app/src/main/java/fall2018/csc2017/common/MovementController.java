@@ -3,18 +3,18 @@ package fall2018.csc2017.common;
 import android.content.Context;
 import android.widget.Toast;
 
-public class MovementController {
+class MovementController {
 
     private BoardManager boardManager = null;
 
-    public MovementController() {
+    MovementController() {
     }
 
-    public void setBoardManager(BoardManager boardManager) {
+    void setBoardManager(BoardManager boardManager) {
         this.boardManager = boardManager;
     }
 
-    public void processTapMovement(Context context, int position, boolean display) {
+    void processTapMovement(Context context, int position, boolean display) {
         if (!boardManager.gameFinished()) {
             if (boardManager.isValidTap(position)) {
                 boardManager.touchMove(position);

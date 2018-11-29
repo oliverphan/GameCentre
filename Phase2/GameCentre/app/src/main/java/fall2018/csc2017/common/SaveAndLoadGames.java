@@ -66,7 +66,6 @@ public interface SaveAndLoadGames {
         if (!boardManager.gameFinished()) {
             currentUser.writeGame(gameName, boardManager);
         } else {
-//            TODO THIS MIGHT NOT WORK
             currentUser.setNewScore(gameName, boardManager.generateScore());
             currentUser.deleteSave(gameName);
         }

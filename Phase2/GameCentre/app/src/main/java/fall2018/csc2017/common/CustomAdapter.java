@@ -17,10 +17,20 @@ import java.util.ArrayList;
 
 public class CustomAdapter extends BaseAdapter {
 
-    private ArrayList<Button> mButtons = null;
+    /**
+     *
+     */
+    private ArrayList<Button> mButtons;
     private int mColumnWidth;
     private int mColumnHeight;
 
+    /**
+     * Initialize a new Custom Adapter.
+     *
+     * @param buttons the buttons to place in each slot
+     * @param columnWidth width of each slot
+     * @param columnHeight height of each slot
+     */
     public CustomAdapter(ArrayList<Button> buttons, int columnWidth, int columnHeight) {
         mButtons = buttons;
         mColumnWidth = columnWidth;

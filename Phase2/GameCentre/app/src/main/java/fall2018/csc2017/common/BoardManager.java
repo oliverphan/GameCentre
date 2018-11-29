@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public abstract class BoardManager<T> implements Serializable {
 
-
     /**
      * The Board being Managed.
      */

@@ -25,7 +25,9 @@ public abstract class Board<T> extends Observable implements Serializable, Itera
      */
     protected int numCols;
 
-    // T is a Card, Piece, or Tile.
+    /**
+     * A 2D array of Tokens to be placed in a Board
+     */
     protected T[][] tokens;
 
     /**
