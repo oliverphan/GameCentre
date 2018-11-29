@@ -173,7 +173,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     @Override
     public void update(Observable o, Object arg) {
         updateScore();
-        int moves = matchingBoardManager.getNumMoves() % 5;
+        int moves = matchingBoardManager.getNumMoves() % 3;
         if (moves == 0 && !gameWon) {
             currentUser.getSaves().put(MatchingFragment.GAME_TITLE, matchingBoardManager);
             saveUserAccounts(userAccounts);
