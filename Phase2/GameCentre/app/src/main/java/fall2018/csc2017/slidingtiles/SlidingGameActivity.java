@@ -211,7 +211,6 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
     public void update(Observable o, Object arg) {
         updateScore();
         int moves = slidingBoardManager.getNumMoves() % 10;
-        // Autosave - Old boardManager is replaced if there is one.
         if (moves == 0 && !gameWon) {
             currentUser.getSaves().put(SlidingFragment.GAME_TITLE, slidingBoardManager);
             saveUserAccounts(userAccounts);

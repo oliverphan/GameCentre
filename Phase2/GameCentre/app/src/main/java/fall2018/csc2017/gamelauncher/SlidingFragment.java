@@ -149,7 +149,7 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveA
     }
 
     /**
-     * Switch to the Leaderboard view
+     * Switch to the LeaderBoard view
      */
     private void switchToLeaderBoardActivity() {
         Intent tmp = new Intent(getActivity(), LeaderBoardActivity.class);

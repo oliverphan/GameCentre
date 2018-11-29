@@ -17,12 +17,12 @@ public class User implements Serializable {
     private String password;
 
     /**
-     * A hashmap storing all the scores for this user with key gameName and value scoreValue
+     * A HashMap storing all the scores for this user with key gameName and value scoreValue
      */
     private Map<String, Integer> scores;
 
     /**
-     * A hashmap storing all the saves for this user with key gameName and value (the save file).
+     * A HashMap storing all the saves for this user with key gameName and value (the save file).
      */
     private Map<String, Object> saves;
 

@@ -22,5 +22,5 @@
     <string name="start_4_x_3">4 x 3</string>
     <string name="start_4_x_5">4 x 5</string>
     <string name="one_remaining">One Undo Left!</string>
-    <string name="none_remaining">No Undos Left!</string>
+    <string name="none_remaining">No Undo Left!</string>
 </resources>

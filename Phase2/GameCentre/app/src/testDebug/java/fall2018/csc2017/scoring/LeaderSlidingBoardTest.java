@@ -69,7 +69,7 @@
 //    }
 //
 //
-//    private boolean checkElemants() {
+//    private boolean checkElements() {
 //
 //    }
 //}
