@@ -2,9 +2,6 @@ package fall2018.csc2017.users;
 
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.junit.Assert.*;
 
 public class UserTest {
