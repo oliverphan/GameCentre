@@ -5,6 +5,7 @@
 + Fixed the FileCannotReadError
 + Renamed Concentration back to Matching Cards (game name
 + Linking the Matching Card's game activity to its title activity
++ Abstracted methods for loading boardManagers (aka the game state) to an interface to be shared across all games
 
 
 #### Tasks in motion
@@ -25,3 +26,5 @@
 + Abstracting to Token, Abstract Generic Board, Interface for Managers
  + Reasoning: Shared functionalities between the Tile/Card/Piece, Boards, and Managers
 + Abstracting commonly used saving and loading methods for the boardManagers
+
+### Absent from meeting:

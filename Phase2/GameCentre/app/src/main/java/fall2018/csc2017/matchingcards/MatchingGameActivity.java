@@ -173,7 +173,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     @Override
     public void update(Observable o, Object arg) {
         updateScore();
-        int moves = matchingBoardManager.getNumMoves() % 5;
+        int moves = matchingBoardManager.getNumMoves() % 3;
         if (moves == 0 && !gameWon) {
             currentUser.getSaves().put(MatchingFragment.GAME_TITLE, matchingBoardManager);
             saveUserAccounts(userAccounts);
@@ -181,7 +181,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         if (matchingBoardManager.gameFinished()) {
             gameWon = true;
             createToast("You Win!");
-            LeaderBoard leaderBoard = new LeaderBoard();
+            LeaderBoard leaderBoard = loadLeaderBoard();
             leaderBoard.updateScores(
                     "Matching Cards", new Score(currentUser.getName(), score));
             saveLeaderBoard(leaderBoard);
@@ -198,7 +198,6 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
      * Switch to the title screen. Only to be called when back pressed.
      */
     private void switchToMatchingTitleActivity() {
-
         writeNewValues(currentUser, MatchingFragment.GAME_TITLE, matchingBoardManager);
         saveUserAccounts(userAccounts);
         if (!gameWon) {

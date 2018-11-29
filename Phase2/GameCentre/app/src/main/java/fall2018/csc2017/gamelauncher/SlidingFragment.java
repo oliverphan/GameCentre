@@ -134,7 +134,6 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveA
         scoreBoardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createToast("Launched LeaderBoard");
                 switchToLeaderBoardActivity();
             }
         });
