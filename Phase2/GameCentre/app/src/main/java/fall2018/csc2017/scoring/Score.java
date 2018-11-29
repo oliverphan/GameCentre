@@ -56,6 +56,6 @@ public class Score implements Serializable {
 
     @Override
     public String toString() {
-        return this.username + ": " + this.value;
+        return this.username + " : " + this.value;
     }
 }

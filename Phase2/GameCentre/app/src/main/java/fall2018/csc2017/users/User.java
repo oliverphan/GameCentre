@@ -36,6 +36,7 @@ public class User implements Serializable {
         this.username = username;
         this.password = password;
         this.scores = new HashMap<>();
+        initializeScores();
         this.saves = new HashMap<>();
     }
 
@@ -48,6 +49,11 @@ public class User implements Serializable {
         return this.username;
     }
 
+    private void initializeScores(){
+        scores.put("Sliding Tiles", 0);
+        scores.put("Connect Four", 0);
+        scores.put("Matching Cards", 0);
+    }
     /**
      * Return the password of the User.
      *
