@@ -50,6 +50,15 @@ public class CardTest {
 
     }
 
+    @Test
+    public void testFlipBack() {
+        makeCard();
+        testCard.flip();
+        assertFalse(testCard.isFaceDown());
+        testCard.flip();
+        assertTrue(testCard.isFaceDown());
+    }
+
     /**
      * Tests the isMatched() method.
      */
@@ -80,5 +89,6 @@ public class CardTest {
         makeCard();
         Card compareCard = new Card(1);
         assertEquals(testCard, compareCard);
+        assertFalse(testCard.equals("STRING"));
     }
 }
