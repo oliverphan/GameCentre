@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connectfourgame);
         fourBoardManager = (FourBoardManager) loadGameFromFile(FourFragment.TEMP_SAVE_FILENAME);
-
+        updateScore();
         userAccounts = loadUserAccounts();
         currentUser = userAccounts.get(loadCurrentUsername());
         difficulty = fourBoardManager.getDifficulty();
@@ -138,8 +139,12 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
                 allowedMoves.add(i);
             }
         }
+<<<<<<< HEAD
         return bestMoves.size() > 0 ? bestMoves.get(new Random().nextInt(bestMoves.size())) :
                 allowedMoves.get(new Random().nextInt(allowedMoves.size()));
+=======
+        return bestMoves.isEmpty() ? bestMoves.get(new Random().nextInt(bestMoves.size())) : allowedMoves.get(new Random().nextInt(allowedMoves.size()));
+>>>>>>> e67409d09621fc7f50d6e4e55970f348f187da95
     }
 
     /**
@@ -219,6 +224,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
 
     @Override
     public void update(Observable o, Object arg) {
+        updateScore();
         FourBoard board = fourBoardManager.getBoard();
         if (fourBoardManager.gameFinished()) {
             createToast(board.isWinner(1) ? "You Win!" : "You Lose");
@@ -233,6 +239,15 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
             board.switchPlayer();
         }
         display();
+    }
+
+    /**
+     * Display the score as you play the game.
+     */
+    private void updateScore(){
+        int score = fourBoardManager.generateScore();
+        TextView curScore = findViewById(R.id.curScore);
+        curScore.setText(String.valueOf(score));
     }
 
     @Override

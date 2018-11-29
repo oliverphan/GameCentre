@@ -95,6 +95,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         setContentView(R.layout.activity_matchingcardsgame);
         matchingBoardManager = (MatchingBoardManager) loadGameFromFile(
                 MatchingFragment.TEMP_SAVE_FILENAME);
+        updateScore();
         userAccounts = loadUserAccounts();
         currentUser = userAccounts.get(loadCurrentUsername());
         difficulty = matchingBoardManager.getDifficulty();
@@ -171,7 +172,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
 
     @Override
     public void update(Observable o, Object arg) {
-        // Automatic save every 5 moves
+        updateScore();
         int moves = matchingBoardManager.getNumMoves() % 5;
         if (moves == 0 && !gameWon) {
             currentUser.getSaves().put(MatchingFragment.GAME_TITLE, matchingBoardManager);
@@ -206,6 +207,15 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
             createToast("Your score is " + matchingBoardManager.generateScore());
         }
         finish();
+    }
+
+    /**
+     * Display the score as you play the game.
+     */
+    private void updateScore(){
+        score = matchingBoardManager.generateScore();
+        TextView curScore = findViewById(R.id.curScore);
+        curScore.setText(String.valueOf(score));
     }
 
     /**
