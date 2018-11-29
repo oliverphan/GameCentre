@@ -14,8 +14,26 @@
         android:layout_marginTop="34dp"
         android:layout_marginEnd="51dp"
         android:text="@string/sliding_tile_title"
+        android:textColor="@color/color_accent_2"
         android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/labels"
+        android:layout_width="30dp"
+        android:layout_height="388dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginBottom="21dp"
+        android:fontFamily="@font/baumans"
+        android:text="1.\n\n2.\n\n3.\n 4.\n 5."
+        android:textColor="@color/color_accent_2"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,157 +41,99 @@
         android:id="@+id/user1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginStart="78dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="122dp"
         android:fontFamily="@font/baumans"
         android:text=""
-        android:textAlignment="textStart"
         android:textColor="@android:color/darker_gray"
+        android:textAlignment="textStart"
         android:textSize="36sp"
-        app:layout_constraintStart_toEndOf="@+id/label1"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/labels"
+        app:layout_constraintTop_toBottomOf="@+id/user_high_score" />
 
 
     <TextView
         android:id="@+id/user2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="78dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="122dp"
         android:fontFamily="@font/baumans"
         android:text=""
-        android:textAlignment="textStart"
         android:textColor="@android:color/darker_gray"
+        android:textAlignment="textStart"
         android:textSize="36sp"
-        app:layout_constraintStart_toEndOf="@+id/label2"
-        app:layout_constraintTop_toTopOf="@+id/label2" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/labels"
+        app:layout_constraintTop_toBottomOf="@+id/user1" />
 
     <TextView
         android:id="@+id/user3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="78dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="122dp"
         android:fontFamily="@font/baumans"
         android:text=""
-        android:textAlignment="textStart"
         android:textColor="@android:color/darker_gray"
+        android:textAlignment="textStart"
         android:textSize="36sp"
-        app:layout_constraintStart_toEndOf="@+id/label3"
-        app:layout_constraintTop_toTopOf="@+id/label3" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/labels"
+        app:layout_constraintTop_toBottomOf="@+id/user2" />
 
     <TextView
         android:id="@+id/user4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="78dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="122dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="@font/baumans"
         android:text=""
-        android:textAlignment="textStart"
         android:textColor="@android:color/darker_gray"
+        android:textAlignment="textStart"
         android:textSize="36sp"
-        app:layout_constraintStart_toEndOf="@+id/label5"
-        app:layout_constraintTop_toTopOf="@+id/label5" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/labels"
+        app:layout_constraintTop_toBottomOf="@+id/user5"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/user5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="77dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="122dp"
         android:fontFamily="@font/baumans"
         android:text=""
-        android:textAlignment="textStart"
         android:textColor="@android:color/darker_gray"
+        android:textAlignment="textStart"
         android:textSize="36sp"
-        app:layout_constraintStart_toEndOf="@+id/label4"
-        app:layout_constraintTop_toTopOf="@+id/label4" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/labels"
+        app:layout_constraintTop_toBottomOf="@+id/user3" />
 
 
     <TextView
         android:id="@+id/user_high_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="134dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="134dp"
         android:fontFamily="@font/baumans"
         android:text=""
         android:textColor="@android:color/holo_green_light"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2" />
-
-    <TextView
-        android:id="@+id/label1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="160dp"
-        android:text="1."
-        android:textColor="@android:color/darker_gray"
-        android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/label2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:text="2."
-        android:textColor="@android:color/darker_gray"
-        android:textSize="36sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label1" />
-
-    <TextView
-        android:id="@+id/label3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:text="3."
-        android:textColor="@android:color/darker_gray"
-        android:textSize="36sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label2" />
-
-    <TextView
-        android:id="@+id/label4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:text="4."
-        android:textColor="@android:color/darker_gray"
-        android:textSize="36sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label3" />
-
-    <TextView
-        android:id="@+id/label5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="86dp"
-        android:text="5."
-        android:textColor="@android:color/darker_gray"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label4" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="92dp"
-        android:layout_marginBottom="8dp"
-        android:text="Your Highscore:"
-        android:textColor="@android:color/holo_green_light"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.007" />
-
+        app:layout_constraintTop_toBottomOf="@+id/gameName" />
 </android.support.constraint.ConstraintLayout>

@@ -19,4 +19,19 @@
 
     </style>
 
+<style name="new_theme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+
+    <item name="buttonStyle">@style/CustomButton</item>
+
+</style>
+
+    <style name="FinalTheme" parent="AppTheme" >
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
+        <item name="android:colorBackground">@color/color_accent_2</item>
+        <item name="android:statusBarColor">@color/color_primary_dark</item>
+    </style>
+
 </resources>

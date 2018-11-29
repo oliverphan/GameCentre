@@ -3,6 +3,15 @@
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#2d3b96</color>
     <color name="colorAccent">#da0b0f39</color>
-    <color name="transparent">#30000000</color>
+
+    <color name="color_primary">#217886</color>
+    <color name="color_primary_dark">#0e5268</color>
+    <color name="color_accent">#44afc4</color>
+    <color name="color_dark">#14293c</color>
+    <color name="color_accent_2">#ffffff</color>
+    <color name="transparent">#300E5268</color>
+    <color name="color_button_hover">#2890a1</color>
+    <color name="color_button_pressed">#2ea9bd</color>
+
 
 </resources>

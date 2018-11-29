@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/app_background"
+    android:background="@color/color_accent"
     android:fitsSystemWindows="true"
     tools:layout_editor_absoluteY="25dp">
 
@@ -30,7 +30,7 @@
             android:fontFamily="@font/baumans"
             android:text="Leaderboard"
             android:textAlignment="center"
-            android:textColor="@android:color/holo_green_light"
+            android:textColor="@color/color_accent_2"
             android:textColorLink="@android:color/background_light"
             android:textSize="36sp"
             android:visibility="visible" />
@@ -40,7 +40,7 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="7dp"
-            app:tabIndicatorColor="@android:color/holo_green_light" />
+            app:tabIndicatorColor="@color/color_accent_2" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
