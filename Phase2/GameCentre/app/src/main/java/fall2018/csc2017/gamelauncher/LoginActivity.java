@@ -168,10 +168,6 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
         return name.equals("") || userAccounts.containsKey(name);
     }
 
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
 
     /**
      * @param msg The message to be displayed in the Toast.
