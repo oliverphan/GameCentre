@@ -1,7 +1,7 @@
 package fall2018.csc2017.gamelauncher;
 
 import android.content.Context;
-import android.content.Intent;;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -14,7 +14,6 @@ import java.util.Map;
 
 import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.R;
-import fall2018.csc2017.scoring.LeaderBoard;
 import fall2018.csc2017.users.User;
 
 public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles {
@@ -58,9 +57,13 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
      */
     void checkFieldsForEmptyValues() {
         Button loginButton = findViewById(R.id.login_button);
+        Button signUpButton = findViewById(R.id.signup_button);
         String username = mUsernameView.getText().toString();
-        loginButton.setClickable(!username.equals(""));
-        loginButton.setAlpha(username.equals("") || username.equals(null) ? 0.5f : 1f);
+        String password = mPasswordView.getText().toString();
+        loginButton.setClickable(!username.equals("") && !password.equals(""));
+        signUpButton.setClickable(!username.equals("") && !password.equals(""));
+        loginButton.setAlpha(username.equals("") || password.equals("") ? 0.5f : 1f);
+        signUpButton.setAlpha(username.equals("") || password.equals("") ? 0.5f : 1f);
     }
 
     @Override
@@ -70,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
         mUsernameView = findViewById(R.id.input_username);
         mUsernameView.addTextChangedListener(mTextWatcher);
         mPasswordView = findViewById(R.id.input_password);
+        mPasswordView.addTextChangedListener(mTextWatcher);
         userAccounts = loadUserAccounts();
         addLoginButtonListener();
         checkFieldsForEmptyValues();
@@ -82,18 +86,14 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
      * Display an error message if the user does not exist.
      */
     private boolean attemptLogin() {
-        // Store values at the time of the login attempt.
         String username = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
-
-        // Check if username exists
         if (!exists(username)) {
             createToast("User not found");
             return false;
         }
 
         User u = userAccounts.get(username);
-        // Check if password matches for this User
         if (u.getPassword().equals(password)) {
             createToast("Login successful");
             currentUser = u.getName();
@@ -122,7 +122,6 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
     private void addSignUpButtonListener() {
         Button signUpButton = findViewById(R.id.signup_button);
         signUpButton.setOnClickListener(v -> {
-            // Store values at the time of the login attempt.
             String username = mUsernameView.getText().toString();
             String password = mPasswordView.getText().toString();
             if (exists(username)) {
@@ -130,8 +129,6 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
             } else {
                 User u = new User(username, password);
                 addUser(u);
-                // On successful signup:
-                // Save the signed in user, and userAccounts
                 createToast("Sign Up Successful");
                 currentUser = u.getName();
                 switchToSlidingTileTitle();
@@ -144,7 +141,6 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
      */
     private void switchToSlidingTileTitle() {
         Intent tmp = new Intent(this, MainActivity.class);
-        // Pass in the username of the user.
         saveCurrentUsername(currentUser);
         saveUserAccounts(userAccounts);
         startActivity(tmp);
