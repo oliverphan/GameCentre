@@ -221,7 +221,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
      * @param msg The message to be displayed in the Toast.
      */
     private void createToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     /**

@@ -17,7 +17,12 @@ import fall2018.csc2017.R;
 import fall2018.csc2017.common.SectionsPageAdapter;
 
 public class MainActivity extends AppCompatActivity implements SaveAndLoadFiles {
+
     private static final String TAG = "Main";
+
+    /**
+     * The name of the current User.
+     */
     private String currentUser;
 
     @Override

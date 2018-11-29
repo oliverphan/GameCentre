@@ -69,7 +69,7 @@ public class User implements Serializable {
     /**
      * Saves user score if no score exists or new score is higher than previous.
      *
-     * @param game game name
+     * @param game  game name
      * @param score new score passed in
      */
     public void setNewScore(String game, int score) {
@@ -103,7 +103,7 @@ public class User implements Serializable {
     /**
      * Store the board manager for the indicated game.
      *
-     * @param game game name
+     * @param game         game name
      * @param boardManager the board manager to save to this user
      */
     public void writeGame(String game, Object boardManager) {
