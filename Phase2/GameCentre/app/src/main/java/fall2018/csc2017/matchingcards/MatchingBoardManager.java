@@ -98,7 +98,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
                         firstCard = null;
                         board.flipCard(checkCard);
                         this.undoUsed = true;
-
+                        numMoves--;
                     }
                 }
             }
@@ -140,9 +140,11 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
         if (null == firstCard) {
             firstCard = board.getCard(row, col);
             board.flipCard(firstCard);
+            numMoves++;
         } else {
             secondCard = board.getCard(row, col);
             board.flipCard(secondCard);
+            numMoves++;
             checkMatched();
         }
     }
