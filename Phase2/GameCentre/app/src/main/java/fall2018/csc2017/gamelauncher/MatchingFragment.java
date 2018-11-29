@@ -114,23 +114,16 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
     private void addLoadButtonListener(View view) {
         Button loadButton = view.findViewById(R.id.LoadButton);
         final boolean saveFileExists = currentUser.getSaves().containsKey(GAME_TITLE);
-        loadButton.setAlpha(1);
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (saveFileExists) {
-                    createToast("Game Loaded");
-                    matchingBoardManager = (MatchingBoardManager) currentUser.getSaves().get(GAME_TITLE);
-                    switchToMatchingGameActivity();
-                } else {
-                    createToast("No File Exists!");
-                }
+                createToast("Game Loaded");
+                matchingBoardManager = (MatchingBoardManager) currentUser.getSaves().get(GAME_TITLE);
+                switchToMatchingGameActivity();
             }
         });
-        if (!saveFileExists) {
-            loadButton.setClickable(saveFileExists);
-            loadButton.setAlpha(.5f);
-        }
+        loadButton.setAlpha(saveFileExists ? 1.0f : 0.5f);
+        loadButton.setClickable(saveFileExists);
     }
 
     /**

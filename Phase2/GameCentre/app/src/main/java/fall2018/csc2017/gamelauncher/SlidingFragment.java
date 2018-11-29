@@ -113,23 +113,16 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveA
     private void addLoadButtonListener(View view) {
         Button loadButton = view.findViewById(R.id.LoadButton);
         final boolean saveFileExists = currentUser.getSaves().containsKey(GAME_TITLE);
-        loadButton.setAlpha(1);
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (saveFileExists) {
-                    createToast("Game Loaded");
-                    slidingBoardManager = (SlidingBoardManager) currentUser.getSaves().get(GAME_TITLE);
-                    switchToSlidingTileGameActivity();
-                } else {
-                    createToast("No File Exists!");
-                }
+                createToast("Game Loaded");
+                slidingBoardManager = (SlidingBoardManager) currentUser.getSaves().get(GAME_TITLE);
+                switchToSlidingTileGameActivity();
             }
         });
-        if (!saveFileExists) {
-            loadButton.setClickable(saveFileExists);
-            loadButton.setAlpha(.5f);
-        }
+        loadButton.setAlpha(saveFileExists ? 1.0f : 0.5f);
+        loadButton.setClickable(saveFileExists);
     }
 
     /**
