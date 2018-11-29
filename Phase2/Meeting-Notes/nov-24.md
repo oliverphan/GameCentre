@@ -5,7 +5,6 @@
 + Fixed the FileCannotReadError
 
 
-
 #### Tasks in motion
 + Oliver on Memory
 + Savhanna/Meirbek on the testing suite
@@ -32,3 +31,6 @@
 + Difficulties for Memory should only change column. Board will not be square, since not all square numbers are even and the User is to match two cards at a time.
  + Decision: the MemoryBoard will have 4 rows, and 3/4/5 columns as difficulty choice
  + Made a Utilities.java for all the repeated loading and saving methods
+
+ ### Absent from meeting:
++ Jonathan

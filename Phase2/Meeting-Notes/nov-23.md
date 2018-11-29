@@ -46,4 +46,8 @@
  + Serialization not working (?)
  + Can not read file: java.io.InvalidClassException: fall2018.csc2017.slidingtiles.BoardManager;
   + @Consideration: Check why the catch statement doesn't working
-  + https://stackoverflow.com/questions/8335813/java-serialization-java-io-invalidclassexception-local-class-incompatible  
+  + https://stackoverflow.com/questions/8335813/java-serialization-java-io-invalidclassexception-local-class-incompatible
+  
+### Absent from meeting:
++ Jonathan
++ Jack
