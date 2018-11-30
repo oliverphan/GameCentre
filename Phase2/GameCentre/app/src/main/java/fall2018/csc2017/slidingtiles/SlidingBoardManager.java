@@ -43,14 +43,14 @@ public class SlidingBoardManager extends BoardManager<SlidingBoard> {
     }
 
     /**
-     * The score is calculated by difficulty*100 - (number of moves).
+     * The score is calculated by (difficulty^2)*100 - (number of moves).
      * The score cannot be less than 0.
      *
      * @return the calculated score.
      */
     @Override
     public int generateScore() {
-        return Math.max((((difficulty * difficulty)*100) - numMoves), 0);
+        return Math.max((((difficulty * difficulty) * 100) - numMoves), 0);
     }
 
     /**

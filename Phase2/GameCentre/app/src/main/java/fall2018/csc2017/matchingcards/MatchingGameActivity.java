@@ -97,19 +97,23 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         matchingBoardManager = (MatchingBoardManager) loadGameFromFile(
                 MatchingFragment.TEMP_SAVE_FILENAME);
         updateScore();
-        userAccounts = loadUserAccounts();
-        currentUser = userAccounts.get(loadCurrentUsername());
+        initializeUsers();
         difficulty = matchingBoardManager.getDifficulty();
-
         createCardButtons();
         addUndoButtonListener();
+        initializeGrid();
+    }
 
-        // Add View to activity
+    private void initializeUsers(){
+        userAccounts = loadUserAccounts();
+        currentUser = userAccounts.get(loadCurrentUsername());
+    }
+
+    private void initializeGrid(){
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(difficulty);
         gridView.setBoardManager(matchingBoardManager);
         matchingBoardManager.getBoard().addObserver(this);
-        // Observer sets up desired dimensions as well as calls to our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -125,7 +129,6 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
                     }
                 });
     }
-
     /**
      * Create the buttons for displaying the cards.
      */
