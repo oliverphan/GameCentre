@@ -20,6 +20,7 @@ import fall2018.csc2017.common.GestureDetectGridView;
 import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.SaveAndLoadGames;
 import fall2018.csc2017.gamelauncher.MatchingFragment;
+import fall2018.csc2017.scoring.LeaderBoard;
 import fall2018.csc2017.scoring.Score;
 import fall2018.csc2017.users.User;
 
@@ -84,7 +85,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
      */
-    private void display() {
+    public void display() {
         updateCardButtons();
         gridView.setAdapter(new CustomAdapter(cardButtons, columnWidth, columnHeight));
     }
@@ -183,7 +184,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
             saveUserAccounts(userAccounts);
         }
         updateScore();
-        if (!matchingBoardManager.gameFinished()) {
+        if (matchingBoardManager.gameFinished()) {
             gameWon = true;
             createToast("You Win!");
             updateLeaderBoard("Matching Cards", new Score(currentUser.getName(), score));

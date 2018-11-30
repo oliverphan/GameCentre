@@ -28,7 +28,7 @@ public abstract class Token implements Serializable {
      * A piece with the empty_piece background and no player.
      * (Connect Four)
      */
-    protected Token() {
+    public Token() {
         this.background = R.drawable.empty_piece;
     }
 
@@ -39,7 +39,7 @@ public abstract class Token implements Serializable {
      *
      * @param backgroundId the id of the Card
      */
-    protected Token(int backgroundId) {
+    public Token(int backgroundId) {
         String uri = "card_" + String.valueOf(backgroundId);
         try {
             Class res = R.drawable.class;
@@ -64,7 +64,7 @@ public abstract class Token implements Serializable {
      * @param backgroundId the id of the tile
      * @param blank        the id of the blank (last) tile
      */
-    protected Token(int backgroundId, int blank) {
+    public Token(int backgroundId, int blank) {
         if (backgroundId + 1 == blank) {
             background = R.drawable.tile_0;
         } else {

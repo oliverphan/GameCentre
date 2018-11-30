@@ -14,8 +14,8 @@ class MovementController {
         this.boardManager = boardManager;
     }
 
-    void processTapMovement(Context context, int position) {
-        if (boardManager.gameFinished()) {
+    void processTapMovement(Context context, int position, boolean display) {
+        if (!boardManager.gameFinished()) {
             if (boardManager.isValidTap(position)) {
                 boardManager.touchMove(position);
             } else {

@@ -28,6 +28,7 @@ import fall2018.csc2017.common.GestureDetectGridView;
 import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.SaveAndLoadGames;
 import fall2018.csc2017.gamelauncher.SlidingFragment;
+import fall2018.csc2017.scoring.LeaderBoard;
 import fall2018.csc2017.scoring.Score;
 import fall2018.csc2017.users.User;
 
@@ -65,7 +66,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
     /**
      * Request Code for gallery activity
      */
-    private static final int IMAGE_REQUEST_CODE = 100;
+    public static final int IMAGE_REQUEST_CODE = 100;
 
     /**
      * EditText of the number of moves to undo.
@@ -94,7 +95,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
      * of positions, and then call the adapter to set the view.
      */
     // Display
-    private void display() {
+    public void display() {
         updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
     }
@@ -228,7 +229,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
             currentUser.getSaves().put(SlidingFragment.GAME_TITLE, slidingBoardManager);
             saveUserAccounts(userAccounts);
         }
-        if (!slidingBoardManager.gameFinished()) {
+        if (slidingBoardManager.gameFinished()) {
             gameWon = true;
             createToast("You Win!");
             updateLeaderBoard("Matching Cards", new Score(currentUser.getName(),

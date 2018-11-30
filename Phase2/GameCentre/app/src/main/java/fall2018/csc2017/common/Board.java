@@ -28,7 +28,7 @@ public abstract class Board<T> extends Observable implements Serializable, Itera
     /**
      * A 2D array of Tokens to be placed in a Board
      */
-    protected final T[][] tokens;
+    protected T[][] tokens;
 
     /**
      * Return the number of rows for this Board.

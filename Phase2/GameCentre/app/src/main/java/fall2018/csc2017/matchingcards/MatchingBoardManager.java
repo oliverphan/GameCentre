@@ -46,6 +46,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
      */
     public MatchingBoardManager(int difficulty) {
         super(difficulty);
+        setName("Matching Cards");
         this.numCards = 4 * difficulty;
         this.firstCard = null;
         this.secondCard = null;
@@ -161,11 +162,11 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
         for (Card[] row : board.getCards()) {
             for (Card c : row) {
                 if (!c.isMatched()) {
-                    return true;
+                    return false;
                 }
             }
         }
-        return false;
+        return true;
     }
 
     /**

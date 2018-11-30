@@ -14,7 +14,7 @@ public class LeaderBoard implements Serializable, ScoreDisplay {
      * Key: The name of the game
      * Value: The top three scores
      */
-    private final Map<String, ArrayList<Score>> gameScores;
+    private Map<String, ArrayList<Score>> gameScores;
 
     /**
      * The number of names and scores to show up on the LeaderBoard.

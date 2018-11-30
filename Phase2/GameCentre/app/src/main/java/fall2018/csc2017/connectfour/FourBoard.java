@@ -2,12 +2,12 @@ package fall2018.csc2017.connectfour;
 
 import fall2018.csc2017.common.Board;
 
-class FourBoard extends Board<Piece> {
+public class FourBoard extends Board<Piece> {
 
     /**
      * The pieces on the board.
      */
-    final Piece[][] pieces;
+    Piece[][] pieces;
 
     /**
      * Initialize a new FourBoard with empty pieces.

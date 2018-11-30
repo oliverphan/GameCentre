@@ -36,6 +36,15 @@ public class SlidingTileLeaderBoardFragment extends Fragment implements SaveAndL
 
 
     /**
+     * Dispatch onResume() to fragments.
+     */
+    @Override
+    @SuppressWarnings("unchecked")
+    public void onResume() {
+        super.onResume();
+    }
+
+    /**
      * Dispatch onPause() to fragments.
      */
     @Override

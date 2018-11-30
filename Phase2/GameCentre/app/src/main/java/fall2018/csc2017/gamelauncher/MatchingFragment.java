@@ -126,7 +126,7 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
         leaderBoardButton.setOnClickListener(v -> switchToLeaderBoardActivity());
     }
 
-    private void switchToLeaderBoardActivity() {
+    public void switchToLeaderBoardActivity() {
         Intent tmp = new Intent(getActivity(), LeaderBoardActivity.class);
         tmp.putExtra("frgToLoad", 2);
         startActivity(tmp);

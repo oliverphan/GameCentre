@@ -1,5 +1,6 @@
 package fall2018.csc2017.slidingtiles;
 
+import java.util.Arrays;
 import java.util.List;
 
 import fall2018.csc2017.common.Board;
@@ -7,12 +8,12 @@ import fall2018.csc2017.common.Board;
 /**
  * The sliding tiles board.
  */
-class SlidingBoard extends Board<Tile> {
+public class SlidingBoard extends Board<Tile> {
 
     /**
      * The tiles on the board in row-major order.
      */
-    private final Tile[][] tiles;
+    private Tile[][] tiles;
 
     /**
      * A new board of tiles in row-major order.

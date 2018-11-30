@@ -16,7 +16,7 @@ public class Card extends Token implements Serializable {
     /**
      * This Cards unique id.
      */
-    private final int id;
+    private int id;
 
     /**
      * whether or not this Card is face down.

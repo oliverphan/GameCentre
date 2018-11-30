@@ -3,6 +3,7 @@ package fall2018.csc2017.common;
 import android.content.Context;
 import android.util.Log;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -61,7 +62,7 @@ public interface SaveAndLoadGames {
      * If game hasn't been won, store the most recent BoardManager to the User.
      */
     default void writeNewValues(User currentUser, String gameName, BoardManager boardManager) {
-        if (boardManager.gameFinished()) {
+        if (!boardManager.gameFinished()) {
             currentUser.writeGame(gameName, boardManager);
         } else {
             currentUser.setNewScore(gameName, boardManager.generateScore());

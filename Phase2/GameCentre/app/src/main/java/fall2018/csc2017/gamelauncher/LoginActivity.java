@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
     /**
      * TextWatcher to ensure no empty username.
      */
-    private final TextWatcher mTextWatcher = new TextWatcher() {
+    private TextWatcher mTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
         }
@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
     /**
      * Checks if username field is empty and turns login button on accordingly.
      */
-    private void checkFieldsForEmptyValues() {
+    void checkFieldsForEmptyValues() {
         Button loginButton = findViewById(R.id.login_button);
         Button signUpButton = findViewById(R.id.signup_button);
         String username = mUsernameView.getText().toString();
