@@ -30,22 +30,15 @@ public abstract class Board<T> extends Observable implements Serializable, Itera
      */
     protected T[][] tokens;
 
-    /**
-     * Return the number of rows for this Board.
-     *
-     * @return number of rows in this Board
-     */
-    public int getNumRows() {
-        return numRows;
-    }
 
     /**
-     * Return the number of columns for this board.
-     *
-     * @return number of columns in this Board
+     * Constructs a Board (Connect Four) filled of type T.
      */
-    public int getNumCols() {
-        return numCols;
+    protected Board() {
+        numCols = 7;
+        numRows = 6;
+        T tmp = (T) new Piece();
+        this.tokens = (T[][]) Array.newInstance(tmp.getClass(), numCols, numRows);
     }
 
     /**
@@ -65,7 +58,6 @@ public abstract class Board<T> extends Observable implements Serializable, Itera
             numRows = 4;
             numCols = tokens.size() / 4;
         }
-
         this.tokens = (T[][]) Array.newInstance(classT, numRows, numCols);
 
         for (int row = 0; row != numRows; row++) {
@@ -76,13 +68,21 @@ public abstract class Board<T> extends Observable implements Serializable, Itera
     }
 
     /**
-     * Constructs a Board filled of type T. Used for creating a FourBoard.
+     * Return the number of rows for this Board.
+     *
+     * @return number of rows in this Board
      */
-    protected Board() {
-        numCols = 7;
-        numRows = 6;
-        T tmp = (T) new Piece();
-        this.tokens = (T[][]) Array.newInstance(tmp.getClass(), numCols, numRows);
+    public int getNumRows() {
+        return numRows;
+    }
+
+    /**
+     * Return the number of columns for this board.
+     *
+     * @return number of columns in this Board
+     */
+    public int getNumCols() {
+        return numCols;
     }
 
     /**
@@ -100,9 +100,12 @@ public abstract class Board<T> extends Observable implements Serializable, Itera
      */
     private class BoardIterator implements Iterator<T> {
         /**
-         * The index of the next Token to return.
+         * The row location of the next Token to return.
          */
         private int curRow = 0;
+        /**
+         * The column location of the next Token to return.
+         */
         private int curCol = 0;
 
         @Override
@@ -122,9 +125,7 @@ public abstract class Board<T> extends Observable implements Serializable, Itera
 
         @Override
         public T next() {
-            // Return null if next() is called when there are no other Token
             if (!hasNext()) return null;
-            // Return the current next Token, prepare the next Token
             T t = tokens[curRow][curCol];
             curCol++;
             resetIndex();

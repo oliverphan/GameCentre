@@ -10,7 +10,7 @@ import fall2018.csc2017.common.Board;
 public class MatchingBoard extends Board<Card> {
 
     /**
-     * The cards on the board in row-major order.
+     * The Cards on the board in row-major order.
      */
     private Card[][] cards;
 
@@ -19,7 +19,7 @@ public class MatchingBoard extends Board<Card> {
      * A new MatchingBoard in row-major order.
      * Precondition: len(cards) == numRows * numCols
      *
-     * @param cards the cards contained in this MatchingBoard
+     * @param cards the Cards contained in this MatchingBoard
      */
     MatchingBoard(List<Card> cards) {
         super(cards);
@@ -27,11 +27,11 @@ public class MatchingBoard extends Board<Card> {
     }
 
     /**
-     * Return the Card at the given location in this Matching Board.
+     * Return the Card at the given location in this MatchingBoard.
      *
      * @param row the row location of the desired Card
      * @param col the col location of the desired Card
-     * @return the card at the location (row, col) in this Matching Board
+     * @return the Card at the location (row, col) in this MatchingBoard
      */
     Card getCard(int row, int col) {
         return cards[row][col];
@@ -39,18 +39,18 @@ public class MatchingBoard extends Board<Card> {
 
 
     /**
-     * Returns the cards in this Matching Board.
+     * Returns the Cards in this MatchingBoard.
      *
-     * @return the cards in this Matching Board, in row descending order.
+     * @return the Cards in this MatchingBoard, in row-major order.
      */
     Card[][] getCards() {
         return this.cards;
     }
 
     /**
-     * Flip a card in the board.
+     * Flip a Card in the Board.
      *
-     * @param card the card to be flipped in the board
+     * @param card the Card to be flipped in the Board
      */
     void flipCard(Card card) {
         card.flip();
@@ -59,9 +59,9 @@ public class MatchingBoard extends Board<Card> {
     }
 
     /**
-     * Set the Card targetCards isMatched status to true.
+     * Set the Card targetCard to be matched.
      *
-     * @param targetCard the Card to change the status of
+     * @param targetCard the Card to change the isMatched status of
      */
     void setCardMatched(Card targetCard) {
         for (Card[] row : this.cards) {

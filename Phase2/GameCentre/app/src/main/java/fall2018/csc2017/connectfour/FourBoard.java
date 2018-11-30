@@ -45,8 +45,9 @@ public class FourBoard extends Board<Piece> {
 
     /**
      * Return whether the player has met the winning condition or not (lining up four pieces).
+     * Players are either human (1), or computer(2) controlled.
      *
-     * @param player the player to check. 1 for human player, 2 for computer
+     * @param player the current player
      * @return true if this player has met a win condition
      */
     public boolean isWinner(int player) {
@@ -56,8 +57,9 @@ public class FourBoard extends Board<Piece> {
 
     /**
      * Return whether this player has won lining 4 Pieces horizontally.
+     * Players are either human (1), or computer(2) controlled.
      *
-     * @param player the player to check. 1 for human player, 2 for computer
+     * @param player the current player
      * @return true if this player has aligned 4 Pieces horizontally
      */
     private boolean winHorizontal(int player) {
@@ -76,8 +78,9 @@ public class FourBoard extends Board<Piece> {
 
     /**
      * Return whether this player has won lining 4 Pieces vertically.
+     * Players are either human (1), or computer(2) controlled.
      *
-     * @param player the player to check. 1 for human player, 2 for computer
+     * @param player the current player
      * @return true if this player has aligned 4 Pieces vertically
      */
     private boolean winVertical(int player) {
@@ -95,10 +98,10 @@ public class FourBoard extends Board<Piece> {
     }
 
     /**
-     * Return whether this player has won lining 4 Pieces Diagonally Right.
+     * Return whether this player has won lining 4 Pieces Diagonally, right.
      *
-     * @param player the player to check. 1 for human player, 2 for computer
-     * @return true if this player has aligned 4 Pieces Diagonally Right
+     * @param player the current player
+     * @return true if this player has aligned 4 Pieces Diagonally right
      */
     private boolean winDRight(int player) {
         for (int col = 0; col < numCols - 3; col++) {
@@ -115,10 +118,11 @@ public class FourBoard extends Board<Piece> {
     }
 
     /**
-     * Return whether this player has won lining 4 Pieces Diagonally Left.
+     * Return whether this player has won lining 4 Pieces Diagonally, left.
+     * Players are either human (1), or computer(2) controlled.
      *
-     * @param player the player to check. 1 for human player, 2 for computer
-     * @return true if this player has aligned 4 Pieces Diagonally Left
+     * @param player the current player
+     * @return true if this player has aligned 4 Pieces Diagonally left
      */
     private boolean winDLeft(int player) {
         for (int col = 0; col < numCols - 3; col++) {
@@ -178,7 +182,7 @@ public class FourBoard extends Board<Piece> {
     }
 
     /***
-     * Method to change a duplicate board without notifying observers.
+     * Method to change a duplicate Board without notifying observers.
      *
      * @param col the column to be placed in
      * @param player the player placing the Piece
@@ -188,11 +192,11 @@ public class FourBoard extends Board<Piece> {
     }
 
     /**
-     * Get the specific Piece at the passed in column and row.
+     * Get the specific Piece ain the given row and column.
      *
      * @param col the column to take from
      * @param row the row to take from
-     * @return a Piece
+     * @return a Piece at (row, col)
      */
     Piece getPiece(int col, int row) {
         return pieces[col][row];
