@@ -47,6 +47,7 @@ public class ScoreTest {
         makeScore();
         Score compareScore = new Score("Username", 1000);
         assertEquals(compareScore, testScore);
+        assertNotEquals(compareScore, "");
     }
 
     /**

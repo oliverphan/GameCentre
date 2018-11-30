@@ -6,11 +6,24 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class ComputerPlayer implements Serializable {
+class ComputerPlayer implements Serializable {
+    /**
+     * The board being managed.
+     */
     private FourBoard board;
+
+    /**
+     * The difficulty set for the game
+     */
     private int difficulty;
 
-    public ComputerPlayer(FourBoard board, int d) {
+    /**
+     * Initialize the AI player for a game
+     *
+     * @param board the board the AI will be playing on
+     * @param d     the difficulty set for the AI
+     */
+    ComputerPlayer(FourBoard board, int d) {
         this.board = board;
         this.difficulty = d;
     }
@@ -20,7 +33,7 @@ public class ComputerPlayer implements Serializable {
      *
      * @return return the best move (or random move if all moves result in a loss).
      */
-    public int getComputerMove() {
+    int getComputerMove() {
         List<Integer> potentialMoves = getPotentialMoves(board, difficulty);
         int bestMoveScore = getBestLegalMoveScore(potentialMoves);
         List<Integer> bestMoves = getMaxElements(potentialMoves, bestMoveScore);
@@ -34,33 +47,40 @@ public class ComputerPlayer implements Serializable {
      * @param d     amount of moves to look ahead.
      * @return list of scores for potential moves
      */
-    public List<Integer> getPotentialMoves(FourBoard board, int d) {
+    private List<Integer> getPotentialMoves(FourBoard board, int d) {
         if (d == 0 || board.isBoardFull())
             return getZeroList();
-        List<Integer> potentialMoves = getZeroList();
+        List<Integer> moves = getZeroList();
         for (int move : getLegalMoves(board)) {
             FourBoard dupe = new FourBoard(board.pieces);
             dupe.makeDupeMove(move, 2);
             if (dupe.isWinner(2)) {
-                potentialMoves.set(move, 1);
+                moves.set(move, 1);
                 break;
             } else {
                 for (int eMove : getLegalMoves(dupe)) {
                     FourBoard dupe2 = new FourBoard(dupe.pieces);
                     dupe2.makeDupeMove(eMove, 1);
                     if (dupe2.isWinner(1)) {
-                        potentialMoves.set(move, -1);
+                        moves.set(move, -1);
                         break;
                     } else {
                         List<Integer> results = getPotentialMoves(dupe2, d - 1);
-                        potentialMoves.set(move, potentialMoves.get(move) + sumList(results) / 7 / 7);
+                        moves.set(move, moves.get(move) + sumList(results) / (int) (Math.pow(7, difficulty)));
                     }
                 }
             }
         }
-        return potentialMoves;
+        return moves;
     }
 
+    /**
+     * Takes a list and returns the indices of the elements that match the provided int.
+     *
+     * @param list     The list being checked
+     * @param maxScore the int being compared to
+     * @return list of indices that equal the int
+     */
     private List<Integer> getMaxElements(List<Integer> list, int maxScore) {
         List<Integer> maxElements = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -71,6 +91,12 @@ public class ComputerPlayer implements Serializable {
         return maxElements;
     }
 
+    /**
+     * Returns a list of columns that are legal moves in a given board
+     *
+     * @param board the board being checked
+     * @return a list of columns that represent valid moves
+     */
     private List<Integer> getLegalMoves(FourBoard board) {
         List<Integer> allowedMoves = new ArrayList<>();
         for (int i = 0; i < board.getNumCols(); i++) {
@@ -81,14 +107,25 @@ public class ComputerPlayer implements Serializable {
         return allowedMoves;
     }
 
+    /**
+     * Creates a list of zeroes.
+     *
+     * @return list of zeroes for each column
+     */
     private List<Integer> getZeroList() {
         List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < board.getNumCols(); i++) {
             list.add(0);
         }
         return list;
     }
 
+    /**
+     * Returns a sum of all the elements in a given list
+     *
+     * @param list the list passed in
+     * @return the sum of all elements
+     */
     private int sumList(List<Integer> list) {
         int sum = 0;
         for (int i : list) {
@@ -97,6 +134,12 @@ public class ComputerPlayer implements Serializable {
         return sum;
     }
 
+    /**
+     * Returns the best score of all legals moves in a given list
+     *
+     * @param list the list passed in
+     * @return the best score among all legal moves
+     */
     private int getBestLegalMoveScore(List<Integer> list) {
         List<Integer> legalMoves = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
