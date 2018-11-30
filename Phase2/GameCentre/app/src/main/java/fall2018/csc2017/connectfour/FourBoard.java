@@ -177,6 +177,12 @@ public class FourBoard extends Board<Piece> {
         notifyObservers();
     }
 
+    /***
+     * Method to change a duplicate board without notifying observers.
+     *
+     * @param col the column to be placed in
+     * @param player the player placing the Piece
+     */
     void makeDupeMove(int col, int player) {
         pieces[col][openRow(col)].setPlayer(player);
     }
