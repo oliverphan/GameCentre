@@ -14,13 +14,13 @@ public class PieceTest {
     /**
      * Make a Piece to test.
      */
-    private void makepiece() {
+    private void makePiece() {
         this.testPiece = new Piece();
     }
 
     @Test
     public void getPlayerAs0() {
-        makepiece();
+        makePiece();
         assertEquals(testPiece.getPlayer(), 0);
     }
 
@@ -29,7 +29,7 @@ public class PieceTest {
      */
     @Test
     public void setPlayer() {
-        makepiece();
+        makePiece();
         this.testPiece.setPlayer(0);
         assertEquals(testPiece.getPlayer(), 0);
         this.testPiece.setPlayer(1);
