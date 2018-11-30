@@ -38,7 +38,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     /**
      * The buttons to display.
      */
-    private ArrayList<Button> cardButtons;
+    private List<Button> cardButtons;
 
     /**
      * The Map of all the Users by name.

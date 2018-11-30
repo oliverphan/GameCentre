@@ -13,11 +13,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class CustomAdapter extends BaseAdapter {
 
-    private ArrayList<Button> mButtons;
+    private List<Button> mButtons;
     private int mColumnWidth;
     private int mColumnHeight;
 
@@ -28,7 +28,7 @@ public class CustomAdapter extends BaseAdapter {
      * @param columnWidth width of each slot
      * @param columnHeight height of each slot
      */
-    public CustomAdapter(ArrayList<Button> buttons, int columnWidth, int columnHeight) {
+    public CustomAdapter(List<Button> buttons, int columnWidth, int columnHeight) {
         mButtons = buttons;
         mColumnWidth = columnWidth;
         mColumnHeight = columnHeight;

@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -36,7 +37,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
     /**
      * The buttons on the board.
      */
-    private ArrayList<Button> boardButtons;
+    private List<Button> boardButtons;
 
     /**
      * The difficulty of the current game.
