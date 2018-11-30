@@ -32,17 +32,27 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
     private FourBoardManager fourBoardManager;
 
     /**
-     * The buttons on the board.
+     * The buttons on the Board.
      */
     private List<Button> boardButtons;
 
-    // Grid View and calculated column height and width based on device size
+    /**
+     * The grid for the game activity.
+     */
     private GestureDetectGridView gridView;
+
+    /**
+     * Width of each slot.
+     */
     private static int columnWidth;
+
+    /**
+     * Height of each slot.
+     */
     private static int columnHeight;
 
     /**
-     * Current user logged in.
+     * Current User logged in.
      */
     private User currentUser;
 
@@ -124,15 +134,6 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
         }
     }
 
-    /**
-     * Update and display changes to the gameBoard.
-     */
-    public void display() {
-        updateBoardButtons();
-        gridView.setAdapter(new CustomAdapter(boardButtons, columnWidth, columnHeight));
-    }
-
-
     @Override
     public void update(Observable o, Object arg) {
         updateScore();
@@ -145,19 +146,6 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
     }
 
     /**
-     * Returns the appropriate string for the toast at the end
-     * @return string that creates the toast based on endgame conditions
-     */
-    private String checkEndGameCondition(){
-        FourBoard board = fourBoardManager.getBoard();
-        if (board.isWinner(1))
-            return "You Win!";
-        if (board.isWinner(2))
-            return "You Lose";
-        return "Draw";
-    }
-
-    /**
      * Display the score as you play the game.
      */
     private void updateScore() {
@@ -165,6 +153,28 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
         TextView curScore = findViewById(R.id.curScore);
         String temp = "Score: " + score;
         curScore.setText(temp);
+    }
+
+    /**
+     * Update and display changes to the gameBoard.
+     */
+    public void display() {
+        updateBoardButtons();
+        gridView.setAdapter(new CustomAdapter(boardButtons, columnWidth, columnHeight));
+    }
+
+    /**
+     * Returns the appropriate string for the toast at the end
+     *
+     * @return string that creates the toast based on endgame conditions
+     */
+    private String checkEndGameCondition() {
+        FourBoard board = fourBoardManager.getBoard();
+        if (board.isWinner(1))
+            return "You Win!";
+        if (board.isWinner(2))
+            return "You Lose";
+        return "Draw";
     }
 
     @Override
@@ -196,6 +206,11 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
                 this, msg, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Passes context of the activity to utility interface
+     *
+     * @return Context of current activity
+     */
     public Context getActivity() {
         return this;
     }

@@ -20,7 +20,6 @@ import fall2018.csc2017.common.GestureDetectGridView;
 import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.SaveAndLoadGames;
 import fall2018.csc2017.gamelauncher.MatchingFragment;
-import fall2018.csc2017.scoring.LeaderBoard;
 import fall2018.csc2017.scoring.Score;
 import fall2018.csc2017.users.User;
 
@@ -81,15 +80,6 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
      */
     private int score;
 
-    /**
-     * Set up the background image for each button based on the master list
-     * of positions, and then call the adapter to set the view.
-     */
-    public void display() {
-        updateCardButtons();
-        gridView.setAdapter(new CustomAdapter(cardButtons, columnWidth, columnHeight));
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,11 +94,17 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         initializeGrid();
     }
 
+    /**
+     * A helper method to initialize the user information.
+     */
     private void initializeUsers() {
         userAccounts = loadUserAccounts();
         currentUser = userAccounts.get(loadCurrentUsername());
     }
 
+    /**
+     * A helper method to create the view grid.
+     */
     private void initializeGrid() {
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(difficulty);
@@ -192,6 +188,25 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         display();
     }
 
+    /**
+     * Display the score as you play the game.
+     */
+    private void updateScore() {
+        score = matchingBoardManager.generateScore();
+        TextView curScore = findViewById(R.id.curScore);
+        String temp = "Score: " + String.valueOf(score);
+        curScore.setText(temp);
+    }
+
+    /**
+     * Set up the background image for each button based on the master list
+     * of positions, and then call the adapter to set the view.
+     */
+    public void display() {
+        updateCardButtons();
+        gridView.setAdapter(new CustomAdapter(cardButtons, columnWidth, columnHeight));
+    }
+
     @Override
     public void onBackPressed() {
         switchToMatchingTitleActivity();
@@ -211,15 +226,6 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         finish();
     }
 
-    /**
-     * Display the score as you play the game.
-     */
-    private void updateScore() {
-        score = matchingBoardManager.generateScore();
-        TextView curScore = findViewById(R.id.curScore);
-        String temp = "Score: " + String.valueOf(score);
-        curScore.setText(temp);
-    }
 
     /**
      * Display a toast message.
@@ -232,9 +238,9 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     }
 
     /**
-     * Return this Activity.
+     * Passes context of the activity to utility interface
      *
-     * @return this Activity
+     * @return Context of current activity
      */
     public Context getActivity() {
         return this;
