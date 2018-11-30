@@ -209,7 +209,8 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
     private void updateScore() {
         score = slidingBoardManager.generateScore();
         TextView curScore = findViewById(R.id.curScore);
-        curScore.setText(String.valueOf(score));
+        String temp = "Score: " + String.valueOf(score);
+        curScore.setText(temp);
     }
 
     @Override
