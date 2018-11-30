@@ -6,6 +6,8 @@ https://github.com/DaveNOTDavid/sample-puzzle/blob/master/app/src/main/java/com/
 
 This Class is an overwrite of the Base Adapter class
 It is designed to aid setting the button sizes and positions in the GridView
+
+This Class was provided as part of the starter code.
  */
 
 import android.view.View;

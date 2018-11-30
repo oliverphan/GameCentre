@@ -5,6 +5,8 @@ Adapted from:
 https://github.com/DaveNOTDavid/sample-puzzle/blob/master/app/src/main/java/com/davenotdavid/samplepuzzle/GestureDetectGridView.java
 
 This extension of GridView contains built in logic for handling swipes between buttons
+
+This Class was provided as part of the starter code.
  */
 
 import android.annotation.TargetApi;

@@ -1,5 +1,9 @@
 package fall2018.csc2017.common;
 
+/*
+ * This Class was provided as part of the starter code.
+ */
+
 import android.content.Context;
 import android.widget.Toast;
 

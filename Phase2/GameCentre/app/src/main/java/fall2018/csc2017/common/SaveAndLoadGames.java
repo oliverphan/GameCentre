@@ -70,5 +70,10 @@ public interface SaveAndLoadGames {
         }
     }
 
+    /**
+     * Abstract method to retrieve context
+     *
+     * @return Context of implementing class
+     */
     Context getActivity();
 }
