@@ -1,8 +1,8 @@
 package fall2018.csc2017.slidingtiles;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 

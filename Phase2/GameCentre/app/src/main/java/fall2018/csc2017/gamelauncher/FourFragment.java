@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +14,11 @@ import android.widget.Toast;
 
 import java.util.Map;
 
+import fall2018.csc2017.R;
 import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.SaveAndLoadGames;
 import fall2018.csc2017.connectfour.FourBoardManager;
 import fall2018.csc2017.connectfour.FourGameActivity;
-import fall2018.csc2017.R;
 import fall2018.csc2017.scoring.LeaderBoardActivity;
 import fall2018.csc2017.users.User;
 
@@ -68,13 +69,10 @@ public class FourFragment extends Fragment implements SaveAndLoadFiles, SaveAndL
      */
     private void addLaunchEasyListener(View view) {
         Button launchEasyButton = view.findViewById(R.id.LaunchEasy);
-        launchEasyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fourBoardManager = new FourBoardManager(0);
-                createToast("Game Start");
-                switchToFourGameActivity();
-            }
+        launchEasyButton.setOnClickListener(v -> {
+            fourBoardManager = new FourBoardManager(0);
+            createToast("Game Start");
+            switchToFourGameActivity();
         });
     }
 
@@ -85,13 +83,10 @@ public class FourFragment extends Fragment implements SaveAndLoadFiles, SaveAndL
      */
     private void addLaunchMediumListener(View view) {
         Button launchMediumButton = view.findViewById(R.id.LaunchMedium);
-        launchMediumButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fourBoardManager = new FourBoardManager(1);
-                createToast("Game Start");
-                switchToFourGameActivity();
-            }
+        launchMediumButton.setOnClickListener(v -> {
+            fourBoardManager = new FourBoardManager(1);
+            createToast("Game Start");
+            switchToFourGameActivity();
         });
     }
 
@@ -102,13 +97,10 @@ public class FourFragment extends Fragment implements SaveAndLoadFiles, SaveAndL
      */
     private void addLaunchHardListener(View view) {
         Button launchHardButton = view.findViewById(R.id.LaunchHard);
-        launchHardButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fourBoardManager = new FourBoardManager(2);
-                createToast("Game Start");
-                switchToFourGameActivity();
-            }
+        launchHardButton.setOnClickListener(v -> {
+            fourBoardManager = new FourBoardManager(2);
+            createToast("Game Start");
+            switchToFourGameActivity();
         });
     }
 
@@ -120,13 +112,10 @@ public class FourFragment extends Fragment implements SaveAndLoadFiles, SaveAndL
     private void addLoadButtonListener(View view) {
         Button loadButton = view.findViewById(R.id.LoadButton);
         final boolean saveFileExists = currentUser.getSaves().containsKey(GAME_TITLE);
-        loadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createToast("Game Loaded");
-                fourBoardManager = (FourBoardManager) currentUser.getSaves().get(GAME_TITLE);
-                switchToFourGameActivity();
-            }
+        loadButton.setOnClickListener(v -> {
+            createToast("Game Loaded");
+            fourBoardManager = (FourBoardManager) currentUser.getSaves().get(GAME_TITLE);
+            switchToFourGameActivity();
         });
         loadButton.setAlpha(saveFileExists ? 1.0f : 0.5f);
         loadButton.setClickable(saveFileExists);
@@ -139,15 +128,18 @@ public class FourFragment extends Fragment implements SaveAndLoadFiles, SaveAndL
      */
     private void addLeaderBoardListener(View view) {
         Button scoreBoardButton = view.findViewById(R.id.LeaderBoardButton);
-        scoreBoardButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent tmp = new Intent(getActivity(), LeaderBoardActivity.class);
-                tmp.putExtra("frgToLoad", 1);
-                startActivity(tmp);
-            }
-        });
+        scoreBoardButton.setOnClickListener(v -> switchToLeaderBoardActivity());
 
+    }
+
+    private void switchToLeaderBoardActivity() {
+        Intent tmp = new Intent(getActivity(), LeaderBoardActivity.class);
+        tmp.putExtra("frgToLoad", 1);
+        startActivity(tmp);
+        FragmentActivity o = getActivity();
+        if (o != null) {
+            o.finish();
+        }
     }
 
     /**

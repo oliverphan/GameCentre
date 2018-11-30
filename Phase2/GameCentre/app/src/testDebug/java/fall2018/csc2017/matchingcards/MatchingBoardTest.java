@@ -1,7 +1,4 @@
-//package fall2018.csc2017.matchingcards;
-//
-//import org.junit.Test;
-//
+
 //import java.util.List;
 //
 //import static org.junit.Assert.*;
@@ -14,6 +11,11 @@
 //    private Card testMB;
 //
 //    /**
+
+//     * Creates the MatchingBoard to be tested.
+//     */
+//    private void makeMB() {
+//        this.testMB = new MatchingBoard(INSERTLIST HERE);
 //     * A List of Cards to be  as 'expected'.
 //     */
 //    private List<Card> expected;
@@ -23,25 +25,3 @@
 //     */
 //    private void makeMB() {
 //        this.testMB = new MatchingBoard();
-//    }
-//
-//    @Test
-//    public void getCard() {
-//    }
-//
-//    @Test
-//    public void getCards() {
-//    }
-//
-//    @Test
-//    public void flipCard() {
-//    }
-//
-//    @Test
-//    public void setCardMatched() {
-//    }
-//
-//    @Test
-//    public void toString() {
-//    }
-//}
