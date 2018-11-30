@@ -108,24 +108,26 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
         setContentView(R.layout.activity_slidingtilesgame);
         slidingBoardManager =
                 (SlidingBoardManager) loadGameFromFile(SlidingFragment.TEMP_SAVE_FILENAME);
-
-        userAccounts = loadUserAccounts();
-        currentUser = userAccounts.get(loadCurrentUsername());
+        updateScore();
+        initializeUsers();
         difficulty = slidingBoardManager.getDifficulty();
-
+        initializeGrid();
         createTileButtons();
-
         addUserButtonListener();
         addUndoButtonListener();
 
-        updateScore();
+    }
 
-        // Add View to activity
+    private void initializeUsers(){
+        userAccounts = loadUserAccounts();
+        currentUser = userAccounts.get(loadCurrentUsername());
+    }
+
+    private void initializeGrid(){
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(difficulty);
         gridView.setBoardManager(slidingBoardManager);
         slidingBoardManager.getBoard().addObserver(this);
-        // Observer sets up desired dimensions as well as calls our display function
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
