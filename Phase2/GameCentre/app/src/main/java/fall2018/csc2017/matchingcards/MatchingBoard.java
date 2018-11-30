@@ -17,7 +17,7 @@ public class MatchingBoard extends Board<Card> {
 
     /**
      * A new MatchingBoard in row-major order.
-     * Precondition: len(tiles) == numRows * numCols
+     * Precondition: len(cards) == numRows * numCols
      *
      * @param cards the cards contained in this MatchingBoard
      */
