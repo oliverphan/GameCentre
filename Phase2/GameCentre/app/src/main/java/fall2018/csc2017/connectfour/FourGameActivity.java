@@ -64,28 +64,40 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
         setContentView(R.layout.activity_connectfourgame);
         fourBoardManager = (FourBoardManager) loadGameFromFile(FourFragment.TEMP_SAVE_FILENAME);
         updateScore();
+        initializeUsers();
+        difficulty = fourBoardManager.getDifficulty();
+        createBoardButtons();
+        initializeGrid();
+    }
+
+    /**
+     * A helper method to initialize the user information.
+     */
+    public void initializeUsers() {
         userAccounts = loadUserAccounts();
         currentUser = userAccounts.get(loadCurrentUsername());
-        difficulty = fourBoardManager.getDifficulty();
+    }
 
-        createBoardButtons();
-
+    /**
+     * A helper method to create the view grid.
+     */
+    public void initializeGrid() {
         gridView = findViewById(R.id.gridView);
         gridView.setNumColumns(7);
         gridView.setBoardManager(fourBoardManager);
         fourBoardManager.getBoard().addObserver(this);
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                gridView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                int displayWidth = gridView.getMeasuredWidth();
-                int displayHeight = gridView.getMeasuredHeight();
-                columnWidth = displayWidth / 7;
-                columnHeight = displayHeight / 6;
-                display();
-            }
-        });
+                    @Override
+                    public void onGlobalLayout() {
+                        gridView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        int displayWidth = gridView.getMeasuredWidth();
+                        int displayHeight = gridView.getMeasuredHeight();
+                        columnWidth = displayWidth / 7;
+                        columnHeight = displayHeight / 6;
+                        display();
+                    }
+                });
     }
 
     /**
@@ -239,10 +251,11 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
     /**
      * Display the score as you play the game.
      */
-    private void updateScore(){
+    private void updateScore() {
         int score = fourBoardManager.generateScore();
         TextView curScore = findViewById(R.id.curScore);
-        curScore.setText(String.valueOf(score));
+        String temp = "Score: " + String.valueOf(score);
+        curScore.setText(temp);
     }
 
     @Override
