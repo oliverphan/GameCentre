@@ -144,15 +144,23 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
     @Override
     public void update(Observable o, Object arg) {
         updateScore();
-        FourBoard board = fourBoardManager.getBoard();
         if (fourBoardManager.gameFinished()) {
-            createToast(board.isWinner(1) ? "You Win!" : "You Lose");
+            createToast(checkEndGameCondition());
             LeaderBoard leaderBoard = loadLeaderBoard();
             leaderBoard.updateScores("Connect Four", new Score(
                     currentUser.getName(), fourBoardManager.generateScore()));
             saveLeaderBoard(leaderBoard);
         }
         display();
+    }
+
+    private String checkEndGameCondition(){
+        FourBoard board = fourBoardManager.getBoard();
+        if (board.isWinner(1))
+            return "You Win!";
+        if (board.isWinner(2))
+            return "You Lose";
+        return "Draw";
     }
 
     /**

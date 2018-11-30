@@ -65,8 +65,12 @@ public class FourBoardManager extends BoardManager<FourBoard> {
      */
     @Override
     public int generateScore() {
-        return board.isWinner(2) ? 0 : 100 * (difficulty + 1)
-                - (numMoves * (4 - difficulty));
+        if (!board.isBoardFull()) {
+            if (board.isWinner(2))
+                return 0;
+            return 100 * (difficulty + 1) - (numMoves * (4 - difficulty));
+        }
+        return 42;
     }
 
     /**
