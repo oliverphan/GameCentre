@@ -14,8 +14,10 @@ import fall2018.csc2017.gamelauncher.MainActivity;
 
 public class LeaderBoardActivity extends AppCompatActivity implements SaveAndLoadFiles {
 
+    /**
+     * ViewPager to contain fragments
+     */
     private ViewPager mViewPager;
-
 
     @Override
     @SuppressWarnings("unchecked")
@@ -29,7 +31,6 @@ public class LeaderBoardActivity extends AppCompatActivity implements SaveAndLoa
         tabLayout.setupWithViewPager(mViewPager);
 
     }
-
 
     private void setupViewPager(ViewPager viewPager) {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
@@ -54,6 +55,11 @@ public class LeaderBoardActivity extends AppCompatActivity implements SaveAndLoa
         finish();
     }
 
+    /**
+     * Passes context of the activity to utility interface
+     *
+     * @return Context of current activity
+     */
     public Context getActivity() {
         return this;
     }

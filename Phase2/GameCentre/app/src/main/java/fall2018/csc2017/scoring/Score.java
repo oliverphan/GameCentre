@@ -27,21 +27,21 @@ public class Score implements Serializable {
     }
 
     /**
-     * Returns the score value of this Score.
-     *
-     * @return the integer value that a User Scored
-     */
-    public int getValue() {
-        return this.value;
-    }
-
-    /**
      * Return the name of the User who Scored this Score.
      *
      * @return This Scores Users username
      */
     public String getUsername() {
         return this.username;
+    }
+
+    /**
+     * Returns the score value of this Score.
+     *
+     * @return the integer value that a User Scored
+     */
+    public int getValue() {
+        return this.value;
     }
 
     /**
@@ -59,7 +59,7 @@ public class Score implements Serializable {
             return false;
         }
         Score obj = (Score) o;
-        return (obj.value == this.value && obj.username == this.username);
+        return (obj.value == this.value && obj.username.equals(this.username));
     }
 
     @Override
