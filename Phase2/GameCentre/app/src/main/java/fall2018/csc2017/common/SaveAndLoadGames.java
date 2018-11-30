@@ -48,8 +48,6 @@ public interface SaveAndLoadGames {
                 inputStream.close();
                 return result;
             }
-        } catch (FileNotFoundException e) {
-            Log.e("Game activity", "File not found: " + e.toString());
         } catch (IOException e) {
             Log.e("Game activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {

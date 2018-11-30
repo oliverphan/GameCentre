@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -265,7 +266,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
         Bitmap bitmap = null;
         try {
             bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-        } catch (Exception e) {
+        } catch (IOException e) {
             Log.e("GalleryAccessActivity", "Image select error", e);
         }
         if (bitmap != null) {

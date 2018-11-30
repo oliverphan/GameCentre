@@ -33,7 +33,9 @@ public interface ScoreDisplay {
                     user.setText(tempScores.get(i - 1).toString());
                 }
             }
-        } catch (Exception e) {
+        } catch (NoSuchFieldException e) {
+            Log.e("Drawable Access", "Drawable does not exist", e);
+        } catch (IllegalAccessException e) {
             Log.e("Drawable Access", "Cannot access the drawable", e);
         }
     }

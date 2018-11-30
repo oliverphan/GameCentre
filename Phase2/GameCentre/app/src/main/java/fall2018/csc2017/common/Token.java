@@ -45,9 +45,12 @@ public abstract class Token implements Serializable {
             Class res = R.drawable.class;
             Field field = res.getField(uri);
             this.background = field.getInt(null);
-        } catch (Exception e) {
+        } catch (NoSuchFieldException e) {
             Log.e("DrawableAccess", "Failed to get Card resource by id", e);
+        }catch (IllegalAccessException e) {
+            Log.e("Drawable Access", "Cannot access the drawable", e);
         }
+
         // In the Card Constructor make sure to init id
     }
 
@@ -70,8 +73,10 @@ public abstract class Token implements Serializable {
                 Class res = R.drawable.class;
                 Field field = res.getField(uri);
                 background = field.getInt(null);
-            } catch (Exception e) {
+            } catch (NoSuchFieldException e) {
                 Log.e("DrawableAccess", "Failed to get resource by id", e);
+            } catch (IllegalAccessException e) {
+                Log.e("Drawable Access", "Cannot access the drawable", e);
             }
         }
     }

@@ -52,8 +52,6 @@ public interface SaveAndLoadFiles {
                 inputStream.close();
                 return result;
             }
-        } catch (FileNotFoundException e) {
-            Log.e("load user accounts", "File does not exist: " + e.toString());
         } catch (IOException e) {
             Log.e("load user accounts", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
@@ -134,8 +132,6 @@ public interface SaveAndLoadFiles {
                 inputStream.close();
                 return leaderBoard;
             }
-        } catch (FileNotFoundException e) {
-            return new LeaderBoard();
         } catch (IOException e) {
             Log.e("leaderboard activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
