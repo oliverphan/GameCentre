@@ -19,8 +19,7 @@ public class LeaderBoard implements Serializable, ScoreDisplay {
     /**
      * The number of names and scores to show up on the LeaderBoard.
      */
-    @SuppressWarnings("FieldCanBeLocal")
-    private final int NUM_LEADERBOARD_SLOTS = 5;
+    private static final int NUM_LEADERBOARD_SLOTS = 5;
 
     public LeaderBoard() {
         this.gameScores = new HashMap<>();

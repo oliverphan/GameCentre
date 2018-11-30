@@ -161,7 +161,7 @@ public interface SaveAndLoadFiles {
      * Update the LeaderBoard once a game is finished.
      *
      * @param gameName the name of the game to be possibly updated
-     * @param score the Score object tied to the User that generated it
+     * @param score    the Score object tied to the User that generated it
      */
     default void updateLeaderBoard(String gameName, Score score) {
         LeaderBoard tmp = loadLeaderBoard();
@@ -169,5 +169,10 @@ public interface SaveAndLoadFiles {
         saveLeaderBoard(tmp);
     }
 
+    /**
+     * Abstract method to retrieve context
+     *
+     * @return Context of implementing class
+     */
     Context getActivity();
 }

@@ -29,21 +29,41 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
     private String currentUser;
 
     /**
-     * UI References
+     * Username EditText
      */
     private EditText mUsernameView;
-    private EditText mPasswordView;
 
     /**
-     * TextWatcher to ensure no empty username.
+     * Password EditText
+     */
+    private EditText mPasswordView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_signin_);
+        mUsernameView = findViewById(R.id.input_username);
+        mUsernameView.addTextChangedListener(mTextWatcher);
+        mPasswordView = findViewById(R.id.input_password);
+        mPasswordView.addTextChangedListener(mTextWatcher);
+        userAccounts = loadUserAccounts();
+        addLoginButtonListener();
+        checkFieldsForEmptyValues();
+        addSignUpButtonListener();
+    }
+
+    /**
+     * TextWatcher to ensure no empty username and password fields.
      */
     private TextWatcher mTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            // Do nothing
         }
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            // Do nothing
         }
 
         @Override
@@ -66,18 +86,16 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
         signUpButton.setAlpha(username.equals("") || password.equals("") ? 0.5f : 1f);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signin_);
-        mUsernameView = findViewById(R.id.input_username);
-        mUsernameView.addTextChangedListener(mTextWatcher);
-        mPasswordView = findViewById(R.id.input_password);
-        mPasswordView.addTextChangedListener(mTextWatcher);
-        userAccounts = loadUserAccounts();
-        addLoginButtonListener();
-        checkFieldsForEmptyValues();
-        addSignUpButtonListener();
+    /**
+     * Activate the login button.
+     */
+    private void addLoginButtonListener() {
+        Button loginButton = findViewById(R.id.login_button);
+        loginButton.setOnClickListener(v -> {
+            if (attemptLogin()) {
+                switchToSlidingTileTitle();
+            }
+        });
     }
 
     /**
@@ -104,17 +122,6 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
         }
     }
 
-    /**
-     * Activate the login button.
-     */
-    private void addLoginButtonListener() {
-        Button loginButton = findViewById(R.id.login_button);
-        loginButton.setOnClickListener(v -> {
-            if (attemptLogin()) {
-                switchToSlidingTileTitle();
-            }
-        });
-    }
 
     /**
      * Activate the sign up button.
@@ -137,14 +144,13 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
     }
 
     /**
-     * Switch to the SlidingTileTitleActivity view to select a game and difficulty.
+     * Verify whether the User already exists by their unique username.
+     *
+     * @param name The username to verify
+     * @return Whether name exists in UserAccounts or not.
      */
-    private void switchToSlidingTileTitle() {
-        Intent tmp = new Intent(this, MainActivity.class);
-        saveCurrentUsername(currentUser);
-        saveUserAccounts(userAccounts);
-        startActivity(tmp);
-        finish();
+    private boolean exists(String name) {
+        return name.equals("") || userAccounts.containsKey(name);
     }
 
     /**
@@ -159,16 +165,17 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
     }
 
     /**
-     * Verify whether the User already exists by their unique username.
-     *
-     * @param name The username to verify
-     * @return Whether name exists in UserAccounts or not.
+     * Switch to the SlidingTileTitleActivity view to select a game and difficulty.
      */
-    private boolean exists(String name) {
-        return name.equals("") || userAccounts.containsKey(name);
+    private void switchToSlidingTileTitle() {
+        Intent tmp = new Intent(this, MainActivity.class);
+        saveCurrentUsername(currentUser);
+        saveUserAccounts(userAccounts);
+        startActivity(tmp);
+        finish();
     }
 
-
+    @Override
     public void onBackPressed() {
         finish();
         System.exit(0);
@@ -182,6 +189,11 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
                 this, msg, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Passes context of the activity to utility interface
+     *
+     * @return Context of current activity
+     */
     public Context getActivity() {
         return this;
     }

@@ -45,6 +45,11 @@ public class FourFragment extends Fragment implements SaveAndLoadFiles, SaveAndL
     private User currentUser;
 
     /**
+     * String to signify Game Start
+     */
+    private String startMessage = "Game Start";
+
+    /**
      * A HashMap of all the Users created. The key is the username, the value is the User object.
      */
     private Map<String, User> userAccounts;
@@ -71,7 +76,7 @@ public class FourFragment extends Fragment implements SaveAndLoadFiles, SaveAndL
         Button launchEasyButton = view.findViewById(R.id.LaunchEasy);
         launchEasyButton.setOnClickListener(v -> {
             fourBoardManager = new FourBoardManager(0);
-            createToast("Game Start");
+            createToast(startMessage);
             switchToFourGameActivity();
         });
     }
@@ -85,7 +90,7 @@ public class FourFragment extends Fragment implements SaveAndLoadFiles, SaveAndL
         Button launchMediumButton = view.findViewById(R.id.LaunchMedium);
         launchMediumButton.setOnClickListener(v -> {
             fourBoardManager = new FourBoardManager(1);
-            createToast("Game Start");
+            createToast(startMessage);
             switchToFourGameActivity();
         });
     }
@@ -99,7 +104,7 @@ public class FourFragment extends Fragment implements SaveAndLoadFiles, SaveAndL
         Button launchHardButton = view.findViewById(R.id.LaunchHard);
         launchHardButton.setOnClickListener(v -> {
             fourBoardManager = new FourBoardManager(2);
-            createToast("Game Start");
+            createToast(startMessage);
             switchToFourGameActivity();
         });
     }

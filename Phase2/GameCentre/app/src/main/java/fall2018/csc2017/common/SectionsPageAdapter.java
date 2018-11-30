@@ -8,9 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SectionsPageAdapter extends FragmentStatePagerAdapter {
-
+    /**
+     * List of fragments in this page adapter
+     */
     private final List<Fragment> mFragmentList = new ArrayList<>();
 
+    /**
+     * Creates Page adapter to handle fragments
+     * @param fm Fragment manager needed for fragments
+     */
     public SectionsPageAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -20,6 +26,10 @@ public class SectionsPageAdapter extends FragmentStatePagerAdapter {
         return mFragmentList.get(position);
     }
 
+    /**
+     * Method to add fragment to this page adapter
+     * @param fragment the fragment to be added
+     */
     public void addFragment(Fragment fragment) {
         mFragmentList.add(fragment);
     }
