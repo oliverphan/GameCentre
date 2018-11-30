@@ -1,10 +1,10 @@
 package fall2018.csc2017.gamelauncher;
 
-import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +14,12 @@ import android.widget.Toast;
 
 import java.util.Map;
 
+import fall2018.csc2017.R;
 import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.SaveAndLoadGames;
-import fall2018.csc2017.slidingtiles.SlidingBoardManager;
-import fall2018.csc2017.R;
-import fall2018.csc2017.slidingtiles.SlidingGameActivity;
 import fall2018.csc2017.scoring.LeaderBoardActivity;
+import fall2018.csc2017.slidingtiles.SlidingBoardManager;
+import fall2018.csc2017.slidingtiles.SlidingGameActivity;
 import fall2018.csc2017.users.User;
 
 public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveAndLoadGames {
@@ -140,8 +140,7 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveA
         tmp.putExtra("frgToLoad", 0);
         startActivity(tmp);
         FragmentActivity o = getActivity();
-        if (o != null)
-        {
+        if (o != null) {
             o.finish();
         }
     }

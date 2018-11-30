@@ -71,5 +71,6 @@ public interface SaveAndLoadGames {
             currentUser.deleteSave(gameName);
         }
     }
+
     Context getActivity();
 }

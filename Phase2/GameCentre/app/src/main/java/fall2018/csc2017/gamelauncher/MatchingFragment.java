@@ -1,10 +1,10 @@
 package fall2018.csc2017.gamelauncher;
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -126,16 +126,16 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
         leaderBoardButton.setOnClickListener(v -> switchToLeaderBoardActivity());
     }
 
-    public void switchToLeaderBoardActivity(){
+    public void switchToLeaderBoardActivity() {
         Intent tmp = new Intent(getActivity(), LeaderBoardActivity.class);
         tmp.putExtra("frgToLoad", 2);
         startActivity(tmp);
         FragmentActivity o = getActivity();
-        if (o != null)
-        {
+        if (o != null) {
             o.finish();
         }
     }
+
     /**
      * Switch to the MatchingCardsGameActivity view
      */

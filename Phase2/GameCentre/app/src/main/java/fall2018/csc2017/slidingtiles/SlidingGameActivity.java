@@ -21,15 +21,15 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-import fall2018.csc2017.common.SaveAndLoadFiles;
+import fall2018.csc2017.R;
 import fall2018.csc2017.common.CustomAdapter;
 import fall2018.csc2017.common.GestureDetectGridView;
+import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.SaveAndLoadGames;
 import fall2018.csc2017.gamelauncher.SlidingFragment;
 import fall2018.csc2017.scoring.LeaderBoard;
 import fall2018.csc2017.scoring.Score;
 import fall2018.csc2017.users.User;
-import fall2018.csc2017.R;
 
 /**
  * The game activity.

@@ -14,11 +14,11 @@ import android.widget.Toast;
 
 import java.util.Map;
 
+import fall2018.csc2017.R;
 import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.SaveAndLoadGames;
 import fall2018.csc2017.connectfour.FourBoardManager;
 import fall2018.csc2017.connectfour.FourGameActivity;
-import fall2018.csc2017.R;
 import fall2018.csc2017.scoring.LeaderBoardActivity;
 import fall2018.csc2017.users.User;
 
@@ -132,13 +132,12 @@ public class FourFragment extends Fragment implements SaveAndLoadFiles, SaveAndL
 
     }
 
-    private void switchToLeaderBoardActivity(){
+    private void switchToLeaderBoardActivity() {
         Intent tmp = new Intent(getActivity(), LeaderBoardActivity.class);
         tmp.putExtra("frgToLoad", 1);
         startActivity(tmp);
         FragmentActivity o = getActivity();
-        if (o != null)
-        {
+        if (o != null) {
             o.finish();
         }
     }

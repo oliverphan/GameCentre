@@ -23,7 +23,7 @@ public class FourBoardManager extends BoardManager<FourBoard> {
      */
     @Override
     public int generateScore() {
-        return board.isWinner(2)? 0 :100 * (difficulty + 1)
+        return board.isWinner(2) ? 0 : 100 * (difficulty + 1)
                 - (numMoves * (4 - difficulty));
     }
 

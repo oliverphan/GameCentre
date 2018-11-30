@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 import java.util.Map;
 
-import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.R;
+import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.users.User;
 
 public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles {
@@ -169,7 +169,7 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
     }
 
 
-    public void onBackPressed(){
+    public void onBackPressed() {
         finish();
         System.exit(0);
     }

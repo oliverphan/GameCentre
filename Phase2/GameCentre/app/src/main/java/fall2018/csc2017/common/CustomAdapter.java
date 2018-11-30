@@ -24,8 +24,8 @@ public class CustomAdapter extends BaseAdapter {
     /**
      * Initialize a new Custom Adapter.
      *
-     * @param buttons the buttons to place in each slot
-     * @param columnWidth width of each slot
+     * @param buttons      the buttons to place in each slot
+     * @param columnWidth  width of each slot
      * @param columnHeight height of each slot
      */
     public CustomAdapter(List<Button> buttons, int columnWidth, int columnHeight) {
