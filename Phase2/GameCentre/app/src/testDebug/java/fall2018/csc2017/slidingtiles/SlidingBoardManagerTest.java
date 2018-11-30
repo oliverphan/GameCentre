@@ -95,7 +95,7 @@ public class SlidingBoardManagerTest {
         }
         if (blankIndex != 3 && blankIndex != 7 && blankIndex != 11 && blankIndex != 15) {
             slidingBoardManager.touchMove(blankIndex + 1);
-            assertNotEquals(15, slidingBoardManager.getBoard().getTile(row, col).getId());
+            assertNotEquals(16, slidingBoardManager.getBoard().getTile(row, col).getId());
         }
 
 
