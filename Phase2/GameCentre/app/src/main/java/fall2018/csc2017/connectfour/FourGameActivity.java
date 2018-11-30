@@ -68,7 +68,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
     /**
      * A helper method to initialize the user information.
      */
-    public void initializeUsers() {
+    private void initializeUsers() {
         userAccounts = loadUserAccounts();
         currentUser = userAccounts.get(loadCurrentUsername());
     }
@@ -76,7 +76,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
     /**
      * A helper method to create the view grid.
      */
-    public void initializeGrid() {
+    private void initializeGrid() {
         gridView = findViewById(R.id.gridView);
         gridView.setNumColumns(7);
         gridView.setBoardManager(fourBoardManager);
@@ -98,7 +98,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
     /**
      * Get the initial backgrounds of the pieces on the grid.
      */
-    public void createBoardButtons() {
+    private void createBoardButtons() {
         FourBoard board = fourBoardManager.getBoard();
         boardButtons = new ArrayList<>();
         for (int col = 0; col < 7; col++) {
@@ -113,7 +113,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
     /**
      * Update the backgrounds of the pieces on the grid.
      */
-    public void updateBoardButtons() {
+    private void updateBoardButtons() {
         FourBoard board = fourBoardManager.getBoard();
         int nextPos = 0;
         for (Button b : boardButtons) {
@@ -127,7 +127,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
     /**
      * Update and display changes to the gameBoard.
      */
-    public void display() {
+    private void display() {
         updateBoardButtons();
         gridView.setAdapter(new CustomAdapter(boardButtons, columnWidth, columnHeight));
     }
@@ -136,7 +136,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
     @Override
     public void update(Observable o, Object arg) {
         updateScore();
-        if (fourBoardManager.gameFinished()) {
+        if (!fourBoardManager.gameFinished()) {
             createToast(checkEndGameCondition());
             updateLeaderBoard("Matching Cards", new Score(currentUser.getName(),
                     fourBoardManager.generateScore()));
@@ -175,10 +175,10 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
     /**
      * Method to switch back to previous Activity
      */
-    public void switchToConnectFourActivity() {
+    private void switchToConnectFourActivity() {
         writeNewValues(currentUser, FourFragment.GAME_TITLE, fourBoardManager);
         saveUserAccounts(userAccounts);
-        if (!fourBoardManager.gameFinished()) {
+        if (fourBoardManager.gameFinished()) {
             createToast("Saved");
         } else {
             createToast("Your score is " + fourBoardManager.generateScore());

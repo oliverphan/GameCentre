@@ -23,7 +23,7 @@ public class Tile extends Token implements Comparable<Tile> {
     /**
      * The unique id.
      */
-    private int id;
+    private final int id;
 
     /**
      * A tile with a background id; look up and set the id.

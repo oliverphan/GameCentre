@@ -10,12 +10,12 @@ class ComputerPlayer implements Serializable {
     /**
      * The board being managed.
      */
-    private FourBoard board;
+    private final FourBoard board;
 
     /**
      * The difficulty set for the game
      */
-    private int difficulty;
+    private final int difficulty;
 
     /**
      * Initialize the AI player for a game

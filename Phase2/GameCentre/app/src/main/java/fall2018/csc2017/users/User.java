@@ -9,22 +9,22 @@ public class User implements Serializable {
     /**
      * The username of this user.
      */
-    private String username;
+    private final String username;
 
     /**
      * The password for this user.
      */
-    private String password;
+    private final String password;
 
     /**
      * A HashMap storing all the scores for this user with key gameName and value scoreValue
      */
-    private Map<String, Integer> scores;
+    private final Map<String, Integer> scores;
 
     /**
      * A HashMap storing all the saves for this user with key gameName and value (the save file).
      */
-    private Map<String, Object> saves;
+    private final Map<String, Object> saves;
 
     /**
      * Constructor for a non-guest User. Which adds itself to the GameLaunchCentre.

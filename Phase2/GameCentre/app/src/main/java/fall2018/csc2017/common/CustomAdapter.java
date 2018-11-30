@@ -17,9 +17,9 @@ import java.util.List;
 
 public class CustomAdapter extends BaseAdapter {
 
-    private List<Button> mButtons;
-    private int mColumnWidth;
-    private int mColumnHeight;
+    private final List<Button> mButtons;
+    private final int mColumnWidth;
+    private final int mColumnHeight;
 
     /**
      * Initialize a new Custom Adapter.

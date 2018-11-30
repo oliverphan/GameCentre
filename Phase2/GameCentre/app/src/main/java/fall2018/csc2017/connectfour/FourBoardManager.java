@@ -10,7 +10,7 @@ public class FourBoardManager extends BoardManager<FourBoard> {
     /**
      * The computer player for this manager
      */
-    private ComputerPlayer ai;
+    private final ComputerPlayer ai;
 
     /**
      * The current player in the game.
@@ -24,7 +24,6 @@ public class FourBoardManager extends BoardManager<FourBoard> {
      */
     public FourBoardManager(int difficulty) {
         super(difficulty);
-        setName("Connect Four");
         board = new FourBoard();
         curPlayer = initPlayer();
         ai = new ComputerPlayer(board, difficulty);
@@ -49,7 +48,7 @@ public class FourBoardManager extends BoardManager<FourBoard> {
     private void switchPlayer() {
         if (curPlayer == 1) {
             curPlayer = 2;
-            if (!gameFinished())
+            if (gameFinished())
                 makeAIMove();
         } else {
             curPlayer = 1;
@@ -92,7 +91,7 @@ public class FourBoardManager extends BoardManager<FourBoard> {
      */
     @Override
     protected boolean gameFinished() {
-        return board.isBoardFull() || board.isWinner(1) || board.isWinner(2);
+        return !board.isBoardFull() && !board.isWinner(1) && !board.isWinner(2);
     }
 
     /**

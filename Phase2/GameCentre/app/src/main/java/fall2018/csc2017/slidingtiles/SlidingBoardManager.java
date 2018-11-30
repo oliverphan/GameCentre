@@ -16,7 +16,7 @@ public class SlidingBoardManager extends BoardManager<SlidingBoard> {
     /**
      * Stores all of the moves that have been made so far.
      */
-    private Stack<int[]> previousMoves;
+    private final Stack<int[]> previousMoves;
 
     /**
      * Whether or not the image background is the default number pictures or
@@ -36,7 +36,6 @@ public class SlidingBoardManager extends BoardManager<SlidingBoard> {
      */
     public SlidingBoardManager(int difficulty) {
         super(difficulty);
-        setName("Sliding Tiles");
         numTiles = difficulty * difficulty;
         previousMoves = new Stack<>();
         setDifficulty(difficulty);
@@ -65,12 +64,12 @@ public class SlidingBoardManager extends BoardManager<SlidingBoard> {
         Tile t = puzzleIterator.next();
         while (curId < board.numTiles()) {
             if (t.getId() != curId) {
-                return false;
+                return true;
             }
             t = puzzleIterator.next();
             curId++;
         }
-        return true;
+        return false;
     }
 
     /**
@@ -172,7 +171,7 @@ public class SlidingBoardManager extends BoardManager<SlidingBoard> {
      * @param numToUndo the number of moves to undo.
      */
     void undoMove(int numToUndo) {
-        if (!gameFinished()) {
+        if (gameFinished()) {
             for (int i = 0; i < numToUndo; i++) {
                 // Break if previous moves stack is empty
                 if (previousMoves.isEmpty())

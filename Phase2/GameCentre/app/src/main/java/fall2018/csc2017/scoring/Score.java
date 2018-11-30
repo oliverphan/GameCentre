@@ -1,6 +1,7 @@
 package fall2018.csc2017.scoring;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 
 public class Score implements Serializable {
@@ -8,7 +9,7 @@ public class Score implements Serializable {
     /**
      * The name of the user that got this Score.
      */
-    private String username;
+    private final String username;
 
     /**
      * The value of the Score.
@@ -59,7 +60,7 @@ public class Score implements Serializable {
             return false;
         }
         Score obj = (Score) o;
-        return (obj.value == this.value && obj.username == this.username);
+        return (obj.value == this.value && Objects.equals(obj.username, this.username));
     }
 
     @Override

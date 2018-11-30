@@ -34,15 +34,6 @@ public class FourLeaderBoardFragment extends Fragment implements SaveAndLoadFile
     }
 
     /**
-     * Dispatch onResume() to fragments.
-     */
-    @Override
-    @SuppressWarnings("unchecked")
-    public void onResume() {
-        super.onResume();
-    }
-
-    /**
      * Dispatch onPause() to fragments.
      */
     @Override

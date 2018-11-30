@@ -24,11 +24,6 @@ public class SectionsPageAdapter extends FragmentStatePagerAdapter {
         mFragmentList.add(fragment);
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return super.getPageTitle(position);
-    }
-
 
     @Override
     public int getCount() {

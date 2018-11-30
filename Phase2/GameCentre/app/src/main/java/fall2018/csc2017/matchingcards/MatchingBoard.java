@@ -7,12 +7,12 @@ import fall2018.csc2017.common.Board;
 /**
  * The MatchingBoard tiles board.
  */
-public class MatchingBoard extends Board<Card> {
+class MatchingBoard extends Board<Card> {
 
     /**
      * The cards on the board in row-major order.
      */
-    private Card[][] cards;
+    private final Card[][] cards;
 
 
     /**

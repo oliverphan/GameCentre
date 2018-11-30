@@ -12,7 +12,7 @@ public abstract class BoardManager<T> implements Serializable {
     /**
      * The difficulty of the game.
      */
-    protected int difficulty;
+    protected final int difficulty;
 
     /**
      * The number of moves made so far.
@@ -20,36 +20,13 @@ public abstract class BoardManager<T> implements Serializable {
     protected int numMoves;
 
     /**
-     * The name of this game.
-     */
-    private String name;
-
-    /**
      * Constructor for standard board manager.
      *
      * @param difficulty the difficulty for the game
      */
-    public BoardManager(int difficulty) {
+    protected BoardManager(int difficulty) {
         this.difficulty = difficulty;
         this.numMoves = 0;
-    }
-
-    /**
-     * Getter for the name of game.
-     *
-     * @return the name of the game
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Set the name of game.
-     *
-     * @param s the name of the game
-     */
-    protected void setName(String s) {
-        name = s;
     }
 
     /**
