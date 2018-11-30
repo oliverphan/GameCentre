@@ -2,6 +2,9 @@ package fall2018.csc2017.users;
 
 import org.junit.Test;
 
+import fall2018.csc2017.common.BoardManager;
+import fall2018.csc2017.slidingtiles.SlidingBoardManager;
+
 import static org.junit.Assert.*;
 
 public class UserTest {
@@ -12,10 +15,16 @@ public class UserTest {
     private User testUser;
 
     /**
+     *
+     */
+    private BoardManager testManager;
+
+    /**
      * Creates the User to be tested.
      */
     private void makeUser() {
         this.testUser = new User("Name", "Password");
+        this.testManager = new SlidingBoardManager(4);
     }
 
     /**
@@ -66,6 +75,18 @@ public class UserTest {
     }
 
     /**
+     * Tests the setNewScore() method with a game that doesn't exist.
+     */
+    @Test
+    public void testSetNewScoreNoGame() {
+        makeUser();
+        testUser.setNewScore("Chess", 1000);
+        Integer expected = 1000;
+        assertTrue(testUser.getScores().containsKey("Chess"));
+        assertEquals(expected, testUser.getScores().get("Chess"));
+    }
+
+    /**
      * Tests the setScore() method for a game which doesn't exist.
      */
     @Test
@@ -75,4 +96,38 @@ public class UserTest {
         Integer expected = 100;
         assertEquals(expected, testUser.getScores().get("Test Game"));
     }
+
+    /**
+     * Tests the getSaves() method.
+     */
+    @Test
+    public void testGetSaves() {
+        makeUser();
+        testUser.writeGame("Test Game", testManager);
+        assertTrue(testUser.getSaves().containsKey("Test Game"));
+    }
+
+    /**
+     * Tests the deleteSave() method.
+     */
+    @Test
+    public void testDeleteSave() {
+        makeUser();
+        testUser.writeGame("Test Game", testManager);
+        testUser.deleteSave("Test Game");
+        assertFalse(testUser.getSaves().containsKey("Test Game"));
+
+    }
+
+    /**
+     * Tests the writeGame() method.
+     */
+    @Test
+    public void testWriteGame() {
+        makeUser();
+        testUser.writeGame("Test Game", testManager);
+        assertTrue(testUser.getSaves().containsKey("Test Game"));
+        assertTrue(testUser.getSaves().get("Test Game").equals(testManager));
+    }
+
 }
