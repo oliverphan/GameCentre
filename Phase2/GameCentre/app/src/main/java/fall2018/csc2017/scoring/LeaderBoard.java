@@ -1,7 +1,6 @@
 package fall2018.csc2017.scoring;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,13 +29,14 @@ public class LeaderBoard implements Serializable, ScoreDisplay {
         this.gameScores.put("Matching Cards", initialList());
     }
 
-    private ArrayList<Score> initialList(){
+    private ArrayList<Score> initialList() {
         ArrayList<Score> list = new ArrayList<>();
-        for (int i = 0; i < NUM_LEADERBOARD_SLOTS; i++){
+        for (int i = 0; i < NUM_LEADERBOARD_SLOTS; i++) {
             list.add(new Score("", 0));
         }
         return list;
     }
+
     /**
      * Returns a string containing the top scores of this game.
      *

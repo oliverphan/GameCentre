@@ -1,7 +1,5 @@
 package fall2018.csc2017.matchingcards;
 
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import fall2018.csc2017.common.Board;
@@ -25,15 +23,7 @@ public class MatchingBoard extends Board<Card> {
      */
     MatchingBoard(List<Card> cards) {
         super(cards);
-        this.cards = new Card[numRows][numCols];
-        Iterator<Card> iterator = cards.iterator();
-        for (int row = 0; row != numRows; row++) {
-            for (int col = 0; col != numCols; col++) {
-                Card next = iterator.next();
-                this.cards[row][col] = next;
-            }
-        }
-
+        this.cards = super.tokens;
     }
 
     /**
@@ -83,12 +73,5 @@ public class MatchingBoard extends Board<Card> {
                 }
             }
         }
-    }
-
-    @Override
-    public String toString() {
-        return "MatchingBoard{" +
-                "cards=" + Arrays.toString(cards) +
-                "}";
     }
 }

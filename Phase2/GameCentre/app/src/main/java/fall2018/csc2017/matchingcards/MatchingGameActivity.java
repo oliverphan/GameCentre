@@ -15,9 +15,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 import fall2018.csc2017.R;
-import fall2018.csc2017.common.SaveAndLoadFiles;
-import fall2018.csc2017.common.GestureDetectGridView;
 import fall2018.csc2017.common.CustomAdapter;
+import fall2018.csc2017.common.GestureDetectGridView;
+import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.SaveAndLoadGames;
 import fall2018.csc2017.gamelauncher.MatchingFragment;
 import fall2018.csc2017.scoring.LeaderBoard;
@@ -104,12 +104,12 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
         initializeGrid();
     }
 
-    private void initializeUsers(){
+    private void initializeUsers() {
         userAccounts = loadUserAccounts();
         currentUser = userAccounts.get(loadCurrentUsername());
     }
 
-    private void initializeGrid(){
+    private void initializeGrid() {
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(difficulty);
         gridView.setBoardManager(matchingBoardManager);
@@ -129,6 +129,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
                     }
                 });
     }
+
     /**
      * Create the buttons for displaying the cards.
      */
@@ -216,7 +217,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     /**
      * Display the score as you play the game.
      */
-    private void updateScore(){
+    private void updateScore() {
         score = matchingBoardManager.generateScore();
         TextView curScore = findViewById(R.id.curScore);
         String temp = "Score: " + String.valueOf(score);

@@ -8,8 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 
-import fall2018.csc2017.matchingcards.Card;
 import fall2018.csc2017.connectfour.Piece;
+import fall2018.csc2017.matchingcards.Card;
 import fall2018.csc2017.slidingtiles.Tile;
 
 @SuppressWarnings("unchecked")

@@ -16,9 +16,9 @@ public interface ScoreDisplay {
     /**
      * Display the leading Scores for a game.
      *
-     * @param view the location to display the scores
+     * @param view        the location to display the scores
      * @param leaderBoard The LeaderBoard to be displayed
-     * @param gameName the Name of the game
+     * @param gameName    the Name of the game
      */
     default void displayLeaders(View view, LeaderBoard leaderBoard, String gameName) {
         ArrayList<Score> tempScores = leaderBoard.getGameScores(gameName);

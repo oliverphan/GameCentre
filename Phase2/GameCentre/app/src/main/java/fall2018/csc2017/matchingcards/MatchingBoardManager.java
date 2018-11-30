@@ -1,11 +1,11 @@
 package fall2018.csc2017.matchingcards;
 
 
+import android.os.Handler;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import android.os.Handler;
 
 import fall2018.csc2017.common.BoardManager;
 
@@ -176,14 +176,11 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
         } else {
             pausing = true;
             Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    board.flipCard(firstCard);
-                    board.flipCard(secondCard);
-                    firstCard = null;
-                    secondCard = null;
-                }
+            handler.postDelayed(() -> {
+                board.flipCard(firstCard);
+                board.flipCard(secondCard);
+                firstCard = null;
+                secondCard = null;
             }, 200);
             pausing = false;
         }
