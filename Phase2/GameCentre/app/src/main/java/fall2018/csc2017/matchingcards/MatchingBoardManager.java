@@ -120,7 +120,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
      */
     private void checkMatched() {
         if (firstCard.equals(secondCard)) {
-            numMoves -= 2;
+            numMoves -= difficulty;
             board.setCardMatched(firstCard);
             board.setCardMatched(secondCard);
 
@@ -144,7 +144,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
      */
     @Override
     public int generateScore() {
-        int score = (10 * difficulty * numCards) - (numMoves * 10);
+        int score = (20 * difficulty * numCards) - (numMoves * 10);
         if (score >= 0) {
             return score;
         }
