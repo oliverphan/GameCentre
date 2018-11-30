@@ -7,7 +7,14 @@ import java.util.Random;
 import fall2018.csc2017.common.BoardManager;
 
 public class FourBoardManager extends BoardManager<FourBoard> {
+    /**
+     * The computer player for this manager
+     */
     private ComputerPlayer ai;
+
+    /**
+     * The current player in the game.
+     */
     private int curPlayer;
 
     /**
@@ -23,14 +30,17 @@ public class FourBoardManager extends BoardManager<FourBoard> {
         ai = new ComputerPlayer(board, difficulty);
     }
 
-    public int getCurPlayer() {
+    /**
+     * Getter for current player
+     *
+     * @return int representing current player
+     */
+    int getCurPlayer() {
         return this.curPlayer;
     }
 
     private int initPlayer() {
-        int player = new Random().nextInt(2) + 1;
-        System.out.println("The player is " + player);
-        return player;
+        return new Random().nextInt(2) + 1;
     }
 
     /**
@@ -46,14 +56,14 @@ public class FourBoardManager extends BoardManager<FourBoard> {
         }
     }
 
-    public void makeAIMove() {
+    /**
+     * Calls AI to make a move (with added sleep delay for better player experience)
+     */
+    void makeAIMove() {
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        handler.postDelayed(() -> {
                 board.placePiece(ai.getComputerMove(), 2);
                 switchPlayer();
-            }
         }, 500);
     }
 
