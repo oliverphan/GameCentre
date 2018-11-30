@@ -127,7 +127,7 @@ public class UserTest {
         makeUser();
         testUser.writeGame("Test Game", testManager);
         assertTrue(testUser.getSaves().containsKey("Test Game"));
-        assertTrue(testUser.getSaves().get("Test Game").equals(testManager));
+        assertEquals(testUser.getSaves().get("Test Game"), testManager);
     }
 
 }

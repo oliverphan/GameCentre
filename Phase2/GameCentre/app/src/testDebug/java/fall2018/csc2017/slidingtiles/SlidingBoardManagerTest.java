@@ -14,11 +14,6 @@ public class SlidingBoardManagerTest {
     private SlidingBoardManager slidingBoardManager;
 
     /**
-     * an Arraylist of the id of the tiles on the board
-     */
-    private ArrayList<Integer> tileArray;
-
-    /**
      * The position of the blank tile on the board
      */
     private int blankIndex;
@@ -30,7 +25,7 @@ public class SlidingBoardManagerTest {
     private void setUpBoard() {
         slidingBoardManager = new SlidingBoardManager(4);
         SlidingBoard board = slidingBoardManager.getBoard();
-        tileArray = new ArrayList<>();
+        ArrayList<Integer> tileArray = new ArrayList<>();
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < 4; col++) {
                 tileArray.add(board.getTile(row, col).getId());

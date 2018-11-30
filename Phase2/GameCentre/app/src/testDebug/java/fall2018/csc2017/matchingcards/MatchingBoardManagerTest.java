@@ -98,12 +98,12 @@ public class MatchingBoardManagerTest {
         makeMBM();
         MatchingBoard board = testMBM.getBoard();
         Card[][] cardsInBoard = board.getCards();
-        assertFalse(testMBM.gameFinished());
+        assertFalse(!testMBM.gameFinished());
         for (Card[] row : cardsInBoard) {
             for (Card c : row) {
                 c.setMatched();
             }
         }
-        assertTrue(testMBM.gameFinished());
+        assertTrue(!testMBM.gameFinished());
     }
 }

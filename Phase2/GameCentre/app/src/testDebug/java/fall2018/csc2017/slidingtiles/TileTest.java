@@ -19,26 +19,12 @@ public class TileTest {
     }
 
     /**
-     * Test the getUserImage() method.
-     */
-    @Test
-    public void testGetUserImage() {
-    }
-
-    /**
      * Test the getId() method.
      */
     @Test
     public void testGetId() {
         makeTile();
         assertEquals(2, testTile.getId());
-    }
-
-    /**
-     * test the createUserTiles() method.
-     */
-    @Test
-    public void testCreateUserTiles() {
     }
 
     /**

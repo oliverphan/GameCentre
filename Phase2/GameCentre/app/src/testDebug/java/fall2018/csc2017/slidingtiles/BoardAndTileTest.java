@@ -50,9 +50,9 @@ public class BoardAndTileTest {
     @Test
     public void testIsSolved() {
         setUpCorrect();
-        assertTrue(slidingBoardManager.gameFinished());
+        assertTrue(!slidingBoardManager.gameFinished());
         swapFirstTwoTiles();
-        assertFalse(slidingBoardManager.gameFinished());
+        assertFalse(!slidingBoardManager.gameFinished());
     }
 
     /**
