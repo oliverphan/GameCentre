@@ -3,10 +3,10 @@ package fall2018.csc2017.slidingtiles;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 
-import fall2018.csc2017.common.Token;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import fall2018.csc2017.common.Token;
 
 
 /**

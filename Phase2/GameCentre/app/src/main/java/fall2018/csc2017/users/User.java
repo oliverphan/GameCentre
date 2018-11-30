@@ -49,11 +49,12 @@ public class User implements Serializable {
         return this.username;
     }
 
-    private void initializeScores(){
+    private void initializeScores() {
         scores.put("Sliding Tiles", 0);
         scores.put("Connect Four", 0);
         scores.put("Matching Cards", 0);
     }
+
     /**
      * Return the password of the User.
      *

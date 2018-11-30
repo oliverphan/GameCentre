@@ -59,7 +59,7 @@ public abstract class Token implements Serializable {
      * (Sliding Tiles)
      *
      * @param backgroundId the id of the tile
-     * @param blank the id of the blank (last) tile
+     * @param blank        the id of the blank (last) tile
      */
     public Token(int backgroundId, int blank) {
         if (backgroundId + 1 == blank) {
