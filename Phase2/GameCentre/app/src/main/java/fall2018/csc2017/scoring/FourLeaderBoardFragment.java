@@ -20,7 +20,7 @@ public class FourLeaderBoardFragment extends Fragment implements SaveAndLoadFile
      */
     private LeaderBoard leaderBoard;
 
-    //    Basically onCreate
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_connectfour_leaderboard, container,
@@ -33,18 +33,12 @@ public class FourLeaderBoardFragment extends Fragment implements SaveAndLoadFile
         return view;
     }
 
-    /**
-     * Dispatch onResume() to fragments.
-     */
     @Override
     @SuppressWarnings("unchecked")
     public void onResume() {
         super.onResume();
     }
 
-    /**
-     * Dispatch onPause() to fragments.
-     */
     @Override
     public void onPause() {
         super.onPause();

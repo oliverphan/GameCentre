@@ -20,8 +20,7 @@ public class MatchingLeaderBoardFragment extends Fragment implements SaveAndLoad
      */
     private LeaderBoard leaderBoard;
 
-
-    //    Basically onCreate
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_matchingcards_leaderboard, container,
@@ -35,18 +34,12 @@ public class MatchingLeaderBoardFragment extends Fragment implements SaveAndLoad
     }
 
 
-    /**
-     * Dispatch onResume() to fragments.
-     */
     @Override
     @SuppressWarnings("unchecked")
     public void onResume() {
         super.onResume();
     }
 
-    /**
-     * Dispatch onPause() to fragments.
-     */
     @Override
     public void onPause() {
         super.onPause();
