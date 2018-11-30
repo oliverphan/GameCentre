@@ -19,7 +19,7 @@ public class Score implements Serializable {
      * Initialize a new Score object.
      *
      * @param username the name of the user that got this Score
-     * @param value the value of this score
+     * @param value    the value of this score
      */
     public Score(String username, int value) {
         this.username = username;
@@ -53,6 +53,14 @@ public class Score implements Serializable {
         this.value = newScore;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Score)) {
+            return false;
+        }
+        Score obj = (Score) o;
+        return (obj.value == this.value && obj.username == this.username);
+    }
 
     @Override
     public String toString() {

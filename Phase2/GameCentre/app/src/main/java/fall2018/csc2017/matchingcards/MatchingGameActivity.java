@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -178,6 +179,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
             currentUser.getSaves().put(MatchingFragment.GAME_TITLE, matchingBoardManager);
             saveUserAccounts(userAccounts);
         }
+        updateScore();
         if (matchingBoardManager.gameFinished()) {
             gameWon = true;
             createToast("You Win!");
@@ -214,7 +216,8 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
     private void updateScore(){
         score = matchingBoardManager.generateScore();
         TextView curScore = findViewById(R.id.curScore);
-        curScore.setText(String.valueOf(score));
+        String temp = "Score: " + String.valueOf(score);
+        curScore.setText(temp);
     }
 
     /**

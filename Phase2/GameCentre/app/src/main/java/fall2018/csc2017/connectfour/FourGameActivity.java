@@ -242,7 +242,8 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
     private void updateScore(){
         int score = fourBoardManager.generateScore();
         TextView curScore = findViewById(R.id.curScore);
-        curScore.setText(String.valueOf(score));
+        String temp = "Score: " + String.valueOf(score);
+        curScore.setText(temp);
     }
 
     @Override

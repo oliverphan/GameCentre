@@ -29,7 +29,9 @@ public interface ScoreDisplay {
                 String uri = "user" + i;
                 Field field = res.getField(uri);
                 TextView user = view.findViewById(field.getInt(null));
-                user.setText(tempScores.get(i - 1).toString());
+                if (tempScores.get(i - 1).getValue() > 0) {
+                    user.setText(tempScores.get(i - 1).toString());
+                }
             }
         } catch (Exception e) {
             Log.e("Drawable Access", "Cannot access the drawable", e);
