@@ -232,7 +232,7 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
         if (slidingBoardManager.gameFinished()) {
             gameWon = true;
             createToast("You Win!");
-            updateLeaderBoard("Matching Cards", new Score(currentUser.getName(),
+            updateLeaderBoard("Sliding Tiles", new Score(currentUser.getName(),
                     score));
         }
         display();

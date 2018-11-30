@@ -138,7 +138,7 @@ public interface SaveAndLoadFiles {
             Log.e("leaderboard activity", "File contained unexpected data type: "
                     + e.toString());
         }
-        return null;
+        return new LeaderBoard();
     }
 
     /**
