@@ -118,12 +118,18 @@ public class SlidingGameActivity extends AppCompatActivity implements Observer, 
 
     }
 
-    private void initializeUsers(){
+    /**
+     * A helper method to initialize the user information.
+     */
+    private void initializeUsers() {
         userAccounts = loadUserAccounts();
         currentUser = userAccounts.get(loadCurrentUsername());
     }
 
-    private void initializeGrid(){
+    /**
+     * A helper method to initialize the view grid.
+     */
+    private void initializeGrid() {
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(difficulty);
         gridView.setBoardManager(slidingBoardManager);
