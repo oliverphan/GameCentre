@@ -49,11 +49,15 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
      */
     private Map<String, User> userAccounts;
 
+    /**
+     * String to signify Game Start
+     */
+    private String startMessage = "Game Start";
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_matching, container, false);
-        //Bundle args = getArguments();
         userAccounts = loadUserAccounts();
         currentUser = userAccounts.get(loadCurrentUsername());
         addLaunchGame3Listener(view);
@@ -71,7 +75,7 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
         Button startButton = view.findViewById(R.id.launchGame43);
         startButton.setOnClickListener(v -> {
             matchingBoardManager = new MatchingBoardManager(3);
-            createToast("Game Start");
+            createToast(startMessage);
             switchToMatchingGameActivity();
         });
     }
@@ -83,7 +87,7 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
         Button startButton = view.findViewById(R.id.launchGame44);
         startButton.setOnClickListener(v -> {
             matchingBoardManager = new MatchingBoardManager(4);
-            createToast("Game Start");
+            createToast(startMessage);
             switchToMatchingGameActivity();
         });
     }
@@ -95,7 +99,7 @@ public class MatchingFragment extends Fragment implements SaveAndLoadFiles, Save
         Button startButton = view.findViewById(R.id.launchGame45);
         startButton.setOnClickListener(v -> {
             matchingBoardManager = new MatchingBoardManager(5);
-            createToast("Game Start");
+            createToast(startMessage);
             switchToMatchingGameActivity();
         });
     }

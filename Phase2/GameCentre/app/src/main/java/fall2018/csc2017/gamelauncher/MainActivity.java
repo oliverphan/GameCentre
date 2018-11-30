@@ -17,6 +17,9 @@ import fall2018.csc2017.common.SectionsPageAdapter;
 
 public class MainActivity extends AppCompatActivity implements SaveAndLoadFiles {
 
+    /**
+     * TAG for this container activity
+     */
     private static final String TAG = "Main";
 
     /**
@@ -54,6 +57,15 @@ public class MainActivity extends AppCompatActivity implements SaveAndLoadFiles 
     }
 
     /**
+     * Display the Current user's username.
+     */
+    private void displayCurrentUser() {
+        TextView displayName = findViewById(R.id.tv_CurrentUser);
+        String temp = "Logged in as " + currentUser;
+        displayName.setText(temp);
+    }
+
+    /**
      * Activate the log out button.
      */
     private void addLogOutButtonListener() {
@@ -71,15 +83,6 @@ public class MainActivity extends AppCompatActivity implements SaveAndLoadFiles 
         finish();
     }
 
-    /**
-     * Display the Current user's username.
-     */
-    private void displayCurrentUser() {
-        TextView displayName = findViewById(R.id.tv_CurrentUser);
-        String temp = "Logged in as " + currentUser;
-        displayName.setText(temp);
-    }
-
     @Override
     public void onBackPressed() {
         createToast("To logout press LOGOUT");
@@ -93,6 +96,11 @@ public class MainActivity extends AppCompatActivity implements SaveAndLoadFiles 
                 this, msg, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Passes context of the activity to utility interface
+     *
+     * @return Context of current activity
+     */
     public Context getActivity() {
         return this;
     }

@@ -49,10 +49,14 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveA
      */
     private Map<String, User> userAccounts;
 
+    /**
+     * String to signify Game Start
+     */
+    private String startMessage = "Game Start";
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_slidingtiles, container, false);
-        //Bundle args = getArguments();
         userAccounts = loadUserAccounts();
         currentUser = userAccounts.get(loadCurrentUsername());
         addLeaderBoardListener(view);
@@ -70,7 +74,7 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveA
         Button launchGame3Button = view.findViewById(R.id.LaunchGame3);
         launchGame3Button.setOnClickListener(v -> {
             slidingBoardManager = new SlidingBoardManager(3);
-            createToast("Game Start");
+            createToast(startMessage);
             switchToSlidingTileGameActivity();
         });
     }
@@ -82,7 +86,7 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveA
         Button launchGame4Button = view.findViewById(R.id.LaunchGame4);
         launchGame4Button.setOnClickListener(v -> {
             slidingBoardManager = new SlidingBoardManager(4);
-            createToast("Game Start");
+            createToast(startMessage);
             switchToSlidingTileGameActivity();
         });
     }
@@ -94,7 +98,7 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveA
         Button launchGame5Button = view.findViewById(R.id.LaunchGame5);
         launchGame5Button.setOnClickListener(v -> {
             slidingBoardManager = new SlidingBoardManager(5);
-            createToast("Game Start");
+            createToast(startMessage);
             switchToSlidingTileGameActivity();
         });
     }
