@@ -10,18 +10,12 @@ public class FourBoard extends Board<Piece> {
     Piece[][] pieces;
 
     /**
-     * The current player making the move. 1 for the player, 2 for the computer
-     */
-    int curPlayer;
-
-    /**
      * Initialize a new FourBoard with empty pieces.
      */
     FourBoard() {
         super();
         this.pieces = super.tokens;
         createBoard();
-        curPlayer = 1;
     }
 
     /**
@@ -179,16 +173,12 @@ public class FourBoard extends Board<Piece> {
      */
     void placePiece(int col, int player) {
         pieces[col][openRow(col)].setPlayer(player);
-        switchPlayer();
         setChanged();
         notifyObservers();
     }
 
-    /**
-     * Switch to the next player's turn.
-     */
-    void switchPlayer() {
-        curPlayer = curPlayer == 1 ? 2 : 1;
+    void makeDupeMove(int col, int player) {
+        pieces[col][openRow(col)].setPlayer(player);
     }
 
     /**
