@@ -52,14 +52,14 @@ public interface SaveAndLoadFiles {
                 return result;
             }
         } catch (FileNotFoundException e) {
-            return new HashMap<>();
+            Log.e("load user accounts", "File does not exist: " + e.toString());
         } catch (IOException e) {
             Log.e("load user accounts", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
             Log.e("load user accounts", "File contained unexpected data type: "
                     + e.toString());
         }
-        return null;
+        return new HashMap<>();
     }
 
     /**
