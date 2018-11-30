@@ -107,7 +107,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
                         firstCard = null;
                         board.flipCard(checkCard);
                         this.undoUsed = true;
-                        numMoves--;
+                        numMoves-= difficulty;
                     }
                 }
             }
