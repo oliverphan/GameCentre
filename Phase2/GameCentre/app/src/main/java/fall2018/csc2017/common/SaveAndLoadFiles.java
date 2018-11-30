@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import fall2018.csc2017.scoring.LeaderBoard;
+import fall2018.csc2017.scoring.Score;
 import fall2018.csc2017.users.User;
 
 /**
@@ -158,6 +159,18 @@ public interface SaveAndLoadFiles {
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
+    }
+
+    /**
+     * Update the LeaderBoard once a game is finished.
+     *
+     * @param gameName the name of the game to be possibly updated
+     * @param score the Score object tied to the User that generated it
+     */
+    default void updateLeaderBoard(String gameName, Score score) {
+        LeaderBoard tmp = loadLeaderBoard();
+        tmp.updateScores(gameName, score);
+        saveLeaderBoard(tmp);
     }
 
     Context getActivity();
