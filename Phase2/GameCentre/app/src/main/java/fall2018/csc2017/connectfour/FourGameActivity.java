@@ -138,7 +138,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
         updateScore();
         if (fourBoardManager.gameFinished()) {
             createToast(checkEndGameCondition());
-            updateLeaderBoard("Matching Cards", new Score(currentUser.getName(),
+            updateLeaderBoard("Connect Four", new Score(currentUser.getName(),
                     fourBoardManager.generateScore()));
         }
         display();
