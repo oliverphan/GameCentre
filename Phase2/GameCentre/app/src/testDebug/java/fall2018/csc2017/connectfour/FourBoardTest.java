@@ -28,6 +28,7 @@ public class FourBoardTest {
         Piece[][] testPieces = new Piece[fourBoard.getNumCols()][fourBoard.getNumRows()];
         for (int col = 0; col < fourBoard.getNumCols(); col++) {
             for (int row = 0; row < fourBoard.getNumRows(); row++) {
+                testPieces[col][row] = new Piece();
                 testPieces[col][row].setPlayer(1);
             }
         }
@@ -93,7 +94,7 @@ public class FourBoardTest {
         makeEmptyBoard();
         fourBoard.placePiece(1, 1);
         //place a piece in column 1 from player 1
-        Piece piece = fourBoard.getPiece(1, fourBoard.getNumRows());
+        Piece piece = fourBoard.getPiece(1, fourBoard.getNumRows()-1);
         assertEquals(1, piece.getPlayer());
         assertEquals(2, fourBoard.curPlayer);
     }
@@ -116,10 +117,10 @@ public class FourBoardTest {
     public void getPiece() {
         makeEmptyBoard();
         fourBoard.placePiece(1, 1);
-        Piece piece = fourBoard.getPiece(1, fourBoard.getNumRows());
+        Piece piece = fourBoard.getPiece(1, fourBoard.getNumRows()-1);
         assertEquals(1, piece.getPlayer());
         // Get an empty piece.
-        Piece emptyPiece = fourBoard.getPiece(2, fourBoard.getNumRows());
+        Piece emptyPiece = fourBoard.getPiece(2, fourBoard.getNumRows()-1);
         assertEquals(0, emptyPiece.getPlayer());
 
     }

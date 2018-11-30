@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/baumans"
-            android:text="Leaderboard"
+            android:text="@string/leaderboard"
             android:textAlignment="center"
             android:textColor="@color/color_accent_2"
             android:textColorLink="@android:color/background_light"

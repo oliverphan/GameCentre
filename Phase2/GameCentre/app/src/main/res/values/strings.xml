@@ -34,4 +34,6 @@
     <string name="leaderboard_fourth_place">4.</string>
     <string name="leaderboard_fifth_place">5.</string>
     <string name="leaderboard_user_score_label">Your Highscore:</string>
+    <string name="log_out">LOGOUT</string>
+    <string name="leaderboard">Leaderboard</string>
 </resources>
