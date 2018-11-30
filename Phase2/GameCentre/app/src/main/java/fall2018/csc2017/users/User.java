@@ -7,30 +7,31 @@ import java.util.Map;
 public class User implements Serializable {
 
     /**
-     * The username of this user.
+     * The username of this User.
      */
     private String username;
 
     /**
-     * The password for this user.
+     * The password for this User.
      */
     private String password;
 
     /**
-     * A HashMap storing all the scores for this user with key gameName and value scoreValue
+     * A HashMap for storing all of this Users scores, with key gameName, and value scoreValue.
      */
     private Map<String, Integer> scores;
 
     /**
-     * A HashMap storing all the saves for this user with key gameName and value (the save file).
+     * A HashMap  for storing all of this Users saves, with key gameName, and value being
+     * a BoardManager for a game state.
      */
     private Map<String, Object> saves;
 
     /**
-     * Constructor for a non-guest User. Which adds itself to the GameLaunchCentre.
+     * Constructor for a non-guest User. Which is added into the GameLaunchCentre.
      *
-     * @param username username for User.
-     * @param password password for User that is immediately hashed for security.
+     * @param username the username for User
+     * @param password the password for User
      */
     public User(String username, String password) {
         this.username = username;
@@ -41,9 +42,9 @@ public class User implements Serializable {
     }
 
     /**
-     * Return the username of the User.
+     * Returns the username of this User.
      *
-     * @return username String
+     * @return this Users username value
      */
     public String getName() {
         return this.username;
@@ -65,19 +66,21 @@ public class User implements Serializable {
     }
 
     /**
-     * Return the HashMap of scores for this user.
+     * Return the Scores for this User.
      *
-     * @return HashMap of scores.
+     * @return aHashMap of scores for all games which this User has played
      */
     public Map<String, Integer> getScores() {
         return scores;
     }
 
     /**
-     * Saves user score if no score exists or new score is higher than previous.
+     * Saves a Users score for a the game game, if the score score is higher than an existing
+     * score, the old one is replaced. If the User has not played that game before, the score
+     * and game are added into scores.
      *
-     * @param game  game name
-     * @param score new score passed in
+     * @param game  the name of the game to update the score of
+     * @param score the value of the score earned in game
      */
     public void setNewScore(String game, int score) {
         if (scores.containsKey(game)) {
@@ -90,9 +93,9 @@ public class User implements Serializable {
     }
 
     /**
-     * Return the HashMap of saves for this user.
+     * Return the saves for this user, in game name, score pairs.
      *
-     * @return HashMap of saves.
+     * @return all of the saves for every game that this User has played.
      */
     public Map<String, Object> getSaves() {
         return saves;
@@ -101,17 +104,17 @@ public class User implements Serializable {
     /**
      * Delete the save for the indicated game.
      *
-     * @param game game name
+     * @param game the name of the game to delete a save of
      */
     public void deleteSave(String game) {
         saves.remove(game);
     }
 
     /**
-     * Store the board manager for the indicated game.
+     * Store the BoardManager of a game in this Users save file.
      *
-     * @param game         game name
-     * @param boardManager the board manager to save to this user
+     * @param game         the name of the game to write a save for
+     * @param boardManager the BoardManager to be saved
      */
     public void writeGame(String game, Object boardManager) {
         saves.put(game, boardManager);

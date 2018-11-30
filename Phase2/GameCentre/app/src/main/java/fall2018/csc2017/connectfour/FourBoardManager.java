@@ -8,7 +8,7 @@ import fall2018.csc2017.common.BoardManager;
 
 public class FourBoardManager extends BoardManager<FourBoard> {
     /**
-     * The computer player for this manager
+     * The computer player for this BoardManager.
      */
     private ComputerPlayer ai;
 
@@ -16,6 +16,7 @@ public class FourBoardManager extends BoardManager<FourBoard> {
      * The current player in the game.
      */
     private int curPlayer;
+
 
     /**
      * Create a FourBoardManager with the selected difficulty.
@@ -31,7 +32,7 @@ public class FourBoardManager extends BoardManager<FourBoard> {
     }
 
     /**
-     * Getter for current player
+     * Getter for current player.
      *
      * @return int representing current player
      */
@@ -57,13 +58,13 @@ public class FourBoardManager extends BoardManager<FourBoard> {
     }
 
     /**
-     * Calls AI to make a move (with added sleep delay for better player experience)
+     * Calls AI to make a move (with added sleep delay for better player experience).
      */
     void makeAIMove() {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-                board.placePiece(ai.getComputerMove(), 2);
-                switchPlayer();
+            board.placePiece(ai.getComputerMove(), 2);
+            switchPlayer();
         }, 500);
     }
 
@@ -85,37 +86,22 @@ public class FourBoardManager extends BoardManager<FourBoard> {
         return 42;
     }
 
-    /**
-     * Returns if the game is finished whether the board is full or there is a winner
-     *
-     * @return true if the game is finished
-     */
     @Override
     protected boolean gameFinished() {
         return board.isBoardFull() || board.isWinner(1) || board.isWinner(2);
     }
 
-    /**
-     * Checks whether current tap is valid
-     *
-     * @param position the position tapped
-     * @return boolean whether the tap is valid or not
-     */
     @Override
-    protected boolean isValidTap(int position) {
-        int col = position % board.getNumCols();
-        return board.openRow(col) > -1 && curPlayer == 1;
-    }
-
-    /**
-     * Completes move that is selected
-     *
-     * @param position the position tapped
-     */
     protected void touchMove(int position) {
         int col = position % board.getNumCols();
         numMoves++;
         board.placePiece(col, 1);
         switchPlayer();
+    }
+
+    @Override
+    protected boolean isValidTap(int position) {
+        int col = position % board.getNumCols();
+        return board.openRow(col) > -1 && curPlayer == 1;
     }
 }

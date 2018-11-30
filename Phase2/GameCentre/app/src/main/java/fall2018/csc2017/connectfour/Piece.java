@@ -4,9 +4,10 @@ import fall2018.csc2017.R;
 import fall2018.csc2017.common.Token;
 
 /**
- * The Piece in a Connect Four game.
+ * A Piece in a Connect Four game.
  */
 public class Piece extends Token {
+
     /**
      * Player that the piece belongs to.
      */
@@ -22,7 +23,7 @@ public class Piece extends Token {
     }
 
     /**
-     * Getter to return the player that this Piece belongs to.
+     * Returns the player that this Piece belongs to.
      *
      * @return player that owns this piece (1: User, 2: AI, 0: empty)
      */
@@ -33,7 +34,7 @@ public class Piece extends Token {
     /**
      * Set a new player that owns this Piece
      *
-     * @param player int to designate the player that owns this Piece
+     * @param player integer value to designate the player that owns this Piece
      */
     void setPlayer(int player) {
         this.player = player;

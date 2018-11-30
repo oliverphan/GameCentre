@@ -9,7 +9,7 @@ import java.util.Stack;
 import fall2018.csc2017.common.BoardManager;
 
 /**
- * Manage a slidingBoard, including swapping tiles, checking for a win, and managing taps.
+ * Manage a SlidingBoard, including swapping Tiles, checking for a win, and managing taps.
  */
 public class SlidingBoardManager extends BoardManager<SlidingBoard> {
 
@@ -30,9 +30,9 @@ public class SlidingBoardManager extends BoardManager<SlidingBoard> {
     private final int numTiles;
 
     /**
-     * Manage a new shuffled slidingBoard with difficulty d.
+     * Manage a new shuffled SlidingBoard with difficulty d.
      *
-     * @param difficulty the difficulty.
+     * @param difficulty the difficulty
      */
     public SlidingBoardManager(int difficulty) {
         super(difficulty);
@@ -43,75 +43,10 @@ public class SlidingBoardManager extends BoardManager<SlidingBoard> {
     }
 
     /**
-     * The score is calculated by (difficulty^2)*100 - (number of moves).
-     * The score cannot be less than 0.
+     * Set the difficulty for the SlidingBoard, and generate a new SlidingBoard based
+     * on the difficulty.
      *
-     * @return the calculated score.
-     */
-    @Override
-    public int generateScore() {
-        return Math.max((((difficulty * difficulty) * 100) - numMoves), 0);
-    }
-
-    /**
-     * Return whether the tiles are in row-major order.
-     *
-     * @return whether the tiles are in row-major order
-     */
-    @Override
-    protected boolean gameFinished() {
-        Iterator<Tile> puzzleIterator = board.iterator();
-        int curId = 1;
-        Tile t = puzzleIterator.next();
-        while (curId < board.numTiles()) {
-            if (t.getId() != curId) {
-                return false;
-            }
-            t = puzzleIterator.next();
-            curId++;
-        }
-        return true;
-    }
-
-    /**
-     * Return whether any of the four surrounding tiles is the blank tile.
-     *
-     * @param position the tile to check
-     * @return whether the tile at position is surrounded by a blank tile
-     */
-    protected boolean isValidTap(int position) {
-        int row = position / board.getNumCols();
-        int col = position % board.getNumCols();
-        Tile above = row == 0 ? null : board.getTile(row - 1, col);
-        Tile below = row == board.getNumRows() - 1 ? null : board.getTile(row + 1, col);
-        Tile left = col == 0 ? null : board.getTile(row, col - 1);
-        Tile right = col == board.getNumCols() - 1 ? null : board.getTile(row, col + 1);
-        return (below != null && below.getId() == numTiles)
-                || (above != null && above.getId() == numTiles)
-                || (left != null && left.getId() == numTiles)
-                || (right != null && right.getId() == numTiles);
-    }
-
-    /**
-     * Process a touch at position in the slidingBoard, swapping tiles as appropriate.
-     *
-     * @param position the position
-     */
-    protected void touchMove(int position) {
-        int row = position / board.getNumRows();
-        int col = position % board.getNumCols();
-        int[] move = findBlank(position);
-        int[] cordPair = {row, col, move[0], move[1]};
-        previousMoves.push(cordPair);
-        numMoves += 1;
-        board.swapTiles(row, col, move[0], move[1]);
-    }
-
-    /**
-     * Set the difficulty for the slidingBoard, and
-     * generate a new slidingBoard based on the difficulty.
-     *
-     * @param d the difficulty of the slidingBoard.
+     * @param d the difficulty of the SlidingBoard.
      */
     private void setDifficulty(int d) {
         List<Tile> tiles = new ArrayList<>();
@@ -123,9 +58,9 @@ public class SlidingBoardManager extends BoardManager<SlidingBoard> {
     }
 
     /**
-     * Shuffles tiles from solvable position so puzzle always has solution.
+     * Shuffles Tiles from solvable position so puzzle always has solution.
      *
-     * @param d difficulty of slidingBoard
+     * @param d difficulty of SlidingBoard
      */
     private void shuffle(int d) {
         int[] blankPos = {d - 1, d - 1};
@@ -138,11 +73,11 @@ public class SlidingBoardManager extends BoardManager<SlidingBoard> {
     }
 
     /**
-     * Helper method for shuffling solvable slidingBoard.
+     * Helper method for shuffling solvable sSlidingBoard.
      *
-     * @param row row of target tile
-     * @param col column of target tile
-     * @return list of valid moves for target tile
+     * @param row row of target Tile
+     * @param col column of target Tile
+     * @return list of valid moves for target Tile
      */
     private ArrayList<int[]> validShuffles(int row, int col) {
         ArrayList<int[]> moves = new ArrayList<>();
@@ -187,7 +122,7 @@ public class SlidingBoardManager extends BoardManager<SlidingBoard> {
      * Finds the row and column of the blank tile to setup the valid swap.
      *
      * @param position the clicked position.
-     * @return int[row, column] of the blank tile.
+     * @return int[row, column] of the blank Tile.
      */
     private int[] findBlank(int position) {
         Iterator<Tile> blankIterator = board.iterator();
@@ -200,5 +135,54 @@ public class SlidingBoardManager extends BoardManager<SlidingBoard> {
         return new int[]{blankFoundAt / board.getNumRows(), blankFoundAt % board.getNumCols()};
     }
 
+    /**
+     * The score is calculated by (difficulty^2)*100 - (number of moves).
+     * The score cannot be less than 0.
+     *
+     * @return the calculated score
+     */
+    @Override
+    public int generateScore() {
+        return Math.max((((difficulty * difficulty) * 100) - numMoves), 0);
+    }
 
+    @Override
+    protected boolean gameFinished() {
+        Iterator<Tile> puzzleIterator = board.iterator();
+        int curId = 1;
+        Tile t = puzzleIterator.next();
+        while (curId < board.numTiles()) {
+            if (t.getId() != curId) {
+                return false;
+            }
+            t = puzzleIterator.next();
+            curId++;
+        }
+        return true;
+    }
+
+    @Override
+    protected void touchMove(int position) {
+        int row = position / board.getNumRows();
+        int col = position % board.getNumCols();
+        int[] move = findBlank(position);
+        int[] cordPair = {row, col, move[0], move[1]};
+        previousMoves.push(cordPair);
+        numMoves += 1;
+        board.swapTiles(row, col, move[0], move[1]);
+    }
+
+    @Override
+    protected boolean isValidTap(int position) {
+        int row = position / board.getNumCols();
+        int col = position % board.getNumCols();
+        Tile above = row == 0 ? null : board.getTile(row - 1, col);
+        Tile below = row == board.getNumRows() - 1 ? null : board.getTile(row + 1, col);
+        Tile left = col == 0 ? null : board.getTile(row, col - 1);
+        Tile right = col == board.getNumCols() - 1 ? null : board.getTile(row, col + 1);
+        return (below != null && below.getId() == numTiles)
+                || (above != null && above.getId() == numTiles)
+                || (left != null && left.getId() == numTiles)
+                || (right != null && right.getId() == numTiles);
+    }
 }

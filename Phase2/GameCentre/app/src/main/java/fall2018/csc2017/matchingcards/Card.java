@@ -9,7 +9,7 @@ import fall2018.csc2017.R;
 import fall2018.csc2017.common.Token;
 
 /**
- * A card for the Concentration game.
+ * A Card in a Matching Cards game.
  */
 public class Card extends Token implements Serializable {
 
@@ -19,15 +19,22 @@ public class Card extends Token implements Serializable {
     private int id;
 
     /**
-     * whether or not this Card is face down.
+     * Whether or not this Card is face down.
      */
     private boolean faceDown;
 
     /**
-     * Whether or not this Card has been matched during a Concentration game.
+     * Whether or not this Card has been matched during a Matching Cards game.
      */
     private boolean matched;
 
+
+    /**
+     * A Card with a background id. Sets each new Card to be facing down and unmatched.
+     * Sets the 'back' of the Cards to all be the same.
+     *
+     * @param backgroundId the background id of the Card to create
+     */
     Card(int backgroundId) {
         super(backgroundId + 1);
         this.id = backgroundId + 1;

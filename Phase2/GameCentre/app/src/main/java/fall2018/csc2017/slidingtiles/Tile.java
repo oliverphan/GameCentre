@@ -10,14 +10,13 @@ import fall2018.csc2017.common.Token;
 
 
 /**
- * A Tile in a sliding tiles puzzle.
+ * A Tile in a Sliding Tiles puzzle.
  */
 public class Tile extends Token implements Comparable<Tile> {
 
     /**
-     * The HashMap of Tile Ids and user provided backgrounds.
+     * The HashMap of Tile Ids and slices of a User provided background.
      */
-    @SuppressWarnings("all")
     private static Map<Integer, Bitmap> userTiles = new HashMap<>();
 
     /**
@@ -25,8 +24,9 @@ public class Tile extends Token implements Comparable<Tile> {
      */
     private int id;
 
+
     /**
-     * A tile with a background id; look up and set the id.
+     * A tile with a background id; looks up and sets the id.
      * Adapted from
      * http://daniel-codes.blogspot.com/2009/12/dynamically-retrieving-resources-in.html
      *
@@ -39,6 +39,15 @@ public class Tile extends Token implements Comparable<Tile> {
     }
 
     /**
+     * Returns the id value of this Tile.
+     *
+     * @return the this Tiles id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
      * Return the slice of the user image created for this Tile.
      *
      * @return Bitmap slice of user image
@@ -48,19 +57,10 @@ public class Tile extends Token implements Comparable<Tile> {
     }
 
     /**
-     * Return the tile id.
+     * Slices and stores a user provided image to use as Tile images.
      *
-     * @return the tile id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * Slices and stores a user provided image to use on tiles
-     *
-     * @param image User provided image
-     * @param diff  Difficulty of the game
+     * @param image the user provided image
+     * @param diff  the difficulty of the current game
      */
     void createUserTiles(Bitmap image, int diff) {
         int width = 247;
@@ -75,7 +75,6 @@ public class Tile extends Token implements Comparable<Tile> {
                     width * col, height * row, width, height));
         }
     }
-
 
     @Override
     public int compareTo(@NonNull Tile o) {

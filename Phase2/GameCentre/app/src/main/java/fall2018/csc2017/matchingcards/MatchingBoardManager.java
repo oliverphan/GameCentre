@@ -55,7 +55,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
     }
 
     /**
-     * Set the difficulty for this MatchingBoard, and generate a new board based on the difficulty.
+     * Set the difficulty for this MatchingBoard, and generate a new Board based on the difficulty.
      */
     private void setDifficulty() {
         List<Card> cards = new ArrayList<>();
@@ -87,6 +87,15 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
     }
 
     /**
+     * Return whether or not undo has been used in this game.
+     *
+     * @return if the undo button has been used, or not
+     */
+    boolean undoUsed() {
+        return this.undoUsed;
+    }
+
+    /**
      * Undo a move if there is an undo move slot left.
      */
     void undoMove() {
@@ -103,70 +112,6 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
                 }
             }
         }
-    }
-
-    /**
-     * Return whether or not undo has been used in this game.
-     *
-     * @return if the undo button has been used, or not
-     */
-    boolean undoUsed() {
-        return this.undoUsed;
-    }
-
-
-    /**
-     * The score is calculated by (100 * numCards) - (numMoves * 100).
-     */
-    @Override
-    public int generateScore() {
-        int score = (100 * numCards) - (numMoves * 10);
-        if (score >= 0) {
-            return score;
-        }
-        return 0;
-    }
-
-    @Override
-    protected boolean isValidTap(int position) {
-        int row = position / difficulty;
-        int col = position % difficulty;
-        Card toTap = board.getCard(row, col);
-        return toTap.isFaceDown() && !toTap.isMatched() && !pausing;
-    }
-
-    @Override
-    protected void touchMove(int position) {
-        int row = position / difficulty;
-        int col = position % difficulty;
-
-        if (null == firstCard) {
-            firstCard = board.getCard(row, col);
-            numMoves++;
-            board.flipCard(firstCard);
-        } else {
-            secondCard = board.getCard(row, col);
-            numMoves++;
-            board.flipCard(secondCard);
-            checkMatched();
-        }
-    }
-
-    /**
-     * Check whether the game is finished by matching all the Cards.
-     *
-     * @return whether all the Cards have been matched
-     */
-    @Override
-    protected boolean gameFinished() {
-        for (Card[] row : board.getCards()) {
-            for (Card c : row) {
-                if (!c.isMatched()) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     /**
@@ -192,5 +137,54 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
             }, 200);
             pausing = false;
         }
+    }
+
+    /**
+     * The score is calculated by (10 * difficulty * numCards) - (numMoves * 10).
+     */
+    @Override
+    public int generateScore() {
+        int score = (10 * difficulty * numCards) - (numMoves * 10);
+        if (score >= 0) {
+            return score;
+        }
+        return 0;
+    }
+
+    @Override
+    protected boolean gameFinished() {
+        for (Card[] row : board.getCards()) {
+            for (Card c : row) {
+                if (!c.isMatched()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    protected void touchMove(int position) {
+        int row = position / difficulty;
+        int col = position % difficulty;
+
+        if (null == firstCard) {
+            firstCard = board.getCard(row, col);
+            numMoves++;
+            board.flipCard(firstCard);
+        } else {
+            secondCard = board.getCard(row, col);
+            numMoves++;
+            board.flipCard(secondCard);
+            checkMatched();
+        }
+    }
+
+    @Override
+    protected boolean isValidTap(int position) {
+        int row = position / difficulty;
+        int col = position % difficulty;
+        Card toTap = board.getCard(row, col);
+        return toTap.isFaceDown() && !toTap.isMatched() && !pausing;
     }
 }
