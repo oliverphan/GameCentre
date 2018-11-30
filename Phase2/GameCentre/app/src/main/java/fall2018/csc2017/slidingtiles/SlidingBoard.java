@@ -62,11 +62,4 @@ public class SlidingBoard extends Board<Tile> {
         setChanged();
         notifyObservers();
     }
-
-    @Override
-    public String toString() {
-        return "SlidingBoard{" +
-                "tiles=" + Arrays.toString(tiles) +
-                '}';
-    }
 }
