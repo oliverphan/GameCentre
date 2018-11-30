@@ -72,7 +72,7 @@ public class MatchingBoardTest {
      * Test whether the Card passed in the MatchingBoard was flipped successfully.
      */
     @Test
-    public void flipCard() {
+    public void testFlipCard() {
         makeMB();
         Card tmp = cards.get(0);
         assertTrue(tmp.isFaceDown());

@@ -12,12 +12,12 @@ public class LeaderBoardTest {
     /**
      * A LeaderBoard for testing
      */
-    LeaderBoard testLeaderBoard;
+    private LeaderBoard testLeaderBoard;
 
     /**
      * A List of scores used as 'expected'.
      */
-    List<Score> expectedScores;
+    private List<Score> expectedScores;
 
     /**
      * Makes the LeaderBoard for testing, and the expectedScores for Sliding Tiles.

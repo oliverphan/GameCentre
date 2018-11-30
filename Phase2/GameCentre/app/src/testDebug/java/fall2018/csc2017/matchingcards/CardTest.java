@@ -100,6 +100,6 @@ public class CardTest {
         makeCard();
         Card compareCard = new Card(1);
         assertEquals(testCard, compareCard);
-        assertNotEquals(testCard, "STRING");
+        assertNotEquals(testCard, "");
     }
 }
