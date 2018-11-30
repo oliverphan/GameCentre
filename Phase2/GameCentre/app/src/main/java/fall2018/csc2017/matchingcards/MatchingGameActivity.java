@@ -178,6 +178,7 @@ public class MatchingGameActivity extends AppCompatActivity implements Observer,
             currentUser.getSaves().put(MatchingFragment.GAME_TITLE, matchingBoardManager);
             saveUserAccounts(userAccounts);
         }
+        updateScore();
         if (matchingBoardManager.gameFinished()) {
             gameWon = true;
             createToast("You Win!");
