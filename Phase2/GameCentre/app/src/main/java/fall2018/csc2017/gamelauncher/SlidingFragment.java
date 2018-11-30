@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +52,7 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveA
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_slidingtiles, container, false);
-        Bundle args = getArguments();
+        //Bundle args = getArguments();
         userAccounts = loadUserAccounts();
         currentUser = userAccounts.get(loadCurrentUsername());
         addLeaderBoardListener(view);
@@ -67,13 +68,10 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveA
      */
     private void addLaunchGame3Listener(View view) {
         Button launchGame3Button = view.findViewById(R.id.LaunchGame3);
-        launchGame3Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                slidingBoardManager = new SlidingBoardManager(3);
-                createToast("Game Start");
-                switchToSlidingTileGameActivity();
-            }
+        launchGame3Button.setOnClickListener(v -> {
+            slidingBoardManager = new SlidingBoardManager(3);
+            createToast("Game Start");
+            switchToSlidingTileGameActivity();
         });
     }
 
@@ -82,13 +80,10 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveA
      */
     private void addLaunchGame4Listener(View view) {
         Button launchGame4Button = view.findViewById(R.id.LaunchGame4);
-        launchGame4Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                slidingBoardManager = new SlidingBoardManager(4);
-                createToast("Game Start");
-                switchToSlidingTileGameActivity();
-            }
+        launchGame4Button.setOnClickListener(v -> {
+            slidingBoardManager = new SlidingBoardManager(4);
+            createToast("Game Start");
+            switchToSlidingTileGameActivity();
         });
     }
 
@@ -97,13 +92,10 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveA
      */
     private void addLaunchGame5Listener(View view) {
         Button launchGame5Button = view.findViewById(R.id.LaunchGame5);
-        launchGame5Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                slidingBoardManager = new SlidingBoardManager(5);
-                createToast("Game Start");
-                switchToSlidingTileGameActivity();
-            }
+        launchGame5Button.setOnClickListener(v -> {
+            slidingBoardManager = new SlidingBoardManager(5);
+            createToast("Game Start");
+            switchToSlidingTileGameActivity();
         });
     }
 
@@ -113,14 +105,11 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveA
     private void addLoadButtonListener(View view) {
         Button loadButton = view.findViewById(R.id.LoadButton);
         final boolean saveFileExists = currentUser.getSaves().containsKey(GAME_TITLE);
-        loadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createToast("Game Loaded");
-                slidingBoardManager =
-                        (SlidingBoardManager) currentUser.getSaves().get(GAME_TITLE);
-                switchToSlidingTileGameActivity();
-            }
+        loadButton.setOnClickListener(v -> {
+            createToast("Game Loaded");
+            slidingBoardManager =
+                    (SlidingBoardManager) currentUser.getSaves().get(GAME_TITLE);
+            switchToSlidingTileGameActivity();
         });
         loadButton.setAlpha(saveFileExists ? 1.0f : 0.5f);
         loadButton.setClickable(saveFileExists);
@@ -131,12 +120,7 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveA
      */
     private void addLeaderBoardListener(View view) {
         Button scoreBoardButton = view.findViewById(R.id.LeaderBoardButton);
-        scoreBoardButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switchToLeaderBoardActivity();
-            }
-        });
+        scoreBoardButton.setOnClickListener(v -> switchToLeaderBoardActivity());
     }
 
     /**
@@ -155,6 +139,11 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveA
         Intent tmp = new Intent(getActivity(), LeaderBoardActivity.class);
         tmp.putExtra("frgToLoad", 0);
         startActivity(tmp);
+        FragmentActivity o = getActivity();
+        if (o != null)
+        {
+            o.finish();
+        }
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -172,5 +161,6 @@ public class SlidingFragment extends Fragment implements SaveAndLoadFiles, SaveA
     private void createToast(String msg) {
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
+
 
 }

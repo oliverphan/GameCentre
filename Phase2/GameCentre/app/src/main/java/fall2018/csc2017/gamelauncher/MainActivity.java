@@ -7,7 +7,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,12 +58,7 @@ public class MainActivity extends AppCompatActivity implements SaveAndLoadFiles 
      */
     private void addLogOutButtonListener() {
         Button logOutButton = findViewById(R.id.LogOutButton);
-        logOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switchToLoginActivity();
-            }
-        });
+        logOutButton.setOnClickListener(v -> switchToLoginActivity());
     }
 
     /**

@@ -7,24 +7,12 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import java.util.Map;
-
 import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.R;
 import fall2018.csc2017.gamelauncher.MainActivity;
 import fall2018.csc2017.common.SectionsPageAdapter;
-import fall2018.csc2017.users.User;
 
 public class LeaderBoardActivity extends AppCompatActivity implements SaveAndLoadFiles {
-    /**
-     * A HashMap of user accounts, by  name.
-     */
-    private Map<String, User> userAccounts;
-
-    /**
-     * The name of the current user.
-     */
-    private User currentUser;
 
     private ViewPager mViewPager;
 

@@ -169,6 +169,11 @@ public class LoginActivity extends AppCompatActivity implements SaveAndLoadFiles
     }
 
 
+    public void onBackPressed(){
+        finish();
+        System.exit(0);
+    }
+
     /**
      * @param msg The message to be displayed in the Toast.
      */
