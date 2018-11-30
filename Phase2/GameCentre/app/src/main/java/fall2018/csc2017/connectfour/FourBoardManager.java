@@ -1,8 +1,14 @@
 package fall2018.csc2017.connectfour;
 
+import android.os.Handler;
+
+import java.util.Random;
+
 import fall2018.csc2017.common.BoardManager;
 
 public class FourBoardManager extends BoardManager<FourBoard> {
+    private ComputerPlayer ai;
+    private int curPlayer;
 
     /**
      * Create a FourBoardManager with the selected difficulty.
@@ -13,6 +19,42 @@ public class FourBoardManager extends BoardManager<FourBoard> {
         super(difficulty);
         setName("Connect Four");
         board = new FourBoard();
+        curPlayer = initPlayer();
+        ai = new ComputerPlayer(board, difficulty);
+    }
+
+    public int getCurPlayer() {
+        return this.curPlayer;
+    }
+
+    private int initPlayer() {
+        int player = new Random().nextInt(2) + 1;
+        System.out.println("The player is " + player);
+        return player;
+    }
+
+    /**
+     * Switch to the next player's turn.
+     */
+    private void switchPlayer() {
+        if (curPlayer == 1) {
+            curPlayer = 2;
+            if (!gameFinished())
+                makeAIMove();
+        } else {
+            curPlayer = 1;
+        }
+    }
+
+    public void makeAIMove() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                board.placePiece(ai.getComputerMove(), 2);
+                switchPlayer();
+            }
+        }, 500);
     }
 
     /**
@@ -23,8 +65,12 @@ public class FourBoardManager extends BoardManager<FourBoard> {
      */
     @Override
     public int generateScore() {
-        return board.isWinner(2) ? 0 : 100 * (difficulty + 1)
-                - (numMoves * (4 - difficulty));
+        if (!board.isBoardFull()) {
+            if (board.isWinner(2))
+                return 0;
+            return 100 * (difficulty + 1) - (numMoves * (4 - difficulty));
+        }
+        return 42;
     }
 
     /**
@@ -46,7 +92,7 @@ public class FourBoardManager extends BoardManager<FourBoard> {
     @Override
     protected boolean isValidTap(int position) {
         int col = position % board.getNumCols();
-        return board.openRow(col) > -1;
+        return board.openRow(col) > -1 && curPlayer == 1;
     }
 
     /**
@@ -56,9 +102,8 @@ public class FourBoardManager extends BoardManager<FourBoard> {
      */
     protected void touchMove(int position) {
         int col = position % board.getNumCols();
-        if (board.openRow(col) > -1) {
-            numMoves++;
-            board.placePiece(col, board.curPlayer);
-        }
+        numMoves++;
+        board.placePiece(col, 1);
+        switchPlayer();
     }
 }
