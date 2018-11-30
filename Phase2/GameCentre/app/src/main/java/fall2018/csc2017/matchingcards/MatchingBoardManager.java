@@ -115,6 +115,9 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
     }
 
 
+    /**
+     * The score is calculated by (100 * numCards) - (numMoves * 100).
+     */
     @Override
     public int generateScore() {
         int score = (100 * numCards) - (numMoves * 10);

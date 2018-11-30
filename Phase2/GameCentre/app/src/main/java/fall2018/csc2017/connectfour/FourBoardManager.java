@@ -68,8 +68,10 @@ public class FourBoardManager extends BoardManager<FourBoard> {
     }
 
     /**
-     * Generate the score for the current game
-     * a more difficult game yields a higher score, losing subtracts a higher amount from score
+     * Generate the score for the current game.
+     * The score is calculated by 100 * (difficulty + 1) - (numMoves * (4 - difficulty)).
+     * If the player loses, they automatically get a score of 0.
+     * If there is a draw, the player is given a score of 42.
      *
      * @return the score generated
      */
