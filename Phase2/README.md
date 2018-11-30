@@ -33,7 +33,17 @@
  + cd $HOME/.gradle/caches
  + rm -rf $HOME/.gradle/caches, then re-open Android Studio
 
-## Functionalities Implemented
+## Scoreboard
+---
++ Design of scoreboard:
+
+## Most Important Classes
+---
++ 
+
+## Design Patterns Used
+ 
+## Other Functionalities Implemented
 ---
 + Login and Sign in using username and password
 + The User is able to:
