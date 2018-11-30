@@ -87,7 +87,7 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
     }
 
     /**
-     * Undo a move if there is an undo move left.
+     * Undo a move if there is an undo move slot left.
      */
     void undoMove() {
         if (!undoUsed) {
@@ -149,6 +149,11 @@ public class MatchingBoardManager extends BoardManager<MatchingBoard> {
         }
     }
 
+    /**
+     * Check whether the game is finished by matching all the Cards.
+     *
+     * @return whether all the Cards have been matched
+     */
     @Override
     protected boolean gameFinished() {
         for (Card[] row : board.getCards()) {
