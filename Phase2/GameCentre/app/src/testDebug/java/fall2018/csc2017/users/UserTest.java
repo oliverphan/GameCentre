@@ -51,7 +51,7 @@ public class UserTest {
     }
 
     /**
-     * Tests teh setNewScore() method.
+     * Tests the setNewScore() method.
      */
     @Test
     public void testSetNewScore() {
@@ -63,5 +63,16 @@ public class UserTest {
         testUser.setNewScore("Connect Four", 1000);
         expected = 1000;
         assertEquals(expected, testUser.getScores().get("Connect Four"));
+    }
+
+    /**
+     * Tests the setScore() method for a game which doesn't exist.
+     */
+    @Test
+    public void testSetNewScoreNewGame() {
+        makeUser();
+        testUser.setNewScore("Test Game", 100);
+        Integer expected = 100;
+        assertEquals(expected, testUser.getScores().get("Test Game"));
     }
 }
