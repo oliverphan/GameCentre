@@ -98,6 +98,7 @@
         android:id="@+id/user_high_score"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:fontFamily="@font/baumans"
         android:text=""
         android:textColor="@color/color_accent_2"
