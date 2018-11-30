@@ -9,12 +9,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Random;
 
 import fall2018.csc2017.R;
 import fall2018.csc2017.common.CustomAdapter;
@@ -22,7 +20,6 @@ import fall2018.csc2017.common.GestureDetectGridView;
 import fall2018.csc2017.common.SaveAndLoadFiles;
 import fall2018.csc2017.common.SaveAndLoadGames;
 import fall2018.csc2017.gamelauncher.FourFragment;
-import fall2018.csc2017.scoring.LeaderBoard;
 import fall2018.csc2017.scoring.Score;
 import fall2018.csc2017.users.User;
 
@@ -39,14 +36,10 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
      */
     private List<Button> boardButtons;
 
-    /**
-     * The difficulty of the current game.
-     */
-    private int difficulty;
-
     // Grid View and calculated column height and width based on device size
     private GestureDetectGridView gridView;
-    private static int columnWidth, columnHeight;
+    private static int columnWidth;
+    private static int columnHeight;
 
     /**
      * Current user logged in.
@@ -66,7 +59,6 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
         fourBoardManager = (FourBoardManager) loadGameFromFile(FourFragment.TEMP_SAVE_FILENAME);
         updateScore();
         initializeUsers();
-        difficulty = fourBoardManager.getDifficulty();
         createBoardButtons();
         initializeGrid();
         if (fourBoardManager.getCurPlayer() == 2)
@@ -152,6 +144,10 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
         display();
     }
 
+    /**
+     * Returns the appropriate string for the toast at the end
+     * @return string that creates the toast based on endgame conditions
+     */
     private String checkEndGameCondition(){
         FourBoard board = fourBoardManager.getBoard();
         if (board.isWinner(1))
