@@ -5,7 +5,7 @@ import java.io.Serializable;
 public abstract class BoardManager<T> implements Serializable {
 
     /**
-     * The Board being Managed.
+     * The Board being managed.
      */
     protected T board;
 
@@ -24,8 +24,9 @@ public abstract class BoardManager<T> implements Serializable {
      */
     private String name;
 
+
     /**
-     * Constructor for standard board manager.
+     * Create a standard BoardManager.
      *
      * @param difficulty the difficulty for the game
      */
@@ -35,27 +36,27 @@ public abstract class BoardManager<T> implements Serializable {
     }
 
     /**
-     * Getter for the name of game.
+     * Return the name of this game.
      *
-     * @return the name of the game
+     * @return the name of this game
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Set the name of game.
+     * Set the name of this game.
      *
-     * @param s the name of the game
+     * @param s the name this game should have
      */
     protected void setName(String s) {
         name = s;
     }
 
     /**
-     * Return the current board being managed.
+     * Return the current Board being managed.
      *
-     * @return this board
+     * @return this BoardManagers Board
      */
     public T getBoard() {
         return board;
@@ -87,11 +88,18 @@ public abstract class BoardManager<T> implements Serializable {
     public abstract int generateScore();
 
     /**
-     * Return whether or not this game is finished, or won.
+     * Return whether or not this game is finished.
      *
      * @return if this game is finished (win or lose)
      */
     protected abstract boolean gameFinished();
+
+    /**
+     * Make a move at position.
+     *
+     * @param position where to make a move
+     */
+    protected abstract void touchMove(int position);
 
     /**
      * Return whether or not a tap on the display is valid:
@@ -102,10 +110,5 @@ public abstract class BoardManager<T> implements Serializable {
      */
     protected abstract boolean isValidTap(int position);
 
-    /**
-     * Make a move at position.
-     *
-     * @param position where to make a move
-     */
-    protected abstract void touchMove(int position);
+
 }
