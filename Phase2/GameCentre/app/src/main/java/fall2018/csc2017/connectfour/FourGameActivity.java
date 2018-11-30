@@ -69,6 +69,8 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
         difficulty = fourBoardManager.getDifficulty();
         createBoardButtons();
         initializeGrid();
+        if (fourBoardManager.getCurPlayer() == 2)
+            fourBoardManager.makeAIMove();
     }
 
     /**
@@ -131,97 +133,6 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
     }
 
     /**
-     * Main method for AI player to make a smart move.
-     *
-     * @return return the best move (or random move if all moves result in a loss).
-     */
-    public int getComputerMove() {
-        FourBoard board = fourBoardManager.getBoard();
-        ArrayList<Integer> potentialMoves = getPotentialMoves(
-                fourBoardManager.getBoard(), difficulty);
-        ArrayList<Integer> bestMoves = new ArrayList<>();
-        int bestMoveScore = Collections.max(potentialMoves);
-        for (int i = 0; i < potentialMoves.size(); i++) {
-            if (potentialMoves.get(i) == bestMoveScore && board.openRow(i) != -1) {
-                bestMoves.add(i);
-            }
-        }
-        ArrayList<Integer> allowedMoves = new ArrayList<>();
-        for (int i = 0; i < board.getNumCols(); i++) {
-            if (board.openRow(i) != -1) {
-                allowedMoves.add(i);
-            }
-        }
-        return bestMoves.isEmpty() ? bestMoves.get(new Random().nextInt(bestMoves.size())) : allowedMoves.get(new Random().nextInt(allowedMoves.size()));
-    }
-
-    /**
-     * Helper method to evaluate and return the best scores of moves for a given board.
-     *
-     * @param board the board being evaluated
-     * @param d     amount of moves to look ahead.
-     * @return list of scores for potential moves
-     */
-    public ArrayList<Integer> getPotentialMoves(FourBoard board, int d) {
-        if (d == 0) {
-            ArrayList<Integer> moves = new ArrayList<>();
-            for (int i = 0; i < 7; i++) {
-                moves.add(0);
-            }
-            return moves;
-        }
-        ArrayList<Integer> potentialMoves = new ArrayList<>();
-
-        if (board.isBoardFull()) {
-            ArrayList<Integer> moves = new ArrayList<>();
-            for (int i = 0; i < 7; i++) {
-                moves.add(0);
-            }
-            return moves;
-        }
-
-        for (int i = 0; i < 7; i++) {
-            potentialMoves.add(0);
-        }
-        for (int move = 0; move < 7; move++) {
-            FourBoard dupe = new FourBoard(board.pieces);
-            if (dupe.openRow(move) == -1) {
-                continue;
-            }
-            dupe.placePiece(move, 2);
-            if (dupe.isWinner(2)) {
-                potentialMoves.set(move, 1);
-                break;
-            } else {
-                if (dupe.isBoardFull()) {
-                    potentialMoves.set(move, 0);
-                } else {
-                    for (int eMove = 0; eMove < 7; eMove++) {
-                        FourBoard dupe2 = new FourBoard(dupe.pieces);
-                        if (dupe2.openRow(eMove) == -1) {
-                            continue;
-                        }
-                        dupe2.placePiece(eMove, 1);
-                        if (dupe2.isWinner(1)) {
-                            potentialMoves.set(move, -1);
-                            break;
-                        } else {
-                            ArrayList<Integer> results = getPotentialMoves(dupe2, d - 1);
-                            int sum = 0;
-                            for (int i : results) {
-                                sum += i;
-                            }
-                            potentialMoves.set(move, sum / 49);
-                        }
-                    }
-                }
-            }
-        }
-        System.out.println(potentialMoves);
-        return potentialMoves;
-    }
-
-    /**
      * Update and display changes to the gameBoard.
      */
     public void display() {
@@ -240,11 +151,6 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
             leaderBoard.updateScores("Connect Four", new Score(
                     currentUser.getName(), fourBoardManager.generateScore()));
             saveLeaderBoard(leaderBoard);
-        } else {
-            if (board.curPlayer == 2) {
-                board.placePiece(getComputerMove(), 2);
-            }
-            board.switchPlayer();
         }
         display();
     }
@@ -255,7 +161,7 @@ public class FourGameActivity extends AppCompatActivity implements Observer,
     private void updateScore() {
         int score = fourBoardManager.generateScore();
         TextView curScore = findViewById(R.id.curScore);
-        String temp = "Score: " + String.valueOf(score);
+        String temp = "Score: " + score;
         curScore.setText(temp);
     }
 
