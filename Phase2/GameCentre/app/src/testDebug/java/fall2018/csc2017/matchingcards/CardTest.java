@@ -19,6 +19,14 @@ public class CardTest {
     }
 
     /**
+     * Tests the getBackground method from the parent class.
+     */
+    @Test
+    public void testGetBackground() {
+        makeCard();
+        assertEquals(2131230817, testCard.getBackground());
+    }
+    /**
      * Tests the getId() method.
      */
     @Test
@@ -50,6 +58,9 @@ public class CardTest {
 
     }
 
+    /**
+     * Tests the flipBask() method.
+     */
     @Test
     public void testFlipBack() {
         makeCard();
@@ -89,6 +100,6 @@ public class CardTest {
         makeCard();
         Card compareCard = new Card(1);
         assertEquals(testCard, compareCard);
-        assertFalse(testCard.equals("STRING"));
+        assertNotEquals(testCard, "STRING");
     }
 }
