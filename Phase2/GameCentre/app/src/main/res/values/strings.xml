@@ -28,4 +28,10 @@
     <string name="password_hint">Password</string>
     <string name="username_hint">Username</string>
     <string name="game_centre">Android Game Centre</string>
+    <string name="leaderboard_first_place">1.</string>
+    <string name="leaderboard_second_place">2.</string>
+    <string name="leaderboard_third_place">3.</string>
+    <string name="leaderboard_fourth_place">4.</string>
+    <string name="leaderboard_fifth_place">5.</string>
+    <string name="leaderboard_user_score_label">Your Highscore:</string>
 </resources>
