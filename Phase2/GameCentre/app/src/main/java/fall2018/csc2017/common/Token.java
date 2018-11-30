@@ -10,18 +10,10 @@ import fall2018.csc2017.R;
 public abstract class Token implements Serializable {
 
     /**
-     * The background id to find the Token image.
+     * The background id to find the image for this Token.
      */
     protected int background;
 
-    /**
-     * Return the background id.
-     *
-     * @return the background id
-     */
-    public int getBackground() {
-        return background;
-    }
 
     /**
      * Set the Token to have a Piece background.
@@ -34,24 +26,22 @@ public abstract class Token implements Serializable {
 
     /**
      * Set the Token to have a Card background.
-     * A Card with a background id; look up and set the id.
+     * A Card with a background id; looks up and sets the id.
      * (Matching Cards)
      *
      * @param backgroundId the id of the Card
      */
     public Token(int backgroundId) {
-        String uri = "card_" + String.valueOf(backgroundId);
+        String uri = "card_" + backgroundId;
         try {
             Class res = R.drawable.class;
             Field field = res.getField(uri);
             this.background = field.getInt(null);
         } catch (NoSuchFieldException e) {
             Log.e("DrawableAccess", "Failed to get Card resource by id", e);
-        }catch (IllegalAccessException e) {
+        } catch (IllegalAccessException e) {
             Log.e("Drawable Access", "Cannot access the drawable", e);
         }
-
-        // In the Card Constructor make sure to init id
     }
 
     /**
@@ -68,7 +58,7 @@ public abstract class Token implements Serializable {
         if (backgroundId + 1 == blank) {
             background = R.drawable.tile_0;
         } else {
-            String uri = "tile_" + String.valueOf(backgroundId + 1);
+            String uri = "tile_" + (backgroundId + 1);
             try {
                 Class res = R.drawable.class;
                 Field field = res.getField(uri);
@@ -80,4 +70,14 @@ public abstract class Token implements Serializable {
             }
         }
     }
+
+    /**
+     * Return the background id for this Token.
+     *
+     * @return this Tokens background id
+     */
+    public int getBackground() {
+        return background;
+    }
 }
+
