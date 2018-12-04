@@ -21,7 +21,7 @@
 ---
 1. As soon as you press Clone, press "Yes" to create an Android Studio Project.
 2. Select "Import project from external model", choosing the non-Android Gradle model and click Next.
-3. Add "\Phase1\GameCentre" to the Gradle project path, and make sure to use "Explicit Module Groups" and the "Default Gradle Wrapper". Press Finish.
+3. Add "\Phase2\GameCentre" to the Gradle project path, and make sure to use "Explicit Module Groups" and the "Default Gradle Wrapper". Press Finish.
 4. If the project file already exists, overwrite it.
 5. Press "Ok" on the Sync Android SDKs.
 6. There may be a popup to say "Unregistered VCS root detected. Press "Add root".
