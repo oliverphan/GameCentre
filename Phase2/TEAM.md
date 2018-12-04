@@ -8,7 +8,7 @@
 
 ### Git Account Mapping
 + *Name of Contributor*: *Git username1*, *Git user email1*; *Git username2*, *Git user email2*; *Git username3*, *Git user email3*;
-+ Jack Hang: jackhuang, jackjs.huang;
++ Jack Hang: jackjs.huang; jaskjs.huang@mail.utoronto.ca
 + Savhanna McLellan: SavhannaMcLellan, savhanna.mclellan@mail.utoronto.ca;
 + Joanthan Oxman: shade_of_ox, cheezmo42@gmail.com; oxmanjon, oxmanjonathan@gmail.com;
 + Oliver Phan: Oliver Phan, oliver.phan@mail.utoronto.ca; Oliver Phan, phanoliv@teach.cs.toronto.edu;
