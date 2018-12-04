@@ -1,4 +1,4 @@
-### Meeting Nov 27 2018:
+### Meeting Nov 29 2018:
 
 ### Update on Tasks completed as of today:
 + Fixed Leaderboard not updating the Score upon game completion
@@ -15,5 +15,3 @@
 
 
 ### Absent from meeting:
-+ Jonathan
-+ Jack
