@@ -36,6 +36,8 @@
 ## Scoreboard
 ---
 + Design of scoreboard:
+ + A user's score will not appear on the scoreboard if it is 0 (or if the user has never played the game).
+ + A user's score will show up in the "your high score" field if it is 0 (or if the user has never played, it will show up as 0).
 
 ## Most Important Classes
 ---
