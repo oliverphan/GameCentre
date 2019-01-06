@@ -1,0 +1,25 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
+        <item name="android:colorBackground">@color/color_accent_2</item>
+        <item name="android:statusBarColor">@color/color_primary_dark</item>
+        <item name="android:fontFamily">@font/baumans</item>
+        <item name="buttonStyle">@style/CustomButton</item>
+    </style>
+
+    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="CustomButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/button_custom</item>
+    </style>
+
+
+    <style name="FinalTheme" parent="AppTheme">
+
+    </style>
+
+</resources>
