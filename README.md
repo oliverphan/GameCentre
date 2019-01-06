@@ -1,14 +1,19 @@
-## Cloning the repo
+## Overview
 ---
-1. Open Android Studio and close any open projects. (File -> Close Project)
-2. Click "Check out project from Version Control" from Git.
-3. Paste to URL Box: https://markus.teach.cs.toronto.edu/git/csc207-2018-09-reg/group_0654
-4. Select the destination directory and press "Clone".
+GameCentre is an Android app that lets you play three games: Sliding Tiles, Connect 4, and Matching Cards. Games follow Wikipedia rules, and have certain extra features implemented.
++ Sliding Tiles: Users may download their own picture to their Android gallery, and use that in completion of the game.
++ Connect 4: Has an AI able to predict future winning moves by itself and the player, able to be set on three different difficulty levels corresponding to how many moves looked at.
 
-
-## Building the Project
+## Running and installing on your Android Device
 ---
-1. As soon as you press Clone, press "Yes" to create an Android Studio Project.
+1. Follow the "Building the Project in Android Studio" steps first.
+2. Plug your Android device to your machine, and enable USB Debugging.
+3. Run the application in Android, making sure to choose your device in the Run dialog box.
+4. GameCentre is now on your phone!
+
+## Building the Project in Android Studio
+---
+1. As soon as you clone the project, press "Yes" to create an Android Studio Project.
 2. Select "Import project from external model", choosing the non-Android Gradle model and click Next.
 3. Add "\Phase2\GameCentre" to the Gradle project path, and make sure to use "Explicit Module Groups" and the "Default Gradle Wrapper". Press Finish.
 4. If the project file already exists, overwrite it.
@@ -33,23 +38,6 @@
    under it are shifted down one place.
  + The LeaderBoard object which stores the entire leaderboard is saved to a file. This file is loaded and saved whenever
    the leaderboard is updated. 
-
-## Most Important Classes
----
-+ Abstraction of Board, BoardManager, Token
-+ BoardManager for both games & where the game logic is
-+ Saving and loading interfaces
-+ Leaderboard (Name for the "scoreboard")
- + Score class used to manage User scores in the Leaderboard
- + A toString method in the Score class to display the Scores in the Leaderboard
-
-## Design Patterns Used
----
-+ MVC
-+ Iterator
- + For Abstract Tokens in Abstract Board
-+ Observer
- + The Board Abstract class is being observed, the GameActivity is the observer
  
 ## Other Functionalities Implemented
 ---
