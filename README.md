@@ -2,7 +2,7 @@
 ---
 GameCentre is an Android app that lets you play three games: Sliding Tiles, Connect 4, and Matching Cards. Games follow Wikipedia rules, and have certain extra features implemented.
 + Sliding Tiles: Users may download their own picture to their Android gallery, and use that in completion of the game.
-+ Connect 4: Has an AI able to predict future winning moves by itself and the player, able to be set on three different difficulty levels corresponding to how many moves looked at.
++ Connect 4: Employs an implementation of the minimax algorithm as the basis for AI against the player.
 
 ## Running and installing on your Android Device
 ---
